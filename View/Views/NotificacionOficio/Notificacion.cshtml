@@ -1,0 +1,548 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/Content/moment.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/locale-all.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //=============================================
+            //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+            //=============================================
+            function load_Personas() {
+                $.ajax({
+                    url: '@Url.Action("_Personas", "NotificacionOficio")',
+                    data: { ID_OFICIO: $("#ID").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_personas").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(data) {
+                $("#ID").val(data.ID);
+                $("#ID_CONTACTO_SOLICITANTE").val(data.ID_CONTACTO_SOLICITANTE);
+                $("#ID_CONTACTO_SOLICITANTE").change();
+                $("#ID_CONTACTO_INSTITUCION").val(data.ID_CONTACTO_INSTITUCION);
+                $("#ID_CONTACTO_INSTITUCION").change();
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").val(data.ID_CONTACTO_INSTITUCION_OFICIAL);
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").change();
+                $("#NUMERO_OFICIO").val(data.NUMERO_OFICIO);
+                $("#REFERENCIA").val(data.REFERENCIA);
+                $("#FECHA_OFICIO").val(formatDate(data.FECHA_OFICIO, 'dd/mm/yyyy'));
+                $("#FECHA_RECIBIDO").val(formatDate(data.FECHA_RECIBIDO, 'dd/mm/yyyy'));
+                $("#FORMATO_RESPUESTA").val(data.FORMATO_RESPUESTA);
+                $("#FECHA_RECIBIDO_UIF").val(formatDate(data.FECHA_RECIBIDO_UIF, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_INI").val(formatDate(data.FECHA_INVESTIGACION_INI, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_FIN").val(formatDate(data.FECHA_INVESTIGACION_FIN, 'dd/mm/yyyy'));
+                $("#DIAS_MAX").val(data.DIAS_MAX);
+                $("#ORIGEN").val(data.ORIGEN);
+                $("#ORIGEN").change();
+                $("#COMENTARIO").val(data.COMENTARIO);
+
+                //cargar pestañas ===========================================================================================
+                load_Personas();
+
+                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formOficio').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_CONTACTO_SOLICITANTE: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_CONTACTO_INSTITUCION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_CONTACTO_INSTITUCION_OFICIAL: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    NUMERO_OFICIO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    REFERENCIA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    FECHA_OFICIO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },
+                    FECHA_RECIBIDO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },
+                    FORMATO_RESPUESTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    @*FECHA_RECIBIDO_UIF: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },*@
+                    DIAS_MAX: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ORIGEN: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                    //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                    .on('success.field.fv', function (e, data) {
+                        var $parent = data.element.parents('.form-group');
+                        $parent.removeClass('has-success');
+                        data.element.data('fv.icon').hide();
+                    })
+                    .on('success.form.fv', function (e) {
+                        e.preventDefault();
+                        var $form = $(e.target);
+                        var bv = $form.data('formValidation');
+
+
+                        //Envio de datos
+                        $.ajax({
+                            url: "../NotificacionOficio/Save",
+                            type: "POST",
+                            data: $form.serialize(),
+                            dataType: "json",
+                            success: function (data, textStatus, jqXHR) {
+                                Mensajes(data.mensaje);
+                                $("#formOficio").formValidation('resetForm'); // Elimina las clases de validacion
+                                //CARGA DE EVENTOS EN EL CONTROL CALENDARIO
+                                $('#calendar').fullCalendar('refetchEvents');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                            }
+                        });
+
+
+                    });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formOficio').trigger("reset"); // Resetea los valores de todos campos
+                $("#formOficio").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+
+            //VALIDANDO RANGO DE FECHAS
+            $('#FECHA_RECIBIDO').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#FECHA_RECIBIDO_UIF').val() ? $('#FECHA_RECIBIDO_UIF').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO');
+                    //$('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO_UIF');
+                },
+                timepicker: false
+            });
+            $('#FECHA_RECIBIDO_UIF').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#FECHA_RECIBIDO').val() ? $('#FECHA_RECIBIDO').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO');
+                    //$('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO_UIF');
+                },
+                timepicker: false
+            });
+
+
+            //SELECT2 PERSONALIZADO TIPO TABLA
+            $('.s2Grid_1').select2({
+                templateResult: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                            '<div class="row" style="font-weight: bold;">' +
+                            '<div class="col-md-6"> INSTITUCION </div>' +
+                            '<div class="col-md-6"> CONTACTO </div>' +
+                            '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div class="col-md-6">' + r[0] + '</div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                },
+                templateSelection: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                             '<div class="row">' +
+                            '<div class="col-md-6">' + data.text + '</div>' +
+                            '<div></div>' +
+                        '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div></div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                }
+            });
+
+
+            //PERMITE VALIDAR LOS CAMPOS DE TIPO FECHA CUANDO CAMBIA SU VALOR
+            $(".dpicker").change(function () {
+                $('#formOficio').formValidation('revalidateField', 'FECHA_OFICIO');
+            });
+
+
+
+            //CARGA DE EVENTOS EN EL CONTROL CALENDARIO
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'month,basicWeek,basicDay',
+                    center: 'title',
+                    right: 'prevYear,nextYear,prev,next today'
+                },
+                defaultView: 'month',
+                locale: "es",
+                eventLimit: true,
+                //events: "/NotificacionOficio/ObtenerEventos",
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: "/NotificacionOficio/ObtenerEventos",
+                        data: {
+                            fechaIni: start.unix(),
+                            fechaFin: end.unix()
+                        },
+                        success: function (doc) {
+                            callback(doc);
+                        }
+                    });
+                },
+                eventClick: function (event) {
+                    if (event.url) {
+                        var url = event.url.split('?')[0];
+                        var id = event.url.split('?')[1];
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: { id: id },
+                            success: function (data) {
+                                Edit(data.oficio);
+                            },
+                            error: function () {
+                                $().toastmessage('showErrorToast', '@PropertiesBlo.msgFallo');
+                            }
+                        });
+
+                        return false;
+                    }
+                }
+            });
+
+
+            //PERMITE PROCESAR LOS OFICIOS
+            function ProcesarOficio() {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: '@Url.Action("ProcesarOficio", "NotificacionOficio")',
+                            type: "POST",
+                            dataType: "json",
+                            data: { id: $("#ID").val() },
+                            success: function (data, textStatus, jqXHR) {
+                                Mensajes(data.mensaje);
+
+                                if (data.ID != null && data.ID != 0) {
+                                    $("#myModal").modal("hide");
+                                    $('#calendar').fullCalendar('refetchEvents');
+                                    //window.open("../NotificacionOficio/ImprimirOficio?id=" + data.ID);
+                                    location.href = "../NotificacionOficio/ImprimirOficio?id=" + data.ID;
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                            }
+                        });
+                    }
+                });
+            };
+
+            $("#btnProcesarOficio").on("click", ProcesarOficio);
+
+
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        NOTIFICACION DE OFICIO
+        <small>MONITOREO</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <!-- THE CALENDAR -->
+            <div id="calendar"></div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Oficio
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#oficio" data-toggle="tab">Datos generales de oficio</a></li>
+                        <li><a href="#personas" data-toggle="tab">Personas</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="oficio">
+                            <form id="formOficio">
+
+                                <input id="ID" type="hidden" name="ID" value="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_SOLICITANTE">Solicitante</label><br>
+                                            <select id="ID_CONTACTO_SOLICITANTE" name="ID_CONTACTO_SOLICITANTE" class="form-control s2Grid_1" style="width:100%;">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.solicitante)
+                                                {
+                                                    <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_INSTITUCION">Destinatario</label><br>
+                                            <select id="ID_CONTACTO_INSTITUCION" name="ID_CONTACTO_INSTITUCION" class="form-control s2Grid_1" style="width:100%;">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.destinatarios)
+                                                {
+                                                    <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_INSTITUCION_OFICIAL">Remitente</label><br>
+                                            <select id="ID_CONTACTO_INSTITUCION_OFICIAL" name="ID_CONTACTO_INSTITUCION_OFICIAL" class="form-control  select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.remitentes)
+                                                {
+                                                    <option value=@item.ID>@item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NUMERO_OFICIO">Número de oficio</label>
+                                            <input class="form-control" id="NUMERO_OFICIO" name="NUMERO_OFICIO" type="text" value="" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="REFERENCIA">Código de referencia</label>
+                                            <input class="form-control" id="REFERENCIA" name="REFERENCIA" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ORIGEN">Origen</label>
+                                            <select id="ORIGEN" name="ORIGEN" class="form-control">
+                                                <option value="Presidencia">Presidencia</option>
+                                                <option value="CEP">CEP</option>
+                                                <option value="Mensajero">Mensajero</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_OFICIO">Fecha de oficio</label>
+                                            <input class="form-control dpicker" id="FECHA_OFICIO" name="FECHA_OFICIO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_RECIBIDO">Fecha de recibido</label>
+                                            <input class="form-control" id="FECHA_RECIBIDO" name="FECHA_RECIBIDO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FORMATO_RESPUESTA">Formato de respuesta</label>
+                                            <select id="FORMATO_RESPUESTA" name="FORMATO_RESPUESTA" class="form-control">
+                                                <option value="Digital">Digital</option>
+                                                <option value="Físico">Físico</option>
+                                                <option value="Físico y Digital">Físico y Digital</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_INVESTIGACION_INI">Fecha Inicio de Investigación</label>
+                                            <input class="form-control dpicker" id="FECHA_INVESTIGACION_INI" name="FECHA_INVESTIGACION_INI" type="text" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="FECHA_INVESTIGACION_FIN">Fecha Fin de Investigación</label>
+                                            <input class="form-control dpicker" id="FECHA_INVESTIGACION_FIN" name="FECHA_INVESTIGACION_FIN" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_RECIBIDO_UIF">Fecha de recibido UIF</label>
+                                            <input class="form-control" id="FECHA_RECIBIDO_UIF" name="FECHA_RECIBIDO_UIF" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DIAS_MAX">Días Máximos</label>
+                                            <input class="form-control numeric" id="DIAS_MAX" name="DIAS_MAX" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="COMENTARIO">Comentario</label>
+                                            <textarea id="COMENTARIO" name="COMENTARIO" class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer row">
+                                    <div class="text-left col-md-6">
+                                        <button type="button" id="btnProcesarOficio" class="btn bg-black">@PropertiesBlo.btnProcesar</button>
+                                    </div>
+                                    <div class="text-right col-md-6">
+                                        <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                        <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="personas">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonas" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonas"></table>
+                            </div>
+
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_personas"></div> @*function load_Personas()*@

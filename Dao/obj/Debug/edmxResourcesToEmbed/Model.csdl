@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="as_condiciones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transaccion_encabezado_as_condiciones" FromRole="as_condiciones" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="as_entrega">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transaccion_encabezado_as_entrega" FromRole="as_entrega" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="as_parametros">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="valor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="as_tipo_transaccion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transaccion_encabezado_as_tipo_transaccion" FromRole="as_tipo_transaccion" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="as_transaccion_encabezado">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_tipo_transaccion" Type="Int32" Nullable="false" />
+    <Property Name="id_condicion" Type="Int32" Nullable="false" />
+    <Property Name="id_validez" Type="Int32" Nullable="false" />
+    <Property Name="id_entrega" Type="Int32" Nullable="false" />
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="id_transaccion_anterior" Type="Int32" />
+    <Property Name="numero_transaccion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="codigo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombre_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="apellido_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tipo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="moneda_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descuento_cliente" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="transaccionERP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="as_condiciones" Relationship="Self.FK_as_transaccion_encabezado_as_condiciones" FromRole="as_transaccion_encabezado" ToRole="as_condiciones" />
+    <NavigationProperty Name="as_entrega" Relationship="Self.FK_as_transaccion_encabezado_as_entrega" FromRole="as_transaccion_encabezado" ToRole="as_entrega" />
+    <NavigationProperty Name="as_tipo_transaccion" Relationship="Self.FK_as_transaccion_encabezado_as_tipo_transaccion" FromRole="as_transaccion_encabezado" ToRole="as_tipo_transaccion" />
+    <NavigationProperty Name="as_validez" Relationship="Self.FK_as_transaccion_encabezado_as_validez" FromRole="as_transaccion_encabezado" ToRole="as_validez" />
+    <NavigationProperty Name="seg_usuario" Relationship="Self.FK_as_transaccion_encabezado_Seg_Usuario" FromRole="as_transaccion_encabezado" ToRole="seg_usuario" />
+    <NavigationProperty Name="as_transacciones_detalle" Relationship="Self.FK_as_transacciones_detalle_as_transaccion_encabezado" FromRole="as_transaccion_encabezado" ToRole="as_transacciones_detalle" />
+    <NavigationProperty Name="as_transacciones_impuestos" Relationship="Self.FK_as_transacciones_impuestos_as_transaccion_encabezado" FromRole="as_transaccion_encabezado" ToRole="as_transacciones_impuestos" />
+  </EntityType>
+  <EntityType Name="as_transacciones_detalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_transaccion_encabezado" Type="Int32" Nullable="false" />
+    <Property Name="id_linea" Type="Int32" Nullable="false" />
+    <Property Name="codigo_articulo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombre_articulo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="precio" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+    <Property Name="descuento" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+    <Property Name="impuesto" Type="Decimal" Precision="19" Scale="5" />
+    <Property Name="plan_impuesto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tipo_articulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="unidad_medida" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transacciones_detalle_as_transaccion_encabezado" FromRole="as_transacciones_detalle" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="as_transacciones_impuestos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_transaccion" Type="Int32" Nullable="false" />
+    <Property Name="plan_impuesto_ERP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="impuesto_ERP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="incluido_ERP" Type="Boolean" />
+    <Property Name="porcentaje_valor_ERP" Type="Decimal" Precision="19" Scale="5" />
+    <Property Name="aplicar_desde_valor_ERP" Type="Decimal" Precision="19" Scale="5" />
+    <Property Name="valor" Type="Decimal" Precision="19" Scale="5" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transacciones_impuestos_as_transaccion_encabezado" FromRole="as_transacciones_impuestos" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="as_validez">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transaccion_encabezado_as_validez" FromRole="as_validez" ToRole="as_transaccion_encabezado" />
+  </EntityType>
+  <EntityType Name="cat_productos">
+    <Key>
+      <PropertyRef Name="CodigoProducto" />
+    </Key>
+    <Property Name="CodigoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Referencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Producto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="seg_acceso_usuario">
+    <Key>
+      <PropertyRef Name="CodigoModulo" />
+      <PropertyRef Name="CodigoOpcion" />
+      <PropertyRef Name="CodigoPerfil" />
+    </Key>
+    <Property Name="CodigoModulo" Type="Int32" Nullable="false" />
+    <Property Name="CodigoOpcion" Type="Int32" Nullable="false" />
+    <Property Name="CodigoPerfil" Type="Int32" Nullable="false" />
+    <Property Name="Acceso" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="seg_modulo_sistema" Relationship="Self.FK_Seg_AccesoUsuario_Seg_ModuloSistema" FromRole="seg_acceso_usuario" ToRole="seg_modulo_sistema" />
+    <NavigationProperty Name="seg_opcion_sistema" Relationship="Self.FK_Seg_AccesoUsuario_Seg_OpcionSistema" FromRole="seg_acceso_usuario" ToRole="seg_opcion_sistema" />
+    <NavigationProperty Name="seg_perfil" Relationship="Self.FK_Seg_AccesoUsuario_Seg_Perfil" FromRole="seg_acceso_usuario" ToRole="seg_perfil" />
+  </EntityType>
+  <EntityType Name="seg_modulo_sistema">
+    <Key>
+      <PropertyRef Name="CodigoModulo" />
+    </Key>
+    <Property Name="CodigoModulo" Type="Int32" Nullable="false" />
+    <Property Name="DescripcionModulo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="seg_acceso_usuario" Relationship="Self.FK_Seg_AccesoUsuario_Seg_ModuloSistema" FromRole="seg_modulo_sistema" ToRole="seg_acceso_usuario" />
+    <NavigationProperty Name="seg_opcion_sistema" Relationship="Self.FK_Seg_OpcionSistema_Seg_ModuloSistema" FromRole="seg_modulo_sistema" ToRole="seg_opcion_sistema" />
+  </EntityType>
+  <EntityType Name="seg_opcion_sistema">
+    <Key>
+      <PropertyRef Name="CodigoModulo" />
+      <PropertyRef Name="CodigoOpcion" />
+    </Key>
+    <Property Name="CodigoModulo" Type="Int32" Nullable="false" />
+    <Property Name="CodigoOpcion" Type="Int32" Nullable="false" />
+    <Property Name="DescripcionOpcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="seg_acceso_usuario" Relationship="Self.FK_Seg_AccesoUsuario_Seg_OpcionSistema" FromRole="seg_opcion_sistema" ToRole="seg_acceso_usuario" />
+    <NavigationProperty Name="seg_modulo_sistema" Relationship="Self.FK_Seg_OpcionSistema_Seg_ModuloSistema" FromRole="seg_opcion_sistema" ToRole="seg_modulo_sistema" />
+  </EntityType>
+  <EntityType Name="seg_perfil">
+    <Key>
+      <PropertyRef Name="CodigoPerfil" />
+    </Key>
+    <Property Name="CodigoPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="seg_acceso_usuario" Relationship="Self.FK_Seg_AccesoUsuario_Seg_Perfil" FromRole="seg_perfil" ToRole="seg_acceso_usuario" />
+    <NavigationProperty Name="seg_usuario" Relationship="Self.FK_Seg_Usuario_Seg_Perfil" FromRole="seg_perfil" ToRole="seg_usuario" />
+  </EntityType>
+  <EntityType Name="seg_usuario">
+    <Key>
+      <PropertyRef Name="CodigoUsuario" />
+    </Key>
+    <Property Name="CodigoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoPerfil" Type="Int32" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Contrasenia" Type="Binary" MaxLength="8000" FixedLength="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoVendedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Nuevo" Type="Boolean" />
+    <NavigationProperty Name="as_transaccion_encabezado" Relationship="Self.FK_as_transaccion_encabezado_Seg_Usuario" FromRole="seg_usuario" ToRole="as_transaccion_encabezado" />
+    <NavigationProperty Name="seg_perfil" Relationship="Self.FK_Seg_Usuario_Seg_Perfil" FromRole="seg_usuario" ToRole="seg_perfil" />
+  </EntityType>
+  <Association Name="FK_as_transaccion_encabezado_as_condiciones">
+    <End Role="as_condiciones" Type="Self.as_condiciones" Multiplicity="1" />
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_condiciones">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transaccion_encabezado">
+        <PropertyRef Name="id_condicion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transaccion_encabezado_as_entrega">
+    <End Role="as_entrega" Type="Self.as_entrega" Multiplicity="1" />
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_entrega">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transaccion_encabezado">
+        <PropertyRef Name="id_entrega" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transaccion_encabezado_as_tipo_transaccion">
+    <End Role="as_tipo_transaccion" Type="Self.as_tipo_transaccion" Multiplicity="1" />
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_tipo_transaccion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transaccion_encabezado">
+        <PropertyRef Name="id_tipo_transaccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transaccion_encabezado_as_validez">
+    <End Role="as_validez" Type="Self.as_validez" Multiplicity="1" />
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_validez">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transaccion_encabezado">
+        <PropertyRef Name="id_validez" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transaccion_encabezado_Seg_Usuario">
+    <End Role="seg_usuario" Type="Self.seg_usuario" Multiplicity="1" />
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_usuario">
+        <PropertyRef Name="CodigoUsuario" />
+      </Principal>
+      <Dependent Role="as_transaccion_encabezado">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transacciones_detalle_as_transaccion_encabezado">
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="1" />
+    <End Role="as_transacciones_detalle" Type="Self.as_transacciones_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_transaccion_encabezado">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transacciones_detalle">
+        <PropertyRef Name="id_transaccion_encabezado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_as_transacciones_impuestos_as_transaccion_encabezado">
+    <End Role="as_transaccion_encabezado" Type="Self.as_transaccion_encabezado" Multiplicity="1" />
+    <End Role="as_transacciones_impuestos" Type="Self.as_transacciones_impuestos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="as_transaccion_encabezado">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="as_transacciones_impuestos">
+        <PropertyRef Name="id_transaccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_AccesoUsuario_Seg_ModuloSistema">
+    <End Role="seg_modulo_sistema" Type="Self.seg_modulo_sistema" Multiplicity="1" />
+    <End Role="seg_acceso_usuario" Type="Self.seg_acceso_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_modulo_sistema">
+        <PropertyRef Name="CodigoModulo" />
+      </Principal>
+      <Dependent Role="seg_acceso_usuario">
+        <PropertyRef Name="CodigoModulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_AccesoUsuario_Seg_OpcionSistema">
+    <End Role="seg_opcion_sistema" Type="Self.seg_opcion_sistema" Multiplicity="1" />
+    <End Role="seg_acceso_usuario" Type="Self.seg_acceso_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_opcion_sistema">
+        <PropertyRef Name="CodigoModulo" />
+        <PropertyRef Name="CodigoOpcion" />
+      </Principal>
+      <Dependent Role="seg_acceso_usuario">
+        <PropertyRef Name="CodigoModulo" />
+        <PropertyRef Name="CodigoOpcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_AccesoUsuario_Seg_Perfil">
+    <End Role="seg_perfil" Type="Self.seg_perfil" Multiplicity="1" />
+    <End Role="seg_acceso_usuario" Type="Self.seg_acceso_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_perfil">
+        <PropertyRef Name="CodigoPerfil" />
+      </Principal>
+      <Dependent Role="seg_acceso_usuario">
+        <PropertyRef Name="CodigoPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_OpcionSistema_Seg_ModuloSistema">
+    <End Role="seg_modulo_sistema" Type="Self.seg_modulo_sistema" Multiplicity="1" />
+    <End Role="seg_opcion_sistema" Type="Self.seg_opcion_sistema" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_modulo_sistema">
+        <PropertyRef Name="CodigoModulo" />
+      </Principal>
+      <Dependent Role="seg_opcion_sistema">
+        <PropertyRef Name="CodigoModulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_Usuario_Seg_Perfil">
+    <End Role="seg_perfil" Type="Self.seg_perfil" Multiplicity="1" />
+    <End Role="seg_usuario" Type="Self.seg_usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="seg_perfil">
+        <PropertyRef Name="CodigoPerfil" />
+      </Principal>
+      <Dependent Role="seg_usuario">
+        <PropertyRef Name="CodigoPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SQLBDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="as_condiciones" EntityType="Self.as_condiciones" />
+    <EntitySet Name="as_entrega" EntityType="Self.as_entrega" />
+    <EntitySet Name="as_parametros" EntityType="Self.as_parametros" />
+    <EntitySet Name="as_tipo_transaccion" EntityType="Self.as_tipo_transaccion" />
+    <EntitySet Name="as_transaccion_encabezado" EntityType="Self.as_transaccion_encabezado" />
+    <EntitySet Name="as_transacciones_detalle" EntityType="Self.as_transacciones_detalle" />
+    <EntitySet Name="as_transacciones_impuestos" EntityType="Self.as_transacciones_impuestos" />
+    <EntitySet Name="as_validez" EntityType="Self.as_validez" />
+    <EntitySet Name="cat_productos" EntityType="Self.cat_productos" />
+    <EntitySet Name="seg_acceso_usuario" EntityType="Self.seg_acceso_usuario" />
+    <EntitySet Name="seg_modulo_sistema" EntityType="Self.seg_modulo_sistema" />
+    <EntitySet Name="seg_opcion_sistema" EntityType="Self.seg_opcion_sistema" />
+    <EntitySet Name="seg_perfil" EntityType="Self.seg_perfil" />
+    <EntitySet Name="seg_usuario" EntityType="Self.seg_usuario" />
+    <AssociationSet Name="FK_as_transaccion_encabezado_as_condiciones" Association="Self.FK_as_transaccion_encabezado_as_condiciones">
+      <End Role="as_condiciones" EntitySet="as_condiciones" />
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transaccion_encabezado_as_entrega" Association="Self.FK_as_transaccion_encabezado_as_entrega">
+      <End Role="as_entrega" EntitySet="as_entrega" />
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transaccion_encabezado_as_tipo_transaccion" Association="Self.FK_as_transaccion_encabezado_as_tipo_transaccion">
+      <End Role="as_tipo_transaccion" EntitySet="as_tipo_transaccion" />
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transaccion_encabezado_as_validez" Association="Self.FK_as_transaccion_encabezado_as_validez">
+      <End Role="as_validez" EntitySet="as_validez" />
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transaccion_encabezado_Seg_Usuario" Association="Self.FK_as_transaccion_encabezado_Seg_Usuario">
+      <End Role="seg_usuario" EntitySet="seg_usuario" />
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transacciones_detalle_as_transaccion_encabezado" Association="Self.FK_as_transacciones_detalle_as_transaccion_encabezado">
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+      <End Role="as_transacciones_detalle" EntitySet="as_transacciones_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_as_transacciones_impuestos_as_transaccion_encabezado" Association="Self.FK_as_transacciones_impuestos_as_transaccion_encabezado">
+      <End Role="as_transaccion_encabezado" EntitySet="as_transaccion_encabezado" />
+      <End Role="as_transacciones_impuestos" EntitySet="as_transacciones_impuestos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_AccesoUsuario_Seg_ModuloSistema" Association="Self.FK_Seg_AccesoUsuario_Seg_ModuloSistema">
+      <End Role="seg_modulo_sistema" EntitySet="seg_modulo_sistema" />
+      <End Role="seg_acceso_usuario" EntitySet="seg_acceso_usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_AccesoUsuario_Seg_OpcionSistema" Association="Self.FK_Seg_AccesoUsuario_Seg_OpcionSistema">
+      <End Role="seg_opcion_sistema" EntitySet="seg_opcion_sistema" />
+      <End Role="seg_acceso_usuario" EntitySet="seg_acceso_usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_AccesoUsuario_Seg_Perfil" Association="Self.FK_Seg_AccesoUsuario_Seg_Perfil">
+      <End Role="seg_perfil" EntitySet="seg_perfil" />
+      <End Role="seg_acceso_usuario" EntitySet="seg_acceso_usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_OpcionSistema_Seg_ModuloSistema" Association="Self.FK_Seg_OpcionSistema_Seg_ModuloSistema">
+      <End Role="seg_modulo_sistema" EntitySet="seg_modulo_sistema" />
+      <End Role="seg_opcion_sistema" EntitySet="seg_opcion_sistema" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_Usuario_Seg_Perfil" Association="Self.FK_Seg_Usuario_Seg_Perfil">
+      <End Role="seg_perfil" EntitySet="seg_perfil" />
+      <End Role="seg_usuario" EntitySet="seg_usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,588 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+         editando = false;
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditOperaciones(e) {
+
+            editando = true;
+
+            $("#ID_OPERACIONES").val(e.data.record.ID);
+            $("#ID_TRANSACCION").val(e.data.record.ID_TRANSACCION);
+            $("#NOMBRE_CLIENTE").val(e.data.record.NOMBRE_CLIENTE);
+            $("#FECHA_OPERACION").val(formatDate(e.data.record.FECHA_OPERACION, 'dd/mm/yyyy'));
+            $("#ID_TIPO_DOCUMENTO_OP").val(e.data.record.ID_TIPO_DOCUMENTO);
+            $("#ID_TIPO_DOCUMENTO_OP").change();
+            $("#NUMERO_DOCUMENTO_OP").val(e.data.record.NUMERO_DOCUMENTO);
+            $("#ID_TIPO_PRODUCTO_OP").val(e.data.record.ID_TIPO_PRODUCTO);
+            $("#ID_TIPO_PRODUCTO_OP").change();
+            $("#NUMERO_PRESTAMO_OP").val(e.data.record.NUMERO_PRESTAMO);
+            $("#ID_AGENCIA_BANCO").val(e.data.record.ID_AGENCIA_BANCO);
+            $("#ID_AGENCIA_BANCO").change();
+            $("#VALOR_PAGADO").val(e.data.record.VALOR_PAGADO);
+
+            GetDetpMuni(e.data.record.ID_PAIS, e.data.record.ID_DEPARTAMENTO, e.data.record.ID_MUNICIPIO);
+
+            $("#DIRECCION_FINANCIERA").val(e.data.record.DIRECCION_FINANCIERA);
+            $("#PROCEDENCIA_DESTINO_OP").val(e.data.record.PROCEDENCIA_DESTINO);
+            $("#RAZON_ROS").val(e.data.record.RAZON_ROS);
+
+
+            $("#myModalOperaciones").modal("show");
+        }
+
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+        function AddOperaciones() {
+            $("#ID_OPERACIONES").val(""); //campos ocultos
+
+            $("#ID_TIPO_DOCUMENTO_OP").val("");
+            $("#ID_TIPO_DOCUMENTO_OP").change();
+            $("#ID_TIPO_PRODUCTO_OP").val("");
+            $("#ID_TIPO_PRODUCTO_OP").change();
+            $("#ID_AGENCIA_BANCO").val("");
+            $("#ID_AGENCIA_BANCO").change();
+            $("#ID_PAIS_OP").val("");
+            $("#ID_PAIS_OP").change();
+            $("#ID_DEPARTAMENTO_OP").val("");
+            $("#ID_DEPARTAMENTO_OP").change();
+            $("#ID_MUNICIPIO_OP").val("");
+            $("#ID_MUNICIPIO_OP").change();
+            $("#VALOR_PAGADO").val("");
+
+            $("#myModalOperaciones").modal("show");
+        }
+
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveOperaciones(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Ros/RemoveOperaciones", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridOperaciones.clear();
+                      gridOperaciones.reload({ ID_ROS: $("#ID_ROS_OPERACION").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridOperaciones = $("#gridOperaciones").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetOperaciones")",
+            autoLoad: false,
+            columns: [
+
+                //{ field: "ID_ROS", title: "ROS", sortable: true, width: 60 },
+                { field: "ID_TRANSACCION", title: "Recibo", sortable: true },
+                { field: "NUMERO_PRESTAMO", title: "Producto", sortable: true },
+                { field: 'AGENCIABANCO', title: "Punto de servicio", sortable: true, width: 200 },
+                { field: "FECHA_OPERACION", title: "Fecha", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                { field: "VALOR_PAGADO", title: "Valor", align: 'right', width: 80, tmpl: "<span class='currency'>{VALOR_PAGADO}</span>", sortable: true },
+                { tmpl: '{NOMBRE_CLIENTE} <br/> {TIPO_DOCUMENTO} {NUMERO_DOCUMENTO}', title: "Generales", sortable: true, width: 200 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditOperaciones } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveOperaciones } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridOperaciones.on('dataBound', function (e, records, totalRecords) {
+            $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+        });
+
+        gridOperaciones.clear();
+        gridOperaciones.reload({ page: 1, ID_ROS: $("#ID_ROS_OPERACION").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarOperaciones").off();
+        $("#btnAgregarOperaciones").on("click", AddOperaciones);
+
+
+        //VALIDACIONES DEL FORMULARIO
+
+        $(".currency").inputmask({ clearMaskOnLostFocus: false, removeMaskOnSubmit: true, autoUnmask: true, alias: "currency", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+
+        $('#formOperaciones').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                NOMBRE_CLIENTE: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                VALOR_PAGADO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                NUMERO_DOCUMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                NUMERO_PRESTAMO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_TRANSACCION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                FECHA_OPERACION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                DIRECCION_FINANCIERA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                RAZON_ROS: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                ID_TIPO_DOCUMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                ID_AGENCIA_BANCO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+
+                ID_TIPO_PRODUCTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_PAIS: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_DEPARTAMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_MUNICIPIO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalOperaciones").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridOperaciones.clear();
+                 gridOperaciones.reload({ ID_ROS: $("#ID_ROS_OPERACION").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalOperaciones").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalOperaciones').on('hide.bs.modal', function () {
+            $('#formOperaciones').trigger("reset"); // Resetea los valores de todos campos
+            $("#formOperaciones").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        //Anular ENTER en etiquetas input
+        $('textarea').keypress(function (e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+
+        $('#FECHA_OPERACION').datetimepicker({
+            format: 'd/m/Y',
+            timepicker: false
+
+        });
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+
+        //SELECT2 PERSONALIZADO TIPO TABLA
+        $('.s2Grid_1').select2({
+            templateResult: function (data) {
+                if (data.text === 'Seleccione ...')
+                    return $(
+                        '<div class="row" style="font-weight: bold;">' +
+                        '<div class="col-md-6"> BANCO </div>' +
+                        '<div class="col-md-6"> AGENCIA </div>' +
+                        '</div>'
+                    );
+
+                var r = data.text.split('|');
+                var $result = $(
+                    '<div class="row">' +
+                        '<div class="col-md-6">' + r[0] + '</div>' +
+                        '<div class="col-md-6">' + r[1] + '</div>' +
+                    '</div>'
+                );
+                return $result;
+            },
+            templateSelection: function (data) {
+                if (data.text === 'Seleccione ...')
+                    return $(
+                         '<div class="row">' +
+                        '<div class="col-md-6">' + data.text + '</div>' +
+                        '<div class="col-md-6"></div>' +
+                    '</div>'
+                    );
+
+                var r = data.text.split('|');
+                var $result = $(
+                    '<div class="row">' +
+                        '<div class="col-md-6">' + r[0] + '</div>' +
+                        '<div class="col-md-6">' + r[1] + '</div>' +
+                    '</div>'
+                );
+                return $result;
+            }
+        });
+
+
+
+        // DEPARTAMENTOS POR PAIS.
+        function DepartamentosXPais_OP(pais, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("DepartamentosXPais")', { pais: pais }, function (response) {
+
+                    $("#ID_MUNICIPIO_OP").empty();
+                    $("#ID_DEPARTAMENTO_OP").empty();
+                    $.each(response.departamentos, function (i, item) {
+                        $("#ID_DEPARTAMENTO_OP").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#ID_DEPARTAMENTO_OP").val(selectVal);
+                    $("#ID_DEPARTAMENTO_OP").change();
+
+                }, 'json');
+            });
+        }
+
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamento_OP(pais, depto, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("MunicipiosXDepartamento")', { pais: pais, depto: depto }, function (response) {
+
+                    $("#ID_MUNICIPIO_OP").empty();
+                    $.each(response.municipios, function (i, item) {
+                        $("#ID_MUNICIPIO_OP").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#ID_MUNICIPIO_OP").val(selectVal);
+                    $("#ID_MUNICIPIO_OP").change();
+
+                }, 'json');
+            });
+        }
+
+
+        // OBTENER DEPARTAMENTO,MUNICIPIO
+        function GetDetpMuni(pais, depto, municipio) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("GetDetpMuni")', { pais: pais, depto: depto, municipio: municipio }, function (response) {
+
+                    $("#ID_DEPARTAMENTO_OP").empty();
+                    $("#ID_MUNICIPIO_OP").empty();
+
+                    $.each(response.departamentos, function (i, item) {
+                        $("#ID_DEPARTAMENTO_OP").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#ID_MUNICIPIO_OP").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    //Seleccionar valor predetermindo
+                    $("#ID_PAIS_OP").val(pais);
+                    $("#ID_PAIS_OP").change();
+                    $("#ID_DEPARTAMENTO_OP").val(depto);
+                    $("#ID_DEPARTAMENTO_OP").change();
+                    $("#ID_MUNICIPIO_OP").val(municipio);
+                    $("#ID_MUNICIPIO_OP").change();
+
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#ID_PAIS_OP").change(function () {
+            if (!editando)
+                DepartamentosXPais_OP($(this).val(), 0);
+        });
+
+        // Anidando municipios
+        $("#ID_DEPARTAMENTO_OP").change(function () {
+            if (!editando)
+                MunicipiosXDepartamento_OP($("#ID_PAIS_OP").val(), $(this).val(), 0);
+        });
+
+
+
+    });
+
+</script>
+
+
+<!--MODAL-->
+<div id='myModalOperaciones' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:90%">
+        <form id="formOperaciones" action="/Ros/SaveOperaciones" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Operaciones Objeto del Reporte
+                </div>
+                <div class="panel-body">
+                    <!--ID_OPERACIONES es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_OPERACIONES" type="hidden" name="ID" value="">
+
+                    <!--ID_OFICIO este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_ROS" id="ID_ROS_OPERACION" value="@ViewBag.ID_ROS">
+
+                    <div class="row">
+                        <!--INFORMACION GENERAL-->
+                        <div class="col-md-12">
+                            <label class="box box-info" style="text-align:center"> Información de General de la Operación</label>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ID_TRANSACCION">Número de Transacción (factura/recibo/compobante)</label>
+                                    <input class="form-control" id="ID_TRANSACCION" name="ID_TRANSACCION" type="text" value="" maxlength="150">
+                                </div>
+                                <!--FECHA DE TRANSACCION-->
+                                <div class="form-group">
+                                    <label for="FECHA_OPERACION">Fecha de Transacción</label>
+                                    <input class="form-control datepicker" id="FECHA_OPERACION" name="FECHA_OPERACION" type="text" value="">
+                                </div>
+                                <!--NOMBRE PERSONA REALIZA TRANSACCION-->
+                                <div class="form-group">
+                                    <label for="NOMBRE_CLIENTE">Cliente / Persona que realiza transacción</label>
+                                    <input class="form-control" id="NOMBRE_CLIENTE" name="NOMBRE_CLIENTE" type="text" value="" maxlength="150">
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <!--TIPO DE DOCUMENTO-->
+                                <div class="form-group">
+                                    <label for="ID_TIPO_DOCUMENTO_OP">Tipo de documento</label>
+                                    <select id="ID_TIPO_DOCUMENTO_OP" name="ID_TIPO_DOCUMENTO" required aria-required="true" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_TIPO_DOCUMENTO item in (List<VIEW_TIPO_DOCUMENTO>)ViewBag.tiposDocumentos)
+                                        {
+                                            <option value=@item.CODIGO_TIPO_IDENTIFICACION>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="NUMERO_DOCUMENTO_OP">Número de documento</label>
+                                    <input class="form-control" id="NUMERO_DOCUMENTO_OP" name="NUMERO_DOCUMENTO" type="text" value="" maxlength="20">
+                                </div>
+                                <!--TIPO DE PRODUCTO-->
+                                <div class="form-group">
+                                    <label for="ID_TIPO_PRODUCTO_OP">Tipo de Producto</label>
+                                    <select id="ID_TIPO_PRODUCTO_OP" name="ID_TIPO_PRODUCTO" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_TIPO_CREDITO item in (List<VIEW_TIPO_CREDITO>)ViewBag.tipoProducto)
+                                        {
+                                            <option value=@item.CODIGO>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="NUMERO_PRESTAMO_OP">Número de Producto</label>
+                                    <input class="form-control" id="NUMERO_PRESTAMO_OP" name="NUMERO_PRESTAMO" type="text" value="" maxlength="20">
+                                </div>
+                                <!--MONTO DE TRANSACCION-->
+                                <div class="form-group">
+                                    <label for="VALOR_PAGADO">Monto de la Transacción (USD):</label>
+                                    <input class="form-control currency" id="VALOR_PAGADO" name="VALOR_PAGADO" type="text" value="" maxlength="20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="PROCEDENCIA_DESTINO_OP">Procedencia o Destino del dinero</label>
+                                    <textarea id="PROCEDENCIA_DESTINO_OP" name="PROCEDENCIA_DESTINO" class="form-control" rows="1" maxlength="500"></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <!--INFORMACION DE PUNTO SERVICIO-->
+                                <label class="box box-info" style="text-align:center"> Información de Punto de servicio</label>
+                                <!--LADO DERECHO COLUMNA 1-->
+                                <div class="col-md-12">
+                                    <!--BANCO Y AGENCIA TRANSACCION-->
+                                    <div class="form-group">
+                                        <label for="ID_AGENCIA_BANCO">Punto de servicio donde se realizó la Transacción (Banco/Agencia)</label>
+                                        <select id="ID_AGENCIA_BANCO" name="ID_AGENCIA_BANCO" class="s2Grid_1" style="width:100%">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach (MON_AGENCIA_BANCARIA item in (List<MON_AGENCIA_BANCARIA>)ViewBag.AgenciaFinanciera)
+                                            {
+                                                <option value=@item.ID>@item.MON_CAT_FINANCIERA.DESCRIPCION | @item.DESCRIPCION</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!--PAIS-->
+                                    <div class="form-group">
+                                        <label for="ID_PAIS_OP">País</label><br>
+                                        <select id="ID_PAIS_OP" name="ID_PAIS" class="form-control select2-single">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                                            {
+                                                <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!--DEPARTAMENTO-->
+                                    <div class="form-group">
+                                        <label for="ID_DEPARTAMENTO_OP">Departamento</label><br>
+                                        <select id="ID_DEPARTAMENTO_OP" name="ID_DEPARTAMENTO" class="form-control select2-single"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!--MUNICIPIO-->
+                                    <div class="form-group">
+                                        <label for="ID_MUNICIPIO_OP">Municipio</label><br>
+                                        <select id="ID_MUNICIPIO_OP" name="ID_MUNICIPIO" class="form-control select2-single"></select>
+                                    </div>
+
+                                </div>
+                                <!--DIRECCION ESPECÍFICA-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="DIRECCION_FINANCIERA">Dirección punto de servicio</label>
+                                        <textarea id="DIRECCION_FINANCIERA" name="DIRECCION_FINANCIERA" class="form-control" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <label class="box box-info" style="text-align:center"> Motivo de reporte de operación</label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="RAZON_ROS">Descripción:</label>
+                                        <textarea id="RAZON_ROS" name="RAZON_ROS" class="form-control" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarOperaciones" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

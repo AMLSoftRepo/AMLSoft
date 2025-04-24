@@ -1,0 +1,52 @@
+
+ ================= 2017-12-04 17:43:41,929 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Web.HttpException (0x80070040): El host remoto cerró la conexión. El error de código es 0x80070040.
+   en System.Web.Hosting.IIS7WorkerRequest.RaiseCommunicationError(Int32 result, Boolean throwOnDisconnect)
+   en System.Web.Hosting.IIS7WorkerRequest.ExplicitFlush()
+   en System.Web.HttpResponse.Flush(Boolean finalFlush, Boolean async)
+   en System.Web.HttpResponse.Flush()
+   en System.Web.HttpResponse.End()
+   en System.Web.HttpResponseWrapper.End()
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 266 
+  
+
+ ================= 2017-12-04 17:43:42,157 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al imprimir en Excel el Reporte: RptPagosDiariosIgualesSuperioresA5000
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 271
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 190 
+  
+
+ ================= 2017-12-04 17:43:44,557 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperioresA5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperioresA5000(String fechaInicial, String fechaFinal, String formato) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 97 
+  
+
+ ================= 2017-12-04 17:54:10,928 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Web.HttpException (0x80070040): El host remoto cerró la conexión. El error de código es 0x80070040.
+   en System.Web.Hosting.IIS7WorkerRequest.RaiseCommunicationError(Int32 result, Boolean throwOnDisconnect)
+   en System.Web.Hosting.IIS7WorkerRequest.ExplicitFlush()
+   en System.Web.HttpResponse.Flush(Boolean finalFlush, Boolean async)
+   en System.Web.HttpResponse.Flush()
+   en System.Web.HttpResponse.End()
+   en System.Web.HttpResponseWrapper.End()
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 266 
+  
+
+ ================= 2017-12-04 17:54:11,117 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al imprimir en Excel el Reporte: RptPagosDiariosIgualesSuperioresA5000
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 271
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 190 
+  
+
+ ================= 2017-12-04 17:54:26,261 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperioresA5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperioresA5000(String fechaInicial, String fechaFinal, String formato) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 97 
+  

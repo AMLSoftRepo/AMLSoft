@@ -1,0 +1,188 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gridRelacion;
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditRelacion(e) {
+            $("#ID_RELACION").val(e.data.record.ID);
+            $("#NOMBRE_COMPLETO").val(e.data.record.NOMBRE_COMPLETO);
+            $("#GRADO_PARENTESCO").val(e.data.record.GRADO_PARENTESCO);
+            $("#GRADO_PARENTESCO").change();
+            $("#DESCRIPCION_RELACION").val(e.data.record.DESCRIPCION_RELACION);
+            $("#myModalRelacion").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddRelacion() {
+            $("#ID_RELACION").val(""); //campos ocultos
+            $("#myModalRelacion").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveRelacion(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../PEP/RemoveRelacion", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridRelacion.clear();
+                      gridRelacion.reload({ ID_LIS_PEP: $("#ID_LIS_PEP_RELACION").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridRelacion = $("#gridRelacion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPEPRelacion")",
+            autoLoad: false,
+            columns: [
+                { field: "NOMBRE_COMPLETO", title: "Nombre" },
+                { field: "GRADO_PARENTESCO", title: "Grado parentesco" },
+                { field: "DESCRIPCION_RELACION", title: "Descripción" },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditRelacion } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveRelacion } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+
+        gridRelacion.clear();
+        gridRelacion.reload({ page: 1, ID_LIS_PEP: $("#ID").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarRelacion").off();
+        $("#btnAgregarRelacion").on("click", AddRelacion);
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formRelacion').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                NOMBRE_COMPLETO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                GRADO_PARENTESCO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                DESCRIPCION_RELACION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalRelacion").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridRelacion.clear();
+                 gridRelacion.reload({ ID_LIS_PEP: $("#ID_LIS_PEP_RELACION").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalRelacion").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalRelacion').on('hide.bs.modal', function () {
+            $('#formRelacion').trigger("reset"); // Resetea los valores de todos campos
+            $("#formRelacion").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalRelacion' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formRelacion" action="/PEP/SaveRelacion" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Relacion
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_RELACION es el ID de esta entidad se debe cambiar porque en la vista
+                        principal no pueden existir elementos con el mismo id
+                        para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_RELACION" type="hidden" name="ID" value="">
+
+                    <!--ID_LIS_PEP este campo esta oculto ya que es el maestro de esta entidad
+                        Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_LIS_PEP" id="ID_LIS_PEP_RELACION" value="@ViewBag.ID_LIS_PEP">
+
+                    <div class="form-group">
+                        <label for="NOMBRE_COMPLETO">Nombre completo</label>
+                        <input class="form-control" id="NOMBRE_COMPLETO" name="NOMBRE_COMPLETO" type="text" value="" maxlength="200">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="GRADO_PARENTESCO">Grado parentesco</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="GRADO_PARENTESCO" name="GRADO_PARENTESCO" class="form-control">
+
+                            <option value="GRADO 1">1° Grado</option>
+                            <option value="GRADO 2">2° Grado</option>
+                            <option value="NO APLICA">N/A</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DESCRIPCION_RELACION">Descripción vínculo o parentesco</label>
+                        <textarea class="form-control" id="DESCRIPCION_RELACION" name="DESCRIPCION_RELACION" rows="3" maxlength="200"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarRelacion" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

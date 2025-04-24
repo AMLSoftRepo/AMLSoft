@@ -1,0 +1,484 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+            var gridCoincidencia;
+            var gridContado;
+            var gridCredito;
+            var gridSolicitud;
+
+            function load_Cliente(idCliente) {
+                $.ajax({
+                    url: '@Url.Action("_Cliente", "AlertaListaPersona")',
+                    data: { CODIGO_CLIENTE: idCliente },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_cliente").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            function ShowProductos(e) {
+                load_Cliente(e.data.record.ID_CLIENTE);
+
+                gridCoincidencia.clear();
+                gridCoincidencia.reload({ page: 1, CODIGO_CLIENTE: e.data.record.ID_CLIENTE });
+                gridSolicitud.clear();
+                gridSolicitud.reload({ page: 1, CODIGO_CLIENTE: e.data.record.ID_CLIENTE });
+                gridContado.clear();
+                gridContado.reload({ page: 1, CODIGO_CLIENTE: e.data.record.ID_CLIENTE });
+                gridCredito.clear();
+                gridCredito.reload({ page: 1, CODIGO_CLIENTE: e.data.record.ID_CLIENTE });
+
+                $("#modalProductos").modal("show");
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            function ShowExento() {
+                $("#CODIGO_CLIENTE").val($("#CODIGO_CLIENTE_N").val());
+                $("#COMENTARIO_EXENTO").val("");
+                $("#modalExento").modal("show");
+            }
+
+            //EVENTO PARA CAMBIAR ESTADO DE UNA ALERTA
+            function AgregarExento() {
+                if ($("#MOTIVO").val() == "") {
+                    $().toastmessage('showErrorToast', "Debe indicar el motivo por el que se agrega a la lista.");
+                }
+                else {
+                    bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "../Exento/Save",
+                                type: "POST",
+                                data: {
+                                    CODIGO_CLIENTE: $("#CODIGO_CLIENTE").val(),
+                                    MOTIVO: $("#MOTIVO").val(),
+                                    COMENTARIO: $("#COMENTARIO_EXENTO").val()
+                                }
+                            })
+                          .done(function (data, textStatus, jqXHR) {
+                              grid.reload();
+                              $("#modalExento").modal("hide");
+                              $("#modalProductos").modal("hide");
+                              Mensajes(data.mensaje);
+                          })
+                          .fail(function (data, textStatus, jqXHR) {
+                              $().toastmessage('showErrorToast', jqXHR);
+                          });
+                        }
+                    });
+                }
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridAlertaListaPersona").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "ID_CLIENTE", title: "ID Cliente", width: 100 },
+                    { field: "NOMBRE_CLIENTE", title: "Cliente", width: 200 },
+                    { title: "", field: "ShowProductos", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowProductos } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+
+            //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+            function EditCoincidencia(e) {
+                $("#ID_COINCIDENCIA").val(e.data.record.ID);
+                $("#SEGUIMIENTO").val(e.data.record.SEGUIMIENTO);
+                $("#myModalCoincidencia").modal("show");
+            }
+
+            //EVENTO PARA CAMBIAR ESTADO DE UNA ALERTA
+            function SaveCoincidencia() {
+                if ($("#SEGUIMIENTO").val() == "") {
+                    $().toastmessage('showErrorToast', "El seguimiento es requerido.");
+                }
+                else {
+                    $.ajax({
+                        url: "../AlertaListaPersona/SeguimientoCoincidencia",
+                        type: "POST",
+                        data: {
+                            ID: $("#ID_COINCIDENCIA").val(),
+                            SEGUIMIENTO: $("#SEGUIMIENTO").val()
+                        }
+                    })
+                    .done(function (data, textStatus, jqXHR) {
+                        gridCoincidencia.reload();
+                        $("#myModalCoincidencia").modal("hide");
+                        Mensajes(data.mensaje);
+                    })
+                    .fail(function (data, textStatus, jqXHR) {
+                        $().toastmessage('showErrorToast', jqXHR);
+                    });
+                }
+            }
+
+            gridCoincidencia = $("#gridCoincidencia").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetCoincidencias")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "LISTA", title: "Lista", width: 100 },
+                    { field: "PERSONA_DOCUMENTOS", title: "Persona ", width: 250 },
+                    { field: "COINCIDENCIA", title: "Coincidencia", width: 200 },
+                    { field: "SEGUIMIENTO", title: "Seguimiento", width: 200 },
+                    { field: "FECHA_ACTUALIZACION", title: "Fecha modifico", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "USUARIO_ACTUALIZA", title: "Usuario modifico", width: 100 },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditCoincidencia } }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridCoincidencia.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridSolicitud = $("#gridSolicitud").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteSolicitud")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "NRO_SOLICITUD", title: "Solicitud", width: 100 },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud ", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_LINEA_CREDITO", title: "Línea de Crédito", width: 100 },
+                    { field: "CODIGO_AGENCIA", title: "Código Agencia", width: 100 },
+                    { field: "CODIGO_EJECUTIVO", title: "Código Ejecutivo", width: 100 },
+                    { field: "CUOTA_DEL_CREDITO", title: "Cuota del credito", width: 150, tmpl: "<span class='currency'>{CUOTA_DEL_CREDITO}</span>" },
+                    { field: "VALOR_PRIMA_COMPLEMENTO", title: "Valor prima complemento", width: 150, tmpl: "<span class='currency'>{VALOR_PRIMA_COMPLEMENTO}</span>" },
+                    { field: "NUMERO_PRESTAMO", title: "Numero de prestamo", width: 100 },
+                    { field: "FECHA_PROCESO", title: "Fecha proceso", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridSolicitud.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridContado = $("#gridContado").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteContados")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100 },
+                    { field: "SECUENCIA_MOVIMIENTO", title: "Secuencia", width: 100 },
+                    { field: "FECHA_VALIDA", title: "Fecha válida", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_HORA", title: "Fecha hora", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PRECIO_VENTA", title: "Precio venta", width: 150, tmpl: "<span class='currency'>{PRECIO_VENTA}</span>" },
+                    { field: "VALUO", title: "Valuo", width: 150, tmpl: "<span class='currency'>{VALUO}</span>" },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", width: 150, tmpl: "<span class='currency'>{VALOR_CONTABLE}</span>" },
+                    { field: "FECHA_PROCESO", title: "Fecha proceso", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridContado.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridCredito = $("#gridCredito").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteCreditos")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "ID_PRESTAMO", title: "ID Préstamo", width: 100 },
+                    { field: "AGENCIA", title: "Agencia", width: 150 },
+                    { field: "SUCURSAL", title: "Sucursal", width: 150 },
+                    { field: "EJECUTIVO_VENTA", title: "Ejecutivo de venta", width: 150 },
+                    { field: "VENDEDOR", title: "Vendedor", width: 150 },
+                    { field: "FECHA_APERTURA", title: "Fecha apertuta", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha cancelacion", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PLAZO", title: "Plazo", width: 100 },
+                    { field: "PRODUCTO_BANCO", title: "Producto banco", width: 200 },
+                    { field: "SUB_APLICACION", title: "Sub-aplicación", width: 150 },
+                    { field: "LINEA_FINANCIERA", title: "Linea financiera", width: 200 },
+                    { field: "PROGRAMA", title: "Programa", width: 150 },
+                    { field: "ORIGEN_RECURSOS", title: "Origen recursos", width: 200 },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", width: 150, tmpl: "<span class='currency'>{MONTO_OTORGADO}</span>" },
+                    { field: "TASA_TOTAL", title: "Tasa total", width: 150 },
+                    { field: "PRESIO_VENTA", title: "Presio venta", width: 150, tmpl: "<span class='currency'>{PRESIO_VENTA}</span>" },
+                    { field: "SISTEMA", title: "Sistema", width: 100 },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridCredito.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+            $("#btnExento").on("click", ShowExento);
+            $("#btnGuardar").on("click", AgregarExento);
+            $("#btnGuardarCoincidencia").on("click", SaveCoincidencia);
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        CLIENTES EN LISTAS
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Nombre ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridAlertaListaPersona" data-source="@Url.Action("GetAlertaListaPersona")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL PRODUCTOS-->
+<div id='modalProductos' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formClienteDetalle">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Productos Cliente
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="_cliente"></div> @*load_Cliente()*@
+
+                    <!-- *****
+                    HR TABLAS***** -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Coincidencias en listas</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridCoincidencia"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Solicitud de crédito</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridSolicitud"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Ventas al contado</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridContado"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Creditos escriturados</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridCredito"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button type="button" id="btnExento" class="btn btn-exento"><span class='glyphicon glyphicon-ok'></span> Agregar a exentos</button>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--MODAL EXENTO-->
+<div id='modalExento' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formExento">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Listas
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label for="CODIGO_CLIENTE">Código cliente:</label>
+                        <input class="form-control" id="CODIGO_CLIENTE" name="CODIGO_CLIENTE" readonly value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="MOTIVO">Motivo de ingreso</label>
+                        <textarea class="form-control" id="MOTIVO" name="MOTIVO" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="COMENTARIO_EXENTO">Comentario</label>
+                        <textarea class="form-control" id="COMENTARIO_EXENTO" name="COMENTARIO_EXENTO" rows="3"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <button type="button" id="btnGuardar" class="btn btn-success">@PropertiesBlo.btnGuardar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<!--MODAL EXENTO-->
+<div id='myModalCoincidencia' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formCoincidencia">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Seguimiento
+                </div>
+                <div class="panel-body">
+                    <input class="form-control" id="ID_COINCIDENCIA" name="ID_COINCIDENCIA" type="hidden">
+
+                    <div class="form-group">
+                        <label>Seguimiento</label>
+                        <textarea class="form-control" id="SEGUIMIENTO" name="SEGUIMIENTO" rows="3"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <button type="button" id="btnGuardarCoincidencia" class="btn btn-success">@PropertiesBlo.btnGuardar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

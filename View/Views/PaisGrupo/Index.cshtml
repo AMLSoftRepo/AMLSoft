@@ -1,0 +1,260 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+
+    <script type="text/javascript">
+
+
+        function Imprimir(formato) {
+            if (formato == "PDF")
+                window.open("../PaisGrupo/Reporte?formato=PDF", '_blank');
+            else
+                location.href = "../PaisGrupo/Reporte?formato=" + formato;
+        }
+
+
+        $(document).ready(function () {
+            var grid;
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_GRUPO").val(e.data.record.ID_GRUPO);
+                $("#ID_GRUPO").change();
+                $("#ID_PAIS").val(e.data.record.ID_PAIS);
+                $("#ID_PAIS").change();
+                $("#MOTIVO_INGRESO").val(e.data.record.MOTIVO_INGRESO);
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_GRUPO").val("");
+                $("#ID_GRUPO").change();
+                $("#ID_PAIS").val("");
+                $("#ID_PAIS").change();
+                $("#MOTIVO_INGRESO").val("");
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../PaisGrupo/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridPaisGrupo").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: 'PAIS', title: "País", width: 100 },
+                    { field: "NOMBRE", title: "Grupo", width: 100 },
+                    { field: "MOTIVO_INGRESO", title: "Motivo de ingreso", width: 200 },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formCatEntidad').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_GRUPO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_PAIS: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    MOTIVO_INGRESO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formCatEntidad').trigger("reset"); // Resetea los valores de todos campos
+                $("#formCatEntidad").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+
+            $("#idGrupo").change(function () {
+                var idGrupo = $(this).val();
+                grid.reload({ page: 1, idGrupo: $(this).val()});
+            });
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PAISES MIEMBROS
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+                <div class="col-md-4">
+                    <select id="idGrupo" name="idGrupo" class="form-control select2-single">
+                        <option value="0">Todos los Grupos</option>
+                        @foreach (LIS_CAT_GRUPO_FATF item in (List<LIS_CAT_GRUPO_FATF>)ViewBag.grupo)
+                        {
+                            <option value=@item.ID>@item.NOMBRE</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirLista</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="Imprimir('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridPaisGrupo" data-source="@Url.Action("GetPaisGrupo")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formCatEntidad" action="/PaisGrupo/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Países Miembros
+                </div>
+                <div class="panel-body">
+
+                    <input id="ID" type="hidden" name="ID" value="">
+                    @*<input type="hidden" name="ID_GRUPO" id="ID_GRUPO_UNIDAD" value="@ViewBag.ID_GRUPO">*@
+                    <div class="form-group">
+                        <label for="ID_GRUPO">Grupo </label><br>
+                        <select id="ID_GRUPO" name="ID_GRUPO" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (LIS_CAT_GRUPO_FATF item in (List<LIS_CAT_GRUPO_FATF>)ViewBag.grupo)
+                            {
+                                <option value=@item.ID>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ID_PAIS">País miembro</label><br>
+                        <select id="ID_PAIS" name="ID_PAIS" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.pais)
+                            {
+                                <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MOTIVO_INGRESO">Motivo de ingreso</label>
+                        <textarea class="form-control" id="MOTIVO_INGRESO" name="MOTIVO_INGRESO" rows="6"></textarea>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+

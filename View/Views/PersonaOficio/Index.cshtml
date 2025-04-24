@@ -1,0 +1,216 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#ID").val(e.data.record.ID); //campos ocultos
+                $("#NOMBRE").val(e.data.record.NOMBRE); //campos ocultos
+                $("#GENERALES").val(e.data.record.GENERALES);
+                $("#DUI").val(e.data.record.DUI);
+                $("#NIT").val(e.data.record.NIT);
+                $("#TIPO_DOCUMENTO").val(e.data.record.TIPO_DOCUMENTO);
+                $("#TIPO_DOCUMENTO").change();
+                $("#NUMERO_DOCUMENTO").val(e.data.record.NUMERO_DOCUMENTO);
+                $("#RESULTADO").val(e.data.record.RESULTADO);
+
+                $("#myModal").modal("show");
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridPersonaOficio").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "NOMBRE", title: "Nombre", sortable: true, width: 150 },
+                    { field: "DUI", title: "DUI", sortable: true, width: 100 },
+                    { field: "NIT", title: "NIT", sortable: true, width: 120 },
+                    { field: "COTIZACIONES", title: "Cotizaciones", align: 'center', sortable: true, width: 100 },
+                    { field: "SOLICITUDES", title: "Solicitudes", align: 'center', sortable: true, width: 100 },
+                    { field: "PRESTAMOS", title: "Prestamos", align: 'center', sortable: true, width: 100 },
+                    { field: "CHEQUES", title: "Cheques", align: 'center', sortable: true, width: 100 },
+                    { field: "AEX", title: "AEX", align: 'center', sortable: true, width: 50 },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowDetail } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "COTIZACIONES") {
+                    if (record.COTIZACIONES == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+                if (column.field == "SOLICITUDES") {
+                    if (record.SOLICITUDES == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+                if (column.field == "PRESTAMOS") {
+                    if (record.PRESTAMOS == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+                if (column.field == "CHEQUES") {
+                    if (record.CHEQUES == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+                if (column.field == "AEX") {
+                    if (record.AEX == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+            function GoToImprimir() {
+                window.location = "../RptListaOficio"
+            }
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+            $("#btnImprimir").on("click", GoToImprimir);
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PERSONAS INVESTIGADAS
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnImprimir" class="btn btn-primary"><span class='glyphicon glyphicon-file'></span>@PropertiesBlo.btnImprimirLista</button>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridPersonaOficio" data-source="@Url.Action("GetPersonas")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formPersonaOficioDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle persona en lista de oficios
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre:</label>
+                                <input class="form-control" id="NOMBRE" name="NOMBRE" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="DUI">DUI:</label>
+                                <input class="form-control" id="DUI" name="DUI" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="NIT">NIT:</label>
+                                <input class="form-control" id="NIT" name="NIT" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="TIPO_DOCUMENTO">Tipo de documento</label>
+                                <select id="TIPO_DOCUMENTO" disabled name="TIPO_DOCUMENTO" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (VIEW_TIPO_DOCUMENTO item in (List<VIEW_TIPO_DOCUMENTO>)ViewBag.tiposDocumentos)
+                                    {
+                                        <option value=@item.CODIGO_TIPO_IDENTIFICACION>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="NUMERO_DOCUMENTO">Número del documento adicional:</label>
+                                <input class="form-control" id="NUMERO_DOCUMENTO" name="NUMERO_DOCUMENTO" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="GENERALES">Generales:</label>
+                                <input class="form-control" id="GENERALES" name="GENERALES" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="RESULTADO">Resultado:</label>
+                                <textarea class="form-control" id="RESULTADO" name="RESULTADO" rows="3" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,1771 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="ALE_ALERTA">
+      <EntityTypeMapping TypeName="Model.ALE_ALERTA">
+        <MappingFragment StoreEntitySet="ALE_ALERTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_TIPO_ALERTA" ColumnName="ID_TIPO_ALERTA" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_CLIENTE" ColumnName="NOMBRE_CLIENTE" />
+          <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+          <ScalarProperty Name="FECHA_MOVIMIENTO" ColumnName="FECHA_MOVIMIENTO" />
+          <ScalarProperty Name="VALOR_PAGO" ColumnName="VALOR_PAGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="FECHA_ALERTA" ColumnName="FECHA_ALERTA" />
+          <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+          <ScalarProperty Name="DESCRIPCION_ALERTA" ColumnName="DESCRIPCION_ALERTA" />
+          <ScalarProperty Name="ESTADO_ANTERIOR" ColumnName="ESTADO_ANTERIOR" />
+          <ScalarProperty Name="ESTADO_ACTUAL" ColumnName="ESTADO_ACTUAL" />
+          <ScalarProperty Name="PRESTAMO" ColumnName="PRESTAMO" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="CLASE_PRODUCTO" ColumnName="CLASE_PRODUCTO" />
+          <ScalarProperty Name="BANCO_TRANSACCION" ColumnName="BANCO_TRANSACCION" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="ANALISIS_CASO" ColumnName="ANALISIS_CASO" />
+          <ScalarProperty Name="CODIGO_EJECUTIVO" ColumnName="CODIGO_EJECUTIVO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_ALERTA_LISTA_PERSONA">
+      <EntityTypeMapping TypeName="Model.ALE_ALERTA_LISTA_PERSONA">
+        <MappingFragment StoreEntitySet="ALE_ALERTA_LISTA_PERSONA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_CLIENTE" ColumnName="NOMBRE_CLIENTE" />
+          <ScalarProperty Name="FECHA_ALERTA" ColumnName="FECHA_ALERTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_ALERTA_PERFIL_TRAN">
+      <EntityTypeMapping TypeName="Model.ALE_ALERTA_PERFIL_TRAN">
+        <MappingFragment StoreEntitySet="ALE_ALERTA_PERFIL_TRAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_CLIENTE" ColumnName="NOMBRE_CLIENTE" />
+          <ScalarProperty Name="EVENTO_ALERTA" ColumnName="EVENTO_ALERTA" />
+          <ScalarProperty Name="FECHA_ALERTA" ColumnName="FECHA_ALERTA" />
+          <ScalarProperty Name="DESCRIPCION_ALERTA" ColumnName="DESCRIPCION_ALERTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_BLOQUEO_PRESTAMO">
+      <EntityTypeMapping TypeName="Model.ALE_BLOQUEO_PRESTAMO">
+        <MappingFragment StoreEntitySet="ALE_BLOQUEO_PRESTAMO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="PRESTAMO" ColumnName="PRESTAMO" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_CONTACTO_ALERTA">
+      <EntityTypeMapping TypeName="Model.ALE_CONTACTO_ALERTA">
+        <MappingFragment StoreEntitySet="ALE_CONTACTO_ALERTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_DATOS_ADICIONALES_TRANSACCION">
+      <EntityTypeMapping TypeName="Model.ALE_DATOS_ADICIONALES_TRANSACCION">
+        <MappingFragment StoreEntitySet="ALE_DATOS_ADICIONALES_TRANSACCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="PERT_NOMBRE" ColumnName="PERT_NOMBRE" />
+          <ScalarProperty Name="PERT_PRIMER_APELLIDO" ColumnName="PERT_PRIMER_APELLIDO" />
+          <ScalarProperty Name="PERT_SEGUNDO_APELLIDO" ColumnName="PERT_SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="PERT_APELLIDO_CASADA" ColumnName="PERT_APELLIDO_CASADA" />
+          <ScalarProperty Name="PERT_DUI" ColumnName="PERT_DUI" />
+          <ScalarProperty Name="PERT_NIT" ColumnName="PERT_NIT" />
+          <ScalarProperty Name="PERT_NACIONALIDAD" ColumnName="PERT_NACIONALIDAD" />
+          <ScalarProperty Name="PERT_DEPARTAMENTO" ColumnName="PERT_DEPARTAMENTO" />
+          <ScalarProperty Name="PERT_MUNICIPIO" ColumnName="PERT_MUNICIPIO" />
+          <ScalarProperty Name="PERT_DOMICILIO" ColumnName="PERT_DOMICILIO" />
+          <ScalarProperty Name="PERT_FECHA_NACIMIENTO" ColumnName="PERT_FECHA_NACIMIENTO" />
+          <ScalarProperty Name="PERT_LUGAR_NACIMIENTO" ColumnName="PERT_LUGAR_NACIMIENTO" />
+          <ScalarProperty Name="PERT_ESTADO_CIVIL" ColumnName="PERT_ESTADO_CIVIL" />
+          <ScalarProperty Name="PERT_PROFESION" ColumnName="PERT_PROFESION" />
+          <ScalarProperty Name="TRAN_CODIGO_CAJERO" ColumnName="TRAN_CODIGO_CAJERO" />
+          <ScalarProperty Name="TRAN_DEPARTAMENTO" ColumnName="TRAN_DEPARTAMENTO" />
+          <ScalarProperty Name="TRAN_MUNICIPIO" ColumnName="TRAN_MUNICIPIO" />
+          <ScalarProperty Name="TRAN_ORIGEN_FONDOS" ColumnName="TRAN_ORIGEN_FONDOS" />
+          <ScalarProperty Name="INFO_DATOS_RECIBO" ColumnName="INFO_DATOS_RECIBO" />
+          <ScalarProperty Name="INFO_CALIDAD_IMPRESION" ColumnName="INFO_CALIDAD_IMPRESION" />
+          <ScalarProperty Name="INFO_LLENO_DECLARACION" ColumnName="INFO_LLENO_DECLARACION" />
+          <ScalarProperty Name="INFO_MODALIDAD_PAGO" ColumnName="INFO_MODALIDAD_PAGO" />
+          <ScalarProperty Name="INFO_VERSION_DECLARACION_JURADA" ColumnName="INFO_VERSION_DECLARACION_JURADA" />
+          <ScalarProperty Name="INFO_QUIEN_LLENO_DECLARACION_JURADA" ColumnName="INFO_QUIEN_LLENO_DECLARACION_JURADA" />
+          <ScalarProperty Name="INFO_DOCUMENTACION_REQUERIDA" ColumnName="INFO_DOCUMENTACION_REQUERIDA" />
+          <ScalarProperty Name="INFO_TELEFONO_CONTACTO" ColumnName="INFO_TELEFONO_CONTACTO" />
+          <ScalarProperty Name="INFO_SEGUIMIENTO" ColumnName="INFO_SEGUIMIENTO" />
+          <ScalarProperty Name="CLIE_LUGAR_NACIMIENTO" ColumnName="CLIE_LUGAR_NACIMIENTO" />
+          <ScalarProperty Name="CLIE_DEPARTAMENTO" ColumnName="CLIE_DEPARTAMENTO" />
+          <ScalarProperty Name="CLIE_MUNICIPIO" ColumnName="CLIE_MUNICIPIO" />
+          <ScalarProperty Name="TRAN_AGENCIA_BANCARIA" ColumnName="TRAN_AGENCIA_BANCARIA" />
+          <ScalarProperty Name="INFO_CONFIRMACION_UIF" ColumnName="INFO_CONFIRMACION_UIF" />
+          <ScalarProperty Name="INFO_FECHA_CONFIRMACION_UIF" ColumnName="INFO_FECHA_CONFIRMACION_UIF" />
+          <ScalarProperty Name="INFO_COLECTOR" ColumnName="INFO_COLECTOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_NOTIFICACION_ALERTA">
+      <EntityTypeMapping TypeName="Model.ALE_NOTIFICACION_ALERTA">
+        <MappingFragment StoreEntitySet="ALE_NOTIFICACION_ALERTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_TIPO_ALERTA" ColumnName="ID_TIPO_ALERTA" />
+          <ScalarProperty Name="ID_CONTACTO" ColumnName="ID_CONTACTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_OPERACION_IRREGULAR">
+      <EntityTypeMapping TypeName="Model.ALE_OPERACION_IRREGULAR">
+        <MappingFragment StoreEntitySet="ALE_OPERACION_IRREGULAR">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_TIPO_ALERTA" ColumnName="ID_TIPO_ALERTA" />
+          <ScalarProperty Name="EXPRESION" ColumnName="EXPRESION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALE_TIPO_ALERTA">
+      <EntityTypeMapping TypeName="Model.ALE_TIPO_ALERTA">
+        <MappingFragment StoreEntitySet="ALE_TIPO_ALERTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOTIFICAR" ColumnName="NOTIFICAR" />
+          <ScalarProperty Name="REPORTE" ColumnName="REPORTE" />
+          <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_CAT_ENTIDADES">
+      <EntityTypeMapping TypeName="Model.LIS_CAT_ENTIDADES">
+        <MappingFragment StoreEntitySet="LIS_CAT_ENTIDADES">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ORGANO" ColumnName="ID_ORGANO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_CAT_GRUPO_FATF">
+      <EntityTypeMapping TypeName="Model.LIS_CAT_GRUPO_FATF">
+        <MappingFragment StoreEntitySet="LIS_CAT_GRUPO_FATF">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="WEB" ColumnName="WEB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_CAT_ORGANOS">
+      <EntityTypeMapping TypeName="Model.LIS_CAT_ORGANOS">
+        <MappingFragment StoreEntitySet="LIS_CAT_ORGANOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_CAT_TITULOS">
+      <EntityTypeMapping TypeName="Model.LIS_CAT_TITULOS">
+        <MappingFragment StoreEntitySet="LIS_CAT_TITULOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ABREVIATURA" ColumnName="ABREVIATURA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_EXENTO">
+      <EntityTypeMapping TypeName="Model.LIS_EXENTO">
+        <MappingFragment StoreEntitySet="LIS_EXENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NUMERO_IDENTIFICACION" ColumnName="NUMERO_IDENTIFICACION" />
+          <ScalarProperty Name="NUMERO_IDENTIFICACION_2" ColumnName="NUMERO_IDENTIFICACION_2" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="APELLIDO_DE_CASADA" ColumnName="APELLIDO_DE_CASADA" />
+          <ScalarProperty Name="PAIS_NACIMIENTO" ColumnName="PAIS_NACIMIENTO" />
+          <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+          <ScalarProperty Name="MOTIVO_INGRESO" ColumnName="MOTIVO_INGRESO" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_GENERAL">
+      <EntityTypeMapping TypeName="Model.LIS_GENERAL">
+        <MappingFragment StoreEntitySet="LIS_GENERAL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOMBRE_LISTA" ColumnName="NOMBRE_LISTA" />
+          <ScalarProperty Name="DESCRIPCION_LISTA" ColumnName="DESCRIPCION_LISTA" />
+          <ScalarProperty Name="URL_LISTA" ColumnName="URL_LISTA" />
+          <ScalarProperty Name="LLENADO_AUTOMATICO" ColumnName="LLENADO_AUTOMATICO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_GENERAL_PERSONALIZADA">
+      <EntityTypeMapping TypeName="Model.LIS_GENERAL_PERSONALIZADA">
+        <MappingFragment StoreEntitySet="LIS_GENERAL_PERSONALIZADA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LISTA_GENERAL" ColumnName="ID_LISTA_GENERAL" />
+          <ScalarProperty Name="ID_LISTA_PERSONALIZADA" ColumnName="ID_LISTA_PERSONALIZADA" />
+          <ScalarProperty Name="FECHA_RELACION" ColumnName="FECHA_RELACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_ONU">
+      <EntityTypeMapping TypeName="Model.LIS_ONU">
+        <MappingFragment StoreEntitySet="LIS_ONU">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DATA_ID" ColumnName="DATA_ID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="VERSION_NUM" ColumnName="VERSION_NUM" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="SECOND_NAME" ColumnName="SECOND_NAME" />
+          <ScalarProperty Name="THIRD_NAME" ColumnName="THIRD_NAME" />
+          <ScalarProperty Name="FOURTH_NAME" ColumnName="FOURTH_NAME" />
+          <ScalarProperty Name="UN_LIST_TYPE" ColumnName="UN_LIST_TYPE" />
+          <ScalarProperty Name="REFERENCE_NUMBER" ColumnName="REFERENCE_NUMBER" />
+          <ScalarProperty Name="LISTED_ON" ColumnName="LISTED_ON" />
+          <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+          <ScalarProperty Name="NATIONALITY" ColumnName="NATIONALITY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_ONU_ALIAS">
+      <EntityTypeMapping TypeName="Model.LIS_ONU_ALIAS">
+        <MappingFragment StoreEntitySet="LIS_ONU_ALIAS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_ONU" ColumnName="ID_LIS_ONU" />
+          <ScalarProperty Name="QUALITY" ColumnName="QUALITY" />
+          <ScalarProperty Name="ALIAS_NAME" ColumnName="ALIAS_NAME" />
+          <ScalarProperty Name="CITY_OF_BIRTH" ColumnName="CITY_OF_BIRTH" />
+          <ScalarProperty Name="COUNTRY_OF_BIRTH" ColumnName="COUNTRY_OF_BIRTH" />
+          <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_ONU_DIRECCION">
+      <EntityTypeMapping TypeName="Model.LIS_ONU_DIRECCION">
+        <MappingFragment StoreEntitySet="LIS_ONU_DIRECCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_ONU" ColumnName="ID_LIS_ONU" />
+          <ScalarProperty Name="STREET" ColumnName="STREET" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="STATE_PROVINCE" ColumnName="STATE_PROVINCE" />
+          <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+          <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_ONU_DOCUMENTO">
+      <EntityTypeMapping TypeName="Model.LIS_ONU_DOCUMENTO">
+        <MappingFragment StoreEntitySet="LIS_ONU_DOCUMENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_ONU" ColumnName="ID_LIS_ONU" />
+          <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+          <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+          <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+          <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PAIS_GRUPO">
+      <EntityTypeMapping TypeName="Model.LIS_PAIS_GRUPO">
+        <MappingFragment StoreEntitySet="LIS_PAIS_GRUPO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_GRUPO" ColumnName="ID_GRUPO" />
+          <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+          <ScalarProperty Name="MOTIVO_INGRESO" ColumnName="MOTIVO_INGRESO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PARAMETRO_ONU_SDN">
+      <EntityTypeMapping TypeName="Model.LIS_PARAMETRO_ONU_SDN">
+        <MappingFragment StoreEntitySet="LIS_PARAMETRO_ONU_SDN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="URL_XML" ColumnName="URL_XML" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="URL_DESCRIPCION" ColumnName="URL_DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PEP">
+      <EntityTypeMapping TypeName="Model.LIS_PEP">
+        <MappingFragment StoreEntitySet="LIS_PEP">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PRIMER_NOMBRE" ColumnName="PRIMER_NOMBRE" />
+          <ScalarProperty Name="SEGUNDO_NOMBRE" ColumnName="SEGUNDO_NOMBRE" />
+          <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="APELLIDO_CASADA" ColumnName="APELLIDO_CASADA" />
+          <ScalarProperty Name="CONOCIDO_POR" ColumnName="CONOCIDO_POR" />
+          <ScalarProperty Name="DUI" ColumnName="DUI" />
+          <ScalarProperty Name="NIT" ColumnName="NIT" />
+          <ScalarProperty Name="PASAPORTE" ColumnName="PASAPORTE" />
+          <ScalarProperty Name="CARNET_RESIDENTE" ColumnName="CARNET_RESIDENTE" />
+          <ScalarProperty Name="FUNCIONARIO_O_RELACION" ColumnName="FUNCIONARIO_O_RELACION" />
+          <ScalarProperty Name="DECLARACION_JURADA" ColumnName="DECLARACION_JURADA" />
+          <ScalarProperty Name="TITULO_CARGO_PEP" ColumnName="TITULO_CARGO_PEP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PEP_CARGO">
+      <EntityTypeMapping TypeName="Model.LIS_PEP_CARGO">
+        <MappingFragment StoreEntitySet="LIS_PEP_CARGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_PEP" ColumnName="ID_LIS_PEP" />
+          <ScalarProperty Name="ID_ORGANO" ColumnName="ID_ORGANO" />
+          <ScalarProperty Name="ID_ENTIDAD" ColumnName="ID_ENTIDAD" />
+          <ScalarProperty Name="NOMBRE_CARGO" ColumnName="NOMBRE_CARGO" />
+          <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+          <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PEP_RELACION">
+      <EntityTypeMapping TypeName="Model.LIS_PEP_RELACION">
+        <MappingFragment StoreEntitySet="LIS_PEP_RELACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_PEP" ColumnName="ID_LIS_PEP" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="GRADO_PARENTESCO" ColumnName="GRADO_PARENTESCO" />
+          <ScalarProperty Name="DESCRIPCION_RELACION" ColumnName="DESCRIPCION_RELACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PERSONALIZADA">
+      <EntityTypeMapping TypeName="Model.LIS_PERSONALIZADA">
+        <MappingFragment StoreEntitySet="LIS_PERSONALIZADA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_UNICO" ColumnName="ID_UNICO" />
+          <ScalarProperty Name="PRIMER_NOMBRE" ColumnName="PRIMER_NOMBRE" />
+          <ScalarProperty Name="SEGUNDO_NOMBRE" ColumnName="SEGUNDO_NOMBRE" />
+          <ScalarProperty Name="TERCER_NOMBRE" ColumnName="TERCER_NOMBRE" />
+          <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="TERCER_APELLIDO" ColumnName="TERCER_APELLIDO" />
+          <ScalarProperty Name="PAIS_NACIMIENTO" ColumnName="PAIS_NACIMIENTO" />
+          <ScalarProperty Name="RAZON" ColumnName="RAZON" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PERSONALIZADA_ALIAS">
+      <EntityTypeMapping TypeName="Model.LIS_PERSONALIZADA_ALIAS">
+        <MappingFragment StoreEntitySet="LIS_PERSONALIZADA_ALIAS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LISTA_PERSONALIZADA" ColumnName="ID_LISTA_PERSONALIZADA" />
+          <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+          <ScalarProperty Name="CALIDAD" ColumnName="CALIDAD" />
+          <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PERSONALIZADA_DIRECCION">
+      <EntityTypeMapping TypeName="Model.LIS_PERSONALIZADA_DIRECCION">
+        <MappingFragment StoreEntitySet="LIS_PERSONALIZADA_DIRECCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LISTA_PERSONALIZADA" ColumnName="ID_LISTA_PERSONALIZADA" />
+          <ScalarProperty Name="DIRECCION_ESPECIFICA" ColumnName="DIRECCION_ESPECIFICA" />
+          <ScalarProperty Name="AVENIDA_CALLE_PASAJE" ColumnName="AVENIDA_CALLE_PASAJE" />
+          <ScalarProperty Name="ID_URBANIZACION" ColumnName="ID_URBANIZACION" />
+          <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+          <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
+          <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+          <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_PERSONALIZADA_DOCUMENTO">
+      <EntityTypeMapping TypeName="Model.LIS_PERSONALIZADA_DOCUMENTO">
+        <MappingFragment StoreEntitySet="LIS_PERSONALIZADA_DOCUMENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LISTA_PERSONALIZADA" ColumnName="ID_LISTA_PERSONALIZADA" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+          <ScalarProperty Name="PAIS_EXPEDICION" ColumnName="PAIS_EXPEDICION" />
+          <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_SDN">
+      <EntityTypeMapping TypeName="Model.LIS_SDN">
+        <MappingFragment StoreEntitySet="LIS_SDN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+          <ScalarProperty Name="PROGRAMAS" ColumnName="PROGRAMAS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_SDN_AKA">
+      <EntityTypeMapping TypeName="Model.LIS_SDN_AKA">
+        <MappingFragment StoreEntitySet="LIS_SDN_AKA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_SDN" ColumnName="ID_LIS_SDN" />
+          <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_SDN_DIRECCION">
+      <EntityTypeMapping TypeName="Model.LIS_SDN_DIRECCION">
+        <MappingFragment StoreEntitySet="LIS_SDN_DIRECCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_SDN" ColumnName="ID_LIS_SDN" />
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+          <ScalarProperty Name="ESTADO_PROVINCIA" ColumnName="ESTADO_PROVINCIA" />
+          <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_SDN_DOCUMENTO">
+      <EntityTypeMapping TypeName="Model.LIS_SDN_DOCUMENTO">
+        <MappingFragment StoreEntitySet="LIS_SDN_DOCUMENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_SDN" ColumnName="ID_LIS_SDN" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIS_SDN_NACIONALIDAD">
+      <EntityTypeMapping TypeName="Model.LIS_SDN_NACIONALIDAD">
+        <MappingFragment StoreEntitySet="LIS_SDN_NACIONALIDAD">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIS_SDN" ColumnName="ID_LIS_SDN" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="PRINCIPAL" ColumnName="PRINCIPAL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_AGENCIA">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_AGENCIA">
+        <MappingFragment StoreEntitySet="MAT_CAT_AGENCIA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_AUTOMATIZACION">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_AUTOMATIZACION">
+        <MappingFragment StoreEntitySet="MAT_CAT_AUTOMATIZACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_DISENO">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_DISENO">
+        <MappingFragment StoreEntitySet="MAT_CAT_DISENO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_DOCUMENTACION">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_DOCUMENTACION">
+        <MappingFragment StoreEntitySet="MAT_CAT_DOCUMENTACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_FACTOR_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_FACTOR_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_CAT_FACTOR_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_FRECUENCIA">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_FRECUENCIA">
+        <MappingFragment StoreEntitySet="MAT_CAT_FRECUENCIA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_MEZCLA">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_MEZCLA">
+        <MappingFragment StoreEntitySet="MAT_CAT_MEZCLA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_PROBABILIDAD_OCURRENCIA">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_PROBABILIDAD_OCURRENCIA">
+        <MappingFragment StoreEntitySet="MAT_CAT_PROBABILIDAD_OCURRENCIA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CLASIFICACION" ColumnName="CLASIFICACION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_SEVERIDAD">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_SEVERIDAD">
+        <MappingFragment StoreEntitySet="MAT_CAT_SEVERIDAD">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_TIPO_CONTROL">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_TIPO_CONTROL">
+        <MappingFragment StoreEntitySet="MAT_CAT_TIPO_CONTROL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_TIPO_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_TIPO_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_CAT_TIPO_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAT_UNIDAD">
+      <EntityTypeMapping TypeName="Model.MAT_CAT_UNIDAD">
+        <MappingFragment StoreEntitySet="MAT_CAT_UNIDAD">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CAUSA_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_CAUSA_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_CAUSA_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CONTROL">
+      <EntityTypeMapping TypeName="Model.MAT_CONTROL">
+        <MappingFragment StoreEntitySet="MAT_CONTROL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_AUTOMATIZACION" ColumnName="ID_AUTOMATIZACION" />
+          <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
+          <ScalarProperty Name="ID_DOCUMENTACION" ColumnName="ID_DOCUMENTACION" />
+          <ScalarProperty Name="ID_FRECUENCIA" ColumnName="ID_FRECUENCIA" />
+          <ScalarProperty Name="ID_MEZCLA" ColumnName="ID_MEZCLA" />
+          <ScalarProperty Name="ID_TIPO_CONTROL" ColumnName="ID_TIPO_CONTROL" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="TOTAL_POR" ColumnName="TOTAL_POR" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_CONTROL_EVENTO">
+      <EntityTypeMapping TypeName="Model.MAT_CONTROL_EVENTO">
+        <MappingFragment StoreEntitySet="MAT_CONTROL_EVENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CONTROL" ColumnName="ID_CONTROL" />
+          <ScalarProperty Name="ID_EVENTO" ColumnName="ID_EVENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_ESCALA_CALIFICACION">
+      <EntityTypeMapping TypeName="Model.MAT_ESCALA_CALIFICACION">
+        <MappingFragment StoreEntitySet="MAT_ESCALA_CALIFICACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALORMIN" ColumnName="VALORMIN" />
+          <ScalarProperty Name="VALORMAX" ColumnName="VALORMAX" />
+          <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_EVENTO_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_EVENTO_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_EVENTO_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_UNIDAD" ColumnName="ID_UNIDAD" />
+          <ScalarProperty Name="ID_FACTOR_RIESGO" ColumnName="ID_FACTOR_RIESGO" />
+          <ScalarProperty Name="ID_RIESGO" ColumnName="ID_RIESGO" />
+          <ScalarProperty Name="ID_CAUSA_RIESGO" ColumnName="ID_CAUSA_RIESGO" />
+          <ScalarProperty Name="COMO" ColumnName="COMO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_PROBABILIDAD_OCURRENCIA" ColumnName="ID_PROBABILIDAD_OCURRENCIA" />
+          <ScalarProperty Name="ID_IMPACTO" ColumnName="ID_IMPACTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_MATRIZ">
+      <EntityTypeMapping TypeName="Model.MAT_MATRIZ">
+        <MappingFragment StoreEntitySet="MAT_MATRIZ">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_MATRIZ_CONTROL">
+      <EntityTypeMapping TypeName="Model.MAT_MATRIZ_CONTROL">
+        <MappingFragment StoreEntitySet="MAT_MATRIZ_CONTROL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_MATRIZ" ColumnName="ID_MATRIZ" />
+          <ScalarProperty Name="ID_CONTROL_ANTERIOR" ColumnName="ID_CONTROL_ANTERIOR" />
+          <ScalarProperty Name="AUTOMATIZACION" ColumnName="AUTOMATIZACION" />
+          <ScalarProperty Name="DISENO" ColumnName="DISENO" />
+          <ScalarProperty Name="DOCUMENTACION" ColumnName="DOCUMENTACION" />
+          <ScalarProperty Name="FRECUENCIA" ColumnName="FRECUENCIA" />
+          <ScalarProperty Name="MEZCLA" ColumnName="MEZCLA" />
+          <ScalarProperty Name="TIPO_CONTROL" ColumnName="TIPO_CONTROL" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="TOTAL_POR" ColumnName="TOTAL_POR" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_MATRIZ_CONTROL_EVENTO">
+      <EntityTypeMapping TypeName="Model.MAT_MATRIZ_CONTROL_EVENTO">
+        <MappingFragment StoreEntitySet="MAT_MATRIZ_CONTROL_EVENTO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_MATRIZ" ColumnName="ID_MATRIZ" />
+          <ScalarProperty Name="ID_CONTROL" ColumnName="ID_CONTROL" />
+          <ScalarProperty Name="ID_EVENTO" ColumnName="ID_EVENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_MATRIZ_EVENTO_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_MATRIZ_EVENTO_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_MATRIZ_EVENTO_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_AGENCIA" ColumnName="ID_AGENCIA" />
+          <ScalarProperty Name="ID_MATRIZ" ColumnName="ID_MATRIZ" />
+          <ScalarProperty Name="ID_EVENTO_ANTERIOR" ColumnName="ID_EVENTO_ANTERIOR" />
+          <ScalarProperty Name="UNIDAD" ColumnName="UNIDAD" />
+          <ScalarProperty Name="FACTOR_RIESGO" ColumnName="FACTOR_RIESGO" />
+          <ScalarProperty Name="RIESGO" ColumnName="RIESGO" />
+          <ScalarProperty Name="CAUSA_RIESGO" ColumnName="CAUSA_RIESGO" />
+          <ScalarProperty Name="COMO" ColumnName="COMO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="PROBABILIDAD_OCURRENCIA" ColumnName="PROBABILIDAD_OCURRENCIA" />
+          <ScalarProperty Name="IMPACTO" ColumnName="IMPACTO" />
+          <ScalarProperty Name="RIESGO_INHERENTE" ColumnName="RIESGO_INHERENTE" />
+          <ScalarProperty Name="COLOR_RIESGO_INHERENTE" ColumnName="COLOR_RIESGO_INHERENTE" />
+          <ScalarProperty Name="EFICACIA_CONTROL" ColumnName="EFICACIA_CONTROL" />
+          <ScalarProperty Name="COLOR_RIESGO_RESIDUAL" ColumnName="COLOR_RIESGO_RESIDUAL" />
+          <ScalarProperty Name="RIESGO_RESIDUAL" ColumnName="RIESGO_RESIDUAL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_RIESGO">
+      <EntityTypeMapping TypeName="Model.MAT_RIESGO">
+        <MappingFragment StoreEntitySet="MAT_RIESGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAT_SEVERIDAD">
+      <EntityTypeMapping TypeName="Model.MAT_SEVERIDAD">
+        <MappingFragment StoreEntitySet="MAT_SEVERIDAD">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_SEVERIDAD" ColumnName="ID_SEVERIDAD" />
+          <ScalarProperty Name="ID_TIPO_RIESGO" ColumnName="ID_TIPO_RIESGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_AGENCIA_BANCARIA">
+      <EntityTypeMapping TypeName="Model.MON_AGENCIA_BANCARIA">
+        <MappingFragment StoreEntitySet="MON_AGENCIA_BANCARIA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_FINANCIERA" ColumnName="ID_FINANCIERA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CARGO_INSTITUCION">
+      <EntityTypeMapping TypeName="Model.MON_CARGO_INSTITUCION">
+        <MappingFragment StoreEntitySet="MON_CARGO_INSTITUCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_INSTITUCION" ColumnName="ID_INSTITUCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CAT_FINANCIERA">
+      <EntityTypeMapping TypeName="Model.MON_CAT_FINANCIERA">
+        <MappingFragment StoreEntitySet="MON_CAT_FINANCIERA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CAT_INSTITUCION">
+      <EntityTypeMapping TypeName="Model.MON_CAT_INSTITUCION">
+        <MappingFragment StoreEntitySet="MON_CAT_INSTITUCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CAT_UNIDAD">
+      <EntityTypeMapping TypeName="Model.MON_CAT_UNIDAD">
+        <MappingFragment StoreEntitySet="MON_CAT_UNIDAD">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_INSTITUCION" ColumnName="ID_INSTITUCION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CLIENTE_PEP">
+      <EntityTypeMapping TypeName="Model.MON_CLIENTE_PEP">
+        <MappingFragment StoreEntitySet="MON_CLIENTE_PEP">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="ID_PEP" ColumnName="ID_PEP" />
+          <ScalarProperty Name="FECHA_ASOCIACION" ColumnName="FECHA_ASOCIACION" />
+          <ScalarProperty Name="DESCRIPCION_ASOCIACION" ColumnName="DESCRIPCION_ASOCIACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_CONTACTO_INSTITUCION">
+      <EntityTypeMapping TypeName="Model.MON_CONTACTO_INSTITUCION">
+        <MappingFragment StoreEntitySet="MON_CONTACTO_INSTITUCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_UNIDAD" ColumnName="ID_UNIDAD" />
+          <ScalarProperty Name="ID_CARGO_INSTITUCION" ColumnName="ID_CARGO_INSTITUCION" />
+          <ScalarProperty Name="ID_TITULO" ColumnName="ID_TITULO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_DIA_FESTIVO">
+      <EntityTypeMapping TypeName="Model.MON_DIA_FESTIVO">
+        <MappingFragment StoreEntitySet="MON_DIA_FESTIVO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+          <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_OFICIO">
+      <EntityTypeMapping TypeName="Model.MON_OFICIO">
+        <MappingFragment StoreEntitySet="MON_OFICIO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CONTACTO_SOLICITANTE" ColumnName="ID_CONTACTO_SOLICITANTE" />
+          <ScalarProperty Name="ID_CONTACTO_INSTITUCION" ColumnName="ID_CONTACTO_INSTITUCION" />
+          <ScalarProperty Name="ID_CONTACTO_INSTITUCION_OFICIAL" ColumnName="ID_CONTACTO_INSTITUCION_OFICIAL" />
+          <ScalarProperty Name="NUMERO_OFICIO" ColumnName="NUMERO_OFICIO" />
+          <ScalarProperty Name="REFERENCIA" ColumnName="REFERENCIA" />
+          <ScalarProperty Name="ORIGEN" ColumnName="ORIGEN" />
+          <ScalarProperty Name="FECHA_OFICIO" ColumnName="FECHA_OFICIO" />
+          <ScalarProperty Name="FECHA_RECIBIDO" ColumnName="FECHA_RECIBIDO" />
+          <ScalarProperty Name="FORMATO_RESPUESTA" ColumnName="FORMATO_RESPUESTA" />
+          <ScalarProperty Name="FECHA_RESPUESTA_UIF" ColumnName="FECHA_RESPUESTA_UIF" />
+          <ScalarProperty Name="FECHA_RECIBIDO_UIF" ColumnName="FECHA_RECIBIDO_UIF" />
+          <ScalarProperty Name="DIAS_HABILES" ColumnName="DIAS_HABILES" />
+          <ScalarProperty Name="DIAS_MAX" ColumnName="DIAS_MAX" />
+          <ScalarProperty Name="FECHA_MAXIMA_UIF" ColumnName="FECHA_MAXIMA_UIF" />
+          <ScalarProperty Name="CUMPLIMIENTO" ColumnName="CUMPLIMIENTO" />
+          <ScalarProperty Name="PROCESADO" ColumnName="PROCESADO" />
+          <ScalarProperty Name="FECHA_INVESTIGACION_INI" ColumnName="FECHA_INVESTIGACION_INI" />
+          <ScalarProperty Name="FECHA_INVESTIGACION_FIN" ColumnName="FECHA_INVESTIGACION_FIN" />
+          <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_OFICIO_CONFIGURACION">
+      <EntityTypeMapping TypeName="Model.MON_OFICIO_CONFIGURACION">
+        <MappingFragment StoreEntitySet="MON_OFICIO_CONFIGURACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_INSTITUCION" ColumnName="ID_INSTITUCION" />
+          <ScalarProperty Name="ID_CONTACTO_INSTITUCION_OFICIAL" ColumnName="ID_CONTACTO_INSTITUCION_OFICIAL" />
+          <ScalarProperty Name="DIAS_NOTIFICACION" ColumnName="DIAS_NOTIFICACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_OFICIO_PERSONA">
+      <EntityTypeMapping TypeName="Model.MON_OFICIO_PERSONA">
+        <MappingFragment StoreEntitySet="MON_OFICIO_PERSONA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_OFICIO" ColumnName="ID_OFICIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="GENERALES" ColumnName="GENERALES" />
+          <ScalarProperty Name="DUI" ColumnName="DUI" />
+          <ScalarProperty Name="NIT" ColumnName="NIT" />
+          <ScalarProperty Name="TIPO_DOCUMENTO" ColumnName="TIPO_DOCUMENTO" />
+          <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+          <ScalarProperty Name="TIPO_PERSONA" ColumnName="TIPO_PERSONA" />
+          <ScalarProperty Name="RESULTADO" ColumnName="RESULTADO" />
+          <ScalarProperty Name="COTIZACIONES" ColumnName="COTIZACIONES" />
+          <ScalarProperty Name="SOLICITUDES" ColumnName="SOLICITUDES" />
+          <ScalarProperty Name="PRESTAMOS" ColumnName="PRESTAMOS" />
+          <ScalarProperty Name="CHEQUES" ColumnName="CHEQUES" />
+          <ScalarProperty Name="AEX" ColumnName="AEX" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_ROS">
+      <EntityTypeMapping TypeName="Model.MON_ROS">
+        <MappingFragment StoreEntitySet="MON_ROS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_UIF" ColumnName="CODIGO_UIF" />
+          <ScalarProperty Name="FECHA_ELABORACION" ColumnName="FECHA_ELABORACION" />
+          <ScalarProperty Name="DESCRIPCION_OPERACION_REPORTADA" ColumnName="DESCRIPCION_OPERACION_REPORTADA" />
+          <ScalarProperty Name="ANALISIS_CASO" ColumnName="ANALISIS_CASO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_ROS_ACTOR">
+      <EntityTypeMapping TypeName="Model.MON_ROS_ACTOR">
+        <MappingFragment StoreEntitySet="MON_ROS_ACTOR">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROS" ColumnName="ID_ROS" />
+          <ScalarProperty Name="RELACION_CON_SO" ColumnName="RELACION_CON_SO" />
+          <ScalarProperty Name="FECHA_NACIMIENTO" ColumnName="FECHA_NACIMIENTO" />
+          <ScalarProperty Name="PRIMER_NOMBRE" ColumnName="PRIMER_NOMBRE" />
+          <ScalarProperty Name="SEGUNDO_NOMBRE" ColumnName="SEGUNDO_NOMBRE" />
+          <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="APELLIDO_CASADA" ColumnName="APELLIDO_CASADA" />
+          <ScalarProperty Name="TIPO_PERSONA" ColumnName="TIPO_PERSONA" />
+          <ScalarProperty Name="GENERO" ColumnName="GENERO" />
+          <ScalarProperty Name="ID_ESTADO_FAMILIAR" ColumnName="ID_ESTADO_FAMILIAR" />
+          <ScalarProperty Name="ID_ACTIVIDAD_ECONOMICA" ColumnName="ID_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="ID_NACIONALIDAD" ColumnName="ID_NACIONALIDAD" />
+          <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+          <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
+          <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+          <ScalarProperty Name="ID_URBANIZACION" ColumnName="ID_URBANIZACION" />
+          <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+          <ScalarProperty Name="ID_PROFESION" ColumnName="ID_PROFESION" />
+          <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+          <ScalarProperty Name="DIRECCION_ESPECIFICA" ColumnName="DIRECCION_ESPECIFICA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_ROS_ARCHIVOS">
+      <EntityTypeMapping TypeName="Model.MON_ROS_ARCHIVOS">
+        <MappingFragment StoreEntitySet="MON_ROS_ARCHIVOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROS" ColumnName="ID_ROS" />
+          <ScalarProperty Name="ARCHIVO" ColumnName="ARCHIVO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MON_ROS_OPERACION">
+      <EntityTypeMapping TypeName="Model.MON_ROS_OPERACION">
+        <MappingFragment StoreEntitySet="MON_ROS_OPERACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROS" ColumnName="ID_ROS" />
+          <ScalarProperty Name="ID_TRANSACCION" ColumnName="ID_TRANSACCION" />
+          <ScalarProperty Name="ID_AGENCIA_BANCO" ColumnName="ID_AGENCIA_BANCO" />
+          <ScalarProperty Name="FECHA_OPERACION" ColumnName="FECHA_OPERACION" />
+          <ScalarProperty Name="NOMBRE_CLIENTE" ColumnName="NOMBRE_CLIENTE" />
+          <ScalarProperty Name="NUMERO_PRESTAMO" ColumnName="NUMERO_PRESTAMO" />
+          <ScalarProperty Name="VALOR_PAGADO" ColumnName="VALOR_PAGADO" />
+          <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+          <ScalarProperty Name="ID_DEPARTAMENTO" ColumnName="ID_DEPARTAMENTO" />
+          <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+          <ScalarProperty Name="DIRECCION_FINANCIERA" ColumnName="DIRECCION_FINANCIERA" />
+          <ScalarProperty Name="PROCEDENCIA_DESTINO" ColumnName="PROCEDENCIA_DESTINO" />
+          <ScalarProperty Name="RAZON_ROS" ColumnName="RAZON_ROS" />
+          <ScalarProperty Name="ID_TIPO_DOCUMENTO" ColumnName="ID_TIPO_DOCUMENTO" />
+          <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+          <ScalarProperty Name="ID_TIPO_PRODUCTO" ColumnName="ID_TIPO_PRODUCTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_CALIFICACION_FACTOR">
+      <EntityTypeMapping TypeName="Model.PER_CALIFICACION_FACTOR">
+        <MappingFragment StoreEntitySet="PER_CALIFICACION_FACTOR">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_FACTOR" ColumnName="ID_FACTOR" />
+          <ScalarProperty Name="ID_ITEM" ColumnName="ID_ITEM" />
+          <ScalarProperty Name="PUNTAJE" ColumnName="PUNTAJE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_COINCIDENCIA_LISTA">
+      <EntityTypeMapping TypeName="Model.PER_COINCIDENCIA_LISTA">
+        <MappingFragment StoreEntitySet="PER_COINCIDENCIA_LISTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="ID_LISTA" ColumnName="ID_LISTA" />
+          <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+          <ScalarProperty Name="FECHA_ALERTA" ColumnName="FECHA_ALERTA" />
+          <ScalarProperty Name="COINCIDENCIA" ColumnName="COINCIDENCIA" />
+          <ScalarProperty Name="SEGUIMIENTO" ColumnName="SEGUIMIENTO" />
+          <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+          <ScalarProperty Name="USUARIO_ACTUALIZA" ColumnName="USUARIO_ACTUALIZA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_CONFIGURACION_FACTOR">
+      <EntityTypeMapping TypeName="Model.PER_CONFIGURACION_FACTOR">
+        <MappingFragment StoreEntitySet="PER_CONFIGURACION_FACTOR">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_FACTOR" ColumnName="ID_FACTOR" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_FACTOR">
+      <EntityTypeMapping TypeName="Model.PER_FACTOR">
+        <MappingFragment StoreEntitySet="PER_FACTOR">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_HISTORIAL_PERFIL">
+      <EntityTypeMapping TypeName="Model.PER_HISTORIAL_PERFIL">
+        <MappingFragment StoreEntitySet="PER_HISTORIAL_PERFIL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="ID_FACTOR" ColumnName="ID_FACTOR" />
+          <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+          <ScalarProperty Name="PUNTAJE" ColumnName="PUNTAJE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_PERFIL_TRANSACCIONAL">
+      <EntityTypeMapping TypeName="Model.PER_PERFIL_TRANSACCIONAL">
+        <MappingFragment StoreEntitySet="PER_PERFIL_TRANSACCIONAL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+          <ScalarProperty Name="MES" ColumnName="MES" />
+          <ScalarProperty Name="MONTO_MENSUAL" ColumnName="MONTO_MENSUAL" />
+          <ScalarProperty Name="NO_PAGOS_MENSUAL" ColumnName="NO_PAGOS_MENSUAL" />
+          <ScalarProperty Name="TIPO_TRANSACCION" ColumnName="TIPO_TRANSACCION" />
+          <ScalarProperty Name="TIPO_OPERACION" ColumnName="TIPO_OPERACION" />
+          <ScalarProperty Name="FORMA_PAGO" ColumnName="FORMA_PAGO" />
+          <ScalarProperty Name="POR_DISPONIBILIDAD" ColumnName="POR_DISPONIBILIDAD" />
+          <ScalarProperty Name="COLECTOR" ColumnName="COLECTOR" />
+          <ScalarProperty Name="LINEA_CREDITO" ColumnName="LINEA_CREDITO" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+          <ScalarProperty Name="VALOR_CUOTA" ColumnName="VALOR_CUOTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PER_TIPO_CALIFICACION">
+      <EntityTypeMapping TypeName="Model.PER_TIPO_CALIFICACION">
+        <MappingFragment StoreEntitySet="PER_TIPO_CALIFICACION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="VALORMIN" ColumnName="VALORMIN" />
+          <ScalarProperty Name="VALORMAX" ColumnName="VALORMAX" />
+          <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_ACCESO_USUARIO">
+      <EntityTypeMapping TypeName="Model.SEG_ACCESO_USUARIO">
+        <MappingFragment StoreEntitySet="SEG_ACCESO_USUARIO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_MODULO" ColumnName="ID_MODULO" />
+          <ScalarProperty Name="ID_OPCION" ColumnName="ID_OPCION" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+          <ScalarProperty Name="ACCESO" ColumnName="ACCESO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_CARGAR_DATOS">
+      <EntityTypeMapping TypeName="Model.SEG_CARGAR_DATOS">
+        <MappingFragment StoreEntitySet="SEG_CARGAR_DATOS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOMBRE_TABLA" ColumnName="NOMBRE_TABLA" />
+          <ScalarProperty Name="TOTAL_REGISTROS" ColumnName="TOTAL_REGISTROS" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_EMPRESA">
+      <EntityTypeMapping TypeName="Model.SEG_EMPRESA">
+        <MappingFragment StoreEntitySet="SEG_EMPRESA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="TITULO" ColumnName="TITULO" />
+          <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_ERROR_LOG">
+      <EntityTypeMapping TypeName="Model.SEG_ERROR_LOG">
+        <MappingFragment StoreEntitySet="SEG_ERROR_LOG">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+          <ScalarProperty Name="NOMBRE_SP_FN" ColumnName="NOMBRE_SP_FN" />
+          <ScalarProperty Name="ERROR" ColumnName="ERROR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_LOG_AUDITORIA">
+      <EntityTypeMapping TypeName="Model.SEG_LOG_AUDITORIA">
+        <MappingFragment StoreEntitySet="SEG_LOG_AUDITORIA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TABLA" ColumnName="TABLA" />
+          <ScalarProperty Name="CAMPO" ColumnName="CAMPO" />
+          <ScalarProperty Name="ID_ORIGEN" ColumnName="ID_ORIGEN" />
+          <ScalarProperty Name="ACCION" ColumnName="ACCION" />
+          <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+          <ScalarProperty Name="VALOR_ANTERIOR" ColumnName="VALOR_ANTERIOR" />
+          <ScalarProperty Name="VALOR_ACTUAL" ColumnName="VALOR_ACTUAL" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_MODULO">
+      <EntityTypeMapping TypeName="Model.SEG_MODULO">
+        <MappingFragment StoreEntitySet="SEG_MODULO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_OPCION">
+      <EntityTypeMapping TypeName="Model.SEG_OPCION">
+        <MappingFragment StoreEntitySet="SEG_OPCION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_MODULO" ColumnName="ID_MODULO" />
+          <ScalarProperty Name="ID_PADRE" ColumnName="ID_PADRE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_PARAMETRO">
+      <EntityTypeMapping TypeName="Model.SEG_PARAMETRO">
+        <MappingFragment StoreEntitySet="SEG_PARAMETRO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_PERMISO">
+      <EntityTypeMapping TypeName="Model.SEG_PERMISO">
+        <MappingFragment StoreEntitySet="SEG_PERMISO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_ROL">
+      <EntityTypeMapping TypeName="Model.SEG_ROL">
+        <MappingFragment StoreEntitySet="SEG_ROL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ALERTA_NOTIFICADA" ColumnName="ALERTA_NOTIFICADA" />
+          <ScalarProperty Name="ALERTA_ANALIZADA" ColumnName="ALERTA_ANALIZADA" />
+          <ScalarProperty Name="ALERTA_OFICIO" ColumnName="ALERTA_OFICIO" />
+          <ScalarProperty Name="ALERTA_PERSONA_LISTA" ColumnName="ALERTA_PERSONA_LISTA" />
+          <ScalarProperty Name="ALERTA_PERFIL_TRANSACCIONAL" ColumnName="ALERTA_PERFIL_TRANSACCIONAL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_ROL_PERMISO">
+      <EntityTypeMapping TypeName="Model.SEG_ROL_PERMISO">
+        <MappingFragment StoreEntitySet="SEG_ROL_PERMISO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+          <ScalarProperty Name="ID_PERMISO" ColumnName="ID_PERMISO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEG_ROL_USUARIO">
+      <EntityTypeMapping TypeName="Model.SEG_ROL_USUARIO">
+        <MappingFragment StoreEntitySet="SEG_ROL_USUARIO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_ACTIVIDAD_ECONOMICA">
+      <EntityTypeMapping TypeName="Model.VIEW_ACTIVIDAD_ECONOMICA">
+        <MappingFragment StoreEntitySet="VIEW_ACTIVIDAD_ECONOMICA">
+          <ScalarProperty Name="CODIGO_ACTIVIDAD_ECONOMICA" ColumnName="CODIGO_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CALIFICACION">
+      <EntityTypeMapping TypeName="Model.VIEW_CALIFICACION">
+        <MappingFragment StoreEntitySet="VIEW_CALIFICACION">
+          <ScalarProperty Name="CODIGO_TIPO_CALIFICACION" ColumnName="CODIGO_TIPO_CALIFICACION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CLIENTE">
+      <EntityTypeMapping TypeName="Model.VIEW_CLIENTE">
+        <MappingFragment StoreEntitySet="VIEW_CLIENTE">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="TIPO_IDENTIFICACION_1" ColumnName="TIPO_IDENTIFICACION_1" />
+          <ScalarProperty Name="NUMERO_IDENTIFICACION_1" ColumnName="NUMERO_IDENTIFICACION_1" />
+          <ScalarProperty Name="TIPO_IDENTIFICACION_2" ColumnName="TIPO_IDENTIFICACION_2" />
+          <ScalarProperty Name="NUMERO_IDENTIFICACION_2" ColumnName="NUMERO_IDENTIFICACION_2" />
+          <ScalarProperty Name="CODIGO_TIPO_CLIENTE" ColumnName="CODIGO_TIPO_CLIENTE" />
+          <ScalarProperty Name="TIPO_CLIENTE" ColumnName="TIPO_CLIENTE" />
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="NACIONALIDAD" ColumnName="NACIONALIDAD" />
+          <ScalarProperty Name="CODIGO_SECTOR_ECONOMICO" ColumnName="CODIGO_SECTOR_ECONOMICO" />
+          <ScalarProperty Name="SECTOR_ECONOMICO" ColumnName="SECTOR_ECONOMICO" />
+          <ScalarProperty Name="CODIGO_ACTIVIDAD_ECONOMICA" ColumnName="CODIGO_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="ACTIVIDAD_ECONOMICA" ColumnName="ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="CODIGO_CLASE_ACTIVIDAD_ECONOMICA" ColumnName="CODIGO_CLASE_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="CLASE_ACTIVIDAD_ECONOMICA" ColumnName="CLASE_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="CODIGO_SUB_ACTIVIDAD_ECONOMICA" ColumnName="CODIGO_SUB_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="SUB_ACTIVIDAD_ECONOMICA" ColumnName="SUB_ACTIVIDAD_ECONOMICA" />
+          <ScalarProperty Name="TIPO_DE_PERSONA" ColumnName="TIPO_DE_PERSONA" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="APELLIDO_DE_CASADA" ColumnName="APELLIDO_DE_CASADA" />
+          <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+          <ScalarProperty Name="FECHA_DE_NACIMIENTO" ColumnName="FECHA_DE_NACIMIENTO" />
+          <ScalarProperty Name="CODIGO_ESTADO_CIVIL" ColumnName="CODIGO_ESTADO_CIVIL" />
+          <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+          <ScalarProperty Name="CODIGO_PROFESION" ColumnName="CODIGO_PROFESION" />
+          <ScalarProperty Name="PROFESION" ColumnName="PROFESION" />
+          <ScalarProperty Name="CODIGO_OCUPACION" ColumnName="CODIGO_OCUPACION" />
+          <ScalarProperty Name="OCUPACION" ColumnName="OCUPACION" />
+          <ScalarProperty Name="CODIGO_EMPRESA" ColumnName="CODIGO_EMPRESA" />
+          <ScalarProperty Name="CONOCIDO_COMO" ColumnName="CONOCIDO_COMO" />
+          <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CLIENTE_DIRECCIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_CLIENTE_DIRECCIONES">
+        <MappingFragment StoreEntitySet="VIEW_CLIENTE_DIRECCIONES">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="CODIGO_DIRECCION" ColumnName="CODIGO_DIRECCION" />
+          <ScalarProperty Name="DIRECCION_PRINCIPAL" ColumnName="DIRECCION_PRINCIPAL" />
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="CODIGO_DEPARTAMENTO" ColumnName="CODIGO_DEPARTAMENTO" />
+          <ScalarProperty Name="CODIGO_MUNICIPIO" ColumnName="CODIGO_MUNICIPIO" />
+          <ScalarProperty Name="CODIGO_SECTOR" ColumnName="CODIGO_SECTOR" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="URBANIZACION" ColumnName="URBANIZACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CLIENTE_EMPLEOS">
+      <EntityTypeMapping TypeName="Model.VIEW_CLIENTE_EMPLEOS">
+        <MappingFragment StoreEntitySet="VIEW_CLIENTE_EMPLEOS">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_EMPRESA" ColumnName="NOMBRE_EMPRESA" />
+          <ScalarProperty Name="PRINCIPAL" ColumnName="PRINCIPAL" />
+          <ScalarProperty Name="FECHA_PROCESO" ColumnName="FECHA_PROCESO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CLIENTE_TELEFONOS">
+      <EntityTypeMapping TypeName="Model.VIEW_CLIENTE_TELEFONOS">
+        <MappingFragment StoreEntitySet="VIEW_CLIENTE_TELEFONOS">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="TIPO_TELEFONO" ColumnName="TIPO_TELEFONO" />
+          <ScalarProperty Name="AREA_TELEFONO" ColumnName="AREA_TELEFONO" />
+          <ScalarProperty Name="NUM_TELEFONO" ColumnName="NUM_TELEFONO" />
+          <ScalarProperty Name="EXTENCION" ColumnName="EXTENCION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ACCESO_TELEFONO" ColumnName="ACCESO_TELEFONO" />
+          <ScalarProperty Name="TELEFONO_PRINCIPAL" ColumnName="TELEFONO_PRINCIPAL" />
+          <ScalarProperty Name="CODIGO_DIRECCION" ColumnName="CODIGO_DIRECCION" />
+          <ScalarProperty Name="CODIGO_TIPO_DIRECCION" ColumnName="CODIGO_TIPO_DIRECCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_COINCIDENCIA_LISTA">
+      <EntityTypeMapping TypeName="Model.VIEW_COINCIDENCIA_LISTA">
+        <MappingFragment StoreEntitySet="VIEW_COINCIDENCIA_LISTA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LISTA" ColumnName="ID_LISTA" />
+          <ScalarProperty Name="LISTA" ColumnName="LISTA" />
+          <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+          <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+          <ScalarProperty Name="PERSONA_DOCUMENTOS" ColumnName="PERSONA_DOCUMENTOS" />
+          <ScalarProperty Name="COINCIDENCIA" ColumnName="COINCIDENCIA" />
+          <ScalarProperty Name="SEGUIMIENTO" ColumnName="SEGUIMIENTO" />
+          <ScalarProperty Name="FECHA_ACTUALIZACION" ColumnName="FECHA_ACTUALIZACION" />
+          <ScalarProperty Name="USUARIO_ACTUALIZA" ColumnName="USUARIO_ACTUALIZA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_CREDITOS_ESCRITURADOS">
+      <EntityTypeMapping TypeName="Model.VIEW_CREDITOS_ESCRITURADOS">
+        <MappingFragment StoreEntitySet="VIEW_CREDITOS_ESCRITURADOS">
+          <ScalarProperty Name="Id_Fact" ColumnName="Id_Fact" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="ID_PRESTAMO" ColumnName="ID_PRESTAMO" />
+          <ScalarProperty Name="AGENCIA" ColumnName="AGENCIA" />
+          <ScalarProperty Name="SUCURSAL" ColumnName="SUCURSAL" />
+          <ScalarProperty Name="EJECUTIVO_VENTA" ColumnName="EJECUTIVO_VENTA" />
+          <ScalarProperty Name="VENDEDOR" ColumnName="VENDEDOR" />
+          <ScalarProperty Name="FECHA_APERTURA" ColumnName="FECHA_APERTURA" />
+          <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+          <ScalarProperty Name="FECHA_CANCELACION" ColumnName="FECHA_CANCELACION" />
+          <ScalarProperty Name="PLAZO" ColumnName="PLAZO" />
+          <ScalarProperty Name="PRODUCTO_BANCO" ColumnName="PRODUCTO_BANCO" />
+          <ScalarProperty Name="SUB_APLICACION" ColumnName="SUB_APLICACION" />
+          <ScalarProperty Name="LINEA_FINANCIERA" ColumnName="LINEA_FINANCIERA" />
+          <ScalarProperty Name="PROGRAMA" ColumnName="PROGRAMA" />
+          <ScalarProperty Name="ORIGEN_RECURSOS" ColumnName="ORIGEN_RECURSOS" />
+          <ScalarProperty Name="MONTO_OTORGADO" ColumnName="MONTO_OTORGADO" />
+          <ScalarProperty Name="TASA_TOTAL" ColumnName="TASA_TOTAL" />
+          <ScalarProperty Name="PRESIO_VENTA" ColumnName="PRESIO_VENTA" />
+          <ScalarProperty Name="SISTEMA" ColumnName="SISTEMA" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="UBICACION_FISICA" ColumnName="UBICACION_FISICA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_DEPARTAMENTO">
+      <EntityTypeMapping TypeName="Model.VIEW_DEPARTAMENTO">
+        <MappingFragment StoreEntitySet="VIEW_DEPARTAMENTO">
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="CODIGO_DEPARTAMENTO" ColumnName="CODIGO_DEPARTAMENTO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_ESTADO_CARTERA">
+      <EntityTypeMapping TypeName="Model.VIEW_ESTADO_CARTERA">
+        <MappingFragment StoreEntitySet="VIEW_ESTADO_CARTERA">
+          <ScalarProperty Name="CODIGO_ESTADO_CARTERA" ColumnName="CODIGO_ESTADO_CARTERA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_ESTADO_CIVIL">
+      <EntityTypeMapping TypeName="Model.VIEW_ESTADO_CIVIL">
+        <MappingFragment StoreEntitySet="VIEW_ESTADO_CIVIL">
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_FACTORES_PERFIL">
+      <EntityTypeMapping TypeName="Model.VIEW_FACTORES_PERFIL">
+        <MappingFragment StoreEntitySet="VIEW_FACTORES_PERFIL">
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="FACTOR" ColumnName="FACTOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_FINANCIERAS">
+      <EntityTypeMapping TypeName="Model.VIEW_FINANCIERAS">
+        <MappingFragment StoreEntitySet="VIEW_FINANCIERAS">
+          <ScalarProperty Name="TIPO_FINANCIERA" ColumnName="TIPO_FINANCIERA" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_FORMAS_PAGO">
+      <EntityTypeMapping TypeName="Model.VIEW_FORMAS_PAGO">
+        <MappingFragment StoreEntitySet="VIEW_FORMAS_PAGO">
+          <ScalarProperty Name="CODIGO_TIPO_PAGO" ColumnName="CODIGO_TIPO_PAGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="DEBITO_CREDITO" ColumnName="DEBITO_CREDITO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_LINEA">
+      <EntityTypeMapping TypeName="Model.VIEW_LINEA">
+        <MappingFragment StoreEntitySet="VIEW_LINEA">
+          <ScalarProperty Name="CODIGO_LINEA_FINANCIERA" ColumnName="CODIGO_LINEA_FINANCIERA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_MUNICIPIO">
+      <EntityTypeMapping TypeName="Model.VIEW_MUNICIPIO">
+        <MappingFragment StoreEntitySet="VIEW_MUNICIPIO">
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="CODIGO_DEPARTAMENTO" ColumnName="CODIGO_DEPARTAMENTO" />
+          <ScalarProperty Name="CODIGO_MUNICIPIO" ColumnName="CODIGO_MUNICIPIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_OI_FUNCIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_OI_FUNCIONES">
+        <MappingFragment StoreEntitySet="VIEW_OI_FUNCIONES">
+          <ScalarProperty Name="FUNCION" ColumnName="FUNCION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_OI_OPERADORES">
+      <EntityTypeMapping TypeName="Model.VIEW_OI_OPERADORES">
+        <MappingFragment StoreEntitySet="VIEW_OI_OPERADORES">
+          <ScalarProperty Name="OPERADOR" ColumnName="OPERADOR" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_OI_PARAMETROS">
+      <EntityTypeMapping TypeName="Model.VIEW_OI_PARAMETROS">
+        <MappingFragment StoreEntitySet="VIEW_OI_PARAMETROS">
+          <ScalarProperty Name="VISTA" ColumnName="VISTA" />
+          <ScalarProperty Name="DATO" ColumnName="DATO" />
+          <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_OPERACIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_OPERACIONES">
+        <MappingFragment StoreEntitySet="VIEW_OPERACIONES">
+          <ScalarProperty Name="CODIGO_OPERACION" ColumnName="CODIGO_OPERACION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_ORIGEN">
+      <EntityTypeMapping TypeName="Model.VIEW_ORIGEN">
+        <MappingFragment StoreEntitySet="VIEW_ORIGEN">
+          <ScalarProperty Name="CODIGO_ORIGEN" ColumnName="CODIGO_ORIGEN" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_PAISNACIONALIDAD">
+      <EntityTypeMapping TypeName="Model.VIEW_PAISNACIONALIDAD">
+        <MappingFragment StoreEntitySet="VIEW_PAISNACIONALIDAD">
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="NACIONALIDAD" ColumnName="NACIONALIDAD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_PERFIL_TRANSACCIONAL">
+      <EntityTypeMapping TypeName="Model.VIEW_PERFIL_TRANSACCIONAL">
+        <MappingFragment StoreEntitySet="VIEW_PERFIL_TRANSACCIONAL">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_USUARIO" ColumnName="CODIGO_USUARIO" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="COLECTOR_MOVIMIENTO" ColumnName="COLECTOR_MOVIMIENTO" />
+          <ScalarProperty Name="TIPO_TRANSACCION" ColumnName="TIPO_TRANSACCION" />
+          <ScalarProperty Name="TIPO_OPERACION" ColumnName="TIPO_OPERACION" />
+          <ScalarProperty Name="FORMA_PAGO" ColumnName="FORMA_PAGO" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="CODIGO_AGENCIA_BANCO" ColumnName="CODIGO_AGENCIA_BANCO" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="CODIGO_PATRONO" ColumnName="CODIGO_PATRONO" />
+          <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
+          <ScalarProperty Name="COLECTOR_CONVENIO" ColumnName="COLECTOR_CONVENIO" />
+          <ScalarProperty Name="FACTURA_CONVENIO" ColumnName="FACTURA_CONVENIO" />
+          <ScalarProperty Name="SALDO_CAPITAL" ColumnName="SALDO_CAPITAL" />
+          <ScalarProperty Name="SALDO_INTERES" ColumnName="SALDO_INTERES" />
+          <ScalarProperty Name="SALDO_SEGUROS_IVA" ColumnName="SALDO_SEGUROS_IVA" />
+          <ScalarProperty Name="SALDO_OTROS" ColumnName="SALDO_OTROS" />
+          <ScalarProperty Name="EXCEDENTE" ColumnName="EXCEDENTE" />
+          <ScalarProperty Name="CAPITAL_VIGENTE" ColumnName="CAPITAL_VIGENTE" />
+          <ScalarProperty Name="CAPITAL_MORA" ColumnName="CAPITAL_MORA" />
+          <ScalarProperty Name="CAPITAL_VENCIDO" ColumnName="CAPITAL_VENCIDO" />
+          <ScalarProperty Name="INTERES_VIGENTE" ColumnName="INTERES_VIGENTE" />
+          <ScalarProperty Name="INTERES_MORA" ColumnName="INTERES_MORA" />
+          <ScalarProperty Name="INTERES_VENCIDO" ColumnName="INTERES_VENCIDO" />
+          <ScalarProperty Name="FECHA_CANCELACION" ColumnName="FECHA_CANCELACION" />
+          <ScalarProperty Name="FECHA_APERTURA" ColumnName="FECHA_APERTURA" />
+          <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+          <ScalarProperty Name="MONTO_OTORGADO" ColumnName="MONTO_OTORGADO" />
+          <ScalarProperty Name="VALOR_VALUO" ColumnName="VALOR_VALUO" />
+          <ScalarProperty Name="VALOR_CONTABLE" ColumnName="VALOR_CONTABLE" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+          <ScalarProperty Name="LINEA_FINANCIERA" ColumnName="LINEA_FINANCIERA" />
+          <ScalarProperty Name="VALOR_CUOTA" ColumnName="VALOR_CUOTA" />
+          <ScalarProperty Name="PLAZO" ColumnName="PLAZO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_PROFESIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_PROFESIONES">
+        <MappingFragment StoreEntitySet="VIEW_PROFESIONES">
+          <ScalarProperty Name="CODIGO_PROFESION" ColumnName="CODIGO_PROFESION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_REPORTE_CONTROLPAGOS">
+      <EntityTypeMapping TypeName="Model.VIEW_REPORTE_CONTROLPAGOS">
+        <MappingFragment StoreEntitySet="VIEW_REPORTE_CONTROLPAGOS">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="FINANCIERA" ColumnName="FINANCIERA" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          <ScalarProperty Name="PERT_NOMBRE" ColumnName="PERT_NOMBRE" />
+          <ScalarProperty Name="PERT_PRIMER_APELLIDO" ColumnName="PERT_PRIMER_APELLIDO" />
+          <ScalarProperty Name="PERT_SEGUNDO_APELLIDO" ColumnName="PERT_SEGUNDO_APELLIDO" />
+          <ScalarProperty Name="PERT_APELLIDO_CASADA" ColumnName="PERT_APELLIDO_CASADA" />
+          <ScalarProperty Name="PERT_DUI" ColumnName="PERT_DUI" />
+          <ScalarProperty Name="PERT_NIT" ColumnName="PERT_NIT" />
+          <ScalarProperty Name="PERT_NACIONALIDAD" ColumnName="PERT_NACIONALIDAD" />
+          <ScalarProperty Name="PERT_DEPARTAMENTO" ColumnName="PERT_DEPARTAMENTO" />
+          <ScalarProperty Name="PERT_MUNICIPIO" ColumnName="PERT_MUNICIPIO" />
+          <ScalarProperty Name="PERT_DOMICILIO" ColumnName="PERT_DOMICILIO" />
+          <ScalarProperty Name="PERT_FECHA_NACIMIENTO" ColumnName="PERT_FECHA_NACIMIENTO" />
+          <ScalarProperty Name="PERT_LUGAR_NACIMIENTO" ColumnName="PERT_LUGAR_NACIMIENTO" />
+          <ScalarProperty Name="PERT_ESTADO_CIVIL" ColumnName="PERT_ESTADO_CIVIL" />
+          <ScalarProperty Name="PERT_PROFESION" ColumnName="PERT_PROFESION" />
+          <ScalarProperty Name="TRAN_CODIGO_CAJERO" ColumnName="TRAN_CODIGO_CAJERO" />
+          <ScalarProperty Name="TRAN_DEPARTAMENTO" ColumnName="TRAN_DEPARTAMENTO" />
+          <ScalarProperty Name="TRAN_MUNICIPIO" ColumnName="TRAN_MUNICIPIO" />
+          <ScalarProperty Name="TRAN_ORIGEN_FONDOS" ColumnName="TRAN_ORIGEN_FONDOS" />
+          <ScalarProperty Name="INFO_DATOS_RECIBO" ColumnName="INFO_DATOS_RECIBO" />
+          <ScalarProperty Name="INFO_CALIDAD_IMPRESION" ColumnName="INFO_CALIDAD_IMPRESION" />
+          <ScalarProperty Name="INFO_LLENO_DECLARACION" ColumnName="INFO_LLENO_DECLARACION" />
+          <ScalarProperty Name="INFO_MODALIDAD_PAGO" ColumnName="INFO_MODALIDAD_PAGO" />
+          <ScalarProperty Name="INFO_VERSION_DECLARACION_JURADA" ColumnName="INFO_VERSION_DECLARACION_JURADA" />
+          <ScalarProperty Name="INFO_QUIEN_LLENO_DECLARACION_JURADA" ColumnName="INFO_QUIEN_LLENO_DECLARACION_JURADA" />
+          <ScalarProperty Name="INFO_DOCUMENTACION_REQUERIDA" ColumnName="INFO_DOCUMENTACION_REQUERIDA" />
+          <ScalarProperty Name="INFO_TELEFONO_CONTACTO" ColumnName="INFO_TELEFONO_CONTACTO" />
+          <ScalarProperty Name="INFO_SEGUIMIENTO" ColumnName="INFO_SEGUIMIENTO" />
+          <ScalarProperty Name="CLIE_LUGAR_NACIMIENTO" ColumnName="CLIE_LUGAR_NACIMIENTO" />
+          <ScalarProperty Name="CLIE_DEPARTAMENTO" ColumnName="CLIE_DEPARTAMENTO" />
+          <ScalarProperty Name="CLIE_MUNICIPIO" ColumnName="CLIE_MUNICIPIO" />
+          <ScalarProperty Name="TRAN_AGENCIA_BANCARIA" ColumnName="TRAN_AGENCIA_BANCARIA" />
+          <ScalarProperty Name="INFO_CONFIRMACION_UIF" ColumnName="INFO_CONFIRMACION_UIF" />
+          <ScalarProperty Name="INFO_FECHA_CONFIRMACION_UIF" ColumnName="INFO_FECHA_CONFIRMACION_UIF" />
+          <ScalarProperty Name="INFO_COLECTOR" ColumnName="INFO_COLECTOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_REPORTE_PRIMAS">
+      <EntityTypeMapping TypeName="Model.VIEW_REPORTE_PRIMAS">
+        <MappingFragment StoreEntitySet="VIEW_REPORTE_PRIMAS">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NRO_SOLICITUD" ColumnName="NRO_SOLICITUD" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="FECHA_APLICACION" ColumnName="FECHA_APLICACION" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="COLECTOR_MOVIMIENTO" ColumnName="COLECTOR_MOVIMIENTO" />
+          <ScalarProperty Name="TIPO_TRANSACCION" ColumnName="TIPO_TRANSACCION" />
+          <ScalarProperty Name="TIPO_OPERACION" ColumnName="TIPO_OPERACION" />
+          <ScalarProperty Name="FORMA_DE_PAGO" ColumnName="FORMA_DE_PAGO" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="CODIGO_AGENCIA_BANCO" ColumnName="CODIGO_AGENCIA_BANCO" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="CODIGO_LINEA_FINANCIERA" ColumnName="CODIGO_LINEA_FINANCIERA" />
+          <ScalarProperty Name="NOMBRE_LINEA_FINANCIERA" ColumnName="NOMBRE_LINEA_FINANCIERA" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_REPORTE_VENTAS">
+      <EntityTypeMapping TypeName="Model.VIEW_REPORTE_VENTAS">
+        <MappingFragment StoreEntitySet="VIEW_REPORTE_VENTAS">
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="CODIGO_ACTIVO" ColumnName="CODIGO_ACTIVO" />
+          <ScalarProperty Name="CODIGO_USUARIO" ColumnName="CODIGO_USUARIO" />
+          <ScalarProperty Name="SECUENCIA_MOVIMIENTO" ColumnName="SECUENCIA_MOVIMIENTO" />
+          <ScalarProperty Name="FECHA_VALIDA" ColumnName="FECHA_VALIDA" />
+          <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+          <ScalarProperty Name="PRECIO_VENTA" ColumnName="PRECIO_VENTA" />
+          <ScalarProperty Name="VALUO" ColumnName="VALUO" />
+          <ScalarProperty Name="VALOR_CONTABLE" ColumnName="VALOR_CONTABLE" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_SOLICITUDES_CREDITOS">
+      <EntityTypeMapping TypeName="Model.VIEW_SOLICITUDES_CREDITOS">
+        <MappingFragment StoreEntitySet="VIEW_SOLICITUDES_CREDITOS">
+          <ScalarProperty Name="CODIGO_DESTINO" ColumnName="CODIGO_DESTINO" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="CODIGO_SUB_APLICACION" ColumnName="CODIGO_SUB_APLICACION" />
+          <ScalarProperty Name="NRO_SOLICITUD" ColumnName="NRO_SOLICITUD" />
+          <ScalarProperty Name="CODIGO_ESTADO_SOLICITUD" ColumnName="CODIGO_ESTADO_SOLICITUD" />
+          <ScalarProperty Name="CODIGO_APLICACION" ColumnName="CODIGO_APLICACION" />
+          <ScalarProperty Name="CODIGO_LINEA_CREDITO" ColumnName="CODIGO_LINEA_CREDITO" />
+          <ScalarProperty Name="RESPONSABLE_SOLICITUD" ColumnName="RESPONSABLE_SOLICITUD" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+          <ScalarProperty Name="CODIGO_EJECUTIVO" ColumnName="CODIGO_EJECUTIVO" />
+          <ScalarProperty Name="CUOTA_DEL_CREDITO" ColumnName="CUOTA_DEL_CREDITO" />
+          <ScalarProperty Name="VALOR_PRIMA_COMPLEMENTO" ColumnName="VALOR_PRIMA_COMPLEMENTO" />
+          <ScalarProperty Name="NUMERO_PRESTAMO" ColumnName="NUMERO_PRESTAMO" />
+          <ScalarProperty Name="FECHA_PROCESO" ColumnName="FECHA_PROCESO" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="UBICACION_FISICA" ColumnName="UBICACION_FISICA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_TIPO_CREDITO">
+      <EntityTypeMapping TypeName="Model.VIEW_TIPO_CREDITO">
+        <MappingFragment StoreEntitySet="VIEW_TIPO_CREDITO">
+          <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_TIPO_DOCUMENTO">
+      <EntityTypeMapping TypeName="Model.VIEW_TIPO_DOCUMENTO">
+        <MappingFragment StoreEntitySet="VIEW_TIPO_DOCUMENTO">
+          <ScalarProperty Name="CODIGO_TIPO_IDENTIFICACION" ColumnName="CODIGO_TIPO_IDENTIFICACION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_TIPO_PRESTAMO">
+      <EntityTypeMapping TypeName="Model.VIEW_TIPO_PRESTAMO">
+        <MappingFragment StoreEntitySet="VIEW_TIPO_PRESTAMO">
+          <ScalarProperty Name="CODIGO_TIPO" ColumnName="CODIGO_TIPO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_TIPO_TRANSACCIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_TIPO_TRANSACCIONES">
+        <MappingFragment StoreEntitySet="VIEW_TIPO_TRANSACCIONES">
+          <ScalarProperty Name="CODIGO_TIPO_TRANSACCION" ColumnName="CODIGO_TIPO_TRANSACCION" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_TRANSACCIONES">
+      <EntityTypeMapping TypeName="Model.VIEW_TRANSACCIONES">
+        <MappingFragment StoreEntitySet="VIEW_TRANSACCIONES">
+          <ScalarProperty Name="CLASE_PRODUCTO" ColumnName="CLASE_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_USUARIO" ColumnName="CODIGO_USUARIO" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="FECHA_APLICACION" ColumnName="FECHA_APLICACION" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="COLECTOR_MOVIMIENTO" ColumnName="COLECTOR_MOVIMIENTO" />
+          <ScalarProperty Name="TIPO_TRANSACCION" ColumnName="TIPO_TRANSACCION" />
+          <ScalarProperty Name="TIPO_OPERACION" ColumnName="TIPO_OPERACION" />
+          <ScalarProperty Name="FORMA_PAGO" ColumnName="FORMA_PAGO" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="CODIGO_AGENCIA_BANCO" ColumnName="CODIGO_AGENCIA_BANCO" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="CODIGO_PATRONO" ColumnName="CODIGO_PATRONO" />
+          <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
+          <ScalarProperty Name="COLECTOR_CONVENIO" ColumnName="COLECTOR_CONVENIO" />
+          <ScalarProperty Name="FACTURA_CONVENIO" ColumnName="FACTURA_CONVENIO" />
+          <ScalarProperty Name="SALDO_CAPITAL" ColumnName="SALDO_CAPITAL" />
+          <ScalarProperty Name="SALDO_INTERES" ColumnName="SALDO_INTERES" />
+          <ScalarProperty Name="SALDO_SEGUROS_IVA" ColumnName="SALDO_SEGUROS_IVA" />
+          <ScalarProperty Name="SALDO_OTROS" ColumnName="SALDO_OTROS" />
+          <ScalarProperty Name="EXCEDENTE" ColumnName="EXCEDENTE" />
+          <ScalarProperty Name="CAPITAL_VIGENTE" ColumnName="CAPITAL_VIGENTE" />
+          <ScalarProperty Name="CAPITAL_MORA" ColumnName="CAPITAL_MORA" />
+          <ScalarProperty Name="CAPITAL_VENCIDO" ColumnName="CAPITAL_VENCIDO" />
+          <ScalarProperty Name="INTERES_VIGENTE" ColumnName="INTERES_VIGENTE" />
+          <ScalarProperty Name="INTERES_MORA" ColumnName="INTERES_MORA" />
+          <ScalarProperty Name="INTERES_VENCIDO" ColumnName="INTERES_VENCIDO" />
+          <ScalarProperty Name="FECHA_CANCELACION" ColumnName="FECHA_CANCELACION" />
+          <ScalarProperty Name="FECHA_APERTURA" ColumnName="FECHA_APERTURA" />
+          <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+          <ScalarProperty Name="VALOR_CUOTA" ColumnName="VALOR_CUOTA" />
+          <ScalarProperty Name="MONTO_OTORGADO" ColumnName="MONTO_OTORGADO" />
+          <ScalarProperty Name="VALOR_VALUO" ColumnName="VALOR_VALUO" />
+          <ScalarProperty Name="VALOR_CONTABLE" ColumnName="VALOR_CONTABLE" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_URBANIZACION">
+      <EntityTypeMapping TypeName="Model.VIEW_URBANIZACION">
+        <MappingFragment StoreEntitySet="VIEW_URBANIZACION">
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="CODIGO_DEPARTAMENTO" ColumnName="CODIGO_DEPARTAMENTO" />
+          <ScalarProperty Name="CODIGO_MUNICIPIO" ColumnName="CODIGO_MUNICIPIO" />
+          <ScalarProperty Name="CODIGO_SECTOR" ColumnName="CODIGO_SECTOR" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIEW_VENTAS_CONTADO">
+      <EntityTypeMapping TypeName="Model.VIEW_VENTAS_CONTADO">
+        <MappingFragment StoreEntitySet="VIEW_VENTAS_CONTADO">
+          <ScalarProperty Name="CODIGO_ACTIVO" ColumnName="CODIGO_ACTIVO" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="CODIGO_USUARIO" ColumnName="CODIGO_USUARIO" />
+          <ScalarProperty Name="SECUENCIA_MOVIMIENTO" ColumnName="SECUENCIA_MOVIMIENTO" />
+          <ScalarProperty Name="FECHA_VALIDA" ColumnName="FECHA_VALIDA" />
+          <ScalarProperty Name="FECHA_HORA" ColumnName="FECHA_HORA" />
+          <ScalarProperty Name="PRECIO_VENTA" ColumnName="PRECIO_VENTA" />
+          <ScalarProperty Name="VALUO" ColumnName="VALUO" />
+          <ScalarProperty Name="VALOR_CONTABLE" ColumnName="VALOR_CONTABLE" />
+          <ScalarProperty Name="FECHA_PROCESO" ColumnName="FECHA_PROCESO" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+          <ScalarProperty Name="MUNICIPIO" ColumnName="MUNICIPIO" />
+          <ScalarProperty Name="UBICACION_FISICA" ColumnName="UBICACION_FISICA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="Model.Store.FN_PERSONA_EN_LISTAS" FunctionImportName="FN_PERSONA_EN_LISTAS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.FN_PERSONA_EN_LISTAS_Result">
+          <ScalarProperty Name="LISTA" ColumnName="LISTA" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_BLOQUEAR_PRESTAMO" FunctionName="Model.Store.SP_BLOQUEAR_PRESTAMO" />
+    <FunctionImportMapping FunctionImportName="SP_CONTROL_PAGOS" FunctionName="Model.Store.SP_CONTROL_PAGOS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SP_CONTROL_PAGOS_Result">
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          <ScalarProperty Name="INFO_QUIEN_LLENO_DECLARACION_JURADA" ColumnName="INFO_QUIEN_LLENO_DECLARACION_JURADA" />
+          <ScalarProperty Name="TRAN_ORIGEN_FONDOS" ColumnName="TRAN_ORIGEN_FONDOS" />
+          <ScalarProperty Name="INFO_DOCUMENTACION_REQUERIDA" ColumnName="INFO_DOCUMENTACION_REQUERIDA" />
+          <ScalarProperty Name="INFO_TELEFONO_CONTACTO" ColumnName="INFO_TELEFONO_CONTACTO" />
+          <ScalarProperty Name="INFO_SEGUIMIENTO" ColumnName="INFO_SEGUIMIENTO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_EMVIOCORREO" FunctionName="Model.Store.SP_EMVIOCORREO" />
+    <FunctionImportMapping FunctionImportName="SP_FILTRAR_TRANSACCIONES" FunctionName="Model.Store.SP_FILTRAR_TRANSACCIONES">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SP_FILTRAR_TRANSACCIONES_Result">
+          <ScalarProperty Name="CLASE_PRODUCTO" ColumnName="CLASE_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_USUARIO" ColumnName="CODIGO_USUARIO" />
+          <ScalarProperty Name="SECUENCIA" ColumnName="SECUENCIA" />
+          <ScalarProperty Name="FECHA_APLICACION" ColumnName="FECHA_APLICACION" />
+          <ScalarProperty Name="CODIGO_FINANCIERA" ColumnName="CODIGO_FINANCIERA" />
+          <ScalarProperty Name="COLECTOR_MOVIMIENTO" ColumnName="COLECTOR_MOVIMIENTO" />
+          <ScalarProperty Name="TIPO_TRANSACCION" ColumnName="TIPO_TRANSACCION" />
+          <ScalarProperty Name="TIPO_OPERACION" ColumnName="TIPO_OPERACION" />
+          <ScalarProperty Name="FORMA_PAGO" ColumnName="FORMA_PAGO" />
+          <ScalarProperty Name="FECHA_CALENDARIO" ColumnName="FECHA_CALENDARIO" />
+          <ScalarProperty Name="CODIGO_AGENCIA_BANCO" ColumnName="CODIGO_AGENCIA_BANCO" />
+          <ScalarProperty Name="VALOR_TRANSACCION" ColumnName="VALOR_TRANSACCION" />
+          <ScalarProperty Name="NUMERO_RECIBO" ColumnName="NUMERO_RECIBO" />
+          <ScalarProperty Name="CODIGO_PATRONO" ColumnName="CODIGO_PATRONO" />
+          <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
+          <ScalarProperty Name="COLECTOR_CONVENIO" ColumnName="COLECTOR_CONVENIO" />
+          <ScalarProperty Name="FACTURA_CONVENIO" ColumnName="FACTURA_CONVENIO" />
+          <ScalarProperty Name="SALDO_CAPITAL" ColumnName="SALDO_CAPITAL" />
+          <ScalarProperty Name="SALDO_INTERES" ColumnName="SALDO_INTERES" />
+          <ScalarProperty Name="SALDO_SEGUROS_IVA" ColumnName="SALDO_SEGUROS_IVA" />
+          <ScalarProperty Name="SALDO_OTROS" ColumnName="SALDO_OTROS" />
+          <ScalarProperty Name="EXCEDENTE" ColumnName="EXCEDENTE" />
+          <ScalarProperty Name="CAPITAL_VIGENTE" ColumnName="CAPITAL_VIGENTE" />
+          <ScalarProperty Name="CAPITAL_MORA" ColumnName="CAPITAL_MORA" />
+          <ScalarProperty Name="CAPITAL_VENCIDO" ColumnName="CAPITAL_VENCIDO" />
+          <ScalarProperty Name="INTERES_VIGENTE" ColumnName="INTERES_VIGENTE" />
+          <ScalarProperty Name="INTERES_MORA" ColumnName="INTERES_MORA" />
+          <ScalarProperty Name="INTERES_VENCIDO" ColumnName="INTERES_VENCIDO" />
+          <ScalarProperty Name="FECHA_CANCELACION" ColumnName="FECHA_CANCELACION" />
+          <ScalarProperty Name="FECHA_APERTURA" ColumnName="FECHA_APERTURA" />
+          <ScalarProperty Name="FECHA_VENCIMIENTO" ColumnName="FECHA_VENCIMIENTO" />
+          <ScalarProperty Name="VALOR_CUOTA" ColumnName="VALOR_CUOTA" />
+          <ScalarProperty Name="MONTO_OTORGADO" ColumnName="MONTO_OTORGADO" />
+          <ScalarProperty Name="VALOR_VALUO" ColumnName="VALOR_VALUO" />
+          <ScalarProperty Name="VALOR_CONTABLE" ColumnName="VALOR_CONTABLE" />
+          <ScalarProperty Name="FECHA_SOLICITUD" ColumnName="FECHA_SOLICITUD" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="TOTAL_INGRESOS" ColumnName="TOTAL_INGRESOS" />
+          <ScalarProperty Name="CODIGO_AGENCIA" ColumnName="CODIGO_AGENCIA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_PERFILXCLIENTE" FunctionName="Model.Store.SP_PERFILXCLIENTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SP_PERFILXCLIENTE_Result">
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Pagos" ColumnName="Pagos" />
+          <ScalarProperty Name="Tipo_Transacción" ColumnName="Tipo Transacción" />
+          <ScalarProperty Name="Tipo_Operación" ColumnName="Tipo Operación" />
+          <ScalarProperty Name="Forma_Pago" ColumnName="Forma Pago" />
+          <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+          <ScalarProperty Name="Colector" ColumnName="Colector" />
+          <ScalarProperty Name="Línea_de_Crédito" ColumnName="Línea de Crédito" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_RPT_OPERACIONES_ACUMULADAS" FunctionName="Model.Store.SP_RPT_OPERACIONES_ACUMULADAS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SP_RPT_OPERACIONES_ACUMULADAS_Result">
+          <ScalarProperty Name="TOTAL_PAGOS" ColumnName="TOTAL_PAGOS" />
+          <ScalarProperty Name="TOTAL_MONTO" ColumnName="TOTAL_MONTO" />
+          <ScalarProperty Name="NUMERO_PRODUCTO" ColumnName="NUMERO_PRODUCTO" />
+          <ScalarProperty Name="CODIGO_CLIENTE" ColumnName="CODIGO_CLIENTE" />
+          <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
+          <ScalarProperty Name="MES" ColumnName="MES" />
+          <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

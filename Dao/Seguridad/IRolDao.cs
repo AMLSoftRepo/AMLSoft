@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Model;
+
+namespace Dao.Seguridad
+{
+    public interface IRolDao : IGenericDao<SEG_ROL>
+    {
+    }
+}

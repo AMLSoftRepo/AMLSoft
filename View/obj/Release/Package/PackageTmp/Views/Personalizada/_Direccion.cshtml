@@ -1,0 +1,314 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        editando = false;
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditPersonalizadaDireccion(e) {
+            editando = true;
+
+            $("#ID_PERSONALIZADA_DIRECCION").val(e.data.record.ID);
+            $("#DIR_DIRECCION_ESPECIFICA").val(e.data.record.DIRECCION_ESPECIFICA);
+            $("#DIR_AVENIDA_CALLE_PASAJE").val(e.data.record.AVENIDA_CALLE_PASAJE);
+            $("#DIR_COMENTARIO").val(e.data.record.COMENTARIO);
+
+            GetDetpMuniUrbanizacion(e.data.record.ID_PAIS, e.data.record.ID_DEPARTAMENTO, e.data.record.ID_MUNICIPIO, e.data.record.ID_URBANIZACION);
+
+            $("#myModalPersonalizadaDireccion").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddPersonalizadaDireccion() {
+            $("#ID_PERSONALIZADA_DIRECCION").val(""); //campos ocultos
+            $("#DIR_DIRECCION_ESPECIFICA").val("");
+            $("#DIR_AVENIDA_CALLE_PASAJE").val("");
+            $("#DIR_COMENTARIO").val("");
+            $("#DIR_ID_PAIS").val("");
+            $("#DIR_ID_PAIS").change();
+            $("#DIR_ID_DEPARTAMENTO").empty();
+            $("#DIR_ID_MUNICIPIO").empty();
+            $("#DIR_ID_URBANIZACION").empty();
+
+            $("#myModalPersonalizadaDireccion").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemovePersonalizadaDireccion(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Personalizada/RemovePersonalizadaDireccion", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function () {
+                      gridPersonalizadaDireccion.clear();
+                      gridPersonalizadaDireccion.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DIR").val() });
+                      $().toastmessage('showSuccessToast', '@PropertiesBlo.msgExito');
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', jqXHR);
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonalizadaDireccion = $("#gridPersonalizadaDireccion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonalizadaDireccion")",
+            autoLoad: false,
+            columns: [
+                { field: "ID_PAIS", hidden: true },
+                { field: "ID_DEPARTAMENTO", hidden: true },
+                { field: "ID_MUNICIPIO", hidden: true },
+                { field: "ID_URBANIZACION", hidden: true },
+                { field: "DEPARTAMENTO", title: "Departamento" },
+                { field: "MUNICIPIO", title: "Municipio" },
+                { field: "URBANIZACION", title: "Colonia/Sector/Urbanización" },
+                { field: "COMENTARIO", title: "Comentario" },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonalizadaDireccion } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemovePersonalizadaDireccion } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridPersonalizadaDireccion.clear();
+        gridPersonalizadaDireccion.reload({ page: 1, ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DIR").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarPersonalizadaDireccion").off();
+        $("#btnAgregarPersonalizadaDireccion").on("click", AddPersonalizadaDireccion);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonalizadaDireccion').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function () {
+                 $("#myModalPersonalizadaDireccion").modal("hide");
+                 $().toastmessage('showSuccessToast', "@PropertiesBlo.msgExito");
+                 gridPersonalizadaDireccion.clear();
+                 gridPersonalizadaDireccion.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DIR").val() });
+             })
+             .fail(function () {
+                 $("#myModalPersonalizadaDireccion").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalPersonalizadaDireccion').on('hide.bs.modal', function () {
+            $('#formPersonalizadaDireccion').trigger("reset"); // Resetea los valores de todos campos
+            $("#formPersonalizadaDireccion").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        // DEPARTAMENTOS POR PAIS.
+        function DepartamentosXPais(pais, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("DepartamentosXPais")', { pais: pais }, function (response) {
+
+                    $("#DIR_ID_MUNICIPIO").empty();
+                    $("#DIR_ID_URBANIZACION").empty();
+                    $("#DIR_ID_DEPARTAMENTO").empty();
+                    $.each(response.departamentos, function (i, item) {
+                        $("#DIR_ID_DEPARTAMENTO").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#DIR_ID_DEPARTAMENTO").val(selectVal);
+                    $("#DIR_ID_DEPARTAMENTO").change();
+
+                }, 'json');
+            });
+        }
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamento(pais, depto, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("MunicipiosXDepartamento")', { pais: pais, depto: depto }, function (response) {
+
+                    $("#DIR_ID_URBANIZACION").empty();
+                    $("#DIR_ID_MUNICIPIO").empty();
+                    $.each(response.municipios, function (i, item) {
+                        $("#DIR_ID_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#DIR_ID_MUNICIPIO").val(selectVal);
+                    $("#DIR_ID_MUNICIPIO").change();
+
+                }, 'json');
+            });
+        }
+
+        // URBANIZACIONES POR MUNICIPIO
+        function UrbanizacionesXMunicipio(pais, depto, municipio, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("UrbanizacionesXMunicipio")', { pais: pais, depto: depto, municipio: municipio }, function (response) {
+
+                    $("#DIR_ID_URBANIZACION").empty();
+                    $.each(response.urbanizaciones, function (i, item) {
+                        $("#DIR_ID_URBANIZACION").append("<option value='" + item.CODIGO_SECTOR + "'>" + item.DESCRIPCION + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#DIR_ID_URBANIZACION").val(selectVal);
+                    $("#DIR_ID_URBANIZACION").change();
+
+                }, 'json');
+            });
+        }
+
+        // OBTENER DEPARTAMENTO,MUNICIPIO Y URBANIZACION
+        function GetDetpMuniUrbanizacion(pais, depto, municipio, urbanizacion) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("GetDetpMuniUrbanizacion")', { pais: pais, depto: depto, municipio: municipio }, function (response) {
+
+                    $("#DIR_ID_DEPARTAMENTO").empty();
+                    $("#DIR_ID_MUNICIPIO").empty();
+                    $("#DIR_ID_URBANIZACION").empty();
+
+                    $.each(response.departamentos, function (i, item) {
+                        $("#DIR_ID_DEPARTAMENTO").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#DIR_ID_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    $.each(response.urbanizaciones, function (i, item) {
+                        $("#DIR_ID_URBANIZACION").append("<option value='" + item.CODIGO_SECTOR + "'>" + item.DESCRIPCION + "</option>");
+                    });
+
+                    //Seleccionar valor predetermindo
+                    $("#DIR_ID_PAIS").val(pais);
+                    $("#DIR_ID_PAIS").change();
+                    $("#DIR_ID_DEPARTAMENTO").val(depto);
+                    $("#DIR_ID_DEPARTAMENTO").change();
+                    $("#DIR_ID_MUNICIPIO").val(municipio);
+                    $("#DIR_ID_MUNICIPIO").change();
+                    $("#DIR_ID_URBANIZACION").val(urbanizacion);
+                    $("#DIR_ID_URBANIZACION").change();
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#DIR_ID_PAIS").change(function () {
+            if (!editando)
+                DepartamentosXPais($(this).val(), 0);
+        });
+
+        // Anidando municipios
+        $("#DIR_ID_DEPARTAMENTO").change(function () {
+            if (!editando)
+                MunicipiosXDepartamento($("#DIR_ID_PAIS").val(), $(this).val(), 0);
+        });
+
+        // Anidando urbanizaciones
+        $("#DIR_ID_MUNICIPIO").change(function () {
+            if (!editando)
+                UrbanizacionesXMunicipio($("#DIR_ID_PAIS").val(), $("#DIR_ID_DEPARTAMENTO").val(), $(this).val(), 0);
+        });
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalPersonalizadaDireccion' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formPersonalizadaDireccion" action="/Personalizada/SavePersonalizadaDireccion" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Dirección
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_PERSONALIZADA_DIRECCION es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONALIZADA_DIRECCION" type="hidden" name="ID" value="">
+
+                    <!--ID_LISTA_PERSONALIZADA este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_LISTA_PERSONALIZADA" id="ID_LISTA_PERSONALIZADA_DIR" value="@ViewBag.ID_LISTA_PERSONALIZADA">
+
+                    <div class="form-group">
+                        <label for="ID_PAIS">País</label><br>
+                        <select id="DIR_ID_PAIS" name="ID_PAIS" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                            {
+                                <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_DEPARTAMENTO">Departamento</label><br>
+                        <select id="DIR_ID_DEPARTAMENTO" name="ID_DEPARTAMENTO" class="form-control select2-single"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_MUNICIPIO">Municipio</label><br>
+                        <select id="DIR_ID_MUNICIPIO" name="ID_MUNICIPIO" class="form-control select2-single"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_URBANIZACION">Colonia/Sector/Urbanización</label>
+                        <select id="DIR_ID_URBANIZACION" name="ID_URBANIZACION" class="form-control select2-single"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="AVENIDA_CALLE_PASAJE">Avenida, calle o pasaje</label>
+                        <input class="form-control" id="DIR_AVENIDA_CALLE_PASAJE" name="AVENIDA_CALLE_PASAJE" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DIRECCION_ESPECIFICA">Dirección específica</label>
+                        <input class="form-control" id="DIR_DIRECCION_ESPECIFICA" name="DIRECCION_ESPECIFICA" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="COMENTARIO">Comentario</label>
+                        <textarea class="form-control" id="DIR_COMENTARIO" name="COMENTARIO" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarPersonalizadaDireccion" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

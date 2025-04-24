@@ -1,0 +1,105 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+       
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../AlertaPerfilTransaccional/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', '@PropertiesBlo.msgFallo');
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridAlertaPerfilTransaccional").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "ID_CLIENTE", title: "ID Cliente", width: 100 },
+                    { field: "NOMBRE_CLIENTE", title: "Cliente", width: 200 },
+                    { field: "EVENTO_ALERTA", title: "Evento", width: 200 },
+                    { field: "DESCRIPCION_ALERTA", title: "Descripción de Alerta", width: 300 },
+                    { field: "FECHA_ALERTA", title: "Fecha Alerta", type: 'date', format: 'dd/mm/yyyy', width: 100 },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                    
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        ALERTAS PERFIL TRANSACCIONAL
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Nombre ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridAlertaPerfilTransaccional" data-source="@Url.Action("GetAlertaPerfilTransaccional")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+

@@ -1,0 +1,195 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_ORGANO").val(e.data.record.ID_ORGANO);
+                $("#ID_ORGANO").change();
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_ORGANO").val("");
+                $("#ID_ORGANO").change();
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../CatEntidad/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridCatEntidad").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: 'ORGANO', title: "Organo", width: 200 },
+                    { field: "DESCRIPCION", title: "Descripción", sortable: true },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formCatEntidad').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_ORGANO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    DESCRIPCION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formCatEntidad').trigger("reset"); // Resetea los valores de todos campos
+                $("#formCatEntidad").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        ENTIDADES DEL ESTADO
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridCatEntidad" data-source="@Url.Action("GetEntidad")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formCatEntidad" action="/CatEntidad/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Unidad Por Institución
+                </div>
+                <div class="panel-body">
+
+                    <input id="ID" type="hidden" name="ID" value="">
+                    @*<input type="hidden" name="ID_ORGANO" id="ID_ORGANO_UNIDAD" value="@ViewBag.ID_ORGANO">*@
+                    <div class="form-group">
+                        <label for="ID_ORGANO">Organo del Estado</label><br>
+                        <select id="ID_ORGANO" name="ID_ORGANO" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (LIS_CAT_ORGANOS item in (List<LIS_CAT_ORGANOS>)ViewBag.organo)
+                            {
+                                <option value=@item.ID>@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="3" maxlength="100"></textarea>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+

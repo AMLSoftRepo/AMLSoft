@@ -1,0 +1,727 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/plugins/chartjs/Chart.bundle.min.js"></script>
+<script src="~/Content/plugins/chartjs/utils.js"></script>
+@section Scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var grid;
+
+
+        //=============================================
+        //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+        //=============================================
+        function load_Telefonos() {
+            $.ajax({
+                url: '@Url.Action("_Telefonos", "PerfilCliente")',
+                data: { CODIGO_CLIENTE: $("#CODIGO_CLIENTE").val() },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#_Telefonos").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+        function load_Direcciones() {
+            $.ajax({
+                url: '@Url.Action("_Direcciones", "PerfilCliente")',
+                data: { CODIGO_CLIENTE: $("#CODIGO_CLIENTE").val() },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#_Direcciones").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+        }
+
+            function load_Empleos() {
+                $.ajax({
+                    url: '@Url.Action("_Empleos", "PerfilCliente")',
+                    data: { CODIGO_CLIENTE: $("#CODIGO_CLIENTE").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_Empleos").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            function load_Calificacion() {
+                $.ajax({
+                    url: '@Url.Action("_Calificacion", "PerfilCliente")',
+                data: { CODIGO_CLIENTE: $("#CODIGO_CLIENTE").val() },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#_Calificacion").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+
+        //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+        function Detalle(e) {
+
+            $("#CODIGO_CLIENTE").val(e.data.record.CODIGO_CLIENTE);
+            $("#TIPO_IDENTIFICACION_1").text(e.data.record.TIPO_IDENTIFICACION_1);
+            $("#NUMERO_IDENTIFICACION_1").val(e.data.record.NUMERO_IDENTIFICACION_1);
+            $("#TIPO_IDENTIFICACION_2").text(e.data.record.TIPO_IDENTIFICACION_2);
+            $("#NUMERO_IDENTIFICACION_2").val(e.data.record.NUMERO_IDENTIFICACION_2);
+            $("#TIPO_CLIENTE").val(e.data.record.TIPO_CLIENTE);
+            $("#PAIS").val(e.data.record.PAIS);
+            $("#SECTOR_ECONOMICO").val(e.data.record.SECTOR_ECONOMICO);
+            $("#ACTIVIDAD_ECONOMICA").val(e.data.record.ACTIVIDAD_ECONOMICA);
+            $("#CLASE_ACTIVIDAD_ECONOMICA").val(e.data.record.CLASE_ACTIVIDAD_ECONOMICA);
+            $("#SUB_ACTIVIDAD_ECONOMICA").val(e.data.record.SUB_ACTIVIDAD_ECONOMICA);
+            $("#TIPO_DE_PERSONA").val(e.data.record.TIPO_DE_PERSONA);
+            $("#NOMBRE").val(e.data.record.NOMBRES + ' ' + e.data.record.PRIMER_APELLIDO + ' ' + e.data.record.SEGUNDO_APELLIDO);
+            $("#APELLIDO_DE_CASADA").val(e.data.record.APELLIDO_DE_CASADA);
+            $("#SEXO").val(e.data.record.SEXO);
+            $("#FECHA_DE_NACIMIENTO").val(formatDate(e.data.record.FECHA_DE_NACIMIENTO, 'dd/mm/yyyy'));
+            $("#ESTADO_CIVIL").val(e.data.record.ESTADO_CIVIL);
+            $("#TOTAL_INGRESOS").val(e.data.record.TOTAL_INGRESOS);
+            $("#PROFESION").val(e.data.record.PROFESION);
+            $("#OCUPACION").val(e.data.record.OCUPACION);
+            $("#CODIGO_EMPRESA").val(e.data.record.CODIGO_EMPRESA);
+            $("#CONOCIDO_COMO").val(e.data.record.CONOCIDO_COMO);
+            $("#ALIAS").val(e.data.record.ALIAS);
+            $("#TIPO_DE_PERSONA").val(e.data.record.TIPO_DE_PERSONA);
+
+            //cargar pestañas ===========================================================================================
+            load_Direcciones();
+            load_Empleos();
+            load_Telefonos();
+            load_Calificacion();
+
+            $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+            $('a[href="#cliente"]').tab('show');// Activar pestaña
+            $("#myModal").modal("show");
+        }
+
+
+
+        //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+        function Search() {
+            grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+        }
+
+        $('#txtBuscar').keypress(function (e) {
+            if (e.which == 13) {
+                Search();
+            }
+        });
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        grid = $("#gridCliente").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            autoLoad: false,
+            columns: [
+                { field: "CODIGO_CLIENTE", title: "Código cliente", width: 100 },
+                { tmpl: '{TIPO_IDENTIFICACION_1}: {NUMERO_IDENTIFICACION_1}', title: "Documento 1", width: 130 },
+                { tmpl: '{TIPO_IDENTIFICACION_2}: {NUMERO_IDENTIFICACION_2}', title: "Documento 2", width: 160 },
+                { tmpl: '{NOMBRES} {PRIMER_APELLIDO} {SEGUNDO_APELLIDO}', title: "Nombre", width: 300 },
+                { title: "", field: "Detalle", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": Detalle } },
+                { title: "", field: "Calificacion", width: 42, type: "icon", icon: "glyphicon-time btn btn-primary btn-xs", tooltip: "Historial de calificación", events: { "click": HistorialCalificacion } },
+                { title: "", field: "Transaccional", width: 42, type: "icon", icon: "glyphicon-stats btn btn-primary btn-xs", tooltip: "Perfil Transaccional", events: { "click": PerfilTransaccional } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+
+        //EVENTOS DE BOTONES
+        $("#btnBuscar").on("click", Search);
+
+        //=============================================
+        //HISTORIAL DE CALIFICACION DE CLIENTE
+        //=============================================
+
+        var gridHistorialCalificacion;
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridHistorialCalificacion = $("#gridHistorialCalificacion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetHistorialCalificacion")",
+            autoLoad: false,
+            columns: [
+                { field: "FECHA", title: "Fecha", width: 150, type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                { field: "ID_FACTOR", tmpl: '{DESCRIPCION}', title: "Factor", sortable: true, width: 300 },
+                { field: "PUNTAJE", title: "Puntaje", sortable: true, width: 100, align: 'center' }
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 15] }
+        });
+
+
+        //DEFINICION DE GRAFICA DE HISTORIAL DE CALIFICACION
+        var config = {
+            type: 'line',
+            data: {
+                xLabels: [],
+                yLabels: [],
+                datasets: []
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'HISTORIAL DE CALIFICACION'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'MES Y AÑO'
+                        }
+                    }],
+                    yAxes: [{
+                        type: 'category',
+                        position: 'left',
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'TIPOS DE CALIFICACION'
+                        },
+                        ticks: {
+                            reverse: true
+                        }
+                    }]
+                }
+            }
+        };
+
+        var chartline;
+
+        //=============================================
+        //PERFIL TRANSACCIONAL DE CLIENTE
+        //=============================================
+
+        var gridPerfilTransaccional;
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPerfilTransaccional = $("#gridPerfilTransaccional").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPerfilTransaccional")",
+            autoLoad: false,
+            columns: [
+
+
+                { field: "Línea_de_Crédito", title: "Línea de Crédito", sortable: true, width: 100, align: 'center' },
+                { field: "Colector", title: "Colector", sortable: true, width: 100, align: 'center' },
+                { field: "Tipo_Transacción", title: "Tipo Transacción", sortable: true, width: 100, align: 'center' },
+                { field: "Tipo_Operación", title: "Tipo Operación", sortable: true, width: 100, align: 'center' },
+                { field: "Forma_Pago", title: "Forma Pago", sortable: true, width: 100, align: 'center' },
+                { field: "Disponibilidad", title: "Disponibilidad", sortable: true, width: 100, align: 'center' },
+                { field: "Pagos", title: "Pagos", sortable: true, width: 50, align: 'center' },
+                { field: "Monto", title: "Valor pago", align: 'right', width: 100, tmpl: "<span class='currency'>{Monto}</span>", sortable: true }
+
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 15] }
+        });
+
+        gridPerfilTransaccional.on('dataBound', function (e, records, totalRecords) {
+            $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+        });
+
+        //para la grafica de perfil transaccional
+        var cnfPerfilTransaccional = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: []
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'PERFIL TRANSACCIONAL'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                }
+            }
+        };
+
+
+        var chartlinePT;
+
+        window.onload = function () {
+            var ctx = document.getElementById("canvasCalificacion").getContext("2d");
+            chartline = new Chart(ctx, config);
+            var ptc = document.getElementById("canvasPerfilTransaccional").getContext("2d");
+            chartlinePT = new Chart(ptc, cnfPerfilTransaccional);
+        };
+
+
+        //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+        function HistorialCalificacion(e) {
+
+            var defaulConfig = {
+                data: {
+                    xLabels: [],
+                    yLabels: [],
+                    datasets: []
+                }
+            };
+
+            config.data = defaulConfig.data;
+            chartline.update();
+
+            gridHistorialCalificacion.clear();
+            gridHistorialCalificacion.reload({ page: 1, CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE });
+
+            $.ajax({
+                url: '@Url.Action("_HistorialCalificacion", "PerfilCliente")',
+                data: { CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+
+                    var xLabels = (new Function("return [" + data.xLabels + "];")());
+                    var yLabels = (new Function("return [" + data.yLabels + ",' '" + "];")());
+                    var data = (new Function("return [" + data.data + "];")());
+
+                    var ajaxConfig = {
+                        type: 'line',
+                        data: {
+                            xLabels: xLabels,
+                            yLabels: yLabels,
+                            datasets: data
+                        }
+                    };
+
+                    config.data = ajaxConfig.data;
+                    chartline.update();
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+
+            $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+            $('a[href="#HistorialCalificacion"]').tab('show');// Activar pestaña
+            $("#myModalHistorialCalificacion").modal("show");
+        }
+
+        // VALORES PERFIL TRANSACCIONAL
+        function PerfilTransaccional(e) {
+
+            var defaulConfigPT = {
+                data: {
+                    labels: [],
+                    datasets: []
+                }
+
+            };
+
+            cnfPerfilTransaccional.data = defaulConfigPT.data;
+            chartlinePT.update();
+
+            gridPerfilTransaccional.clear();
+            gridPerfilTransaccional.reload({ page: 1, CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE });
+
+            $.ajax({
+                url: '@Url.Action("_PerfilTransaccional", "PerfilCliente")',
+                data: { CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+
+                    var labels = (new Function("return [" + data.listFechastr + "];")());
+                    var data = (new Function("return [" + data.data + "];")());
+
+                    var ajaxConfig = {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: data
+                        }
+
+                    };
+
+                    cnfPerfilTransaccional.data = ajaxConfig.data;
+                    chartlinePT.update();
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+
+            $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+            $('a[href="#PerfilTransaccional"]').tab('show');// Activar pestaña
+            $("#myModalPerfilTransaccional").modal("show");
+        }
+
+
+    });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1 class="col-md-6">
+        PERFIL DE CLIENTE
+        <small>PERFIL</small>
+    </h1>
+</section>
+
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridCliente" data-source="@Url.Action("GetCliente")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL DETALLE DE CLIENTE -->
+<div id='myModal' class='modal fade custom-width in' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Perfil de cliente
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#cliente" data-toggle="tab">Datos generales del cliente</a></li>
+                        <li><a href="#Telefonos" data-toggle="tab">Telefonos</a></li>
+                        <li><a href="#Direcciones" data-toggle="tab">Direcciones</a></li>
+                        <li><a href="#Empleos" data-toggle="tab">Empleos</a></li>
+                        <li><a href="#Calificacion" data-toggle="tab">Calificación</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="cliente">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Código de Cliente</label>
+                                        <input class="form-control" id="CODIGO_CLIENTE" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input class="form-control" id="NOMBRE" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido de casada</label>
+                                        <input class="form-control" id="APELLIDO_DE_CASADA" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sexo</label>
+                                        <input class="form-control" id="SEXO" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de nacimiento</label>
+                                        <input class="form-control" id="FECHA_DE_NACIMIENTO" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado civil</label>
+                                        <input class="form-control" id="ESTADO_CIVIL" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total de ingresos</label>
+                                        <input class="form-control currency" id="TOTAL_INGRESOS" type="text" value="" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label id="TIPO_IDENTIFICACION_1"></label>
+                                        <input class="form-control" id="NUMERO_IDENTIFICACION_1" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="TIPO_IDENTIFICACION_2"></label>
+                                        <input class="form-control" id="NUMERO_IDENTIFICACION_2" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tipo de persona</label>
+                                        <input class="form-control" id="TIPO_DE_PERSONA" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tipo de cliente</label>
+                                        <input class="form-control" id="TIPO_CLIENTE" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Conocido como</label>
+                                        <input class="form-control" id="CONOCIDO_COMO" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Alias</label>
+                                        <input class="form-control" id="ALIAS" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Código de empresa</label>
+                                        <input class="form-control" id="CODIGO_EMPRESA" type="text" value="" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Profesión</label>
+                                        <input class="form-control" id="PROFESION" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ocupación</label>
+                                        <input class="form-control" id="OCUPACION" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>País</label>
+                                        <input class="form-control" id="PAIS" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sector económico</label>
+                                        <input class="form-control" id="SECTOR_ECONOMICO" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Actividad económica</label>
+                                        <input class="form-control" id="ACTIVIDAD_ECONOMICA" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Clase de actividad económica</label>
+                                        <input class="form-control" id="CLASE_ACTIVIDAD_ECONOMICA" type="text" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sub clase de activida económica</label>
+                                        <input class="form-control" id="SUB_ACTIVIDAD_ECONOMICA" type="text" value="" disabled>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="Telefonos">
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridTelefonos"></table>
+                            </div>
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="Direcciones">
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridDirecciones"></table>
+                            </div>
+                        </div>
+                        
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="Empleos">
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridEmpleos"></table>
+                            </div>
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="Calificacion">
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridCalificacion"></table>
+                            </div>
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+
+            </div>
+            <div class="panel-footer text-center">
+                <button class="btn btn-default form-control" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL HISTORIAL DE CALIFICACION -->
+<div id='myModalHistorialCalificacion' class='modal fade custom-width in' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Historial de Calificación
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#HistorialCalificacion" data-toggle="tab">Calificación</a></li>
+                        <li><a href="#HistorialDetalle" data-toggle="tab">Detalle de calificación</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="HistorialCalificacion">
+                            <div class="chart">
+                                <canvas id="canvasCalificacion" style="height: 300px;"></canvas>
+                            </div>
+
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="HistorialDetalle">
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridHistorialCalificacion"></table>
+                            </div>
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+
+            </div>
+            <div class="panel-footer text-center">
+                <button class="btn btn-default form-control" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--MODAL PERFIL TRANSACCIONAL -->
+<div id='myModalPerfilTransaccional' class='modal fade custom-width in' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Perfil Transaccional
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#PerfilTransaccional" data-toggle="tab">Historial Transaccional</a></li>
+                        <li><a href="#PerfilTransaccionalDetalle" data-toggle="tab">Resumen</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="PerfilTransaccional">
+                            <div class="chart">
+                                <canvas id="canvasPerfilTransaccional" style="height: 300px;"></canvas>
+                            </div>
+
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="PerfilTransaccionalDetalle">
+                            <div class="box-footer box-comments">
+                                <img class="img-circle img-sm" src="~/Content/Imagenes/warning.png">
+                                <!-- /.box-comment -->
+                                <div class="box-comment">
+                                    <div class="comment-text">
+                                        <span class="username">
+                                            <font>
+                                                <font>
+                                                    DEFINICIONES:
+                                                </font>
+                                            </font>
+                                        </span>
+                                        <font>
+                                            <font>
+                                                Se muestra a continuación los valores que componen el Perfil Transaccional:<br />
+                                                <b>LINEA DE CRÉDITO: </b> Moda de la Línea de crédito del cliente.<br />
+                                                <b>COLECTOR: </b> Moda del Colector utilizado por el cliente.<br />
+                                                <b>TIPO DE TRANSACCIÓN: </b> Moda del Tipo de Transacción efectuada por el cliente.<br />
+                                                <b>TIPO DE OPERACIÓN: </b> Moda del Tipo de Operación realizada el cliente.<br />
+                                                <b>FORMA DE PAGO: </b> Moda de la forma de pago del cliente.<br />
+                                                <b>TOTAL DE INGRESOS - VALOR PAGADO: </b> Disponibilidad del total de ingresos del cliente (Total de ingresos - Valor pagado / Total de Ingresos * 100)<br />
+                                                <b>PAGOS: </b> Cantidad de pagos acumulados por el cliente.<br />
+                                                <b>VALOR PAGADO: </b> Monto Acumulado de pagos del cliente.<br />
+                                            </font>
+                                        </font>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPerfilTransaccional"></table>
+                            </div>
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+
+            </div>
+            <div class="panel-footer text-center">
+                <button class="btn btn-default form-control" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_Telefonos"></div> @*function load_Telefonos()*@
+<div id="_Direcciones"></div> @*function load_Direcciones()*@
+<div id="_Empleos"></div> @*function load_Empleos()*@
+<div id="_Calificacion"></div> @*function load_Calificacion()*@
+

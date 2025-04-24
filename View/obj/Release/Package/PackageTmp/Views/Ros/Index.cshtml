@@ -1,0 +1,475 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+    <script src="~/Content/plugins/EditorHTML/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+
+            //=============================================
+            //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+            //=============================================
+            function load_Personas() {
+                $.ajax({
+                    url: '@Url.Action("_Personas", "Ros")',
+                    data: { ID_ROS: $("#ID").val() },
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        $("#_personas").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            function load_Operaciones() {
+                $.ajax({
+                    url: '@Url.Action("_Operaciones", "Ros")',
+                    data: { ID_ROS: $("#ID").val() },
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        $("#_operaciones").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            function load_Adjuntos() {
+                $.ajax({
+                    url: '@Url.Action("_Adjuntos", "Ros")',
+                    data: { ID_ROS: $("#ID").val() },
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        $("#_adjuntos").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+
+            //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#CODIGO_UIF").val(e.data.record.CODIGO_UIF);
+
+              //  $("#CODIGO_UIF").prop('disabled', true);
+                
+                CKEDITOR.instances.ANALISIS_CASO.setData(e.data.record.ANALISIS_CASO);
+
+                $("#FECHA_ELABORACION").val(formatDate(e.data.record.FECHA_ELABORACION, 'dd/mm/yyyy'));
+                $("#DESCRIPCION_OPERACION_REPORTADA").val(e.data.record.DESCRIPCION_OPERACION_REPORTADA);
+
+
+                //cargar pestañas ===========================================================================================
+                load_Personas();
+                load_Operaciones();
+                load_Adjuntos();
+
+                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#ros"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val("");
+
+                //$("#CODIGO_UIF").prop('disabled', false);
+
+                CKEDITOR.instances.ANALISIS_CASO.setData("");
+                $('.nav-tabs').find('li').removeClass().addClass('disabled').find("a").removeClass().addClass('disabled');
+                $('a[href="#ros"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../Ros/Remove", type: "POST", data: { id: e.data.record.ID } })
+                     .done(function (data, textStatus, jqXHR) {
+                         grid.reload();
+                         Mensajes(data.mensaje);
+                     })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            // EVENTO QUE PERMITE EXPORTAR EL ANALISIS DEL ROS A WORD
+            function ExporW() {
+                if ($("#ID").val() != '')
+                    
+                    location.href = "Ros/Exportar?ID=" + $("#ID").val();
+                else
+                    $().toastmessage('showErrorToast', "Debe guardar el documento (ROS)");
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridRos").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "ID", title: "Número ROS", sortable: true, width: 150 },
+                    { field: "CODIGO_UIF", title: "Código UIF", sortable: true },
+                    { field: "DESCRIPCION_OPERACION_REPORTADA", title: "Razón por la cual se realiza el ROS", sortable: true },
+                    { field: "FECHA_ELABORACION", title: "Fecha Elaboración", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { title: "Exportar", field: "Imprimir", width: 150, align: 'center' },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "Imprimir") {
+                    $wrapper.html('<a title="PDF" href="../Ros/Reporte?idRos=' + record.ID +
+                                  '&formato=PDF" target="_blank">' + '<span class="fa  fa-file-pdf-o btn bg-red"></span></a> ' +
+                                  '<a title="WORD" href="../Ros/Reporte?idRos=' + record.ID +
+                                  '&formato=WORD" download>' + '<span class="fa  fa-file-word-o btn bg-blue"></span></a> ' 
+                                  //+
+                                  //'<a title="EXCEL" href="../Ros/Reporte?idRos=' + record.ID +
+                                  //'&formato=EXCEL" download>' + '<span class="fa  fa-file-excel-o btn bg-green"></span></a>'
+                                  );
+                }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+            $("#btnBuscar").on("click", Search);
+            $("#btnGuardarWord").on("click", ExporW);
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formRos').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    @*CODIGO_UIF: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            remote: {
+                                url: '../Ros/ValidaCodUIF',
+                                type: 'POST',
+                                delay: 2000
+                            }
+                        }
+
+                    },*@
+                    DESCRIPCION_OPERACION_REPORTADA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    FECHA_ELABORACION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    }
+
+
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    for (instance in CKEDITOR.instances) {
+                        CKEDITOR.instances[instance].updateElement();
+                    }
+
+                    //Envio de datos
+                    $.ajax({
+                        url: $form.attr('action'),
+                        type: "POST",
+                        data:  $form.serialize(),
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            Mensajes(data.mensaje);
+                            if (data.ID != null && data.ID != 0) {
+                                $("#ID").val(data.ID);
+                                $("#formRos").formValidation('resetForm'); // Elimina las clases de validacion
+
+                                //cargar pestañas ===================================================================================
+                                load_Personas();
+                                load_Operaciones();
+                                load_Adjuntos();
+
+                                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                                $('a[href="#ros"]').tab('show');// Activar pestaña
+                            }
+                            $("#myModal").modal("hide");
+                            grid.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                        }
+                    });
+
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formRos').trigger("reset"); // Resetea los valores de todos campos
+                $("#formRos").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+
+
+            //PERMITE VALIDAR LOS CAMPOS DE TIPO FECHA CUANDO CAMBIA SU VALOR
+            $(".dpicker").change(function () {
+                $('#formRos').formValidation('revalidateField', 'FECHA_ELABORACION');
+            });
+          
+
+        });
+
+     
+   
+    </script>
+}
+
+
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        REPORTE DE OPERACIONES SOSPECHOSAS (ROS)
+        <small>MONITOREO</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridRos" data-source="@Url.Action("GetRos")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade ' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                REPORTE DE OPERACIONES SOSPECHOSAS (ROS)
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#ros" data-toggle="tab">Datos generales de Ros</a></li>
+                        <li><a href="#personas" data-toggle="tab">Individuo Objeto de Ros</a></li>
+                        <li><a href="#operaciones" data-toggle="tab">Operacion Objeto de Ros</a></li>
+                        <li><a href="#adjuntos" data-toggle="tab">Documentos Adjuntos</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="ros">
+                            <form id="formRos" action="/Ros/Save" method="post">
+
+                                <input id="ID" type="hidden" name="ID" value="">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group ">
+                                            <label for="FECHA_ELABORACION">Fecha de Elaboración</label>
+                                            <input class="form-control dpicker col-md-3" id="FECHA_ELABORACION" name="FECHA_ELABORACION" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group ">
+                                            <label for="CODIGO_UIF">Número UIF:</label>
+                                            <input class="form-control" id="CODIGO_UIF" name="CODIGO_UIF" type="text" maxlength="50">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="DESCRIPCION_OPERACION_REPORTADA">Razón por la cual se realiza el ROS</label>
+                                            <textarea class="form-control" id="DESCRIPCION_OPERACION_REPORTADA" name="DESCRIPCION_OPERACION_REPORTADA" rows="4"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-primary collapsed-box box-solid">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">ANALISIS</h3>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div><!-- /.box-tools -->
+                                            </div>
+                                            <div class="box-body">
+                                                <textarea id="ANALISIS_CASO" name="ANALISIS_CASO" class="ckeditor"></textarea>
+
+
+                                                <br />
+                                                <input type="button" name="btnGuardarWord" id="btnGuardarWord" value="Exportar Word"  class="btn btn-primary" />
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                    <input type="submit" name="btnGuardar" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                </div>
+
+                            </form>
+                        </div>
+
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="personas">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonas" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonas"></table>
+                            </div>
+
+                        </div>
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="operaciones">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarOperaciones" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridOperaciones"></table>
+                            </div>
+
+                        </div>
+
+
+                        <div class="tab-pane" id="adjuntos">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarAdjuntos" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridAdjuntos"></table>
+                            </div>
+
+                        </div>
+
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_personas"></div>
+<div id="_operaciones"></div>
+<div id="_adjuntos"></div>

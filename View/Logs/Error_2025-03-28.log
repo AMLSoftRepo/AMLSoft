@@ -1,0 +1,384 @@
+
+ ================= 2025-03-28 08:42:05,753 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 08:42:05,783 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Linq.Enumerable.Select[TSource,TResult](IEnumerable`1 source, Func`2 selector)
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 218 
+  
+
+ ================= 2025-03-28 09:17:39,218 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 09:17:39,254 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Linq.Enumerable.Select[TSource,TResult](IEnumerable`1 source, Func`2 selector)
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 218 
+  
+
+ ================= 2025-03-28 09:21:37,667 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 09:21:56,893 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 09:22:06,549 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 09:23:01,061 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 09:33:57,681 ============== 
+ ERROR Blo.GenericBlo`1 
+ System.IO.IOException: El proceso no puede obtener acceso al archivo 'C:\Antilavado SQL SERVER\fsv_mvc\View\Plantillas\RespuestaOficio.docx' porque está siendo utilizado en otro proceso.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   en Novacode.DocX.Load(String filename)
+   en Blo.Monitoreo.OficioBlo.ImprimirOficio(Int64 id, String path) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Monitoreo\OficioBlo.cs:línea 150 
+  
+
+ ================= 2025-03-28 09:33:57,711 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al imprimir oficio ---> System.IO.IOException: El proceso no puede obtener acceso al archivo 'C:\Antilavado SQL SERVER\fsv_mvc\View\Plantillas\RespuestaOficio.docx' porque está siendo utilizado en otro proceso.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   en Novacode.DocX.Load(String filename)
+   en Blo.Monitoreo.OficioBlo.ImprimirOficio(Int64 id, String path) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Monitoreo\OficioBlo.cs:línea 150
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Blo.Monitoreo.OficioBlo.ImprimirOficio(Int64 id, String path) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Monitoreo\OficioBlo.cs:línea 216
+   en View.Controllers.Monitoreo.OficioController.ImprimirOficio(Int32 id) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\OficioController.cs:línea 166 
+  
+
+ ================= 2025-03-28 14:26:55,895 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-28 14:44:28,727 ============== 
+ ERROR View.Controllers.BaseController 
+ System.InvalidOperationException: The specified cast from a materialized 'System.Int64' type to the 'System.Decimal' type is not valid.
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en View.Controllers.Monitoreo.RosController.GetDetpMuniUrbanizacion(Int32 pais, Int32 depto, Int32 municipio) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 512 
+  
+
+ ================= 2025-03-28 14:53:42,290 ============== 
+ ERROR View.Controllers.BaseController 
+ System.InvalidOperationException: The specified cast from a materialized 'System.Int64' type to the 'System.Decimal' type is not valid.
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en View.Controllers.Monitoreo.RosController.GetDetpMuniUrbanizacion(Decimal pais, Decimal depto, Decimal municipio) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 512 
+  
+
+ ================= 2025-03-28 15:01:09,336 ============== 
+ ERROR View.Controllers.BaseController 
+ System.InvalidOperationException: The specified cast from a materialized 'System.Int64' type to the 'System.Decimal' type is not valid.
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en View.Controllers.Monitoreo.RosController.GetDetpMuniUrbanizacion(Decimal pais, Decimal depto, Decimal municipio) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 513 
+  
+
+ ================= 2025-03-28 15:10:45,840 ============== 
+ ERROR View.Controllers.BaseController 
+ System.InvalidOperationException: The specified cast from a materialized 'System.Int64' type to the 'System.Decimal' type is not valid.
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en View.Controllers.Monitoreo.RosController.GetDetpMuniUrbanizacion(Decimal pais, Decimal depto, Decimal municipio) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 522 
+  
+
+ ================= 2025-03-28 15:48:39,041 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteTransacciones  - System.NotSupportedException: The entity or complex type 'Model.VIEW_TRANSACCIONES' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1392 
+  
+
+ ================= 2025-03-28 15:48:39,093 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteTransacciones  - System.Exception: Error en generar reporte de : ReporteTransacciones
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1417
+   en Blo.Reportes.ReportesBlo.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 907 
+  
+
+ ================= 2025-03-28 15:51:47,560 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteTransacciones  - System.NotSupportedException: The entity or complex type 'Model.VIEW_TRANSACCIONES' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1392 
+  
+
+ ================= 2025-03-28 15:51:47,593 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteTransacciones  - System.Exception: Error en generar reporte de : ReporteTransacciones
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1417
+   en Blo.Reportes.ReportesBlo.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 907 
+  
+
+ ================= 2025-03-28 16:21:39,092 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteTransacciones  - System.NotSupportedException: The entity or complex type 'Model.VIEW_TRANSACCIONES' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1392 
+  
+
+ ================= 2025-03-28 16:21:39,137 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteTransacciones  - System.Exception: Error en generar reporte de : ReporteTransacciones
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1417
+   en Blo.Reportes.ReportesBlo.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 907 
+  
+
+ ================= 2025-03-28 16:32:29,952 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteTransacciones  - System.NotSupportedException: The entity or complex type 'Model.VIEW_TRANSACCIONES' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1399 
+  
+
+ ================= 2025-03-28 16:32:29,991 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteTransacciones  - System.Exception: Error en generar reporte de : ReporteTransacciones
+   en Dao.Reportes.ReportesDao.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1425
+   en Blo.Reportes.ReportesBlo.ReporteTransacciones(String fechaInicial, String fechaFinal) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 907 
+  

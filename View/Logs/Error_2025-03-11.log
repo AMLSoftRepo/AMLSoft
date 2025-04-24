@@ -1,0 +1,540 @@
+
+ ================= 2025-03-11 13:13:50,864 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptMatriz.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 13:13:50,950 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptMatriz
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Matriz.MatrizController.Reporte(Int64 id, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Matriz\MatrizController.cs:línea 108 
+  
+
+ ================= 2025-03-11 13:16:43,133 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptMatriz.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 13:16:43,181 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptMatriz
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Matriz.MatrizController.Reporte(Int64 id, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Matriz\MatrizController.cs:línea 108 
+  
+
+ ================= 2025-03-11 13:18:32,359 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptRos.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 13:18:32,403 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptRos
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 883 
+  
+
+ ================= 2025-03-11 13:27:42,330 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptListaPEPDetalle.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 13:27:42,401 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptListaPEPDetalle
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptListaPEPDetalleController.Reporte(Int32 idPEP, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaPEPDetalleController.cs:línea 55 
+  
+
+ ================= 2025-03-11 13:39:47,333 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptMatriz.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 13:39:47,439 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptMatriz
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Matriz.MatrizController.Reporte(Int64 id, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Matriz\MatrizController.cs:línea 108 
+  
+
+ ================= 2025-03-11 14:14:11,598 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptMatriz.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 14:14:11,641 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptMatriz
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Matriz.MatrizController.Reporte(Int64 id, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Matriz\MatrizController.cs:línea 108 
+  
+
+ ================= 2025-03-11 14:21:18,141 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 14:21:18,211 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 14:27:05,929 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 14:27:05,975 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 15:25:24,928 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: An unexpected error occurred in Report Processing. ---> System.IO.FileNotFoundException: No se puede cargar el archivo o ensamblado 'Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91' ni una de sus dependencias. El sistema no puede encontrar el archivo especificado.
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(Object obj, Boolean verify, Boolean assertOnInvalidType)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.ExpressionInfo.Serialize(IntermediateFormatWriter writer)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.Write(IPersistable persistableObj, Boolean verify)
+   en Microsoft.ReportingServices.ReportIntermediateFormat.Persistence.IntermediateFormatWriter.WriteVariantOrPersistable(Object obj)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateHashForCachedDataSets()
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 15:25:24,996 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 15:44:38,138 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 15:44:38,202 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 15:47:54,299 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 15:47:54,341 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 15:50:38,285 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 15:50:38,343 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 15:58:54,590 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 15:58:54,643 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 16:19:18,032 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 16:19:18,083 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 16:52:59,776 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 16:52:59,823 ============== 
+ ERROR View.Controllers.BaseController 
+ Error al generar el reporte: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000 - StackTrace:    en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2025-03-11 17:02:04,767 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  
+
+ ================= 2025-03-11 17:26:47,267 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: An error occurred during local report processing. ---> Microsoft.Reporting.DefinitionInvalidException: The definition of the report 'C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc' is invalid. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: The report definition is not valid or supported by this version of Reporting Services. This could be the result of publishing a report definition of a later version of Reporting Services, or that the report definition contains XML that is not well-formed or the XML is not valid based on the Report Definition schema. Details: The report definition has an invalid target namespace 'http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition' which cannot be upgraded.
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateInvalidReportDefinitionException(Exception e)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.Phase1(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, Boolean& hasExternalImages, Boolean& hasHyperlinks)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.InternalCreateIntermediateFormat(Stream definitionStream, RdlUpgradeState upgradeState, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportPublishing.ReportPublishing.CreateIntermediateFormat(Byte[] definition, String& description, String& language, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CompileOdpReport(PublishingContext reportPublishingContext, IDataProtection dataProtection, PublishingErrorContext errorContext, String& reportDescription, String& reportLanguage, ParameterInfoCollection& parameters, DataSourceInfoCollection& dataSources, DataSetInfoCollection& sharedDataSetReferences, UserLocationFlags& userReferenceLocation, ArrayList& dataSetsName, Boolean& hasExternalImages, Boolean& hasHyperlinks, Byte[]& dataSetsHash)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.CreateIntermediateFormat(PublishingContext reportPublishingContext, IDataProtection dataProtection)
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.ReportCompiler.CompileReport(ICatalogItemContext context, Byte[] reportDefinition, Boolean generateExpressionHostWithRefusedPermissions, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.GetCompiledReport(PreviewItemContext itemContext, Boolean rebuild, ControlSnapshot& snapshot)
+   en Microsoft.Reporting.LocalService.CompileReport()
+   en Microsoft.Reporting.LocalService.Microsoft.Reporting.ILocalProcessingHost.CompileReport()
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.EnsureExecutionSession()
+   en Microsoft.Reporting.WebForms.LocalReport.SetParameters(IEnumerable`1 parameters)
+   en Microsoft.Reporting.WebForms.Report.SetParameters(ReportParameter parameter)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 177 
+  

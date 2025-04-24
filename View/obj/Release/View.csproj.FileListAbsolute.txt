@@ -1,0 +1,126 @@
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\View.dll.config
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\View.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\View.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Antlr3.Runtime.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Blo.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\EntityFramework.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\EntityFramework.SqlServer.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\hbehr.AdAuthentication.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\log4net.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Model.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Newtonsoft.Json.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.Web.Common.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.Web.Mvc.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\ReportViewerForMvc.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Helpers.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Mvc.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Optimization.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Razor.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.Razor.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\WebActivatorEx.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\WebGrease.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Dao.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Blo.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Model.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\EntityFramework.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\EntityFramework.SqlServer.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\log4net.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.Web.Common.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Ninject.Web.Mvc.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Helpers.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Mvc.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Optimization.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.Razor.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\System.Web.WebPages.Razor.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Antlr3.Runtime.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Newtonsoft.Json.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\Dao.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.Razor.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\obj\Release\View.csprojResolveAssemblyReference.cache
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\obj\Release\View.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\obj\Release\View.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\DocX.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\obj\Release\RdlCompile.cache
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\obj\Release\RdlCompile.compiled
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\DocumentFormat.OpenXml.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\MariGold.HtmlParser.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\bin\MariGold.OpenXHTML.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\View.dll.config
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\View.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\View.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Antlr3.Runtime.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Blo.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\DocumentFormat.OpenXml.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\DocX.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\EntityFramework.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\EntityFramework.SqlServer.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\hbehr.AdAuthentication.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\log4net.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\MariGold.HtmlParser.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\MariGold.OpenXHTML.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Model.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Newtonsoft.Json.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.Web.Common.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.Web.Mvc.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\ReportViewerForMvc.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Helpers.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Mvc.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Optimization.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Razor.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.Deployment.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.Razor.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\WebActivatorEx.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\WebGrease.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Dao.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Blo.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Model.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\EntityFramework.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\EntityFramework.SqlServer.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\log4net.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Newtonsoft.Json.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.Web.Common.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Ninject.Web.Mvc.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Helpers.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Mvc.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Razor.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.Deployment.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.WebPages.Razor.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\System.Web.Optimization.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Antlr3.Runtime.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\Dao.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.Helpers.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.Mvc.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.Razor.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.WebPages.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\bin\es\System.Web.Optimization.resources.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\obj\Release\View.csprojResolveAssemblyReference.cache
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\obj\Release\RdlCompile.cache
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\obj\Release\RdlCompile.compiled
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\obj\Release\View.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\View\obj\Release\View.pdb

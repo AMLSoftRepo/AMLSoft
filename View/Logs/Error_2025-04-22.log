@@ -1,0 +1,164 @@
+
+ ================= 2025-04-22 08:10:44,447 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-22 08:11:22,489 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-22 08:13:38,752 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteTransaccionesCliente  - System.NotSupportedException: The entity or complex type 'Model.VIEW_TRANSACCIONES' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteTransaccionesCliente(String FECHA_INI_T, String FECHA_FIN_T, Decimal codigoCliente, String NOMBRE_T) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1272 
+  
+
+ ================= 2025-04-22 08:13:38,779 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteTransaccionesCliente  - System.Exception: Error en generar reporte de : ReporteTransaccionesCliente
+   en Dao.Reportes.ReportesDao.ReporteTransaccionesCliente(String FECHA_INI_T, String FECHA_FIN_T, Decimal codigoCliente, String NOMBRE_T) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1299
+   en Blo.Reportes.ReportesBlo.ReporteTransaccionesCliente(String FECHA_INI_T, String FECHA_FIN_T, Decimal codigoCliente, String NOMBRE_T) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 787 
+  
+
+ ================= 2025-04-22 14:24:09,423 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaOficio  - System.NotSupportedException: The entity or complex type 'Model.MON_OFICIO_PERSONA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1147 
+  
+
+ ================= 2025-04-22 14:24:09,461 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaOficio  - System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1177
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 703 
+  
+
+ ================= 2025-04-22 14:24:09,484 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 708
+   en View.Controllers.Reportes.RptListaOficioController.Reporte(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaOficioController.cs:línea 53 
+  
+
+ ================= 2025-04-22 16:58:51,642 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaPersonalizada  - System.NotSupportedException: The entity or complex type 'Model.LIS_PERSONALIZADA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 793 
+  
+
+ ================= 2025-04-22 16:58:51,700 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaPersonalizada  - System.Exception: Error en generar reporte de : ReporteListaPersonalizada
+   en Dao.Reportes.ReportesDao.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 816
+   en Blo.Reportes.ReportesBlo.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 523 
+  
+
+ ================= 2025-04-22 16:58:51,720 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaPersonalizada
+   en Blo.Reportes.ReportesBlo.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 528
+   en View.Controllers.Reportes.RptListaPersonalizadaController.Reporte(Int32 idLista, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaPersonalizadaController.cs:línea 54 
+  

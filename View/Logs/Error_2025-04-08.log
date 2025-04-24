@@ -1,0 +1,312 @@
+
+ ================= 2025-04-08 11:00:15,621 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-08 11:00:15,647 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Linq.Enumerable.Select[TSource,TResult](IEnumerable`1 source, Func`2 selector)
+   en System.Linq.Enumerable.Sum[TSource](IEnumerable`1 source, Func`2 selector)
+   en View.Controllers.Reportes.ResumenClienteController.Reporte(Int32 codigoCliente, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\ResumenClienteController.cs:línea 409 
+  
+
+ ================= 2025-04-08 11:19:18,515 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-08 13:40:20,517 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.NotSupportedException: The entity or complex type 'Model.MON_ROS_OPERACION' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1937 
+  
+
+ ================= 2025-04-08 13:40:20,558 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1966
+   en Blo.Reportes.ReportesBlo.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1085 
+  
+
+ ================= 2025-04-08 13:40:20,575 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1090
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 880 
+  
+
+ ================= 2025-04-08 14:00:44,325 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.NotSupportedException: The entity or complex type 'Model.MON_ROS_OPERACION' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1939 
+  
+
+ ================= 2025-04-08 14:00:44,363 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1968
+   en Blo.Reportes.ReportesBlo.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1085 
+  
+
+ ================= 2025-04-08 14:00:44,385 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.operacionRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1090
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 880 
+  
+
+ ================= 2025-04-08 14:42:13,085 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1883 
+  
+
+ ================= 2025-04-08 14:42:13,127 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1947
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-08 14:42:13,152 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-08 14:47:29,681 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1883 
+  
+
+ ================= 2025-04-08 14:47:29,728 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1947
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-08 14:47:29,757 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-08 15:01:08,618 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-08 15:01:08,655 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1948
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-08 15:01:08,678 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-08 15:18:41,050 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-08 15:18:41,102 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1948
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-08 15:18:41,136 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-08 15:49:33,141 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-08 16:04:54,075 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-08 16:04:54,102 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1948
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-08 16:04:54,125 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-08 16:28:23,446 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-04-08 16:43:40,411 ============== 
+ ERROR View.Controllers.BaseController 
+ System.IO.FileNotFoundException: El archivo del reporte no existe en la ruta: C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\RptListaPaises.rpt
+   en View.Controllers.BaseController.VerReporte(String nombreReporte, String formato, Dictionary`2 parametros, DataTable dtReporte, String nombreTabla) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 225 
+  
+
+ ================= 2025-04-08 16:43:40,478 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptListaPaises
+   en View.Controllers.BaseController.VerReporte(String nombreReporte, String formato, Dictionary`2 parametros, DataTable dtReporte, String nombreTabla) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 281
+   en View.Controllers.Listas.PaisGrupoController.Reporte(String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Listas\PaisGrupoController.cs:línea 144 
+  

@@ -1,0 +1,287 @@
+
+ ================= 2025-04-07 09:45:19,472 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1635 
+  
+
+ ================= 2025-04-07 09:45:19,527 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1683
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1001 
+  
+
+ ================= 2025-04-07 09:45:19,549 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1006
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 89 
+  
+
+ ================= 2025-04-07 10:25:52,424 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1635 
+  
+
+ ================= 2025-04-07 10:25:52,466 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1683
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1001 
+  
+
+ ================= 2025-04-07 10:25:52,489 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1006
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 89 
+  
+
+ ================= 2025-04-07 11:05:43,306 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1635 
+  
+
+ ================= 2025-04-07 11:05:43,346 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1683
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1001 
+  
+
+ ================= 2025-04-07 11:05:43,367 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1006
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 89 
+  
+
+ ================= 2025-04-07 13:18:23,022 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1635 
+  
+
+ ================= 2025-04-07 13:18:23,064 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1683
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1001 
+  
+
+ ================= 2025-04-07 13:18:23,088 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1006
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 89 
+  
+
+ ================= 2025-04-07 13:37:08,478 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1635 
+  
+
+ ================= 2025-04-07 13:37:08,526 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1683
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1001 
+  
+
+ ================= 2025-04-07 13:37:08,556 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteClienteOperacionesDiariasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteClienteOperacionesDiariasIgualesSuperioresA10000(Decimal codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1006
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 89 
+  
+
+ ================= 2025-04-07 14:04:11,216 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: La matriz de entrada es más larga que el número de columnas en esta tabla.
+   en System.Data.DataTable.NewRecordFromArray(Object[] value)
+   en System.Data.DataRowCollection.Add(Object[] values)
+   en View.Controllers.Reportes.RptOperacionesDiariasController.Reporte(Decimal codigoCliente, String secuencia, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesDiariasController.cs:línea 183 
+  
+
+ ================= 2025-04-07 17:16:06,139 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteOperacionesAcumuladasIgualesSuperioresA10000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_CLIENTE' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteOperacionesAcumuladasIgualesSuperioresA10000(Decimal codigoCliente, Int32 totalPagos, Decimal monto) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1553 
+  
+
+ ================= 2025-04-07 17:16:06,189 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteOperacionesAcumuladasIgualesSuperioresA10000  - System.Exception: Error en generar reporte de : ReporteOperacionesAcumuladasIgualesSuperioresA10000
+   en Dao.Reportes.ReportesDao.ReporteOperacionesAcumuladasIgualesSuperioresA10000(Decimal codigoCliente, Int32 totalPagos, Decimal monto) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1602
+   en Blo.Reportes.ReportesBlo.ReporteOperacionesAcumuladasIgualesSuperioresA10000(Decimal codigoCliente, Int32 totalPagos, Decimal monto) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 981 
+  
+
+ ================= 2025-04-07 17:16:06,212 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteOperacionesAcumuladasIgualesSuperioresA10000
+   en Blo.Reportes.ReportesBlo.ReporteOperacionesAcumuladasIgualesSuperioresA10000(Decimal codigoCliente, Int32 totalPagos, Decimal monto) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 986
+   en View.Controllers.Reportes.RptOperacionesAcumuladasController.Reporte(Int64 codigoCliente, Int32 totalPagos, Decimal monto, Int32 mes, String anio, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptOperacionesAcumuladasController.cs:línea 78 
+  
+
+ ================= 2025-04-07 17:22:26,536 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  

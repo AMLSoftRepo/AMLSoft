@@ -1,0 +1,29 @@
+
+ ================= 2025-01-29 15:56:27,998 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de opciones por perfil 
+ System.Data.Entity.Core.MappingException: The type 'Edm.Decimal' of the member 'CODIGO_PAIS' in the conceptual side type 'Model.VIEW_PAISNACIONALIDAD' does not match with the type 'System.Int64' of the member 'CODIGO_PAIS' on the object side type 'Model.VIEW_PAISNACIONALIDAD'.
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.ValidateMembersMatch(EdmMember edmMember, EdmMember objectMember)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadEntityTypeOrComplexTypeMapping(ObjectTypeMapping objectMapping, EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType cdmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, Boolean ignoreCase, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetEdmSpaceType[T](T objectSpaceType, T& edmSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType[T](T objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.UpdateEntitySetMappings()
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.TryUpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.UpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   en System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   en System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   en System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   en System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   en Dao.Seguridad.AccesoUsuarioDao.GetOpcionesxPerfil(Int32 rol) en C:\Users\Ashly Ramos\OneDrive\Documentos\fsv_mvc\Dao\Seguridad\AccesoUsuarioDao.cs:línea 24
+ 
+
+ ================= 2025-01-29 15:56:28,083 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: No tiene opciones asignadas a su perfil
+   en View.Controllers.Seguridad.LoginController.LoadMenu(Int32 perfil) en C:\Users\Ashly Ramos\OneDrive\Documentos\fsv_mvc\View\Controllers\Seguridad\LoginController.cs:línea 72 
+  

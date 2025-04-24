@@ -1,0 +1,196 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function limpiar() {
+                $('#formReporte').trigger("reset"); // Resetea los valores de todos campos
+                $("#formReporte").formValidation('resetForm'); // Elimina las clases de validacion
+            }
+
+            $("#btnLimpiar").on("click", limpiar);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formReporte').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    fechaInicial: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+                                    var i = value.split('/');
+                                    var f = $('#fechaFinal').val().split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (fini > ffin) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha inicial no debe ser mayor a la fecha final'
+                                        }
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        }
+                    },
+                    fechaFinal: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+
+                                    var i = $('#fechaInicial').val().split('/');
+                                    var f = value.split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (ffin < fini) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha final no debe ser menor a la fecha inicial'
+                                        }
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .on('success.form.fv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+
+                var tipoReporte = $("#tipoReporte").val();
+                var fechaInicial = $("#fechaInicial").val();
+                var fechaFinal = $("#fechaFinal").val();
+                var formato = $("#formato").val().toLowerCase(); // PDF, EXCEL o WORD
+
+                var url = "@Url.Action("__placeholder__", "RptPagos")"
+                    .replace("__placeholder__", tipoReporte) + 
+                    "?fechaInicial=" + encodeURIComponent(fechaInicial) +
+                    "&fechaFinal=" + encodeURIComponent(fechaFinal) +
+                    "&formato=" + encodeURIComponent(formato);
+
+                if (formato === "pdf") {
+                    window.open(url, '_blank'); // Abre el reporte en una nueva pestaña si es PDF
+                } else {
+                     location.href = url; // Descarga si es Excel o Word
+                }
+            });
+
+            // Datepickers
+            $('#fechaInicial').datetimepicker({ format: 'd/m/Y', timepicker: false });
+            $('#fechaFinal').datetimepicker({ format: 'd/m/Y', timepicker: false });
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PAGOS
+        <small>REPORTES</small>
+    </h1>
+</section>
+
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-success" style="margin-bottom:0;">
+    </div><!-- /.box -->
+    <br />
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+
+            <!-- FORMULARIO -->
+            <form id="formReporte">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">...</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Reporte</label><br />
+                            <select id="tipoReporte" name="tipoReporte" class="form-control">
+                                <option value="PagosDiariosIgualesSuperiores571_5000">Pagos diarios entre $571.43 y $5,000</option>
+                                <option value="PagosDiariosIgualesSuperioresA5000">Pagos diarios iguales o mayores a $5,000</option>
+                                <option value="PagosDiariosIgualesSuperioresA10000">Pagos diarios iguales o mayores a $10,000</option>
+                                <option value="PagosAcumuladosIgualesSuperioresA10000">Pagos acumulados iguales o mayores a $10,000</option>
+                                <option value="PagosDiariosIgualesSuperioresA25000">Pagos diarios iguales o mayores a $25,000</option>
+                                <option value="PagosAcumuladosIgualesSuperioresA25000">Pagos acumulados iguales o mayores a $25,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha inicial</label>
+                            <input class="form-control dpicker" id="fechaInicial" name="fechaInicial" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha final</label>
+                            <input class="form-control dpicker" id="fechaFinal" name="fechaFinal" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Formato a exportar</label><br />
+                            <select id="formato" name="formato" class="form-control">
+                                <option value="PDF">PDF -- (vista previa)</option>
+                                <option value="EXCEL">Excel  -- (descargar)</option>
+                                <option value="WORD">Word -- (descargar)</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer text-right">
+                        <button type="button" id="btnLimpiar" class="btn btn-default">@PropertiesBlo.btnReporteLimpiar</button>
+                        <input type="submit" id="btnGenerar" value="@PropertiesBlo.btnReporteGenerar" class="btn btn-success">
+                    </div>
+
+
+                </div>
+            </form>
+            <!-- /.FORMULARIO -->
+
+
+        </div>
+    </div>
+
+</section><!-- /.content -->

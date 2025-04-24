@@ -1,0 +1,640 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        editando = false;
+
+        //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+        function EditPersonas(e) {
+
+            editando = true;
+
+            $("#ID_PERSONAS").val(e.data.record.ID);
+            $("#PRIMER_NOMBRE").val(e.data.record.PRIMER_NOMBRE);
+            $("#SEGUNDO_NOMBRE").val(e.data.record.SEGUNDO_NOMBRE);
+            $("#PRIMER_APELLIDO").val(e.data.record.PRIMER_APELLIDO);
+            $("#SEGUNDO_APELLIDO").val(e.data.record.SEGUNDO_APELLIDO);
+            $("#APELLIDO_CASADA").val(e.data.record.APELLIDO_CASADA);
+            $('[name=TIPO_PERSONA][value=' + e.data.record.TIPO_PERSONA + ']').prop('checked', true);
+            $('[name=GENERO][value=' + e.data.record.GENERO + ']').prop('checked', true);
+            $('[name=RELACION_CON_SO][value=' + e.data.record.RELACION_CON_SO + ']').prop('checked', true);
+            $("#FECHA_NACIMIENTO").val(formatDate(e.data.record.FECHA_NACIMIENTO, 'dd/mm/yyyy'));
+            $("#ID_NACIONALIDAD").val(e.data.record.ID_NACIONALIDAD);
+            $("#ID_NACIONALIDAD").change();
+
+            GetDetpMuniUrbanizacion(e.data.record.ID_PAIS, e.data.record.ID_DEPARTAMENTO, e.data.record.ID_MUNICIPIO, e.data.record.ID_URBANIZACION);
+
+            //pais, depto,municipio
+            $("#DIRECCION_ESPECIFICA").val(e.data.record.DIRECCION_ESPECIFICA);
+            $("#ID_TIPO_DOCUMENTO").val(e.data.record.ID_TIPO_DOCUMENTO);
+            $("#ID_TIPO_DOCUMENTO").change();
+            $("#NUMERO_DOCUMENTO").val(e.data.record.NUMERO_DOCUMENTO);
+            $("#ID_ESTADO_FAMILIAR").val(e.data.record.ID_ESTADO_FAMILIAR);
+            $("#ID_ESTADO_FAMILIAR").change();
+            $("#ID_ACTIVIDAD_ECONOMICA").val(e.data.record.ID_ACTIVIDAD_ECONOMICA);
+            $("#ID_ACTIVIDAD_ECONOMICA").change();
+            $("#ID_PROFESION").val(e.data.record.ID_PROFESION);
+            $("#ID_PROFESION").change();
+            $("#myModalPersonas").modal("show");
+        }
+
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddPersonas() {
+            $("#ID_PERSONAS").val(""); //campos ocultos
+
+            $("#ID_PAIS").val("");
+            $("#ID_PAIS").change();
+
+            $("#ID_DEPARTAMENTO").empty();
+            $("#ID_MUNICIPIO").empty();
+            $("#ID_URBANIZACION").empty();
+
+            $("#ID_NACIONALIDAD").val("");
+            $("#ID_NACIONALIDAD").change();
+            $("#ID_TIPO_DOCUMENTO").val("");
+            $("#ID_TIPO_DOCUMENTO").change();
+            $("#ID_ESTADO_FAMILIAR").val("");
+            $("#ID_ESTADO_FAMILIAR").change();
+            $("#ID_ACTIVIDAD_ECONOMICA").val("");
+            $("#ID_ACTIVIDAD_ECONOMICA").change();
+            $("#ID_PROFESION").val("");
+            $("#ID_PROFESION").change();
+
+            $("#myModalPersonas").modal("show");
+        }
+
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemovePersonas(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Ros/RemovePersonas", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridPersonas.clear();
+                      gridPersonas.reload({ ID_ROS: $("#ID_ROS_PERSONA").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonas = $("#gridPersonas").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonas")",
+            autoLoad: false,
+            columns: [
+                      { tmpl: '{PRIMER_NOMBRE} {SEGUNDO_NOMBRE} {PRIMER_APELLIDO} {SEGUNDO_APELLIDO} {APELLIDO_CASADA}', title: "Nombre", sortable: true, width: 150 },
+                      { field: "NACIONALIDAD", title: "Nacionalidad", sortable: true, width: 100 },
+                      { field: "PAIS", title: "País", sortable: true, width: 100 },
+                      { field: "DEPARTAMENTO", title: "Departamento", sortable: true, width: 100 },
+                      { field: "MUNICIPIO", title: "Municipio", sortable: true, width: 100 },
+                      { field: "TIPO_DOCUMENTO", title: "Tipo documento", sortable: true, width: 120 },
+                      { field: "NUMERO_DOCUMENTO", title: "Número documento", sortable: true, width: 120 },
+                      { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonas } },
+                      { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemovePersonas } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        //gridPersonas.on("cellDataBound", function (e, $wrapper, id, column, record) {
+        //    if (column.field == "ENCONTRO_INFO") {
+        //        if (record.ENCONTRO_INFO == "1")
+        //            $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+        //        else
+        //            $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+        //    }
+        //});
+
+
+        gridPersonas.clear();
+        gridPersonas.reload({ page: 1, ID_ROS: $("#ID_ROS_PERSONA").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarPersonas").off();
+        $("#btnAgregarPersonas").on("click", AddPersonas);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonas').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                PRIMER_NOMBRE: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                PRIMER_APELLIDO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_TIPO_DOCUMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                NUMERO_DOCUMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_NACIONALIDAD: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_PAIS: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_NACIONALIDAD: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_DEPARTAMENTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_MUNICIPIO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },@*,
+                ID_URBANIZACION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },*@
+                DIRECCION_ESPECIFICA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_ACTIVIDAD_ECONOMICA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalPersonas").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridPersonas.clear();
+                 gridPersonas.reload({ ID_ROS: $("#ID_ROS_PERSONA").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalPersonas").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalPersonas').on('hide.bs.modal', function () {
+            $('#formPersonas').trigger("reset"); // Resetea los valores de todos campos
+            $("#formPersonas").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        //Anular ENTER en etiquetas input
+        $('textarea').keypress(function (e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+
+        $('#FECHA_NACIMIENTO').datetimepicker({
+            format: 'd/m/Y',
+            timepicker: false
+
+        });
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+
+        // DEPARTAMENTOS POR PAIS.
+        function DepartamentosXPais(pais, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("DepartamentosXPais")', { pais: pais }, function (response) {
+
+                    $("#ID_MUNICIPIO").empty();
+                    $("#ID_URBANIZACION").empty();
+                    $("#ID_DEPARTAMENTO").empty();
+                    $.each(response.departamentos, function (i, item) {
+                        $("#ID_DEPARTAMENTO").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#ID_DEPARTAMENTO").val(selectVal);
+                    $("#ID_DEPARTAMENTO").change();
+
+                }, 'json');
+            });
+        }
+
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamento(pais, depto, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("MunicipiosXDepartamento")', { pais: pais, depto: depto }, function (response) {
+
+                    $("#ID_URBANIZACION").empty();
+                    $("#ID_MUNICIPIO").empty();
+                    $.each(response.municipios, function (i, item) {
+                        $("#ID_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#ID_MUNICIPIO").val(selectVal);
+                    $("#ID_MUNICIPIO").change();
+
+                }, 'json');
+            });
+        }
+
+
+        // URBANIZACIONES POR MUNICIPIO
+        function UrbanizacionXMunicipios(pais, depto, municipio, selectVal) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("UrbanizacionXMunicipios")', { pais: pais, depto: depto, municipio: municipio }, function (response) {
+
+                    $("#ID_URBANIZACION").empty();
+                    $.each(response.urbanizaciones, function (i, item) {
+                        $("#ID_URBANIZACION").append("<option value='" + item.CODIGO_SECTOR + "'>" + item.DESCRIPCION + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#ID_URBANIZACION").val(selectVal);
+                    $("#ID_URBANIZACION").change();
+
+                }, 'json');
+            });
+        }
+
+
+        // OBTENER DEPARTAMENTO,MUNICIPIO Y URBANIZACION
+        function GetDetpMuniUrbanizacion(pais, depto, municipio, urbanizacion) {
+            Pace.ignore(function () {
+                $.post('@Url.Action("GetDetpMuniUrbanizacion")', { pais: pais, depto: depto, municipio: municipio }, function (response) {
+
+                    $("#ID_DEPARTAMENTO").empty();
+                    $("#ID_MUNICIPIO").empty();
+                    $("#ID_URBANIZACION").empty();
+
+                    $.each(response.departamentos, function (i, item) {
+                        $("#ID_DEPARTAMENTO").append("<option value='" + item.CODIGO_DEPARTAMENTO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#ID_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+
+                    $.each(response.urbanizaciones, function (i, item) {
+                        $("#ID_URBANIZACION").append("<option value='" + item.CODIGO_SECTOR + "'>" + item.DESCRIPCION + "</option>");
+                    });
+
+                    //Seleccionar valor predetermindo
+                    $("#ID_PAIS").val(pais);
+                    $("#ID_PAIS").change();
+                    $("#ID_DEPARTAMENTO").val(depto);
+                    $("#ID_DEPARTAMENTO").change();
+                    $("#ID_MUNICIPIO").val(municipio);
+                    $("#ID_MUNICIPIO").change();
+                    $("#ID_URBANIZACION").val(urbanizacion);
+                    $("#ID_URBANIZACION").change();
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#ID_PAIS").change(function () {
+            if (!editando)
+                DepartamentosXPais($(this).val(), 0);
+        });
+
+        // Anidando municipios
+        $("#ID_DEPARTAMENTO").change(function () {
+            if (!editando)
+                MunicipiosXDepartamento($("#ID_PAIS").val(), $(this).val(), 0);
+        });
+
+        // Anidando urbanizaciones
+        $("#ID_MUNICIPIO").change(function () {
+            if (!editando)
+                UrbanizacionXMunicipios($("#ID_PAIS").val(), $("#ID_DEPARTAMENTO").val(), $(this).val(), 0);
+        });
+
+
+    });
+
+</script>
+
+
+<!--MODAL-->
+<div id='myModalPersonas' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:80%">
+        <form id="formPersonas" action="/Ros/SavePersonas" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Personas Objeto del Reporte
+                </div>
+                <div class="panel-body">
+                    <!--ID_PERSONAS es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONAS" type="hidden" name="ID" value="">
+
+                    <!--ID_ROS este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_ROS" id="ID_ROS_PERSONA" value="@ViewBag.ID_ROS">
+
+                    <div class="row">
+                        <!--INFORMACION GENERAL-->
+                        <div class="col-md-6">
+                            <label class="box box-info" style="text-align:center"> Información de General</label>
+                            <!--TIPO DE PERSONA-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="TIPO_PERSONA">Tipo de Persona</label>
+                                    <div class="input-group-addon">
+                                        <fieldset style="text-align:left">
+                                            <label>
+                                                <input type="radio" name="TIPO_PERSONA" checked="checked" value="N">Natural
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="TIPO_PERSONA" value="J">Jurídica
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--GENERO-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="GENERO">Genero</label>
+                                    <div class="input-group-addon">
+                                        <fieldset style="text-align:left" title="Genero">
+                                            <label>
+                                                <input type="radio" name="GENERO" value="M">Masculino
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="GENERO" value="F">Femenino
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--SUJETO OBLIGADO-->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Relación con Sujeto Obligado.</label>
+
+                                    <div class="input-group-addon input-group-sm">
+                                        <fieldset style="text-align:left">
+                                            <label>
+                                                <input type="radio" name="RELACION_CON_SO" value="A">A) Persona Que Realiza Físicamente La Transacción.
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="radio" name="RELACION_CON_SO" value="B">B) Persona A Cuyo Nombre Se Realiza La Transacción.
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="radio" name="RELACION_CON_SO" checked="checked" value="C">C) Persona Beneficiaria O Destinataria De La Transacción.
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- LADO IZQUIERDO COLUMNA 1-->
+                            <div class="col-md-6">
+                                <!--PRIMER NOMBRE-->
+                                <div class="form-group">
+                                    <label for="PRIMER_NOMBRE">Primer Nombre</label>
+                                    <input class="form-control" id="PRIMER_NOMBRE" name="PRIMER_NOMBRE" type="text" value="" maxlength="50">
+                                </div>
+                                <!--PRIMER APELLIDO-->
+                                <div class="form-group">
+                                    <label for="PRIMER_APELLIDO">Primer Apellido</label>
+                                    <input class="form-control" id="PRIMER_APELLIDO" name="PRIMER_APELLIDO" type="text" value="" maxlength="50">
+                                </div>
+                                <!--APELLIDO DE CASADA-->
+                                <div class="form-group">
+                                    <label for="APELLIDO_CASADA">Apellido de Casada</label>
+                                    <input class="form-control" id="APELLIDO_CASADA" name="APELLIDO_CASADA" type="text" value="" maxlength="50">
+                                </div>
+                                <!--NACIONALIDAD-->
+                                <div class="form-group">
+                                    <label for="ID_NACIONALIDAD">Nacionalidad</label><br>
+                                    <select id="ID_NACIONALIDAD" name="ID_NACIONALIDAD" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                                        {
+                                            <option value=@item.CODIGO_PAIS>@item.NACIONALIDAD</option>
+                                        }
+                                    </select>
+                                </div>
+                                <!--TIPO DE DOCUMENTO-->
+                                <div class="form-group">
+                                    <label for="ID_TIPO_DOCUMENTO">Tipo de documento</label>
+                                    <select id="ID_TIPO_DOCUMENTO" name="ID_TIPO_DOCUMENTO" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_TIPO_DOCUMENTO item in (List<VIEW_TIPO_DOCUMENTO>)ViewBag.tiposDocumentos)
+                                        {
+                                            <option value=@item.CODIGO_TIPO_IDENTIFICACION>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- LADO IZQUIERDO COLUMNA 2-->
+                            <div class="col-md-6">
+                                <!--SEGUNDO NOMBRE-->
+                                <div class="form-group">
+                                    <label for="SEGUNDO_NOMBRE">Segundo Nombre </label>
+                                    <input class="form-control" id="SEGUNDO_NOMBRE" name="SEGUNDO_NOMBRE" type="text" value="" maxlength="50">
+                                </div>
+                                <!--SEGUNDO APELLIDO-->
+                                <div class="form-group">
+                                    <label for="SEGUNDO_APELLIDO">Segundo Apellido</label>
+                                    <input class="form-control" id="SEGUNDO_APELLIDO" name="SEGUNDO_APELLIDO" maxlength="50">
+                                </div>
+                                <!--FECHA DE NACIMIENTO-->
+                                <div class="form-group">
+                                    <label for="FECHA_NACIMIENTO">Fecha de Nacimiento</label>
+                                    <input class="form-control datepicker" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" type="text" value="">
+                                </div>
+                                <!--ESTADO FAMILIAR-->
+                                <div class="form-group">
+                                    <label for="ID_ESTADO_FAMILIAR">Estado Familiar</label><br>
+                                    <select id="ID_ESTADO_FAMILIAR" name="ID_ESTADO_FAMILIAR" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @*<option name="ID_ESTADO_FAMILIAR" value="S">Soltero(a)</option>
+                                        <option name="ID_ESTADO_FAMILIAR" value="C">Casado(a)</option>
+                                        <option name="ID_ESTADO_FAMILIAR" value="D">Divorciado(a)</option>
+                                        <option name="ID_ESTADO_FAMILIAR" value="U">Unión libre</option>
+                                        <option name="ID_ESTADO_FAMILIAR" value="J">Jurídica</option>*@
+                                        @foreach (VIEW_ESTADO_CIVIL item in (List<VIEW_ESTADO_CIVIL>)ViewBag.estadocivil)
+                                        {
+                                            <option value=@item.CODIGO>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                                <!--NUMERO DE DOCUMENTO-->
+                                <div class="form-group">
+                                    <label for="NUMERO_DOCUMENTO">Número de documento</label>
+                                    <input class="form-control" id="NUMERO_DOCUMENTO" name="NUMERO_DOCUMENTO" type="text" value="" maxlength="20">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!--INFORMACION DE DOMICILIO-->
+                            <label class="box box-info" style="text-align:center"> Información de Domicilio</label>
+                            <!--LADO DERECHO COLUMNA 1-->
+                            <div class="col-md-6">
+                                <!--PAIS-->
+                                <div class="form-group">
+                                    <label for="ID_PAIS">País</label><br>
+                                    <select id="ID_PAIS" name="ID_PAIS" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                                        {
+                                            <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                                        }
+                                    </select>
+                                </div>
+                                <!--MUNICIPIO-->
+                                <div class="form-group">
+                                    <label for="ID_MUNICIPIO">Municipio</label><br>
+                                    <select id="ID_MUNICIPIO" name="ID_MUNICIPIO" class="form-control select2-single"></select>
+                                </div>
+                            </div>
+                            <!--LADO DERECHO COLUMNA 2-->
+                            <div class="col-md-6">
+                                <!--DEPARTAMENTO-->
+                                <div class="form-group">
+                                    <label for="ID_DEPARTAMENTO">Departamento</label><br>
+                                    <select id="ID_DEPARTAMENTO" name="ID_DEPARTAMENTO" class="form-control select2-single"></select>
+                                </div>
+                                <!--URBANIZACION-->
+                                <div class="form-group">
+                                    <label for="ID_URBANIZACION">Colonia/Sector/Urbanización</label>
+                                    <select id="ID_URBANIZACION" name="ID_URBANIZACION" class="form-control select2-single"></select>
+                                </div>
+                            </div>
+                            <!--DIRECCION ESPECÍFICA-->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="DIRECCION_ESPECIFICA">Dirección Específica</label>
+                                    <textarea id="DIRECCION_ESPECIFICA" name="DIRECCION_ESPECIFICA" class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <!--INFORMACIÓN DE ACTIVIDAD ECONOMICA-->
+                            <label class="box box-info" style="text-align:center"> Información de Actividad Económica </label>
+                            <div class="col-md-6">
+                                <!--ACTIVIDAD ECONOMICA-->
+                                <div class="form-group">
+                                    <label for="ID_ACTIVIDAD_ECONOMICA">Actividad Económica</label>
+                                    <select id="ID_ACTIVIDAD_ECONOMICA" name="ID_ACTIVIDAD_ECONOMICA" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_ACTIVIDAD_ECONOMICA a in (List<VIEW_ACTIVIDAD_ECONOMICA>)ViewBag.actividadeconomica)
+                                        {
+                                            <option value=@a.CODIGO_ACTIVIDAD_ECONOMICA>@a.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!--PROFESIÓN-->
+                                <div class="form-group">
+                                    <label for="ID_PROFESION">Profesión</label>
+                                    <select id="ID_PROFESION" name="ID_PROFESION" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_PROFESIONES item in (List<VIEW_PROFESIONES>)ViewBag.profesiones)
+                                        {
+                                            <option value=@item.CODIGO_PROFESION>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarPersonas" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

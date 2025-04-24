@@ -1,0 +1,170 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditClientePEP(e) {
+            $("#ID_CLIENTE_PEP").val(e.data.record.ID);
+            $("#ID_PEP").val(e.data.record.ID_PEP);
+            $("#ID_PEP").change();
+            $("#DESCRIPCION_ASOCIACION").val(e.data.record.DESCRIPCION_ASOCIACION);
+            $("#modalClientePEP2").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddClientePEP() {
+            $("#ID_CLIENTE_PEP").val(""); //campos ocultos
+            $("#ID_PEP").val("");
+            $("#ID_PEP").change();
+            $("#modalClientePEP2").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveClientePEP(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../ResumenCliente/RemoveClientePEP", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridClientePEP.clear();
+                      gridClientePEP.reload({ CODIGO_CLIENTE: $("#ID_CLIENTE").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridClientePEP = $("#gridClientePEP").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 500,
+            dataSource: "@Url.Action("GetClientePEP")",
+            autoLoad: false,
+            columns: [
+                { field: "NOMBRE", title: "Nombre de PEP", width: 200, sortable: true },
+                { field: "FECHA_ASOCIACION", title: "Fecha asociación", width: 150, align: 'center', type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                { field: "DESCRIPCION_ASOCIACION", title: "Descripción asociación", width: 400 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditClientePEP } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveClientePEP } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridClientePEP.clear();
+        gridClientePEP.reload({ CODIGO_CLIENTE: $("#ID_CLIENTE").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarClientePEP").off();
+        $("#btnAgregarClientePEP").on("click", AddClientePEP);
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formClientePEP2').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_PEP: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#modalClientePEP2").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridClientePEP.clear();
+                 gridClientePEP.reload({ CODIGO_CLIENTE: $("#ID_CLIENTE").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#modalClientePEP2").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#modalClientePEP2').on('hide.bs.modal', function () {
+            $('#formClientePEP2').trigger("reset"); // Resetea los valores de todos campos
+            $("#formClientePEP2").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='modalClientePEP2' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formClientePEP2" action="/ResumenCliente/SaveClientePEP" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Relaciones del cliente con PEP's
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_CLIENTE_PEP es el ID de esta entidad se debe cambiar porque en la vista
+                        principal no pueden existir elementos con el mismo id
+                        para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_CLIENTE_PEP" type="hidden" name="ID" value="">
+
+                    <!--ID_CLIENTE este campo esta oculto ya que es el maestro de esta entidad
+                        Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" id="ID_CLIENTE" name="ID_CLIENTE" value="@ViewBag.CODIGO_CLIENTE">
+
+                    <div class="form-group">
+                        <label for="ID_PEP">Nombre del PEP</label>
+                        <select id="ID_PEP" name="ID_PEP" class="form-control select2-single">
+                            @foreach (LIS_PEP item in (List<LIS_PEP>)ViewBag.PEPS)
+                            {
+                                <option value=@item.ID>@(item.PRIMER_NOMBRE + " " + item.SEGUNDO_NOMBRE + " " + item.PRIMER_APELLIDO + " " + item.SEGUNDO_APELLIDO + " " + item.APELLIDO_CASADA)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="DESCRIPCION_ASOCIACION">Descripción asociación</label>
+                        <input class="form-control" id="DESCRIPCION_ASOCIACION" name="DESCRIPCION_ASOCIACION" type="text" value="">
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarClientePEP" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

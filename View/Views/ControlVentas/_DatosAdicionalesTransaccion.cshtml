@@ -1,0 +1,533 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        editando = false;
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+        //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+        function EditDatosAdicionalesTransaccion(e) {
+
+            editando = true;
+
+            $("#ID_DATOS_ADICIONALES_TRANSACCION").val(e.data.record.ID);
+            $("#PERT_NOMBRE").val(e.data.record.PERT_NOMBRE);
+            $("#PERT_PRIMER_APELLIDO").val(e.data.record.PERT_PRIMER_APELLIDO);
+            $("#PERT_SEGUNDO_APELLIDO").val(e.data.record.PERT_SEGUNDO_APELLIDO);
+            $("#PERT_APELLIDO_CASADA").val(e.data.record.PERT_APELLIDO_CASADA);
+            $("#PERT_DUI").val(e.data.record.PERT_DUI);
+            $("#PERT_NIT").val(e.data.record.PERT_NIT);
+            $("#PERT_NACIONALIDAD").val(e.data.record.PERT_NACIONALIDAD);
+            $("#PERT_DEPARTAMENTO").val(e.data.record.PERT_DEPARTAMENTO);
+            $("#PERT_DEPARTAMENTO").change();
+
+            $("#PERT_DOMICILIO").val(e.data.record.PERT_DOMICILIO);
+            $("#PERT_FECHA_NACIMIENTO").val(formatDate(e.data.record.PERT_FECHA_NACIMIENTO, 'dd/mm/yyyy'));
+            $("#PERT_LUGAR_NACIMIENTO").val(e.data.record.PERT_LUGAR_NACIMIENTO);
+            $("#PERT_ESTADO_CIVIL").val(e.data.record.PERT_ESTADO_CIVIL);
+            $("#PERT_ESTADO_CIVIL").change();
+            $("#PERT_PROFESION").val(e.data.record.PERT_PROFESION);
+            $("#PERT_PROFESION").change();
+
+            $("#TRAN_CODIGO_CAJERO").val(e.data.record.TRAN_CODIGO_CAJERO);
+            $("#TRAN_ORIGEN_FONDOS").val(e.data.record.TRAN_ORIGEN_FONDOS);
+            $("#TRAN_DEPARTAMENTO").val(e.data.record.TRAN_DEPARTAMENTO);
+            $("#TRAN_DEPARTAMENTO").change();
+
+            if (e.data.record.INFO_DATOS_RECIBO == "1")
+                $("#INFO_DATOS_RECIBO").prop("checked", true);
+            if (e.data.record.INFO_CALIDAD_IMPRESION == "1")
+                $("#INFO_CALIDAD_IMPRESION").prop("checked", true);
+            if (e.data.record.INFO_LLENO_DECLARACION == "1")
+                $("#INFO_LLENO_DECLARACION").prop("checked", true);
+            if (e.data.record.INFO_COLECTOR == "1")
+                $("#INFO_COLECTOR").prop("checked", true);
+
+
+            $("#INFO_MODALIDAD_PAGO").val(e.data.record.INFO_MODALIDAD_PAGO);
+            $("#INFO_VERSION_DECLARACION_JURADA").val(e.data.record.INFO_VERSION_DECLARACION_JURADA);
+            $("#INFO_QUIEN_LLENO_DECLARACION_JURADA").val(e.data.record.INFO_QUIEN_LLENO_DECLARACION_JURADA);
+            $("#INFO_DOCUMENTACION_REQUERIDA").val(e.data.record.INFO_DOCUMENTACION_REQUERIDA);
+            $("#INFO_TELEFONO_CONTACTO").val(e.data.record.INFO_TELEFONO_CONTACTO);
+            $("#INFO_SEGUIMIENTO").val(e.data.record.INFO_SEGUIMIENTO);
+
+            $("#CLIE_LUGAR_NACIMIENTO").val(e.data.record.CLIE_LUGAR_NACIMIENTO);
+            $("#CLIE_DEPARTAMENTO").val(e.data.record.TRAN_DEPARTAMENTO);
+            $("#CLIE_DEPARTAMENTO").change();
+
+            $("#TRAN_AGENCIA_BANCARIA").val(e.data.record.TRAN_AGENCIA_BANCARIA);
+            $("#TRAN_AGENCIA_BANCARIA").change();
+            $("#INFO_CONFIRMACION_UIF").val(e.data.record.INFO_CONFIRMACION_UIF);
+            $("#INFO_FECHA_CONFIRMACION_UIF").val(formatDate(e.data.record.INFO_FECHA_CONFIRMACION_UIF, 'dd/mm/yyyy'));
+
+            MunicipiosXDepartamentoPersona(e.data.record.PERT_DEPARTAMENTO, e.data.record.PERT_MUNICIPIO);
+            MunicipiosXDepartamentoTransaccion(e.data.record.TRAN_DEPARTAMENTO, e.data.record.TRAN_MUNICIPIO);
+            MunicipiosXDepartamentoCliente(e.data.record.CLIE_DEPARTAMENTO, e.data.record.CLIE_MUNICIPIO);
+
+            $("#myModalDatosAdicionalesTransaccion").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddDatosAdicionalesTransaccion() {
+            $("#ID_DATOS_ADICIONALES_TRANSACCION").val(""); //campos ocultos
+            $("#PERT_ESTADO_CIVIL").val("");
+            $("#PERT_ESTADO_CIVIL").change();
+            $("#PERT_PROFESION").val("");
+            $("#PERT_PROFESION").change();
+
+            $("#PERT_DEPARTAMENTO").val("");
+            $("#PERT_DEPARTAMENTO").change();
+            $("#CLIE_DEPARTAMENTO").val("");
+            $("#CLIE_DEPARTAMENTO").change();
+            $("#TRAN_DEPARTAMENTO").val("");
+            $("#TRAN_DEPARTAMENTO").change();
+
+            $("#TRAN_AGENCIA_BANCARIA").val("");
+            $("#TRAN_AGENCIA_BANCARIA").change();
+
+            $("#myModalDatosAdicionalesTransaccion").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveDatosAdicionalesTransaccion(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "@Url.Action("RemoveDatosAdicionalesTransaccion")", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridDatosAdicionalesTransaccion.clear();
+                      gridDatosAdicionalesTransaccion.reload({ SECUENCIA: $("#SECUENCIA").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridDatosAdicionalesTransaccion = $("#gridDatosAdicionalesTransaccion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetDatosAdicionalesTransaccion")",
+            autoLoad: false,
+            columns: [
+                { field: "SECUENCIA", title: "Secuencia", width: 100 },
+                { field: "PERT_NOMBRE", title: "Nombre", width: 150 },
+                { field: "PERT_PRIMER_APELLIDO", title: "Primer apellido", width: 100 },
+                { field: "PERT_SEGUNDO_APELLIDO", title: "Segundo apellido", width: 100 },
+                { field: "PERT_APELLIDO_CASADA", title: "Apellido de casada", width: 100 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditDatosAdicionalesTransaccion } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveDatosAdicionalesTransaccion } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridDatosAdicionalesTransaccion.clear();
+        gridDatosAdicionalesTransaccion.reload({ page: 1, SECUENCIA: $("#SECUENCIA").val() });
+
+        //EVENTOS DE BOTONES
+        $('#btnAgregarDatosAdicionalesTransaccion').off();
+        $("#btnAgregarDatosAdicionalesTransaccion").on("click", AddDatosAdicionalesTransaccion);
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formDatosAdicionalesTransaccion').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                PERT_NOMBRE: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: "@Url.Action("SaveDatosAdicionalesTransaccion")", type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalDatosAdicionalesTransaccion").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridDatosAdicionalesTransaccion.clear();
+                 gridDatosAdicionalesTransaccion.reload({ SECUENCIA: $("#SECUENCIA").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalDatosAdicionalesTransaccion").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalDatosAdicionalesTransaccion').on('hide.bs.modal', function () {
+            $('#formDatosAdicionalesTransaccion').trigger("reset"); // Resetea los valores de todos campos
+            $("#formDatosAdicionalesTransaccion").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        $('.dpicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+        });
+        $.datetimepicker.setLocale('es');
+
+
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamentoPersona(depto, selectVal) {
+            Pace.ignore(function () {
+                $("#PERT_MUNICIPIO").empty();
+                if (depto == "" || depto == null)
+                    depto = 0;
+
+                $.post('@Url.Action("MunicipiosXDepartamento")', { depto: depto }, function (response) {
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#PERT_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#PERT_MUNICIPIO").val(selectVal);
+                    $("#PERT_MUNICIPIO").change();
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#PERT_DEPARTAMENTO").change(function () {
+            if (!editando)
+                MunicipiosXDepartamentoPersona($(this).val(), 0);
+        });
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamentoCliente(depto, selectVal) {
+            Pace.ignore(function () {
+                $("#CLIE_MUNICIPIO").empty();
+                if (depto == "" || depto == null)
+                    depto = 0;
+
+                $.post('@Url.Action("MunicipiosXDepartamento")', { depto: depto }, function (response) {
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#CLIE_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#CLIE_MUNICIPIO").val(selectVal);
+                    $("#CLIE_MUNICIPIO").change();
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#CLIE_DEPARTAMENTO").change(function () {
+            if (!editando)
+                MunicipiosXDepartamentoCliente($(this).val(), 0);
+        });
+
+        // MUNICIPIOS POR DEPARTAMENTO
+        function MunicipiosXDepartamentoTransaccion(depto, selectVal) {
+            Pace.ignore(function () {
+                $("#TRAN_MUNICIPIO").empty();
+                if (depto == "" || depto == null)
+                    depto = 0;
+
+                $.post('@Url.Action("MunicipiosXDepartamento")', { depto: depto }, function (response) {
+
+                    $.each(response.municipios, function (i, item) {
+                        $("#TRAN_MUNICIPIO").append("<option value='" + item.CODIGO_MUNICIPIO + "'>" + item.NOMBRE + "</option>");
+                    });
+                    //Seleccionar valor predetermindo
+                    $("#TRAN_MUNICIPIO").val(selectVal);
+                    $("#TRAN_MUNICIPIO").change();
+
+                    editando = false;
+
+                }, 'json');
+            });
+        }
+
+        // Anidando departamentos
+        $("#TRAN_DEPARTAMENTO").change(function () {
+            if (!editando)
+                MunicipiosXDepartamentoTransaccion($(this).val(), 0);
+        });
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalDatosAdicionalesTransaccion' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formDatosAdicionalesTransaccion" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Información adicional
+                </div>
+                <div class="panel-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#infopersonatransaccion" data-toggle="tab">Datos de persona que realiza transacción</a></li>
+                            <li><a href="#infoCliente" data-toggle="tab">Datos de cliente</a></li>
+                            <li><a href="#infoTransaccion" data-toggle="tab">Datos de transacción</a></li>
+                            <li><a href="#info" data-toggle="tab">Información adicional</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane active" id="infopersonatransaccion">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <!--ID_DATOS_ADICIONALES_TRANSACCION es el ID de esta entidad se debe cambiar porque en la vista
+                                        principal no pueden existir elementos con el mismo id
+                                        para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                                        <input id="ID_DATOS_ADICIONALES_TRANSACCION" type="hidden" name="ID" value="">
+                                        <!--NUMERO_FACTURA es el maestro de esta entidad
+                                        Se establece el valor mediante un ViewBag cargado en el controller-->
+                                        <div class="form-group">
+                                            <label for="SECUENCIA">Secuencia</label>
+                                            <input class="form-control" id="SECUENCIA" name="SECUENCIA" value="@ViewBag.SECUENCIA" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="PERT_NOMBRE">Nombres</label>
+                                            <input class="form-control" id="PERT_NOMBRE" name="PERT_NOMBRE" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_PRIMER_APELLIDO">Primer apellido</label>
+                                            <input class="form-control" id="PERT_PRIMER_APELLIDO" name="PERT_PRIMER_APELLIDO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_SEGUNDO_APELLIDO">Segundo apellido</label>
+                                            <input class="form-control" id="PERT_SEGUNDO_APELLIDO" name="PERT_SEGUNDO_APELLIDO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_APELLIDO_CASADA">Apellido de casada</label>
+                                            <input class="form-control" id="PERT_APELLIDO_CASADA" name="PERT_APELLIDO_CASADA" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_DUI">DUI</label>
+                                            <input class="form-control" id="PERT_DUI" name="PERT_DUI" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_NIT">NIT</label>
+                                            <input class="form-control" id="PERT_NIT" name="PERT_NIT" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_ESTADO_CIVIL">Estado civil</label>
+                                            <select id="PERT_ESTADO_CIVIL" name="PERT_ESTADO_CIVIL" class="form-control select2-single">
+                                                @foreach (VIEW_ESTADO_CIVIL item in (List<VIEW_ESTADO_CIVIL>)ViewBag.ESTADOS_CIVILES)
+                                                {
+                                                    <option value="@item.DESCRIPCION">@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PERT_FECHA_NACIMIENTO">Fecha de nacimiento</label>
+                                            <input class="form-control dpicker" id="PERT_FECHA_NACIMIENTO" name="PERT_FECHA_NACIMIENTO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_LUGAR_NACIMIENTO">Lugar de nacimiento</label>
+                                            <input class="form-control" id="PERT_LUGAR_NACIMIENTO" name="PERT_LUGAR_NACIMIENTO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_NACIONALIDAD">Nacionalidad</label>
+                                            <input class="form-control" id="PERT_NACIONALIDAD" name="PERT_NACIONALIDAD" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_DEPARTAMENTO">Departamento</label>
+                                            <select id="PERT_DEPARTAMENTO" name="PERT_DEPARTAMENTO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (VIEW_DEPARTAMENTO item in (List<VIEW_DEPARTAMENTO>)ViewBag.departamentos)
+                                                {
+                                                    <option value=@item.CODIGO_DEPARTAMENTO>@item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_MUNICIPIO">Municipio</label>
+                                            <select id="PERT_MUNICIPIO" name="PERT_MUNICIPIO" class="form-control select2-single"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_DOMICILIO">Domicilio</label>
+                                            <input class="form-control" id="PERT_DOMICILIO" name="PERT_DOMICILIO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PERT_PROFESION">Profesión</label>
+                                            <select id="PERT_PROFESION" name="PERT_PROFESION" class="form-control select2-single">
+                                                @foreach (VIEW_PROFESIONES item2 in (List<VIEW_PROFESIONES>)ViewBag.PROFESIONES)
+                                                {
+                                                    <option value="@item2.DESCRIPCION">@item2.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="infoCliente">
+                                <div class="form-group">
+                                    <label for="CLIE_LUGAR_NACIMIENTO">Lugar de nacimiento</label>
+                                    <input class="form-control" id="CLIE_LUGAR_NACIMIENTO" name="CLIE_LUGAR_NACIMIENTO" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="CLIE_DEPARTAMENTO">Departamento</label>
+                                    <select id="CLIE_DEPARTAMENTO" name="CLIE_DEPARTAMENTO" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_DEPARTAMENTO item in (List<VIEW_DEPARTAMENTO>)ViewBag.departamentos)
+                                        {
+                                            <option value=@item.CODIGO_DEPARTAMENTO>@item.NOMBRE</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="CLIE_MUNICIPIO">Municipio</label>
+                                    <select id="CLIE_MUNICIPIO" name="CLIE_MUNICIPIO" class="form-control select2-single"></select>
+                                </div>
+                            </div>
+
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="infoTransaccion">
+                                <div class="form-group">
+                                    <label for="TRAN_CODIGO_CAJERO">Código de cajero</label>
+                                    <input class="form-control" id="TRAN_CODIGO_CAJERO" name="TRAN_CODIGO_CAJERO" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="TRAN_DEPARTAMENTO">Departamento</label>
+                                    <select id="TRAN_DEPARTAMENTO" name="TRAN_DEPARTAMENTO" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (VIEW_DEPARTAMENTO item in (List<VIEW_DEPARTAMENTO>)ViewBag.departamentos)
+                                        {
+                                            <option value=@item.CODIGO_DEPARTAMENTO>@item.NOMBRE</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TRAN_MUNICIPIO">Municipio</label>
+                                    <select id="TRAN_MUNICIPIO" name="TRAN_MUNICIPIO" class="form-control select2-single"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TRAN_ORIGEN_FONDOS">Origen de fondos</label>
+                                    <input class="form-control" id="TRAN_ORIGEN_FONDOS" name="TRAN_ORIGEN_FONDOS" type="text" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="TRAN_AGENCIA_BANCARIA">Agencia Bancaria</label>
+                                    <select id="TRAN_AGENCIA_BANCARIA" name="TRAN_AGENCIA_BANCARIA" class="form-control select2-single">
+                                        <option value="">Seleccione ...</option>
+                                        @foreach (MON_AGENCIA_BANCARIA item in (List<MON_AGENCIA_BANCARIA>)ViewBag.agenciasBancarias)
+                                        {
+                                            <option value=@item.ID>@item.DESCRIPCION</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="info">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="INFO_MODALIDAD_PAGO">Modalidad de pago</label>
+                                            <input class="form-control" id="INFO_MODALIDAD_PAGO" name="INFO_MODALIDAD_PAGO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_VERSION_DECLARACION_JURADA">Versión de formato</label>
+                                            <input class="form-control" id="INFO_VERSION_DECLARACION_JURADA" name="INFO_VERSION_DECLARACION_JURADA" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_QUIEN_LLENO_DECLARACION_JURADA">Quien lleno declaración jurada</label>
+                                            <input class="form-control" id="INFO_QUIEN_LLENO_DECLARACION_JURADA" name="INFO_QUIEN_LLENO_DECLARACION_JURADA" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_DOCUMENTACION_REQUERIDA">Documentación requerida</label>
+                                            <input class="form-control" id="INFO_DOCUMENTACION_REQUERIDA" name="INFO_DOCUMENTACION_REQUERIDA" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_TELEFONO_CONTACTO">Telefóno de contacto</label>
+                                            <input class="form-control" id="INFO_TELEFONO_CONTACTO" name="INFO_TELEFONO_CONTACTO" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="INFO_CONFIRMACION_UIF">Confirmación UIF</label>
+                                            <input class="form-control" id="INFO_CONFIRMACION_UIF" name="INFO_CONFIRMACION_UIF" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_FECHA_CONFIRMACION_UIF">Fecha Confirmación UIF</label>
+                                            <input class="form-control dpicker" id="INFO_FECHA_CONFIRMACION_UIF" name="INFO_FECHA_CONFIRMACION_UIF" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="INFO_SEGUIMIENTO">Seguimiento</label>
+                                            <textarea class="form-control" id="INFO_SEGUIMIENTO" rows="4" name="INFO_SEGUIMIENTO"></textarea>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="INFO_DATOS_RECIBO">Datos en recibo</label>
+                                                <input id="INFO_DATOS_RECIBO" name="INFO_DATOS_RECIBO" type="checkbox" value="true">
+                                                &nbsp;&nbsp;
+                                                <label for="INFO_CALIDAD_IMPRESION">Calidad de impresión</label>
+                                                <input id="INFO_CALIDAD_IMPRESION" name="INFO_CALIDAD_IMPRESION" type="checkbox" value="true">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="INFO_LLENO_DECLARACION">Lleno declaración</label>
+                                                <input id="INFO_LLENO_DECLARACION" name="INFO_LLENO_DECLARACION" type="checkbox" value="true">
+                                                &nbsp;&nbsp;
+                                                <label for="INFO_COLECTOR">Información de Colector</label>
+                                                <input id="INFO_COLECTOR" name="INFO_COLECTOR" type="checkbox" value="true">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.tab-content -->
+                    </div> <!-- /.nav-tabs-custom -->
+
+                    <div class="panel-footer text-right">
+                        <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                        <input type="submit" id="btnGuardarCargo" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

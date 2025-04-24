@@ -1,0 +1,204 @@
+
+ ================= 2025-03-24 13:08:16,728 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de opciones por perfil 
+ System.Data.Entity.Core.MappingException: The type 'Edm.Decimal' of the member 'CODIGO_PAIS' in the conceptual side type 'Model.VIEW_PAISNACIONALIDAD' does not match with the type 'System.Int64' of the member 'CODIGO_PAIS' on the object side type 'Model.VIEW_PAISNACIONALIDAD'.
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.ValidateMembersMatch(EdmMember edmMember, EdmMember objectMember)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadEntityTypeOrComplexTypeMapping(ObjectTypeMapping objectMapping, EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType cdmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, Boolean ignoreCase, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(GlobalItem item, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetMap(GlobalItem item, DataSpace dataSpace, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetEdmSpaceType[T](T objectSpaceType, T& edmSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType[T](T objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType(StructuralType objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.UpdateEntitySetMappings()
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.TryUpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.UpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   en System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   en System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   en System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   en System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   en Dao.Seguridad.AccesoUsuarioDao.GetOpcionesxPerfil(Int32 rol) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Seguridad\AccesoUsuarioDao.cs:línea 24
+ 
+
+ ================= 2025-03-24 13:08:16,811 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: No tiene opciones asignadas a su perfil
+   en View.Controllers.Seguridad.LoginController.LoadMenu(Int32 perfil) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Seguridad\LoginController.cs:línea 70 
+  
+
+ ================= 2025-03-24 13:09:00,346 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de opciones por perfil 
+ System.Data.Entity.Core.MappingException: The type 'Edm.Decimal' of the member 'CODIGO_PAIS' in the conceptual side type 'Model.VIEW_PAISNACIONALIDAD' does not match with the type 'System.Int64' of the member 'CODIGO_PAIS' on the object side type 'Model.VIEW_PAISNACIONALIDAD'.
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.ValidateMembersMatch(EdmMember edmMember, EdmMember objectMember)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadEntityTypeOrComplexTypeMapping(ObjectTypeMapping objectMapping, EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType cdmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, Boolean ignoreCase, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(GlobalItem item, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetMap(GlobalItem item, DataSpace dataSpace, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetEdmSpaceType[T](T objectSpaceType, T& edmSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType[T](T objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType(StructuralType objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.UpdateEntitySetMappings()
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.TryUpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.UpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   en System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   en System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   en System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   en System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   en Dao.Seguridad.AccesoUsuarioDao.GetOpcionesxPerfil(Int32 rol) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Seguridad\AccesoUsuarioDao.cs:línea 24
+ 
+
+ ================= 2025-03-24 13:09:00,393 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: No tiene opciones asignadas a su perfil
+   en View.Controllers.Seguridad.LoginController.LoadMenu(Int32 perfil) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Seguridad\LoginController.cs:línea 70 
+  
+
+ ================= 2025-03-24 15:01:50,833 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de opciones por perfil 
+ System.Data.Entity.Core.MappingException: The type 'Edm.Decimal' of the member 'CODIGO_PAIS' in the conceptual side type 'Model.VIEW_PAISNACIONALIDAD' does not match with the type 'System.Int64' of the member 'CODIGO_PAIS' on the object side type 'Model.VIEW_PAISNACIONALIDAD'.
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.ValidateMembersMatch(EdmMember edmMember, EdmMember objectMember)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadEntityTypeOrComplexTypeMapping(ObjectTypeMapping objectMapping, EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType edmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection, Dictionary`2 typeMappings)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.LoadObjectMapping(EdmType cdmType, EdmType objectType, DefaultObjectMappingItemCollection ocItemCollection)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, Boolean ignoreCase, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(String identity, DataSpace typeSpace, MappingBase& map)
+   en System.Data.Entity.Core.Mapping.DefaultObjectMappingItemCollection.TryGetMap(GlobalItem item, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetMap(GlobalItem item, DataSpace dataSpace, MappingBase& map)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.TryGetEdmSpaceType[T](T objectSpaceType, T& edmSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType[T](T objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace.GetEdmSpaceType(StructuralType objectSpaceType)
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.UpdateEntitySetMappings()
+   en System.Data.Entity.Core.Metadata.Edm.MetadataOptimization.TryUpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.UpdateEntitySetMappingsForType(Type entityType)
+   en System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   en System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   en System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   en System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   en System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   en Dao.Seguridad.AccesoUsuarioDao.GetOpcionesxPerfil(Int32 rol) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Seguridad\AccesoUsuarioDao.cs:línea 24
+ 
+
+ ================= 2025-03-24 15:01:50,864 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: No tiene opciones asignadas a su perfil
+   en View.Controllers.Seguridad.LoginController.LoadMenu(Int32 perfil) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Seguridad\LoginController.cs:línea 70 
+  
+
+ ================= 2025-03-24 16:33:39,812 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-24 16:33:39,859 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 217 
+  
+
+ ================= 2025-03-24 16:41:22,640 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-24 16:41:22,680 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 217 
+  
+
+ ================= 2025-03-24 16:44:37,636 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-24 16:44:37,683 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 217 
+  
+
+ ================= 2025-03-24 16:47:34,157 ============== 
+ ERROR Dao.GenericDao`1 
+ Error cargando listado de calificación de factores por cliente: System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Data.Entity.Core.EntityKey.ValidateTypeOfKeyValue(MetadataWorkspace workspace, EdmMember keyMember, Object keyValue, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.EntityKey.ValidateEntityKey(MetadataWorkspace workspace, EntitySet entitySet, Boolean isArgumentException, String argumentName)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.CheckKeyMatchesEntity(IEntityWrapper wrappedEntity, EntityKey entityKey, EntitySet entitySetForType, Boolean forAttach)
+   en System.Data.Entity.Core.Objects.ObjectStateManager.AddEntry(IEntityWrapper wrappedObject, EntityKey passedKey, EntitySet entitySet, String argumentName, Boolean isAdded)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   en lambda_method(Closure , Shaper )
+   en System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   en System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   en System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   en System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   en System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   en Dao.Perfiles.CalificacionFactorDao.calificacionPorCodigoCLiente(Int64 codigoCliente) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Perfiles\CalificacionFactorDao.cs:línea 38 
+  
+
+ ================= 2025-03-24 16:47:34,201 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en View.Controllers.Perfiles.PerfilClienteController.GetCalificacion(Nullable`1 page, Nullable`1 limit, String sortBy, String direction, String searchString, Int64 CODIGO_CLIENTE) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Perfiles\PerfilClienteController.cs:línea 217 
+  

@@ -1,0 +1,594 @@
+
+ ================= 2025-04-09 08:02:49,980 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaPEPDetalle  - System.NotSupportedException: The entity or complex type 'Model.LIS_PEP' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaPEPDetalle(Int32 idPEP) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1029 
+  
+
+ ================= 2025-04-09 08:02:50,037 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaPEPDetalle  - System.Exception: Error en generar reporte de : ReporteListaPEPDetalle
+   en Dao.Reportes.ReportesDao.ReporteListaPEPDetalle(Int32 idPEP) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1054
+   en Blo.Reportes.ReportesBlo.ReporteListaPEPDetalle(Int32 idPEP) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 648 
+  
+
+ ================= 2025-04-09 08:02:50,068 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaPEPDetalle
+   en Blo.Reportes.ReportesBlo.ReporteListaPEPDetalle(Int32 idPEP) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 653
+   en View.Controllers.Reportes.RptListaPEPDetalleController.Reporte(Int32 idPEP, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaPEPDetalleController.cs:línea 52 
+  
+
+ ================= 2025-04-09 09:39:26,064 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaPersonalizada  - System.NotSupportedException: The entity or complex type 'Model.LIS_PERSONALIZADA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 797 
+  
+
+ ================= 2025-04-09 09:39:26,110 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaPersonalizada  - System.Exception: Error en generar reporte de : ReporteListaPersonalizada
+   en Dao.Reportes.ReportesDao.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 825
+   en Blo.Reportes.ReportesBlo.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 523 
+  
+
+ ================= 2025-04-09 09:39:26,137 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaPersonalizada
+   en Blo.Reportes.ReportesBlo.ReporteListaPersonalizada(Int32 idLista) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 528
+   en View.Controllers.Reportes.RptListaPersonalizadaController.Reporte(Int32 idLista, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaPersonalizadaController.cs:línea 54 
+  
+
+ ================= 2025-04-09 11:58:58,115 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: La cadena de entrada no tiene el formato correcto.No se puede almacenar <Milton Suarez> en la columna ALIAS. El tipo esperado es Int32. ---> System.FormatException: La cadena de entrada no tiene el formato correcto.
+   en System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   en System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   en System.String.System.IConvertible.ToInt32(IFormatProvider provider)
+   en System.Data.Common.Int32Storage.Set(Int32 record, Object value)
+   en System.Data.DataColumn.set_Item(Int32 record, Object value)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.DataColumn.set_Item(Int32 record, Object value)
+   en System.Data.DataRow.set_Item(DataColumn column, Object value)
+   en System.Data.DataRow.set_Item(String columnName, Object value)
+   en View.Controllers.Reportes.RptListaPersonalizadaDetalleController.Reporte(Int32 idPersona, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaPersonalizadaDetalleController.cs:línea 157 
+  
+
+ ================= 2025-04-09 13:35:39,576 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaOficio  - System.NotSupportedException: The entity or complex type 'Model.MON_OFICIO_PERSONA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1147 
+  
+
+ ================= 2025-04-09 13:35:39,624 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaOficio  - System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1166
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 703 
+  
+
+ ================= 2025-04-09 13:35:39,650 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 708
+   en View.Controllers.Reportes.RptListaOficioController.Reporte(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaOficioController.cs:línea 53 
+  
+
+ ================= 2025-04-09 13:42:54,274 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaOficio  - System.NotSupportedException: The entity or complex type 'Model.MON_OFICIO_PERSONA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1148 
+  
+
+ ================= 2025-04-09 13:42:54,319 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaOficio  - System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1167
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 703 
+  
+
+ ================= 2025-04-09 13:42:54,342 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 708
+   en View.Controllers.Reportes.RptListaOficioController.Reporte(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaOficioController.cs:línea 53 
+  
+
+ ================= 2025-04-09 13:50:00,692 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaOficio  - System.NotSupportedException: The entity or complex type 'Model.MON_OFICIO_PERSONA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1148 
+  
+
+ ================= 2025-04-09 13:50:00,730 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaOficio  - System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1168
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 703 
+  
+
+ ================= 2025-04-09 13:50:00,752 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 708
+   en View.Controllers.Reportes.RptListaOficioController.Reporte(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaOficioController.cs:línea 53 
+  
+
+ ================= 2025-04-09 13:52:14,542 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReporteListaOficio  - System.NotSupportedException: The entity or complex type 'Model.MON_OFICIO_PERSONA' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1148 
+  
+
+ ================= 2025-04-09 13:52:14,580 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReporteListaOficio  - System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Dao.Reportes.ReportesDao.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1167
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 703 
+  
+
+ ================= 2025-04-09 13:52:14,601 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : ReporteListaOficio
+   en Blo.Reportes.ReportesBlo.ReporteListaOficio(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 708
+   en View.Controllers.Reportes.RptListaOficioController.Reporte(String fechaInicial, String fechaFinal, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Reportes\RptListaOficioController.cs:línea 53 
+  
+
+ ================= 2025-04-09 14:38:10,863 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1925 
+  
+
+ ================= 2025-04-09 14:38:10,916 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1989
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 14:38:10,947 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 14:43:51,887 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1926 
+  
+
+ ================= 2025-04-09 14:43:51,925 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1990
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 14:43:51,943 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 15:17:44,912 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1926 
+  
+
+ ================= 2025-04-09 15:17:44,960 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1990
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 15:17:44,981 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 15:28:56,785 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1931 
+  
+
+ ================= 2025-04-09 15:28:56,830 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 2000
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 15:28:56,849 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 15:37:59,172 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1931 
+  
+
+ ================= 2025-04-09 15:37:59,213 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 2000
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 15:37:59,234 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 16:00:04,905 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1931 
+  
+
+ ================= 2025-04-09 16:00:04,971 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 2000
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 16:00:05,000 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 16:05:16,295 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1931 
+  
+
+ ================= 2025-04-09 16:05:16,336 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 2000
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 16:05:16,366 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 16:27:03,022 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.ArgumentException: Ya se agregó un elemento con la misma clave.
+   en System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   en System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1931 
+  
+
+ ================= 2025-04-09 16:27:03,058 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 2000
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1072 
+  
+
+ ================= 2025-04-09 16:27:03,077 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.actorRos(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1077
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 16:53:39,422 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.NotSupportedException: The entity or complex type 'Model.MON_ROS' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-09 16:53:39,468 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1901
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1060 
+  
+
+ ================= 2025-04-09 16:53:39,485 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1065
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 17:05:23,801 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.NotSupportedException: The entity or complex type 'Model.MON_ROS' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-09 17:05:23,849 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1901
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1060 
+  
+
+ ================= 2025-04-09 17:05:23,869 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1065
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  
+
+ ================= 2025-04-09 17:18:04,000 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : Ros  - System.NotSupportedException: The entity or complex type 'Model.MON_ROS' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1884 
+  
+
+ ================= 2025-04-09 17:18:04,039 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : Ros  - System.Exception: Error en generar reporte de : Ros
+   en Dao.Reportes.ReportesDao.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 1901
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1060 
+  
+
+ ================= 2025-04-09 17:18:04,060 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Exception: Error en generar reporte de : Ros
+   en Blo.Reportes.ReportesBlo.Ros(Int64 ID_ROS) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 1065
+   en View.Controllers.Monitoreo.RosController.Reporte(Int64 idRos, String formato) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Monitoreo\RosController.cs:línea 879 
+  

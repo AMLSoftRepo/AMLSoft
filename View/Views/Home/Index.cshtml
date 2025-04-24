@@ -1,0 +1,120 @@
+﻿@using Blo.Properties;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/plugins/chartjs/Chart.bundle.min.js"></script>
+<script src="~/Content/plugins/chartjs/utils.js"></script>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        INICIO
+        <small>Versión 1.0</small>
+    </h1>
+</section>
+
+
+<section class="content">
+
+
+    @*<div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"><font><font>USUARIOS </font></font></span>
+                    <span class="info-box-number"><font><font>@ViewBag.totalUsuarios</font></font></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-book"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"><font><font>OFCIOS</font></font></span>
+                    <span class="info-box-number"><font><font>@ViewBag.totalOficios</font></font></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa  fa-line-chart"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"><font><font>CONTROLES</font></font></span>
+                    <span class="info-box-number"><font><font>@ViewBag.totalControles</font></font></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa  fa-bell"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"><font><font>TIPOS DE ALERTA</font></font></span>
+                    <span class="info-box-number"><font><font>@ViewBag.totalTipoAlertas</font></font></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+
+    </div>*@
+
+
+    <div class="box box-primary">
+        <div class="box-body">
+
+            <div class="chart">
+                <canvas id="canvas" style="height: 380px;"></canvas>
+            </div>
+            <script>
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: [@Html.Raw(ViewBag.fechas)],
+                        datasets: [@Html.Raw(ViewBag.data)]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'TRANSACCIONES NOTIFICADAS'
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    }
+                };
+
+                window.onload = function () {
+                    var ctx = document.getElementById("canvas").getContext("2d");
+                    window.myLine = new Chart(ctx, config);
+                };
+               
+            </script>
+
+        </div>
+    </div><!-- /.box -->
+
+
+
+</section><!-- /.content -->

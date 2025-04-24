@@ -1,0 +1,264 @@
+﻿namespace Model
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+
+    /// <summary>
+    /// Enlace a EntityFramework para administrar el acceso a datos en todas 
+    /// las tablas de los Modulos del ERP.
+    /// Para personalizar el manejo de dichas entidades han sida separadas del
+    /// autogenerador y se aplican los atributos que sean necesarios a traves
+    /// de la aplicacion.
+    /// </summary>
+    public class SQLBDEntities : DbContext
+    {
+
+        /// <summary>
+        /// Constructor que permite incluir el nombre de la cadena de conexión.
+        /// </summary>
+        public SQLBDEntities()
+            : base("name=SQLBDEntities")
+        {
+            Database.CommandTimeout = 3600 * 10; //10 Horas
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+
+        public virtual DbSet<ALE_ALERTA> ALE_ALERTA { get; set; }
+        public virtual DbSet<ALE_ALERTA_LISTA_PERSONA> ALE_ALERTA_LISTA_PERSONA { get; set; }
+        public virtual DbSet<ALE_ALERTA_PERFIL_TRAN> ALE_ALERTA_PERFIL_TRAN { get; set; }
+        public virtual DbSet<ALE_BLOQUEO_PRESTAMO> ALE_BLOQUEO_PRESTAMO { get; set; }
+        public virtual DbSet<ALE_CONTACTO_ALERTA> ALE_CONTACTO_ALERTA { get; set; }
+        public virtual DbSet<ALE_DATOS_ADICIONALES_TRANSACCION> ALE_DATOS_ADICIONALES_TRANSACCION { get; set; }
+        public virtual DbSet<ALE_NOTIFICACION_ALERTA> ALE_NOTIFICACION_ALERTA { get; set; }
+        public virtual DbSet<ALE_OPERACION_IRREGULAR> ALE_OPERACION_IRREGULAR { get; set; }
+        public virtual DbSet<ALE_TIPO_ALERTA> ALE_TIPO_ALERTA { get; set; }
+        public virtual DbSet<LIS_CAT_ENTIDADES> LIS_CAT_ENTIDADES { get; set; }
+        public virtual DbSet<LIS_CAT_GRUPO_FATF> LIS_CAT_GRUPO_FATF { get; set; }
+        public virtual DbSet<LIS_CAT_ORGANOS> LIS_CAT_ORGANOS { get; set; }
+        public virtual DbSet<LIS_CAT_TITULOS> LIS_CAT_TITULOS { get; set; }
+        public virtual DbSet<LIS_EXENTO> LIS_EXENTO { get; set; }
+        public virtual DbSet<LIS_GENERAL> LIS_GENERAL { get; set; }
+        public virtual DbSet<LIS_GENERAL_PERSONALIZADA> LIS_GENERAL_PERSONALIZADA { get; set; }
+        public virtual DbSet<LIS_ONU> LIS_ONU { get; set; }
+        public virtual DbSet<LIS_ONU_ALIAS> LIS_ONU_ALIAS { get; set; }
+        public virtual DbSet<LIS_ONU_DIRECCION> LIS_ONU_DIRECCION { get; set; }
+        public virtual DbSet<LIS_ONU_DOCUMENTO> LIS_ONU_DOCUMENTO { get; set; }
+        public virtual DbSet<LIS_PAIS_GRUPO> LIS_PAIS_GRUPO { get; set; }
+        public virtual DbSet<LIS_PARAMETRO_ONU_SDN> LIS_PARAMETRO_ONU_SDN { get; set; }
+        public virtual DbSet<LIS_PEP> LIS_PEP { get; set; }
+        public virtual DbSet<LIS_PEP_CARGO> LIS_PEP_CARGO { get; set; }
+        public virtual DbSet<LIS_PEP_RELACION> LIS_PEP_RELACION { get; set; }
+        public virtual DbSet<LIS_PERSONALIZADA> LIS_PERSONALIZADA { get; set; }
+        public virtual DbSet<LIS_PERSONALIZADA_ALIAS> LIS_PERSONALIZADA_ALIAS { get; set; }
+        public virtual DbSet<LIS_PERSONALIZADA_DIRECCION> LIS_PERSONALIZADA_DIRECCION { get; set; }
+        public virtual DbSet<LIS_PERSONALIZADA_DOCUMENTO> LIS_PERSONALIZADA_DOCUMENTO { get; set; }
+        public virtual DbSet<LIS_SDN> LIS_SDN { get; set; }
+        public virtual DbSet<LIS_SDN_AKA> LIS_SDN_AKA { get; set; }
+        public virtual DbSet<LIS_SDN_DIRECCION> LIS_SDN_DIRECCION { get; set; }
+        public virtual DbSet<LIS_SDN_DOCUMENTO> LIS_SDN_DOCUMENTO { get; set; }
+        public virtual DbSet<LIS_SDN_NACIONALIDAD> LIS_SDN_NACIONALIDAD { get; set; }
+        public virtual DbSet<MAT_CAT_AGENCIA> MAT_CAT_AGENCIA { get; set; }
+        public virtual DbSet<MAT_CAT_AUTOMATIZACION> MAT_CAT_AUTOMATIZACION { get; set; }
+        public virtual DbSet<MAT_CAT_DISENO> MAT_CAT_DISENO { get; set; }
+        public virtual DbSet<MAT_CAT_DOCUMENTACION> MAT_CAT_DOCUMENTACION { get; set; }
+        public virtual DbSet<MAT_CAT_FACTOR_RIESGO> MAT_CAT_FACTOR_RIESGO { get; set; }
+        public virtual DbSet<MAT_CAT_FRECUENCIA> MAT_CAT_FRECUENCIA { get; set; }
+        public virtual DbSet<MAT_CAT_MEZCLA> MAT_CAT_MEZCLA { get; set; }
+        public virtual DbSet<MAT_CAT_PROBABILIDAD_OCURRENCIA> MAT_CAT_PROBABILIDAD_OCURRENCIA { get; set; }
+        public virtual DbSet<MAT_CAT_SEVERIDAD> MAT_CAT_SEVERIDAD { get; set; }
+        public virtual DbSet<MAT_CAT_TIPO_CONTROL> MAT_CAT_TIPO_CONTROL { get; set; }
+        public virtual DbSet<MAT_CAT_TIPO_RIESGO> MAT_CAT_TIPO_RIESGO { get; set; }
+        public virtual DbSet<MAT_CAT_UNIDAD> MAT_CAT_UNIDAD { get; set; }
+        public virtual DbSet<MAT_CAUSA_RIESGO> MAT_CAUSA_RIESGO { get; set; }
+        public virtual DbSet<MAT_CONTROL> MAT_CONTROL { get; set; }
+        public virtual DbSet<MAT_CONTROL_EVENTO> MAT_CONTROL_EVENTO { get; set; }
+        public virtual DbSet<MAT_ESCALA_CALIFICACION> MAT_ESCALA_CALIFICACION { get; set; }
+        public virtual DbSet<MAT_EVENTO_RIESGO> MAT_EVENTO_RIESGO { get; set; }
+        public virtual DbSet<MAT_MATRIZ> MAT_MATRIZ { get; set; }
+        public virtual DbSet<MAT_MATRIZ_CONTROL> MAT_MATRIZ_CONTROL { get; set; }
+        public virtual DbSet<MAT_MATRIZ_CONTROL_EVENTO> MAT_MATRIZ_CONTROL_EVENTO { get; set; }
+        public virtual DbSet<MAT_MATRIZ_EVENTO_RIESGO> MAT_MATRIZ_EVENTO_RIESGO { get; set; }
+        public virtual DbSet<MAT_RIESGO> MAT_RIESGO { get; set; }
+        public virtual DbSet<MAT_SEVERIDAD> MAT_SEVERIDAD { get; set; }
+        public virtual DbSet<MON_AGENCIA_BANCARIA> MON_AGENCIA_BANCARIA { get; set; }
+        public virtual DbSet<MON_CARGO_INSTITUCION> MON_CARGO_INSTITUCION { get; set; }
+        public virtual DbSet<MON_CAT_FINANCIERA> MON_CAT_FINANCIERA { get; set; }
+        public virtual DbSet<MON_CAT_INSTITUCION> MON_CAT_INSTITUCION { get; set; }
+        public virtual DbSet<MON_CAT_UNIDAD> MON_CAT_UNIDAD { get; set; }
+        public virtual DbSet<MON_CLIENTE_PEP> MON_CLIENTE_PEP { get; set; }
+        public virtual DbSet<MON_CONTACTO_INSTITUCION> MON_CONTACTO_INSTITUCION { get; set; }
+        public virtual DbSet<MON_DIA_FESTIVO> MON_DIA_FESTIVO { get; set; }
+        public virtual DbSet<MON_OFICIO> MON_OFICIO { get; set; }
+        public virtual DbSet<MON_OFICIO_CONFIGURACION> MON_OFICIO_CONFIGURACION { get; set; }
+        public virtual DbSet<MON_OFICIO_PERSONA> MON_OFICIO_PERSONA { get; set; }
+        public virtual DbSet<MON_ROS> MON_ROS { get; set; }
+        public virtual DbSet<MON_ROS_ACTOR> MON_ROS_ACTOR { get; set; }
+        public virtual DbSet<MON_ROS_ARCHIVOS> MON_ROS_ARCHIVOS { get; set; }
+        public virtual DbSet<MON_ROS_OPERACION> MON_ROS_OPERACION { get; set; }
+        public virtual DbSet<PER_CALIFICACION_FACTOR> PER_CALIFICACION_FACTOR { get; set; }
+        public virtual DbSet<PER_COINCIDENCIA_LISTA> PER_COINCIDENCIA_LISTA { get; set; }
+        public virtual DbSet<PER_CONFIGURACION_FACTOR> PER_CONFIGURACION_FACTOR { get; set; }
+        public virtual DbSet<PER_FACTOR> PER_FACTOR { get; set; }
+        public virtual DbSet<PER_HISTORIAL_PERFIL> PER_HISTORIAL_PERFIL { get; set; }
+        public virtual DbSet<PER_PERFIL_TRANSACCIONAL> PER_PERFIL_TRANSACCIONAL { get; set; }
+        public virtual DbSet<PER_TIPO_CALIFICACION> PER_TIPO_CALIFICACION { get; set; }
+        public virtual DbSet<SEG_ACCESO_USUARIO> SEG_ACCESO_USUARIO { get; set; }
+        public virtual DbSet<SEG_CARGAR_DATOS> SEG_CARGAR_DATOS { get; set; }
+        public virtual DbSet<SEG_EMPRESA> SEG_EMPRESA { get; set; }
+        public virtual DbSet<SEG_ERROR_LOG> SEG_ERROR_LOG { get; set; }
+        public virtual DbSet<SEG_LOG_AUDITORIA> SEG_LOG_AUDITORIA { get; set; }
+        public virtual DbSet<SEG_MODULO> SEG_MODULO { get; set; }
+        public virtual DbSet<SEG_OPCION> SEG_OPCION { get; set; }
+        public virtual DbSet<SEG_PARAMETRO> SEG_PARAMETRO { get; set; }
+        public virtual DbSet<SEG_PERMISO> SEG_PERMISO { get; set; }
+        public virtual DbSet<SEG_ROL> SEG_ROL { get; set; }
+        public virtual DbSet<SEG_ROL_PERMISO> SEG_ROL_PERMISO { get; set; }
+        public virtual DbSet<SEG_ROL_USUARIO> SEG_ROL_USUARIO { get; set; }
+        public virtual DbSet<VIEW_ACTIVIDAD_ECONOMICA> VIEW_ACTIVIDAD_ECONOMICA { get; set; }
+        public virtual DbSet<VIEW_CALIFICACION> VIEW_CALIFICACION { get; set; }
+        public virtual DbSet<VIEW_CLIENTE> VIEW_CLIENTE { get; set; }
+        public virtual DbSet<VIEW_CLIENTE_DIRECCIONES> VIEW_CLIENTE_DIRECCIONES { get; set; }
+        public virtual DbSet<VIEW_CLIENTE_EMPLEOS> VIEW_CLIENTE_EMPLEOS { get; set; }
+        public virtual DbSet<VIEW_CLIENTE_TELEFONOS> VIEW_CLIENTE_TELEFONOS { get; set; }
+        public virtual DbSet<VIEW_COINCIDENCIA_LISTA> VIEW_COINCIDENCIA_LISTA { get; set; }
+        public virtual DbSet<VIEW_CREDITOS_ESCRITURADOS> VIEW_CREDITOS_ESCRITURADOS { get; set; }
+        public virtual DbSet<VIEW_DEPARTAMENTO> VIEW_DEPARTAMENTO { get; set; }
+        public virtual DbSet<VIEW_ESTADO_CARTERA> VIEW_ESTADO_CARTERA { get; set; }
+        public virtual DbSet<VIEW_ESTADO_CIVIL> VIEW_ESTADO_CIVIL { get; set; }
+        public virtual DbSet<VIEW_FACTORES_PERFIL> VIEW_FACTORES_PERFIL { get; set; }
+        public virtual DbSet<VIEW_FINANCIERAS> VIEW_FINANCIERAS { get; set; }
+        public virtual DbSet<VIEW_FORMAS_PAGO> VIEW_FORMAS_PAGO { get; set; }
+        public virtual DbSet<VIEW_LINEA> VIEW_LINEA { get; set; }
+        public virtual DbSet<VIEW_MUNICIPIO> VIEW_MUNICIPIO { get; set; }
+        public virtual DbSet<VIEW_OI_FUNCIONES> VIEW_OI_FUNCIONES { get; set; }
+        public virtual DbSet<VIEW_OI_OPERADORES> VIEW_OI_OPERADORES { get; set; }
+        public virtual DbSet<VIEW_OI_PARAMETROS> VIEW_OI_PARAMETROS { get; set; }
+        public virtual DbSet<VIEW_OPERACIONES> VIEW_OPERACIONES { get; set; }
+        public virtual DbSet<VIEW_ORIGEN> VIEW_ORIGEN { get; set; }
+        public virtual DbSet<VIEW_PAISNACIONALIDAD> VIEW_PAISNACIONALIDAD { get; set; }
+        public virtual DbSet<VIEW_PERFIL_TRANSACCIONAL> VIEW_PERFIL_TRANSACCIONAL { get; set; }
+        public virtual DbSet<VIEW_PROFESIONES> VIEW_PROFESIONES { get; set; }
+        public virtual DbSet<VIEW_REPORTE_CONTROLPAGOS> VIEW_REPORTE_CONTROLPAGOS { get; set; }
+        public virtual DbSet<VIEW_REPORTE_PRIMAS> VIEW_REPORTE_PRIMAS { get; set; }
+        public virtual DbSet<VIEW_REPORTE_VENTAS> VIEW_REPORTE_VENTAS { get; set; }
+        public virtual DbSet<VIEW_SOLICITUDES_CREDITOS> VIEW_SOLICITUDES_CREDITOS { get; set; }
+        public virtual DbSet<VIEW_TIPO_CREDITO> VIEW_TIPO_CREDITO { get; set; }
+        public virtual DbSet<VIEW_TIPO_DOCUMENTO> VIEW_TIPO_DOCUMENTO { get; set; }
+        public virtual DbSet<VIEW_TIPO_PRESTAMO> VIEW_TIPO_PRESTAMO { get; set; }
+        public virtual DbSet<VIEW_TIPO_TRANSACCIONES> VIEW_TIPO_TRANSACCIONES { get; set; }
+        public virtual DbSet<VIEW_TRANSACCIONES> VIEW_TRANSACCIONES { get; set; }
+        public virtual DbSet<VIEW_URBANIZACION> VIEW_URBANIZACION { get; set; }
+        public virtual DbSet<VIEW_VENTAS_CONTADO> VIEW_VENTAS_CONTADO { get; set; }
+
+        [DbFunction("Entities", "FN_PERSONA_EN_LISTAS")]
+        public virtual IQueryable<FN_PERSONA_EN_LISTAS_Result> FN_PERSONA_EN_LISTAS(string nombre)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<FN_PERSONA_EN_LISTAS_Result>("[Entities].[FN_PERSONA_EN_LISTAS](@nombre)", nombreParameter);
+        }
+
+        public virtual int SP_BLOQUEAR_PRESTAMO(string nUMEROPRESTAMO, string uSUARIO, Nullable<int> bLOQUEO, string oBSERVACION, ObjectParameter mENSAJE)
+        {
+            var nUMEROPRESTAMOParameter = nUMEROPRESTAMO != null ?
+                new ObjectParameter("NUMEROPRESTAMO", nUMEROPRESTAMO) :
+                new ObjectParameter("NUMEROPRESTAMO", typeof(string));
+
+            var uSUARIOParameter = uSUARIO != null ?
+                new ObjectParameter("USUARIO", uSUARIO) :
+                new ObjectParameter("USUARIO", typeof(string));
+
+            var bLOQUEOParameter = bLOQUEO.HasValue ?
+                new ObjectParameter("BLOQUEO", bLOQUEO) :
+                new ObjectParameter("BLOQUEO", typeof(int));
+
+            var oBSERVACIONParameter = oBSERVACION != null ?
+                new ObjectParameter("OBSERVACION", oBSERVACION) :
+                new ObjectParameter("OBSERVACION", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_BLOQUEAR_PRESTAMO", nUMEROPRESTAMOParameter, uSUARIOParameter, bLOQUEOParameter, oBSERVACIONParameter, mENSAJE);
+        }
+
+        public virtual ObjectResult<SP_CONTROL_PAGOS_Result> SP_CONTROL_PAGOS(string filtro, ObjectParameter total, Nullable<int> pagina, Nullable<int> limite)
+        {
+            var filtroParameter = filtro != null ?
+                new ObjectParameter("filtro", filtro) :
+                new ObjectParameter("filtro", typeof(string));
+
+            var paginaParameter = pagina.HasValue ?
+                new ObjectParameter("pagina", pagina) :
+                new ObjectParameter("pagina", typeof(int));
+
+            var limiteParameter = limite.HasValue ?
+                new ObjectParameter("limite", limite) :
+                new ObjectParameter("limite", typeof(int));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CONTROL_PAGOS_Result>("SP_CONTROL_PAGOS", filtroParameter, total, paginaParameter, limiteParameter);
+        }
+
+        public virtual int SP_EMVIOCORREO(string subject, string tableHTML, string contactos)
+        {
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+
+            var tableHTMLParameter = tableHTML != null ?
+                new ObjectParameter("tableHTML", tableHTML) :
+                new ObjectParameter("tableHTML", typeof(string));
+
+            var contactosParameter = contactos != null ?
+                new ObjectParameter("contactos", contactos) :
+                new ObjectParameter("contactos", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EMVIOCORREO", subjectParameter, tableHTMLParameter, contactosParameter);
+        }
+
+        public virtual ObjectResult<SP_FILTRAR_TRANSACCIONES_Result> SP_FILTRAR_TRANSACCIONES(string filtro)
+        {
+            var filtroParameter = filtro != null ?
+                new ObjectParameter("filtro", filtro) :
+                new ObjectParameter("filtro", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_FILTRAR_TRANSACCIONES_Result>("SP_FILTRAR_TRANSACCIONES", filtroParameter);
+        }
+
+        public virtual ObjectResult<SP_PERFILXCLIENTE_Result> SP_PERFILXCLIENTE(Nullable<decimal> cliente, Nullable<int> meses)
+        {
+            var clienteParameter = cliente.HasValue ?
+                new ObjectParameter("cliente", cliente) :
+                new ObjectParameter("cliente", typeof(decimal));
+
+            var mesesParameter = meses.HasValue ?
+                new ObjectParameter("meses", meses) :
+                new ObjectParameter("meses", typeof(int));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_PERFILXCLIENTE_Result>("SP_PERFILXCLIENTE", clienteParameter, mesesParameter);
+        }
+
+        public virtual ObjectResult<SP_RPT_OPERACIONES_ACUMULADAS_Result> SP_RPT_OPERACIONES_ACUMULADAS(Nullable<System.DateTime> fechaIni, Nullable<System.DateTime> fechaFin, string filtro)
+        {
+            var fechaIniParameter = fechaIni.HasValue ?
+                new ObjectParameter("fechaIni", fechaIni) :
+                new ObjectParameter("fechaIni", typeof(System.DateTime));
+
+            var fechaFinParameter = fechaFin.HasValue ?
+                new ObjectParameter("fechaFin", fechaFin) :
+                new ObjectParameter("fechaFin", typeof(System.DateTime));
+
+            var filtroParameter = filtro != null ?
+                new ObjectParameter("filtro", filtro) :
+                new ObjectParameter("filtro", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_RPT_OPERACIONES_ACUMULADAS_Result>("SP_RPT_OPERACIONES_ACUMULADAS", fechaIniParameter, fechaFinParameter, filtroParameter);
+        }
+    }
+}

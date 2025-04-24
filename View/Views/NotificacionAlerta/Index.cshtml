@@ -1,0 +1,198 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES NIVELES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_CONTACTO").val(e.data.record.ID);
+                $("#ID_CONTACTO").change();
+                $("#ID_TIPO_ALERTA").selectpicker('val', e.data.record.IDALERTA);
+                $("#myModal").modal("show");
+            }
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_CONTACTO").val("");
+                $("#ID_CONTACTO").change();
+                $("#ID_TIPO_ALERTA").selectpicker('val', '');
+                $("#myModal").modal("show");
+            }
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../NotificacionAlerta/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridNotificacionAlerta").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "NOMBRE", title: "Contacto", sortable: true },
+                    { field: "DESCALERTA", title: "Alerta", sortable: true },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formNotificacionAlerta').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_TIPO_ALERTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_CONTACTO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formNotificacionAlerta').trigger("reset"); // Resetea los NIVELes de todos campos
+                $("#formNotificacionAlerta").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+            //SELECTS
+            $(function () {
+                $('#ID_TIPO_ALERTA').selectpicker();
+            });
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        NOTIFICACION
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridNotificacionAlerta" data-source="@Url.Action("GetNotificacionAlerta")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formNotificacionAlerta" action="/NotificacionAlerta/Save" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Notificaciones de alerta
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="ID_CONTACTO">Contacto</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="ID_CONTACTO" name="ID_CONTACTO" class="form-control select2-single">
+                            @foreach (ALE_CONTACTO_ALERTA item in (List<ALE_CONTACTO_ALERTA>)ViewBag.contactos)
+                            {
+                                <option value=@item.ID>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_TIPO_ALERTA">Alerta</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="ID_TIPO_ALERTA" name="ID_TIPO_ALERTA" class="form-control" multiple>
+                            @foreach (ALE_TIPO_ALERTA item in (List<ALE_TIPO_ALERTA>)ViewBag.alertas)
+                            {
+                                <option value=@item.ID style="background: @item.COLOR; color: #000000;">@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

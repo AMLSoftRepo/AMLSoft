@@ -1,0 +1,46 @@
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Blo.dll.config
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Blo.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Blo.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Dao.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\EntityFramework.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\log4net.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Model.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Newtonsoft.Json.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Ninject.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Dao.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Model.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\EntityFramework.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\log4net.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Newtonsoft.Json.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\Ninject.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\obj\Release\Blo.csprojResolveAssemblyReference.cache
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\obj\Release\Blo.Properties.PropertiesBlo.resources
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\obj\Release\Blo.csproj.GenerateResource.Cache
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\obj\Release\Blo.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\obj\Release\Blo.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Blo\bin\Release\DocX.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Blo.dll.config
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Blo.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Blo.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Dao.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\DocX.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\EntityFramework.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\log4net.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Model.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Newtonsoft.Json.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Ninject.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Dao.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Model.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\EntityFramework.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\log4net.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Newtonsoft.Json.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\bin\Release\Ninject.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\obj\Release\Blo.csprojResolveAssemblyReference.cache
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\obj\Release\Blo.Properties.PropertiesBlo.resources
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\obj\Release\Blo.csproj.GenerateResource.Cache
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\obj\Release\Blo.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Blo\obj\Release\Blo.pdb

@@ -1,0 +1,304 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gridCargo;
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditCargo(e) {
+            $("#ID_CARGO").val(e.data.record.ID);
+            $("#ID_ORGANO").val(e.data.record.ID_ORGANO);
+            $("#ID_ORGANO").change();
+            $("#ID_ENTIDAD").val(e.data.record.ID_ENTIDAD);
+            $("#ID_ENTIDAD").change();
+            $("#NOMBRE_CARGO").val(e.data.record.NOMBRE_CARGO);
+            $("#FECHA_INICIO").val(formatDate(e.data.record.FECHA_INICIO, 'dd/mm/yyyy'));
+            $("#FECHA_FIN").val(formatDate(e.data.record.FECHA_FIN, 'dd/mm/yyyy'));
+            $("#myModalCargo").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddCargo() {
+            $("#ID_CARGO").val(""); //campos ocultos
+            $("#ID_ORGANO").val("");
+            $("#ID_ORGANO").change();
+            $("#ID_ENTIDAD").val("");
+            $("#ID_ENTIDAD").change();
+            $("#myModalCargo").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveCargo(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../PEP/RemoveCargo", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridCargo.clear();
+                      gridCargo.reload({ ID_LIS_PEP: $("#ID_LIS_PEP_CARGO").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridCargo = $("#gridCargo").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPEPCargo")",
+            autoLoad: false,
+            columns: [
+                { field: "ORGANO", title: "Organo" },
+                { field: "ENTIDAD", title: "Entidad" },
+                { field: "NOMBRE_CARGO", title: "Cargo" },
+                { field: "FECHA_INICIO", title: "Fecha nombramiento", type: "date", format: "dd/mm/yyyy" },
+                { field: "FECHA_FIN", title: "Fecha finalizacion", type: "date", format: "dd/mm/yyyy" },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditCargo } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveCargo } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+
+        gridCargo.clear();
+        gridCargo.reload({ page: 1, ID_LIS_PEP: $("#ID").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarCargo").off();
+        $("#btnAgregarCargo").on("click", AddCargo);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formCargo').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_ENTIDAD: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_ORGANO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                NOMBRE_CARGO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                FECHA_INICIO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        },
+                        date: {
+                            format: '@PropertiesBlo.formatDate',
+                            message: '@PropertiesBlo.msgFechaInvalida'
+                        },
+                        callback: {
+                            callback: function (value, validator) {
+                                var i = value.split('/');
+                                var f = $('#FECHA_FIN').val().split('/');
+
+                                //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                if (fini > ffin) {
+                                    return {
+                                        valid: false,
+                                        message: 'La fecha inicial debe ser menor o igual a la fecha final'
+                                    }
+                                }
+                                return true;
+                            }
+                        }
+                    }
+                },
+                FECHA_FIN: {
+                    validators: {
+                        date: {
+                            format: '@PropertiesBlo.formatDate',
+                            message: '@PropertiesBlo.msgFechaInvalida'
+                        },
+                        callback: {
+                            callback: function (value, validator) {
+
+                                var i = $('#FECHA_INICIO').val().split('/');
+                                var f = value.split('/');
+
+                                //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                if (ffin < fini) {
+                                    return {
+                                        valid: false,
+                                        message: 'La fecha final debe ser mayor o igual a la fecha inicial'
+                                    }
+                                }
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalCargo").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridCargo.clear();
+                 gridCargo.reload({ ID_LIS_PEP: $("#ID_LIS_PEP_CARGO").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalCargo").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalCargo').on('hide.bs.modal', function () {
+            $('#formCargo').trigger("reset"); // Resetea los valores de todos campos
+            $("#formCargo").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        //DATEPICKERS
+        $('#FECHA_INICIO').datetimepicker({
+            format: 'd/m/Y',
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate: $('#FECHA_FIN').val() ? $('#FECHA_FIN').val() : false,
+                    formatDate: 'd/m/Y'
+                })
+            },
+            onChangeDateTime: function (dp, $input) {
+                $('#formCargo').formValidation('revalidateField', 'FECHA_INICIO');
+                $('#formCargo').formValidation('revalidateField', 'FECHA_FIN');
+            },
+            timepicker: false
+        });
+
+        $('#FECHA_FIN').datetimepicker({
+            format: 'd/m/Y',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: $('#FECHA_INICIO').val() ? $('#FECHA_INICIO').val() : false,
+                    formatDate: 'd/m/Y'
+                })
+            },
+            onChangeDateTime: function (dp, $input) {
+                $('#formCargo').formValidation('revalidateField', 'FECHA_FIN');
+                $('#formCargo').formValidation('revalidateField', 'FECHA_INICIO');
+            },
+            timepicker: false
+        });
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalCargo' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formCargo" action="/PEP/SaveCargo" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Cargo
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_CARGO es el ID de esta entidad se debe cambiar porque en la vista
+                        principal no pueden existir elementos con el mismo id
+                        para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_CARGO" type="hidden" name="ID" value="">
+
+                    <!--ID_LIS_PEP este campo esta oculto ya que es el maestro de esta entidad
+                        Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_LIS_PEP" id="ID_LIS_PEP_CARGO" value="@ViewBag.ID_LIS_PEP">
+
+                    <div class="form-group">
+                        <label for="ID_ORGANO">Organo</label><br>
+                        <select id="ID_ORGANO" name="ID_ORGANO" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (LIS_CAT_ORGANOS item in (List<LIS_CAT_ORGANOS>)ViewBag.organo)
+                            {
+                                <option value=@item.ID>@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_ENTIDAD">Entidad</label><br>
+                        <select id="ID_ENTIDAD" name="ID_ENTIDAD" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (LIS_CAT_ENTIDADES item in (List<LIS_CAT_ENTIDADES>)ViewBag.entidad)
+                            {
+                                <option value=@item.ID>@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="NOMBRE_CARGO">Nombre del cargo</label>
+                        <input class="form-control" id="NOMBRE_CARGO" name="NOMBRE_CARGO" type="text" value="" maxlength="150">
+                    </div>
+                    <div class="form-group">
+                        <label for="FECHA_INICIO">Fecha de nombramiento</label>
+                        <input class="form-control" id="FECHA_INICIO" name="FECHA_INICIO" type="text" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="FECHA_FIN">Fecha fin</label>
+                        <input class="form-control" id="FECHA_FIN" name="FECHA_FIN" type="text" value="">
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarCargo" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

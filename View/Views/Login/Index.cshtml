@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AmlSoft</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+
+    <!-- CSS -->
+    <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/validation/css/formValidation.css" rel="stylesheet" />
+    <link href="~/Content/tema/css/adminLTE.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/toastmessage/resources/css/jquery.toastmessage.css" rel="stylesheet" />
+
+    <!-- JS -->
+    <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/validation/js/formValidation.js"></script>
+    <script src="~/Content/plugins/validation/js/framework/bootstrap.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            @Scripts.Render("~/IE9")
+    <![endif]-->
+
+</head>
+<body class="hold-transition login-page">
+
+    <div class="login-box">
+        <form action="/Login/Index" method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">
+                    <img src="~/Content/Imagenes/AmlSoft.png" class="user-image" style="width:70%;" />
+                </div>
+                <div class="panel-body">
+
+                    <br />
+
+                        <div class="box box-danger box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><font><font>Nota:</font></font></h3>
+
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
+                            </div>
+                            <div class="box-body">
+                                <font>
+                                    <font>
+                                        @Html.Raw(ViewBag.Error)
+                                    </font>
+                                </font>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </form>
+
+    </div><!-- /.login-box -->
+
+
+    
+
+        <!-- JS -->
+        <script src="~/Content/plugins/toastmessage/javascript/jquery.toastmessage.js"></script>
+        <script src="~/Content/plugins/fastclick/fastclick.min.js"></script>
+
+</body>
+
+</html>

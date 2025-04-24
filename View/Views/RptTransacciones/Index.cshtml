@@ -1,0 +1,222 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function limpiar() {
+                $('#formReporteTransacciones').trigger("reset"); // Resetea los valores de todos campos
+                $("#formReporteTransacciones").formValidation('resetForm'); // Elimina las clases de validacion
+            }
+
+            $("#btnLimpiar").on("click", limpiar);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formReporteTransacciones').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    fechaInicial: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+                                    var i = value.split('/');
+                                    var f = $('#fechaFinal').val().split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (fini > ffin) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha inicial no debe ser mayor a la fecha final'
+                                        }
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        }
+                    },
+                    fechaFinal: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+
+                                    var i = $('#fechaInicial').val().split('/');
+                                    var f = value.split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (ffin < fini) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha final no debe ser menor a la fecha inicial'
+                                        }
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .on('success.field.fv', function (e, data) {
+                var $parent = data.element.parents('.form-group');
+                $parent.removeClass('has-success');
+                data.element.data('fv.icon').hide();
+            })
+           .on('success.form.fv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('formValidation');
+
+
+               //Envio de datos
+                if($("#formato").val()=="PDF")
+                    window.open("../RptTransacciones/" + $("#tipoReporte").val() + "?" + $form.serialize(), '_blank');
+                else
+                    location.href = "../RptTransacciones/" + $("#tipoReporte").val() + "?" + $form.serialize();
+
+
+                $("#formReporteTransacciones").formValidation('resetForm'); // Elimina las clases de validacion
+            });
+
+
+
+            //PERMITE VALIDAR LOS CAMPOS DE TIPO FECHA CUANDO CAMBIA SU VALOR
+            $('#fechaInicial').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#fechaFinal').val() ? $('#fechaFinal').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formReporteTransacciones').formValidation('revalidateField', 'fechaInicial');
+                    $('#formReporteTransacciones').formValidation('revalidateField', 'fechaFinal');
+                },
+                timepicker: false
+            });
+
+
+            $('#fechaFinal').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#fechaInicial').val() ? $('#fechaInicial').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formReporteTransacciones').formValidation('revalidateField', 'fechaInicial');
+                    $('#formReporteTransacciones').formValidation('revalidateField', 'fechaFinal');
+                },
+                timepicker: false
+            });
+
+
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        TRANSACCIONES
+        <small>REPORTES</small>
+    </h1>
+</section>
+
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-success" style="margin-bottom:0;">
+    </div><!-- /.box -->
+    <br />
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+
+            <!-- FORMULARIO -->
+            <form id="formReporteTransacciones">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">...</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Reporte</label><br />
+                            <select id="tipoReporte" name="tipoReporte" class="form-control">
+                                <option value="ReporteTransacciones">Transacciones en periodo determinado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha inicial</label>
+                            <input class="form-control dpicker" id="fechaInicial" name="fechaInicial" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha final</label>
+                            <input class="form-control dpicker" id="fechaFinal" name="fechaFinal" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Formato a exportar</label><br />
+                            <select id="formato" name="formato" class="form-control">
+                                <option value="PDF">PDF -- (descargar)</option>
+                                <option value="EXCEL">Excel  -- (descargar)</option>
+                                <option value="WORD">Word -- (descargar)</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer text-right">
+                        <button type="button" id="btnLimpiar" class="btn btn-default">@PropertiesBlo.btnReporteLimpiar</button>
+                        <input type="submit" id="btnGenerar" value="@PropertiesBlo.btnReporteGenerar" class="btn btn-success">
+                    </div>
+
+
+                </div>
+            </form>
+            <!-- /.FORMULARIO -->
+
+
+        </div>
+    </div>
+
+</section><!-- /.content -->

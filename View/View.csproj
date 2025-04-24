@@ -1,0 +1,1471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{759DBBA3-65DF-4BBB-980E-6C8C8B731A4E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>View</RootNamespace>
+    <AssemblyName>View</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4001\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.ReportSource.1.0.0\lib\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4001\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.Web.1.0.1\lib\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocX">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="hbehr.AdAuthentication">
+      <HintPath>..\packages\hbehr-AdAuthentication.1.6.0\lib\net45\hbehr.AdAuthentication.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MariGold.HtmlParser">
+      <HintPath>..\packages\MariGold.HtmlParser.1.0.1\lib\net35\MariGold.HtmlParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MariGold.OpenXHTML">
+      <HintPath>..\packages\MariGold.OpenXHTML.1.2.0\lib\net40\MariGold.OpenXHTML.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.VS2010.10.0.40219.1\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MicrosoftReportViewerWebForms.11.0.0.0\lib\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MicosoftReportViewerWebForms_v11.1.0.1\lib\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.WinForms.VS2010.10.0.40219.1\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RDLCReportRunner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RDLCReportRunner.1.0.0\lib\RDLCReportRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportViewerForMvc">
+      <HintPath>..\packages\ReportViewerForMvc.1.0.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ANTILAVADODataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ANTILAVADODataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Alertas\AlertaListaPersonaController.cs" />
+    <Compile Include="Controllers\Alertas\AlertaManualController.cs" />
+    <Compile Include="Controllers\Alertas\AlertaPerfilTransaccionalController.cs" />
+    <Compile Include="Controllers\Alertas\AlertasController.cs" />
+    <Compile Include="Controllers\Alertas\OperacionIrregularController.cs" />
+    <Compile Include="Controllers\Listas\CatEntidadController.cs" />
+    <Compile Include="Controllers\Listas\CatGrupoController.cs" />
+    <Compile Include="Controllers\Listas\CatOrganoController.cs" />
+    <Compile Include="Controllers\Listas\CatTituloController.cs" />
+    <Compile Include="Controllers\Listas\ExentoController.cs" />
+    <Compile Include="Controllers\Listas\PaisGrupoController.cs" />
+    <Compile Include="Controllers\Listas\PersonaEnListasController.cs" />
+    <Compile Include="Controllers\Listas\PersonaOficioController.cs" />
+    <Compile Include="Controllers\Matriz\ControlesController.cs" />
+    <Compile Include="Controllers\Matriz\EventosController.cs" />
+    <Compile Include="Controllers\Matriz\MatrizController.cs" />
+    <Compile Include="Controllers\Matriz\RiesgoController.cs" />
+    <Compile Include="Controllers\Matriz\SeveridadController.cs" />
+    <Compile Include="Controllers\Matriz\EscalaCalificacionController.cs" />
+    <Compile Include="Controllers\Monitoreo\AgenciaBancariaController.cs" />
+    <Compile Include="Controllers\Monitoreo\BaseControlPagosController.cs" />
+    <Compile Include="Controllers\Monitoreo\CargoInstitucionController.cs" />
+    <Compile Include="Controllers\Monitoreo\CatUnidadInstitucionController.cs" />
+    <Compile Include="Controllers\Monitoreo\ControlPagosController.cs" />
+    <Compile Include="Controllers\Monitoreo\ControlPrimasController.cs" />
+    <Compile Include="Controllers\Monitoreo\ControlVentasController.cs" />
+    <Compile Include="Controllers\Monitoreo\HistorialOficioController.cs" />
+    <Compile Include="Controllers\Monitoreo\PrestamosBloqueadosController.cs" />
+    <Compile Include="Controllers\Monitoreo\RosController.cs" />
+    <Compile Include="Controllers\Matriz\CatAgenciaController.cs" />
+    <Compile Include="Controllers\Matriz\CatAutomatizacionController.cs" />
+    <Compile Include="Controllers\Matriz\CatDisenoController.cs" />
+    <Compile Include="Controllers\Matriz\CatDocumentacionController.cs" />
+    <Compile Include="Controllers\Monitoreo\CatFinancieraController.cs" />
+    <Compile Include="Controllers\Matriz\CatFrecuenciaController.cs" />
+    <Compile Include="Controllers\Monitoreo\CatInstitucionController.cs" />
+    <Compile Include="Controllers\Matriz\CatMezclaController.cs" />
+    <Compile Include="Controllers\Matriz\CatProbabilidadController.cs" />
+    <Compile Include="Controllers\Matriz\CatSeveridadController.cs" />
+    <Compile Include="Controllers\Matriz\CatTipoRiesgoController.cs" />
+    <Compile Include="Controllers\Matriz\CatUnidadController.cs" />
+    <Compile Include="Controllers\Matriz\CausaRiesgoController.cs" />
+    <Compile Include="Controllers\Alertas\ContactoAlertaController.cs" />
+    <Compile Include="Controllers\Monitoreo\ContactoInstitucionController.cs" />
+    <Compile Include="Controllers\Monitoreo\DiaFestivoController.cs" />
+    <Compile Include="Controllers\Matriz\CatFactorRiesgoController.cs" />
+    <Compile Include="Controllers\Listas\GeneralController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Perfiles\CalificacionFactoresController.cs" />
+    <Compile Include="Controllers\Perfiles\CoincidenciaListaController.cs" />
+    <Compile Include="Controllers\Perfiles\PerfilClienteController.cs" />
+    <Compile Include="Controllers\Perfiles\ResumenClienteController.cs" />
+    <Compile Include="Controllers\Perfiles\TipoCalificacionController.cs" />
+    <Compile Include="Controllers\Reportes\RptOperacionesAcumuladasController.cs" />
+    <Compile Include="Controllers\Reportes\RptOperacionesAcumuladasEfectivoController.cs" />
+    <Compile Include="Controllers\Reportes\RptOperacionesDiariasController.cs" />
+    <Compile Include="Controllers\Reportes\RptOperacionesIndividualesEfectivoController.cs" />
+    <Compile Include="Controllers\Reportes\RptPagosController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaOficioController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaONUController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaONUDetalleController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaPEPController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaPEPDetalleController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaPersonalizadaController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaPersonalizadaDetalleController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaSDNController.cs" />
+    <Compile Include="Controllers\Reportes\RptListaSDNDetalleController.cs" />
+    <Compile Include="Controllers\Reportes\RptOficioDetalleController.cs" />
+    <Compile Include="Controllers\Reportes\RptAlertasController.cs" />
+    <Compile Include="Controllers\Reportes\RptInformacionOficioController.cs" />
+    <Compile Include="Controllers\Reportes\RptPrimasController.cs" />
+    <Compile Include="Controllers\Reportes\RptRespuestaOficioController.cs" />
+    <Compile Include="Controllers\Reportes\RptMatrizController.cs" />
+    <Compile Include="Controllers\Reportes\RptTransaccionesController.cs" />
+    <Compile Include="Controllers\Reportes\RptVentasController.cs" />
+    <Compile Include="Controllers\Seguridad\LoginController.cs" />
+    <Compile Include="Controllers\Alertas\NotificacionAlertaController.cs" />
+    <Compile Include="Controllers\Monitoreo\NotificacionOficioController.cs" />
+    <Compile Include="Controllers\Monitoreo\OficioController.cs" />
+    <Compile Include="Controllers\Listas\ONUController.cs" />
+    <Compile Include="Controllers\Listas\ParametroONUSDNController.cs" />
+    <Compile Include="Controllers\Listas\PEPController.cs" />
+    <Compile Include="Controllers\Listas\PersonalizadaController.cs" />
+    <Compile Include="Controllers\Seguridad\ParametrosController.cs" />
+    <Compile Include="Controllers\Seguridad\PrivilegiosController.cs" />
+    <Compile Include="Controllers\Seguridad\RolesController.cs" />
+    <Compile Include="Controllers\Seguridad\RolUsuarioController.cs" />
+    <Compile Include="Controllers\Matriz\CatTipoControlController.cs" />
+    <Compile Include="Controllers\Listas\SDNController.cs" />
+    <Compile Include="Controllers\Alertas\TipoAlertaController.cs" />
+    <Compile Include="Controllers\Autorizacion.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\SortHelper.cs" />
+    <Compile Include="Controllers\ViewNinject.cs" />
+    <Compile Include="DataTableHelper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes_crytal\RptOperacionesDiariasIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOperacionesDiariasIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\EncabezadoMatriz.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EncabezadoMatriz.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\GraficoReporteMat.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GraficoReporteMat.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\ReportePagosModel.cs" />
+    <Compile Include="Reportes_crytal\ReportePrimasModel.cs" />
+    <Compile Include="Reportes_crytal\ReportesConexion.cs" />
+    <Compile Include="Reportes_crytal\RptAlertas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptAlertas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptAlertasCliente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptAlertasCliente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptInformacionOficio.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptInformacionOficio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaOficio.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaOficio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaONU.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaONU.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaONUDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaONUDetalle.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaPEP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaPEP.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaPEPDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaPEPDetalle.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaPersonalizada.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaPersonalizada.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaPersonalizadaDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaPersonalizadaDetalle.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaSDN.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaSDN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListaSDNDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListaSDNDetalle.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptListasPaises.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptListasPaises.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptMatriz.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptMatriz.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptOficioDetalle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOficioDetalle.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptOficiosDetalle_SubPersonas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOficiosDetalle_SubPersonas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptOperacionesAcumuladasEfectivoIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOperacionesAcumuladasEfectivoIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptOperacionesAcumuladasIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOperacionesAcumuladasIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptOperacionesIndividualesEfectivoIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptOperacionesIndividualesEfectivoIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosAcumuladosIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosAcumuladosIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosAcumuladosIgualesSuperioresA25000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosAcumuladosIgualesSuperioresA25000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosDiariosIgualesSuperiores571_5000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosDiariosIgualesSuperiores571_5000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosDiariosIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA25000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosDiariosIgualesSuperioresA25000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA5000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPagosDiariosIgualesSuperioresA5000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPrimasSuperioresA7500.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPrimasSuperioresA7500.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptPrimasIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptPrimasIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptRespuestaOficio.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptRespuestaOficio.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptResumenCliente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptResumenCliente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptRos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptRos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptTransacciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptTransacciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptTransaccionesCliente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptTransaccionesCliente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes_crytal\RptVentasIgualesSuperioresA10000.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RptVentasIgualesSuperioresA10000.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.designer.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\html5shiv.min.js" />
+    <Content Include="Content\Imagenes\AmlSoft.png" />
+    <Content Include="Content\Imagenes\error.png" />
+    <Content Include="Content\Imagenes\favicon.ico" />
+    <Content Include="Content\Imagenes\FGR.png" />
+    <Content Include="Content\Imagenes\FSV.jpg" />
+    <Content Include="Content\Imagenes\logoAntiLavado.png" />
+    <Content Include="Content\Imagenes\logo_master.png" />
+    <Content Include="Content\Imagenes\notice.png" />
+    <Content Include="Content\Imagenes\rojo.png" />
+    <Content Include="Content\Imagenes\success.png" />
+    <Content Include="Content\Imagenes\verde.png" />
+    <Content Include="Content\Imagenes\warning.png" />
+    <Content Include="Content\jfunciones.js" />
+    <Content Include="Content\jquery.inputmask.bundle.js" />
+    <Content Include="Content\jquery.numeric.js" />
+    <Content Include="Content\moment.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\css\bootstrap-select.css" />
+    <Content Include="Content\plugins\bootstrap-select\css\bootstrap-select.min.css" />
+    <Content Include="Content\plugins\bootstrap-select\js\bootstrap-select.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\bootstrap-select.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ar_AR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ar_AR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-bg_BG.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-bg_BG.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-cro_CRO.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-cro_CRO.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-cs_CZ.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-cs_CZ.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-da_DK.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-da_DK.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-de_DE.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-de_DE.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-en_US.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-en_US.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-es_CL.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-es_CL.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-es_ES.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-es_ES.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-eu.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-eu.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fa_IR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fa_IR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fi_FI.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fi_FI.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fr_FR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-fr_FR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-hu_HU.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-hu_HU.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-id_ID.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-id_ID.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-it_IT.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-it_IT.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ko_KR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ko_KR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-lt_LT.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-lt_LT.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-nb_NO.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-nb_NO.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-nl_NL.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-nl_NL.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pl_PL.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pl_PL.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pt_BR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pt_BR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pt_PT.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-pt_PT.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ro_RO.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ro_RO.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ru_RU.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ru_RU.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sk_SK.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sk_SK.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sl_SI.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sl_SI.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sv_SE.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-sv_SE.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-tr_TR.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-tr_TR.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ua_UA.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-ua_UA.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-zh_CN.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-zh_CN.min.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-zh_TW.js" />
+    <Content Include="Content\plugins\bootstrap-select\js\i18n\defaults-zh_TW.min.js" />
+    <Content Include="Content\plugins\bootstrap\css\bootstrap-table.css" />
+    <Content Include="Content\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\plugins\bootstrap\js\bootbox.min.js" />
+    <Content Include="Content\plugins\bootstrap\js\bootstrap-filestyle.min.js" />
+    <Content Include="Content\plugins\bootstrap\js\bootstrap-modal-mult.js" />
+    <Content Include="Content\plugins\bootstrap\js\bootstrap-table.js" />
+    <Content Include="Content\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\plugins\bootstrap\js\npm.js" />
+    <Content Include="Content\plugins\chartjs\Chart.bundle.js" />
+    <Content Include="Content\plugins\chartjs\Chart.bundle.min.js" />
+    <Content Include="Content\plugins\chartjs\Chart.js" />
+    <Content Include="Content\plugins\chartjs\Chart.min.js" />
+    <Content Include="Content\plugins\CodeEditor\autoresize.html" />
+    <Content Include="Content\plugins\CodeEditor\src\ace.js" />
+    <Content Include="Content\plugins\CodeEditor\src\mode-sqlserver.js" />
+    <Content Include="Content\plugins\CodeEditor\src\theme-sqlserver.js" />
+    <Content Include="Content\plugins\colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\plugins\colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Content\plugins\colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\plugins\colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\plugins\colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\plugins\colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\plugins\colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\plugins\colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\plugins\colorpicker\js\bootstrap-colorpicker.min.js" />
+    <Content Include="Content\plugins\dataformat\date.format.js" />
+    <Content Include="Content\plugins\datepicker\jquery.datetimepicker.full.min.js" />
+    <Content Include="Content\plugins\datepicker\jquery.datetimepicker.min.css" />
+    <Content Include="Content\plugins\EditorHTML\ckeditor.js" />
+    <Content Include="Content\plugins\EditorHTML\config.js" />
+    <Content Include="Content\plugins\EditorHTML\contents.css" />
+    <Content Include="Content\plugins\EditorHTML\index.html" />
+    <Content Include="Content\plugins\EditorHTML\lang\es.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\plugins\EditorHTML\plugins\about\dialogs\about.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\colordialog\dialogs\colordialog.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\copyformatting\cursors\cursor-disabled.svg" />
+    <Content Include="Content\plugins\EditorHTML\plugins\copyformatting\cursors\cursor.svg" />
+    <Content Include="Content\plugins\EditorHTML\plugins\copyformatting\styles\copyformatting.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\div\dialogs\div.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\find\dialogs\find.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\flash\dialogs\flash.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\flash\images\placeholder.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\button.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\form.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\radio.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\select.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\icons.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\icons_hidpi.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\iframe\images\placeholder.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\image\dialogs\image.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\image\images\noimage.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\link\dialogs\anchor.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\link\dialogs\link.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\link\images\anchor.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\magicline\images\icon.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\pastefromword\filter\default.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\preview\preview.html" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\dialogs\options.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_address.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_div.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_p.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\envelope.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\envelope.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\heart.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\heart.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\kiss.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\kiss.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\plugins\EditorHTML\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\table\dialogs\table.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\dialogs\templates.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\dialogs\templates.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\templates\default.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Content\plugins\EditorHTML\sample.js" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\dialog.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\editor.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\icons.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\close.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\lock.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Content\plugins\EditorHTML\styles.js" />
+    <Content Include="Content\plugins\fastclick\fastclick.min.js" />
+    <Content Include="Content\plugins\fullcalendar\fullcalendar.min.css" />
+    <Content Include="Content\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Content\plugins\fullcalendar\locale-all.js" />
+    <Content Include="Content\plugins\fullcalendar\locale\es.js" />
+    <Content Include="Content\plugins\Grid\css\grid.css" />
+    <Content Include="Content\plugins\Grid\js\grid.js" />
+    <Content Include="Content\plugins\jQuery-Mask\jquery.mask.js" />
+    <Content Include="Content\plugins\jQuery\jQuery-2.1.4.min.js" />
+    <Content Include="Content\plugins\pace\pace.min.css" />
+    <Content Include="Content\plugins\pace\pace.min.js" />
+    <Content Include="Content\plugins\select2\css\select2.css" />
+    <Content Include="Content\plugins\select2\css\select2.min.css" />
+    <Content Include="Content\plugins\select2\js\i18n\es.js" />
+    <Content Include="Content\plugins\select2\js\select2.full.js" />
+    <Content Include="Content\plugins\select2\js\select2.full.min.js" />
+    <Content Include="Content\plugins\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="Content\plugins\toastmessage\javascript\jquery.toastmessage.js" />
+    <Content Include="Content\plugins\toastmessage\resources\css\jquery.toastmessage.css" />
+    <Content Include="Content\plugins\toastmessage\resources\images\close.gif" />
+    <Content Include="Content\plugins\toastmessage\resources\images\error.png" />
+    <Content Include="Content\plugins\toastmessage\resources\images\notice.png" />
+    <Content Include="Content\plugins\toastmessage\resources\images\success.png" />
+    <Content Include="Content\plugins\toastmessage\resources\images\warning.png" />
+    <Content Include="Content\plugins\validation\css\formValidation.css" />
+    <Content Include="Content\plugins\validation\css\formValidation.min.css" />
+    <Content Include="Content\plugins\validation\js\formValidation.js" />
+    <Content Include="Content\plugins\validation\js\formValidation.min.js" />
+    <Content Include="Content\plugins\validation\js\framework\bootstrap.js" />
+    <Content Include="Content\plugins\validation\js\framework\bootstrap.min.js" />
+    <Content Include="Content\plugins\validation\js\language\en_US.js" />
+    <Content Include="Content\plugins\validation\js\language\es_ES.js" />
+    <Content Include="Content\respond.min.js" />
+    <Content Include="Content\tema\css\AdminLTE.min.css" />
+    <Content Include="Content\tema\css\font-awesome.min.css" />
+    <Content Include="Content\tema\css\skins\skin-blue.min.css" />
+    <Content Include="Content\tema\css\Style.css" />
+    <Content Include="Content\tema\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\tema\img\logoEmpresa.png" />
+    <Content Include="Content\tema\img\user.png" />
+    <Content Include="Content\tema\img\user01.png" />
+    <Content Include="Content\tema\img\user02.png" />
+    <Content Include="Content\tema\img\user03.png" />
+    <Content Include="Content\tema\img\user04.png" />
+    <Content Include="Content\tema\js\app.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\tema\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\tema\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\tema\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\tema\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\tema\fonts\FontAwesome.otf" />
+    <Content Include="ReportViewer.aspx" />
+    <Content Include="ReportViewerWebForm.aspx" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blo\Blo.csproj">
+      <Project>{cca8cac1-6cc5-4962-ba03-b2a90d5d6f2a}</Project>
+      <Name>Blo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{f289cb55-5944-43a8-8366-786605705e34}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Privilegios\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Roles\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\plugins\bootstrap-select\css\bootstrap-select.css.map" />
+    <Content Include="Content\plugins\bootstrap-select\js\bootstrap-select.js.map" />
+    <Content Include="Content\plugins\colorpicker\css\bootstrap-colorpicker.css.map" />
+    <Content Include="Content\plugins\colorpicker\css\bootstrap-colorpicker.min.css.map" />
+    <Content Include="Plantillas\ModeloError.docx" />
+    <Content Include="Plantillas\RespuestaOficio.docx" />
+    <Content Include="Content\plugins\EditorHTML\skins\moono-lisa\readme.md" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\plugins\EditorHTML\plugins\scayt\README.md" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\plugins\EditorHTML\plugins\wsc\README.md" />
+    <Content Include="ANTILAVADODataSet.xsc">
+      <DependentUpon>ANTILAVADODataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="ANTILAVADODataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ANTILAVADODataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ANTILAVADODataSet.xss">
+      <DependentUpon>ANTILAVADODataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\CDuran.pubxml" />
+    <Content Include="Views\RolUsuario\Index.cshtml" />
+    <Content Include="Views\CatFinanciera\Index.cshtml" />
+    <Content Include="Views\CatAgencia\Index.cshtml" />
+    <Content Include="Views\CatAutomatizacion\Index.cshtml" />
+    <Content Include="Views\CatDiseno\Index.cshtml" />
+    <Content Include="Views\CatDocumentacion\Index.cshtml" />
+    <Content Include="Views\CatFrecuencia\Index.cshtml" />
+    <Content Include="Views\CatMezcla\Index.cshtml" />
+    <Content Include="Views\CatSeveridad\Index.cshtml" />
+    <Content Include="Views\CatInstitucion\Index.cshtml" />
+    <Content Include="Views\CatProbabilidad\Index.cshtml" />
+    <Content Include="Views\CatTipoControl\Index.cshtml" />
+    <Content Include="Views\CatUnidad\Index.cshtml" />
+    <Content Include="Views\AgenciaBancaria\Index.cshtml" />
+    <Content Include="Views\CargoInstitucion\Index.cshtml" />
+    <Content Include="Views\ContactoInstitucion\Index.cshtml" />
+    <Content Include="Views\ContactoAlerta\Index.cshtml" />
+    <Content Include="Views\NotificacionAlerta\Index.cshtml" />
+    <Content Include="Views\TipoAlerta\Index.cshtml" />
+    <Content Include="Views\Oficio\Index.cshtml" />
+    <Content Include="Views\CatTipoRiesgo\Index.cshtml" />
+    <Content Include="Views\Oficio\_Personas.cshtml" />
+    <Content Include="Views\CatFactorRiesgo\Index.cshtml" />
+    <Content Include="Views\DiaFestivo\Index.cshtml" />
+    <Content Include="Views\SDN\Index.cshtml" />
+    <Content Include="Views\NotificacionOficio\Notificacion.cshtml" />
+    <Content Include="Views\NotificacionOficio\_Personas.cshtml" />
+    <Content Include="Views\General\Index.cshtml" />
+    <Content Include="Views\ONU\Index.cshtml" />
+    <Content Include="Views\ParametroONUSDN\Index.cshtml" />
+    <Content Include="Views\PEP\Index.cshtml" />
+    <Content Include="Views\PEP\_Cargo.cshtml" />
+    <Content Include="Views\PEP\_Relacion.cshtml" />
+    <Content Include="Views\Personalizada\Index.cshtml" />
+    <Content Include="Views\CausaRiesgo\Index.cshtml" />
+    <Content Include="Views\Riesgo\Index.cshtml" />
+    <Content Include="Views\Severidad\Index.cshtml" />
+    <Content Include="Views\Controles\Index.cshtml" />
+    <Content Include="Views\Alertas\Notificada.cshtml" />
+    <Content Include="Views\Alertas\Analizada.cshtml" />
+    <Content Include="Views\Alertas\Historial.cshtml" />
+    <Content Include="Views\Eventos\Index.cshtml" />
+    <Content Include="Views\Personalizada\_Alias.cshtml" />
+    <Content Include="Views\Personalizada\_Direccion.cshtml" />
+    <Content Include="Views\Personalizada\_Documento.cshtml" />
+    <Content Include="Views\HistorialOficio\Historial.cshtml" />
+    <Content Include="Views\HistorialOficio\_Personas.cshtml" />
+    <Content Include="Views\PersonaEnListas\Index.cshtml" />
+    <Content Include="Views\PersonaOficio\Index.cshtml" />
+    <Content Include="Views\Ros\Index.cshtml" />
+    <Content Include="Views\Ros\_Operaciones.cshtml" />
+    <Content Include="Views\Ros\_Personas.cshtml" />
+    <Content Include="Views\Matriz\Index.cshtml" />
+    <Content Include="Views\RptMatriz\Index.cshtml" />
+    <Content Include="Views\AlertaManual\Index.cshtml" />
+    <Content Include="Views\AlertaManual\_Tabla.cshtml" />
+    <Content Include="Views\RptRespuestaOficio\Index.cshtml" />
+    <Content Include="Views\RptInformacionOficio\Index.cshtml" />
+    <Content Include="Views\RptAlertas\Index.cshtml" />
+    <Content Include="Views\Parametros\Index.cshtml" />
+    <Content Include="Views\CalificacionFactores\Index.cshtml" />
+    <Content Include="Views\RptOficioDetalle\Index.cshtml" />
+    <Content Include="Views\TipoCalificacion\Index.cshtml" />
+    <Content Include="Views\RptListaOficio\Index.cshtml" />
+    <Content Include="Views\PerfilCliente\Index.cshtml" />
+    <Content Include="Views\Eventos\_Controles.cshtml" />
+    <Content Include="Views\Alertas\_Cliente.cshtml" />
+    <Content Include="Views\PerfilCliente\_Direcciones.cshtml" />
+    <Content Include="Views\PerfilCliente\_Telefonos.cshtml" />
+    <Content Include="Views\PerfilCliente\_Calificacion.cshtml" />
+    <Content Include="Views\Ros\_Adjuntos.cshtml" />
+    <Content Include="Views\RptPagos\Index.cshtml" />
+    <Content Include="Views\RptVentas\Index.cshtml" />
+    <Content Include="Views\ResumenCliente\Index.cshtml" />
+    <Content Include="Views\RptOperacionesIndividualesEfectivo\Index.cshtml" />
+    <Content Include="Views\RptPrimas\Index.cshtml" />
+    <Content Include="Views\RptTransacciones\Index.cshtml" />
+    <Content Include="Views\RptOperacionesAcumuladas\Index.cshtml" />
+    <Content Include="Views\RptOperacionesAcumuladasEfectivo\Index.cshtml" />
+    <Content Include="Views\RptOperacionesDiarias\Index.cshtml" />
+    <Content Include="Views\ResumenCliente\_ClientePEP.cshtml" />
+    <Content Include="Views\OperacionIrregular\Index.cshtml" />
+    <Content Include="Views\CatUnidadInstitucion\Index.cshtml" />
+    <Content Include="Views\PrestamosBloqueados\Index.cshtml" />
+    <Content Include="Views\AlertaListaPersona\Index.cshtml" />
+    <Content Include="Views\AlertaListaPersona\_Cliente.cshtml" />
+    <Content Include="Views\Exento\Index.cshtml" />
+    <Content Include="Views\CatOrgano\Index.cshtml" />
+    <Content Include="Views\CatEntidad\Index.cshtml" />
+    <Content Include="Views\CatTitulo\Index.cshtml" />
+    <Content Include="Views\EscalaCalificacion\Index.cshtml" />
+    <Content Include="Views\CatGrupo\Index.cshtml" />
+    <Content Include="Views\PaisGrupo\Index.cshtml" />
+    <Content Include="Views\ControlPagos\Index.cshtml" />
+    <Content Include="Views\ControlPagos\_Cliente.cshtml" />
+    <Content Include="Views\ControlPagos\_DatosAdicionalesTransaccion.cshtml" />
+    <Content Include="Views\ControlPrimas\Index.cshtml" />
+    <Content Include="Views\ControlPrimas\_Cliente.cshtml" />
+    <Content Include="Views\ControlPrimas\_DatosAdicionalesTransaccion.cshtml" />
+    <Content Include="Views\ControlVentas\Index.cshtml" />
+    <Content Include="Views\ControlVentas\_Cliente.cshtml" />
+    <Content Include="Views\ControlVentas\_DatosAdicionalesTransaccion.cshtml" />
+    <Content Include="Views\AlertaPerfilTransaccional\Index.cshtml" />
+    <Content Include="Views\PerfilCliente\_Empleos.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptMatriz.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptOficioDetalle.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptRespuestaOficio.rdlc">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\PLANTILLA_VERTICAL.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\PLANTILLA_HORIZONTAL.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptInformacionOficio.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptAlertas.rdlc">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosDiariosIgualesSuperioresA10000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosDiariosIgualesSuperioresA5000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosAcumuladosIgualesSuperioresA10000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptOficiosDetalle_SubPersonas.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptResumenCliente.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptListaOficio.rdlc" />
+    <Content Include="Reportes\RptListaONU.rdlc" />
+    <Content Include="Reportes\RptListaONUDetalle.rdlc" />
+    <Content Include="Reportes\RptListaPEP.rdlc" />
+    <Content Include="Reportes\RptListaPEPDetalle.rdlc" />
+    <Content Include="Reportes\RptListaPersonalizada.rdlc" />
+    <Content Include="Reportes\RptListaPersonalizadaDetalle.rdlc" />
+    <Content Include="Reportes\RptListaSDN.rdlc" />
+    <Content Include="Reportes\RptListaSDNDetalle.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptTransacciones.rdlc" />
+    <Content Include="Reportes\RptTransaccionesCliente.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptVentasIgualesSuperioresA10000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptAlertasCliente.rdlc" />
+    <Content Include="Reportes\RptOperacionesIndividualesEfectivoIgualesSuperioresA10000.rdlc" />
+    <Content Include="Reportes\RptPrimasSuperioresA7500.rdlc" />
+    <Content Include="Reportes\RptPrimasIgualesSuperioresA10000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptOperacionesAcumuladasIgualesSuperioresA10000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptOperacionesAcumuladasEfectivoIgualesSuperioresA10000.rdlc" />
+    <Content Include="Reportes\RptOperacionesDiariasIgualesSuperioresA10000.rdlc">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosDiariosIgualesSuperioresA25000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptRos.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptListaPaises.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosAcumuladosIgualesSuperioresA25000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reportes\RptPagosDiariosIgualesSuperiores571_5000.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes_crytal\RptOperacionesDiariasIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOperacionesDiariasIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\EncabezadoMatriz.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EncabezadoMatriz.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\GraficoReporteMat.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>GraficoReporteMat.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptAlertas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptAlertas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptAlertasCliente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptAlertasCliente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptInformacionOficio.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptInformacionOficio.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaOficio.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaOficio.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaONU.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaONU.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaONUDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaONUDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaPEP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaPEP.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaPEPDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaPEPDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaPersonalizada.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaPersonalizada.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaPersonalizadaDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaPersonalizadaDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaSDN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaSDN.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListaSDNDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListaSDNDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptListasPaises.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptListasPaises.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptMatriz.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptMatriz.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptOficioDetalle.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOficioDetalle.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptOficiosDetalle_SubPersonas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOficiosDetalle_SubPersonas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptOperacionesAcumuladasEfectivoIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOperacionesAcumuladasEfectivoIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptOperacionesAcumuladasIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOperacionesAcumuladasIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptOperacionesIndividualesEfectivoIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptOperacionesIndividualesEfectivoIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosAcumuladosIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosAcumuladosIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosAcumuladosIgualesSuperioresA25000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosAcumuladosIgualesSuperioresA25000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosDiariosIgualesSuperiores571_5000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosDiariosIgualesSuperiores571_5000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosDiariosIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA25000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosDiariosIgualesSuperioresA25000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPagosDiariosIgualesSuperioresA5000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPagosDiariosIgualesSuperioresA5000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPrimasSuperioresA7500.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPrimasSuperioresA7500.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptPrimasIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptPrimasIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptRespuestaOficio.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptRespuestaOficio.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptResumenCliente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptResumenCliente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptRos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptRos.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptTransacciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptTransaccionesCliente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptTransaccionesCliente.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes_crytal\RptVentasIgualesSuperioresA10000.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RptVentasIgualesSuperioresA10000.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>35199</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1089/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

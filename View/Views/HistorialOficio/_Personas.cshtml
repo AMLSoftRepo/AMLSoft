@@ -1,0 +1,206 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditPersonas(e) {
+            $("#ID_PERSONAS").val(e.data.record.ID);
+            $("#TIPO_PERSONA").val(e.data.record.TIPO_PERSONA);
+            $("#NOMBRE").val(e.data.record.NOMBRE);
+            $("#GENERALES").val(e.data.record.GENERALES);
+            $("#DUI").val(e.data.record.DUI);
+            $("#NIT").val(e.data.record.NIT);
+            $("#TIPO_DOCUMENTO").val(e.data.record.TIPO_DOCUMENTO);
+            $("#TIPO_DOCUMENTO").change();
+            $("#NUMERO_DOCUMENTO").val(e.data.record.NUMERO_DOCUMENTO);
+            $("#RESULTADO").val(e.data.record.RESULTADO);
+
+            if (e.data.record.COTIZACIONES == "1")
+                $("#COTIZACIONES").prop("checked", true);
+            if (e.data.record.SOLICITUDES == "1")
+                $("#SOLICITUDES").prop("checked", true);
+            if (e.data.record.PRESTAMOS == "1")
+                $("#PRESTAMOS").prop("checked", true);
+            if (e.data.record.CHEQUES == "1")
+                $("#CHEQUES").prop("checked", true);
+            if (e.data.record.AEX == "1")
+                $("#AEX").prop("checked", true);
+
+            $("#myModalPersonas").modal("show");
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonas = $("#gridPersonas").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonas")",
+            autoLoad: false,
+            columns: [
+                { field: "NOMBRE", title: "Nombre", sortable: true, width: 200 },
+                { field: "DUI", title: "DUI", sortable: true, width: 100 },
+                { field: "NIT", title: "NIT", sortable: true, width: 130},
+                { field: "COTIZACIONES", title: "Cotizaciones", align: 'center', width: 80 },
+                { field: "SOLICITUDES", title: "Solicitudes", align: 'center', width: 80 },
+                { field: "PRESTAMOS", title: "préstamos", align: 'center', width: 80 },
+                { field: "CHEQUES", title: "Cheques", align: 'center', width: 80 },
+                { field: "AEX", title: "AEX", align: 'center', width: 50 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonas } },
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+        });
+
+        gridPersonas.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "COTIZACIONES") {
+                if (record.COTIZACIONES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "SOLICITUDES") {
+                if (record.SOLICITUDES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "PRESTAMOS") {
+                if (record.PRESTAMOS == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "CHEQUES") {
+                if (record.CHEQUES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "AEX") {
+                if (record.AEX == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+        });
+
+
+        gridPersonas.clear();
+        gridPersonas.reload({ page: 1, ID_OFICIO: $("#ID_OFICIO_PER").val() });
+
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+    });
+
+</script>
+
+
+<!--MODAL-->
+<div id='myModalPersonas' class='modal fade'>
+    <div class="modal-dialog modal-lg">
+        <form id="formPersonas">
+
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Personas
+                </div>
+                <div class="panel-body">
+                    <!--ID_PERSONAS es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONAS" type="hidden" name="ID" value="">
+
+                    <!--ID_OFICIO este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_OFICIO" id="ID_OFICIO_PER" value="@ViewBag.ID_OFICIO">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre</label>
+                                <input class="form-control" id="NOMBRE" disabled name="NOMBRE" type="text" value="" maxlength="150">
+                            </div>
+                            <div class="form-group">
+                                <label for="DUI">DUI</label>
+                                <input class="form-control DUI" id="DUI" disabled name="DUI" type="text" value="" maxlength="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="NIT">NIT</label>
+                                <input class="form-control NIT" id="NIT" disabled name="NIT" type="text" value="" maxlength="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="TIPO_DOCUMENTO">Tipo de documento</label>
+                                <select id="TIPO_DOCUMENTO" disabled name="TIPO_DOCUMENTO" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (VIEW_TIPO_DOCUMENTO item in (List<VIEW_TIPO_DOCUMENTO>)ViewBag.tiposDocumentos)
+                                    {
+                                        <option value=@item.CODIGO_TIPO_IDENTIFICACION>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="NUMERO_DOCUMENTO">Número de documento</label>
+                                <input class="form-control" id="NUMERO_DOCUMENTO" disabled name="NUMERO_DOCUMENTO" type="text" value="" maxlength="20">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="TIPO_PERSONA">Tipo de persona</label>
+                                <select id="TIPO_PERSONA" disabled name="TIPO_PERSONA" class="form-control">
+                                    <option value="N">Natural</option>
+                                    <option value="J">Jurídica</option>
+                                    <option value="V">Vivienda</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="GENERALES">Datos generales</label>
+                                <textarea id="GENERALES" disabled name="GENERALES" class="form-control" rows="4" maxlength="200"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="RESULTADO">Resultado</label>
+                                <textarea id="RESULTADO" disabled name="RESULTADO" class="form-control" rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="COTIZACIONES">Cotizaciones</label>
+                                    <input id="COTIZACIONES" disabled name="COTIZACIONES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="SOLICITUDES">Solicitudes</label>
+                                    <input id="SOLICITUDES" disabled name="SOLICITUDES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="PRESTAMOS">Préstamos</label>
+                                    <input id="PRESTAMOS" disabled name="PRESTAMOS" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="CHEQUES">Cheques</label>
+                                    <input id="CHEQUES" disabled name="CHEQUES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="AEX">AEX</label>
+                                    <input id="AEX" disabled name="AEX" type="checkbox" value="true">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>

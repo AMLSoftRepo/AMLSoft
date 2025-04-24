@@ -1,0 +1,302 @@
+﻿@using Model
+@using Blo.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Content/plugins/CodeEditor/src/ace.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //EDITOR DE CODIGO SQL
+            var editor = ace.edit("editor");
+            editor.renderer.setScrollMargin(10, 10, 10, 10);
+            editor.setTheme("ace/theme/sqlserver");
+            editor.session.setMode("ace/mode/sqlserver");
+            editor.setAutoScrollEditorIntoView(true);
+            editor.setOption("maxLines", 10);
+            editor.setShowPrintMargin(false);
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_TIPO_ALERTA").selectpicker('val', e.data.record.ID_TIPO_ALERTA);
+                $("#ID_AGENCIA").val(e.data.record.ID_AGENCIA);
+                $("#ID_AGENCIA").change();
+
+                editor.setValue(e.data.record.EXPRESION);
+
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_TIPO_ALERTA").selectpicker('val', '');
+                $("#ID_AGENCIA").val('');
+                $("#ID_AGENCIA").change();
+
+                editor.setValue("");
+
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../OperacionIrregular/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridOperacionIrregular").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "NOMBRE_AGENCIA", title: "Agencia", width: 150 },
+                    { field: "NOMBRE_ALERTA", title: "Alerta", width: 100, align: 'center' },
+                    { field: "DESCRIPCION", title: "Descripción", width: 300, },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "NOMBRE_ALERTA") {
+                    $wrapper.html("<button  class='btn btn-sm' style='background-color:" + record.COLOR + ";'> " + record.NOMBRE_ALERTA + "</button>");
+                }
+            });
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+            $("#btnBuscar").on("click", Search);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formOperacionIrregular').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_TIPO_ALERTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_AGENCIA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    editor: {
+                        validators: {
+                            callback: {
+                                callback: function (value, validator) {
+
+                                    if (editor.getValue().length < 5) {
+                                        return {
+                                            valid: false,
+                                            message: 'La expresión debe contener almenos 5 caracteres'
+                                        }
+                                    }
+                                   
+
+                                    return true;
+                                }
+                            }
+                        }
+                    },
+                    DESCRIPCION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+            //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+           .on('success.field.fv', function (e, data) {
+               var $parent = data.element.parents('.form-group');
+               $parent.removeClass('has-success');
+               data.element.data('fv.icon').hide();
+           })
+           .on('success.form.fv', function (e) {
+               e.preventDefault();
+               var $form = $(e.target);
+               var bv = $form.data('formValidation');
+
+               var datos = {
+                   ID: $("#ID").val(),
+                   ID_TIPO_ALERTA: $("#ID_TIPO_ALERTA").val(),
+                   ID_AGENCIA: $("#ID_AGENCIA").val(),
+                   EXPRESION: editor.getValue(),
+                   DESCRIPCION: $("#DESCRIPCION").val(),
+               }
+
+               //Envio de datos
+               $.ajax({ url: $form.attr('action'), type: "POST", data: datos } )
+                .done(function (data, textStatus, jqXHR) {
+                    $("#myModal").modal("hide");
+
+                    Mensajes(data.mensaje);
+                    grid.reload();
+                })
+                .fail(function (data, textStatus, jqXHR) {
+                    $("#myModal").modal("hide");
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                });
+
+
+           });
+
+
+            //REVALIDAR EDITOR DE CODIGO
+            editor.getSession().on('change', function (e) {
+                $('#formOperacionIrregular').formValidation('revalidateField', 'editor');
+            });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                editor.setValue("");
+                $('#formOperacionIrregular').trigger("reset"); // Resetea los valores de todos campos
+                $("#formOperacionIrregular").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+            //SELECTS
+            $(function () {
+                $('#ID_TIPO_ALERTA').selectpicker();
+            });
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        OPERACIONES IRREGULARES
+        <small>ALERTA</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridOperacionIrregular" data-source="@Url.Action("GetOperacionIrregular")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formOperacionIrregular" action="/OperacionIrregular/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Operación Irregular
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="ID_TIPO_ALERTA">Tipo de alerta</label><br>
+                        <select id="ID_TIPO_ALERTA" name="ID_TIPO_ALERTA" class="form-control">
+                            <option value="">Seleccione ...</option>
+                            @foreach (ALE_TIPO_ALERTA item in (List<ALE_TIPO_ALERTA>)ViewBag.tipoAlerta)
+                            {
+                                <option value=@item.ID style="background: @item.COLOR; color: #000000;">@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_AGENCIA">Agencia</label><br>
+                        <select id="ID_AGENCIA" name="ID_AGENCIA" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (MAT_CAT_AGENCIA item in (List<MAT_CAT_AGENCIA>)ViewBag.catAgencia)
+                            {
+                                <option value=@item.ID>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expresión</label><br>
+                        <pre id="editor" name="editor"></pre>
+                    </div>
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="5" maxlength="300"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+

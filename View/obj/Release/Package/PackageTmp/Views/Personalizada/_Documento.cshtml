@@ -1,0 +1,189 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditPersonalizadaDocumento(e) {
+            $("#ID_PERSONALIZADA_DOCUMENTO").val(e.data.record.ID);
+            $("#DOC_TIPO").val(e.data.record.TIPO);
+            $("#DOC_NUMERO").val(e.data.record.NUMERO);
+            $("#DOC_PAIS_EXPEDICION").val(e.data.record.PAIS_EXPEDICION);
+            $("#DOC_PAIS_EXPEDICION").change();
+            $("#DOC_COMENTARIO").val(e.data.record.COMENTARIO);
+            $("#myModalPersonalizadaDocumento").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddPersonalizadaDocumento() {
+            $("#ID_PERSONALIZADA_DOCUMENTO").val(""); //campos ocultos
+            $("#DOC_PAIS_EXPEDICION").val("");
+            $("#DOC_PAIS_EXPEDICION").change();
+            $("#myModalPersonalizadaDocumento").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemovePersonalizadaDocumento(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Personalizada/RemovePersonalizadaDocumento", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function () {
+                      gridPersonalizadaDocumento.clear();
+                      gridPersonalizadaDocumento.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DOC").val() });
+                      $().toastmessage('showSuccessToast', '@PropertiesBlo.msgExito');
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', jqXHR);
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonalizadaDocumento = $("#gridPersonalizadaDocumento").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonalizadaDocumento")",
+            autoLoad: false,
+            columns: [
+                { field: "TIPO", title: "Tipo documento" },
+                { field: "NUMERO", title: "Número" },
+                { field: "NOMBRE_PAIS_EXPEDICION", title: "País de expedición" },
+                { field: "COMENTARIO", title: "Comentario" },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonalizadaDocumento } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemovePersonalizadaDocumento } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridPersonalizadaDocumento.clear();
+        gridPersonalizadaDocumento.reload({ page: 1, ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DOC").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarPersonalizadaDocumento").off();
+        $("#btnAgregarPersonalizadaDocumento").on("click", AddPersonalizadaDocumento);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonalizadaDocumento').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                TIPO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                NUMERO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function () {
+                 $("#myModalPersonalizadaDocumento").modal("hide");
+                 $().toastmessage('showSuccessToast', "@PropertiesBlo.msgExito");
+                 gridPersonalizadaDocumento.clear();
+                 gridPersonalizadaDocumento.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_DOC").val() });
+             })
+             .fail(function () {
+                 $("#myModalPersonalizadaDocumento").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalPersonalizadaDocumento').on('hide.bs.modal', function () {
+            $('#formPersonalizadaDocumento').trigger("reset"); // Resetea los valores de todos campos
+            $("#formPersonalizadaDocumento").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalPersonalizadaDocumento' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formPersonalizadaDocumento" action="/Personalizada/SavePersonalizadaDocumento" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Documento
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_PERSONALIZADA_DOCUMENTO es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONALIZADA_DOCUMENTO" type="hidden" name="ID" value="">
+
+                    <!--ID_LISTA_PERSONALIZADA este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_LISTA_PERSONALIZADA" id="ID_LISTA_PERSONALIZADA_DOC" value="@ViewBag.ID_LISTA_PERSONALIZADA">
+
+                    <div class="form-group">
+                        <label for="TIPO">Nombre del documento</label>
+                        <input class="form-control" id="DOC_TIPO" name="TIPO" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="NUMERO">Numero del documento</label>
+                        <input class="form-control" id="DOC_NUMERO" name="NUMERO" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PAIS_EXPEDICION">País de expedición del documento</label>
+                        <select id="DOC_PAIS_EXPEDICION" name="PAIS_EXPEDICION" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                            {
+                                <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="COMENTARIO">Comentario</label>
+                        <textarea class="form-control" id="DOC_COMENTARIO" name="COMENTARIO" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarPersonalizadaDocumento" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

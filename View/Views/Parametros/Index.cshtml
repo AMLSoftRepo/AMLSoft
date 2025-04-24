@@ -1,0 +1,182 @@
+﻿@using Blo.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#CODIGO").val(e.data.record.CODIGO);
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#VALOR").val(e.data.record.VALOR);
+                $("#myModal").modal("show");
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridParametros").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "CODIGO", title: "Código", width: 150, sortable: true, align: 'center' },
+                    { field: "DESCRIPCION", title: "Descripción", sortable: true },
+                    { field: "VALOR", title: "Valor", sortable: true },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "CODIGO") {
+                    $wrapper.html("<span class='label label-primary'><font><font>" + record.CODIGO + "</font></font></span>");
+                }
+            });
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            $('#btnBuscar').on("click", Search);
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formParametros').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    VALOR: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+            //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+           .on('success.field.fv', function (e, data) {
+               var $parent = data.element.parents('.form-group');
+               $parent.removeClass('has-success');
+               data.element.data('fv.icon').hide();
+           })
+           .on('success.form.fv', function (e) {
+               e.preventDefault();
+               var $form = $(e.target);
+               var bv = $form.data('formValidation');
+
+
+               //Envio de datos
+               $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                .done(function (data, textStatus, jqXHR) {
+                    $("#myModal").modal("hide");
+
+                    Mensajes(data.mensaje);
+                    grid.reload();
+                })
+                .fail(function (data, textStatus, jqXHR) {
+                    $("#myModal").modal("hide");
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                });
+
+
+           });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formParametros').trigger("reset"); // Resetea los valores de todos campos
+                $("#formParametros").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PARAMETROS DEL SISTEMA
+        <small>ADMINISTRACION</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridParametros" data-source="@Url.Action("GetParametros")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formParametros" action="/Parametros/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Parametros del Sistema
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="CODIGO">Código</label>
+                        <input class="form-control" id="CODIGO" name="CODIGO" type="text" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="5" disabled></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="VALOR">Valor</label>
+                        <textarea class="form-control" id="VALOR" name="VALOR" rows="5" maxlength="500" ></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

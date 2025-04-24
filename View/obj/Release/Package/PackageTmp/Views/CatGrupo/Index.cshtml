@@ -1,0 +1,200 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#NOMBRE").val(e.data.record.NOMBRE);                
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#WEB").val(e.data.record.WEB);
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#NOMBRE").val("");
+                $("#DESCRIPCION").val("");
+                $("#WEB").val("");
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../CatGrupo/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridCatGrupo").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: 'NOMBRE', title: "Grupo", sortable: true, width: 150 },
+                    { field: "DESCRIPCION", title: "Descripción", sortable: true, width: 400, },
+                    { title: "Información", width: 100, align: 'center', type: "icon", icon: "glyphicon-info-sign btn btn-info btn-xs", tooltip: "Ir a sitio web", events: { "click": GoToInfo } },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } }
+                    //,{ title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formCatGrupo').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    NOMBRE: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    DESCRIPCION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formCatGrupo').trigger("reset"); // Resetea los valores de todos campos
+                $("#formCatGrupo").formValidation('resetForm'); // Elimina las clases de validacion
+            });
+
+            function GoToInfo(e) {
+                if (e.data.record.WEB != null)
+                    window.open(e.data.record.WEB);
+            }
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        GRUPO PAISES
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridCatGrupo" data-source="@Url.Action("GetGrupo")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formCatGrupo" action="/CatGrupo/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Grupos de Países
+                </div>
+                <div class="panel-body">
+
+                    <input id="ID" type="hidden" name="ID" value="">
+          
+                    <div class="form-group">
+                        <label for="NOMBRE">Nombre</label>
+                        <input class="form-control" id="NOMBRE" name="NOMBRE" type="text" value="" maxlength="250">
+                    </div>
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="WEB">Sitio Web</label>
+                        <input class="form-control" id="WEB" name="WEB" type="text" value="" maxlength="250">
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+

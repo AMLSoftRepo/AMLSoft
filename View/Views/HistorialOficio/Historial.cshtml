@@ -1,0 +1,444 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/Content/moment.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/locale-all.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //=============================================
+            //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+            //=============================================
+            function load_Personas() {
+                $.ajax({
+                    url: '@Url.Action("_Personas", "HistorialOficio")',
+                    data: { ID_OFICIO: $("#ID").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_personas").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function ImprimirOficio(e) {
+                //window.open("../Oficio/ImprimirOficio?id=" + e.data.record.ID, '_blank');
+                // window.location = $('#DESCARGAR_OFICIO').attr('href');
+                //window.open("../Oficio/ImprimirOficio?id=" + e.data.record.ID, 'Download');
+                location.href = "../HistorialOficio/ImprimirOficio?id=" + e.data.record.ID;
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridOficio").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    //{ field: "NOMBRE_CONTACTO", title: "Contacto", sortable: true, width: 200 },
+                    { field: "NUMERO_OFICIO", title: "Número oficio", sortable: true },
+                    { field: "REFERENCIA", title: "Referencia", sortable: true },
+                    { field: "FECHA_RECIBIDO", title: "Fecha recibido", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_RESPUESTA_UIF", title: "Fecha de respuesta UIF", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_RECIBIDO_UIF", title: "Fecha de recibido UIF", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_MAXIMA_UIF", title: "Fecha máxima", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "CUMPLIMIENTO", title: "Cumplimiento", align: 'center' },
+                    { title: "", field: "Imprimir", width: 42 },
+                    { title: "", field: "detalle", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "detalle", events: { "click": Detalle } },
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "CUMPLIMIENTO") {
+                    if (record.CUMPLIMIENTO <= 0)
+                        $wrapper.html("<spam>" + record.CUMPLIMIENTO + "</spam> <img width='20' height='20' src='/content/Imagenes/verde.png'>");
+                    else
+                        $wrapper.html("<spam>" + record.CUMPLIMIENTO + "</spam> <img width='20' height='20' src='/content/Imagenes/rojo.png'>");
+                }
+                if (column.field == "Imprimir") {
+                    $wrapper.html('<a title="Imprimir" href="../Oficio/ImprimirOficio?id=' + record.ID + '"  download>' +
+                                  '<span class="glyphicon glyphicon-print btn bg-black btn-xs"></span></a>');
+                }
+            });
+
+            //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+            function Detalle(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_CONTACTO_SOLICITANTE").val(e.data.record.ID_CONTACTO_SOLICITANTE);
+                $("#ID_CONTACTO_SOLICITANTE").change();
+                $("#ID_CONTACTO_INSTITUCION").val(e.data.record.ID_CONTACTO_INSTITUCION);
+                $("#ID_CONTACTO_INSTITUCION").change();
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").val(e.data.record.ID_CONTACTO_INSTITUCION_OFICIAL);
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").change();
+                $("#NUMERO_OFICIO").val(e.data.record.NUMERO_OFICIO);
+                $("#REFERENCIA").val(e.data.record.REFERENCIA);
+                $("#FECHA_OFICIO").val(formatDate(e.data.record.FECHA_OFICIO, 'dd/mm/yyyy'));
+                $("#FECHA_RECIBIDO").val(formatDate(e.data.record.FECHA_RECIBIDO, 'dd/mm/yyyy'));
+                $("#FORMATO_RESPUESTA").val(e.data.record.FORMATO_RESPUESTA);
+                $("#FECHA_RECIBIDO_UIF").val(formatDate(e.data.record.FECHA_RECIBIDO_UIF, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_INI").val(formatDate(e.data.record.FECHA_INVESTIGACION_INI, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_FIN").val(formatDate(e.data.record.FECHA_INVESTIGACION_FIN, 'dd/mm/yyyy'));
+                $("#DIAS_MAX").val(e.data.record.DIAS_MAX);
+                $("#COMENTARIO").val(e.data.record.COMENTARIO);
+                $("#ORIGEN").val(e.data.record.ORIGEN);
+                $("#ORIGEN").change();
+
+                //cargar pestañas ===========================================================================================
+                load_Personas();
+
+                //$('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(data) {
+                $("#ID").val(data.ID);
+                $("#ID_CONTACTO_SOLICITANTE").val(data.ID_CONTACTO_SOLICITANTE);
+                $("#ID_CONTACTO_SOLICITANTE").change();
+
+                $("#ID_CONTACTO_INSTITUCION").val(data.ID_CONTACTO_INSTITUCION);
+                $("#ID_CONTACTO_INSTITUCION").change();
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").val(data.ID_CONTACTO_INSTITUCION_OFICIAL);
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").change();
+                $("#NUMERO_OFICIO").val(data.NUMERO_OFICIO);
+                $("#REFERENCIA").val(data.REFERENCIA);
+                $("#FECHA_OFICIO").val(formatDate(data.FECHA_OFICIO, 'dd/mm/yyyy'));
+                $("#FECHA_RECIBIDO").val(formatDate(data.FECHA_RECIBIDO, 'dd/mm/yyyy'));
+                $("#FORMATO_RESPUESTA").val(data.FORMATO_RESPUESTA);
+                $("#FECHA_RECIBIDO_UIF").val(formatDate(data.FECHA_RECIBIDO_UIF, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_INI").val(formatDate(data.FECHA_INVESTIGACION_INI, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_FIN").val(formatDate(data.FECHA_INVESTIGACION_FIN, 'dd/mm/yyyy'));
+                $("#DIAS_MAX").val(data.DIAS_MAX);
+                $("#ORIGEN").val(data.ORIGEN);
+                $("#ORIGEN").change();
+                $("#COMENTARIO").val(data.COMENTARIO);
+
+                //cargar pestañas ===========================================================================================
+                load_Personas();
+
+                //$('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+
+            //SELECT2 PERSONALIZADO TIPO TABLA
+            $('.s2Grid_1').select2({
+                templateResult: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                            '<div class="row" style="font-weight: bold;">' +
+                            '<div class="col-md-6"> INSTITUCION </div>' +
+                            '<div class="col-md-6"> CONTACTO </div>' +
+                            '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div class="col-md-6">' + r[0] + '</div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                },
+                templateSelection: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                             '<div class="row">' +
+                            '<div class="col-md-6">' + data.text + '</div>' +
+                            '<div></div>' +
+                        '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div></div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                }
+            });
+
+
+            //CARGA DE EVENTOS EN EL CONTROL CALENDARIO
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'month,basicWeek,basicDay',
+                    center: 'title',
+                    right: 'prevYear,nextYear,prev,next today'
+                },
+                defaultView: 'month',
+                locale: "es",
+                eventLimit: true,
+                //events: "/NotificacionOficio/ObtenerEventos",
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: "/HistorialOficio/ObtenerEventosHistorial",
+                        data: {
+                            fechaIni: start.unix(),
+                            fechaFin: end.unix()
+                        },
+                        success: function (doc) {
+                            callback(doc);
+                        }
+                    });
+                },
+                eventClick: function (event) {
+                    if (event.url) {
+                        var url = event.url.split('?')[0];
+                        var id = event.url.split('?')[1];
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: { id: id },
+                            success: function (data) {
+                                Edit(data.oficio);
+                            },
+                            error: function () {
+                                $().toastmessage('showErrorToast', '@PropertiesBlo.msgFallo');
+                            }
+                        });
+
+                        return false;
+                    }
+                }
+            });
+
+
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        HISTORIAL DE OFICIO
+        <small>MONITOREO</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <!-- /.nav-tabs-custom" -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs active">
+                    <li class="active"><a href="#calendario" data-toggle="tab">Calendario</a></li>
+                    <li><a href="#busqueda" data-toggle="tab">Busqueda</a></li>
+                </ul>
+                <div class="tab-content">
+
+
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="calendario">
+                        <div id="calendar"></div>
+                    </div>
+
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="busqueda">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group pull-right">
+                                    <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                                    <span class="input-group-btn">
+                                        <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" style="overflow-y: hidden;">
+                            @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                            <table id="gridOficio" data-source="@Url.Action("GetOficioHistorial")"></table>
+                        </div>
+                    </div>
+
+
+                </div> <!-- /.tab-content -->
+            </div> <!-- /.nav-tabs-custom -->
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Oficio
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#oficio" data-toggle="tab">Datos generales de oficio</a></li>
+                        <li><a href="#personas" data-toggle="tab">Personas</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="oficio">
+
+                            <input id="ID" type="hidden" name="ID" value="">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ID_CONTACTO_SOLICITANTE">Solicitante</label><br>
+                                        <select id="ID_CONTACTO_SOLICITANTE" name="ID_CONTACTO_SOLICITANTE" disabled class="form-control s2Grid_1" style="width:100%;">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.solicitante)
+                                            {
+                                                <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ID_CONTACTO_INSTITUCION">Destinatario</label><br>
+                                        <select id="ID_CONTACTO_INSTITUCION" disabled name="ID_CONTACTO_INSTITUCION" class="form-control s2Grid_1" style="width:100%;">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.destinatarios)
+                                            {
+                                                <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ID_CONTACTO_INSTITUCION_OFICIAL">Remitente</label><br>
+                                        <select id="ID_CONTACTO_INSTITUCION_OFICIAL" disabled name="ID_CONTACTO_INSTITUCION_OFICIAL" class="form-control  select2-single">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.remitentes)
+                                            {
+                                                <option value=@item.ID>@item.NOMBRE</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="NUMERO_OFICIO">Número de oficio</label>
+                                        <input class="form-control" id="NUMERO_OFICIO" disabled name="NUMERO_OFICIO" type="text" value="" maxlength="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="REFERENCIA">Código de referencia</label>
+                                        <input class="form-control" id="REFERENCIA" disabled name="REFERENCIA" type="text" value="" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ORIGEN">Origen</label>
+                                        <select id="ORIGEN" disabled name="ORIGEN" class="form-control">
+                                            <option value="Presidencia">Presidencia</option>
+                                            <option value="CEP">CEP</option>
+                                            <option value="Mensajero">Mensajero</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FECHA_OFICIO">Fecha de oficio</label>
+                                        <input class="form-control dpicker" id="FECHA_OFICIO" disabled name="FECHA_OFICIO" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FECHA_RECIBIDO">Fecha de recibido</label>
+                                        <input class="form-control" id="FECHA_RECIBIDO" disabled name="FECHA_RECIBIDO" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FORMATO_RESPUESTA">Formato de respuesta</label>
+                                        <select id="FORMATO_RESPUESTA" disabled name="FORMATO_RESPUESTA" class="form-control">
+                                            <option value="Digital">Digital</option>
+                                            <option value="Físico">Físico</option>
+                                            <option value="Físico y Digital">Físico y Digital</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FECHA_INVESTIGACION_INI">Fecha Inicio de Investigación</label>
+                                        <input class="form-control dpicker" id="FECHA_INVESTIGACION_INI" disabled name="FECHA_INVESTIGACION_INI" type="text" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="FECHA_INVESTIGACION_FIN">Fecha Fin de Investigación</label>
+                                        <input class="form-control dpicker" id="FECHA_INVESTIGACION_FIN" disabled name="FECHA_INVESTIGACION_FIN" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FECHA_RECIBIDO_UIF">Fecha de recibido UIF</label>
+                                        <input class="form-control" id="FECHA_RECIBIDO_UIF" disabled name="FECHA_RECIBIDO_UIF" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DIAS_MAX">Días Máximos</label>
+                                        <input class="form-control numeric" id="DIAS_MAX" disabled name="DIAS_MAX" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="COMENTARIO">Comentario</label>
+                                        <textarea id="COMENTARIO" disabled name="COMENTARIO" class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="personas">
+
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonas"></table>
+                            </div>
+
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+            </div>
+            <div class="panel-footer text-center">
+                <button class="btn btn-default form-control" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_personas"></div> @*function load_Personas()*@

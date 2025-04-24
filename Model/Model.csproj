@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F289CB55-5944-43A8-8366-786605705E34}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <PublishUrl>publicar\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alertas\ALE_ALERTA.cs" />
+    <Compile Include="Alertas\ALE_ALERTA_PERFIL_TRAN.cs" />
+    <Compile Include="Alertas\ALE_BLOQUEO_PRESTAMO.cs" />
+    <Compile Include="Alertas\ALE_CONTACTO_ALERTA.cs" />
+    <Compile Include="Alertas\ALE_DATOS_ADICIONALES_TRANSACCION.cs" />
+    <Compile Include="Alertas\ALE_NOTIFICACION_ALERTA.cs" />
+    <Compile Include="Alertas\ALE_OPERACION_IRREGULAR.cs" />
+    <Compile Include="Alertas\ALE_TIPO_ALERTA.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="Alertas\ALE_ALERTA_LISTA_PERSONA.cs" />
+    <Compile Include="Listas\LIS_CAT_ENTIDADES.cs" />
+    <Compile Include="Listas\LIS_CAT_GRUPO_FATF.cs" />
+    <Compile Include="Listas\LIS_CAT_ORGANOS.cs" />
+    <Compile Include="Listas\LIS_CAT_TITULOS.cs" />
+    <Compile Include="Listas\LIS_EXENTO.cs" />
+    <Compile Include="Listas\LIS_GENERAL.cs" />
+    <Compile Include="Listas\LIS_GENERAL_PERSONALIZADA.cs" />
+    <Compile Include="Listas\LIS_ONU.cs" />
+    <Compile Include="Listas\LIS_ONU_ALIAS.cs" />
+    <Compile Include="Listas\LIS_ONU_DIRECCION.cs" />
+    <Compile Include="Listas\LIS_ONU_DOCUMENTO.cs" />
+    <Compile Include="Listas\LIS_PAIS_GRUPO.cs" />
+    <Compile Include="Listas\LIS_PARAMETRO_ONU_SDN.cs" />
+    <Compile Include="Listas\LIS_PEP.cs" />
+    <Compile Include="Listas\LIS_PEP_CARGO.cs" />
+    <Compile Include="Listas\LIS_PEP_RELACION.cs" />
+    <Compile Include="Listas\LIS_PERSONALIZADA.cs" />
+    <Compile Include="Listas\LIS_PERSONALIZADA_ALIAS.cs" />
+    <Compile Include="Listas\LIS_PERSONALIZADA_DIRECCION.cs" />
+    <Compile Include="Listas\LIS_PERSONALIZADA_DOCUMENTO.cs" />
+    <Compile Include="Listas\LIS_SDN.cs" />
+    <Compile Include="Listas\LIS_SDN_AKA.cs" />
+    <Compile Include="Listas\LIS_SDN_DIRECCION.cs" />
+    <Compile Include="Listas\LIS_SDN_DOCUMENTO.cs" />
+    <Compile Include="Listas\LIS_SDN_NACIONALIDAD.cs" />
+    <Compile Include="Matriz\MAT_CAT_AGENCIA.cs" />
+    <Compile Include="Matriz\MAT_CAT_AUTOMATIZACION.cs" />
+    <Compile Include="Matriz\MAT_CAT_DISENO.cs" />
+    <Compile Include="Matriz\MAT_CAT_DOCUMENTACION.cs" />
+    <Compile Include="Matriz\MAT_CAT_FACTOR_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_CAT_FRECUENCIA.cs" />
+    <Compile Include="Matriz\MAT_CAT_MEZCLA.cs" />
+    <Compile Include="Matriz\MAT_CAT_PROBABILIDAD_OCURRENCIA.cs" />
+    <Compile Include="Matriz\MAT_CAT_SEVERIDAD.cs" />
+    <Compile Include="Matriz\MAT_CAT_TIPO_CONTROL.cs" />
+    <Compile Include="Matriz\MAT_CAT_TIPO_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_CAT_UNIDAD.cs" />
+    <Compile Include="Matriz\MAT_CAUSA_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_CONTROL.cs" />
+    <Compile Include="Matriz\MAT_CONTROL_EVENTO.cs" />
+    <Compile Include="Matriz\MAT_ESCALA_CALIFICACION.cs" />
+    <Compile Include="Matriz\MAT_EVENTO_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_MATRIZ.cs" />
+    <Compile Include="Matriz\MAT_MATRIZ_CONTROL.cs" />
+    <Compile Include="Matriz\MAT_MATRIZ_CONTROL_EVENTO.cs" />
+    <Compile Include="Matriz\MAT_MATRIZ_EVENTO_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_RIESGO.cs" />
+    <Compile Include="Matriz\MAT_SEVERIDAD.cs" />
+    <Compile Include="Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitoreo\MON_AGENCIA_BANCARIA.cs" />
+    <Compile Include="Monitoreo\MON_CARGO_INSTITUCION.cs" />
+    <Compile Include="Monitoreo\MON_CAT_FINANCIERA.cs" />
+    <Compile Include="Monitoreo\MON_CAT_INSTITUCION.cs" />
+    <Compile Include="Monitoreo\MON_CAT_UNIDAD.cs" />
+    <Compile Include="Monitoreo\MON_CLIENTE_PEP.cs" />
+    <Compile Include="Monitoreo\MON_CONTACTO_INSTITUCION.cs" />
+    <Compile Include="Monitoreo\MON_DIA_FESTIVO.cs" />
+    <Compile Include="Monitoreo\MON_OFICIO.cs" />
+    <Compile Include="Monitoreo\MON_OFICIO_CONFIGURACION.cs" />
+    <Compile Include="Monitoreo\MON_OFICIO_PERSONA.cs" />
+    <Compile Include="Monitoreo\MON_ROS.cs" />
+    <Compile Include="Monitoreo\MON_ROS_ACTOR.cs" />
+    <Compile Include="Monitoreo\MON_ROS_ARCHIVOS.cs" />
+    <Compile Include="Monitoreo\MON_ROS_OPERACION.cs" />
+    <Compile Include="Perfiles\PER_CALIFICACION_FACTOR.cs" />
+    <Compile Include="Perfiles\PER_COINCIDENCIA_LISTA.cs" />
+    <Compile Include="Perfiles\PER_CONFIGURACION_FACTOR.cs" />
+    <Compile Include="Perfiles\PER_FACTOR.cs" />
+    <Compile Include="Perfiles\PER_HISTORIAL_PERFIL.cs" />
+    <Compile Include="Perfiles\PER_PERFIL_TRANSACCIONAL.cs" />
+    <Compile Include="Perfiles\PER_TIPO_CALIFICACION.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Seguridad\SEG_ACCESO_USUARIO.cs" />
+    <Compile Include="Seguridad\SEG_CARGAR_DATOS.cs" />
+    <Compile Include="Seguridad\SEG_EMPRESA.cs" />
+    <Compile Include="Seguridad\SEG_ERROR_LOG.cs" />
+    <Compile Include="Seguridad\SEG_LOG_AUDITORIA.cs" />
+    <Compile Include="Seguridad\SEG_MODULO.cs" />
+    <Compile Include="Seguridad\SEG_OPCION.cs" />
+    <Compile Include="Seguridad\SEG_PARAMETRO.cs" />
+    <Compile Include="Seguridad\SEG_PERMISO.cs" />
+    <Compile Include="Seguridad\SEG_ROL.cs" />
+    <Compile Include="Seguridad\SEG_ROL_PERMISO.cs" />
+    <Compile Include="Seguridad\SEG_ROL_USUARIO.cs" />
+    <Compile Include="SQLBDEntities.cs" />
+    <Compile Include="Sql_fn\FN_PERSONA_EN_LISTAS_Result.cs" />
+    <Compile Include="Sql_sp\SP_CONTROL_PAGOS_Result.cs" />
+    <Compile Include="Sql_sp\SP_FILTRAR_TRANSACCIONES_Result.cs" />
+    <Compile Include="Sql_sp\SP_PERFILXCLIENTE_Result.cs" />
+    <Compile Include="Sql_sp\SP_RPT_OPERACIONES_ACUMULADAS_Result.cs" />
+    <Compile Include="Sql_view\VIEW_ACTIVIDAD_ECONOMICA.cs" />
+    <Compile Include="Sql_view\VIEW_CALIFICACION.cs" />
+    <Compile Include="Sql_view\VIEW_CLIENTE.cs" />
+    <Compile Include="Sql_view\VIEW_CLIENTE_DIRECCIONES.cs" />
+    <Compile Include="Sql_view\VIEW_CLIENTE_EMPLEOS.cs" />
+    <Compile Include="Sql_view\VIEW_CLIENTE_TELEFONOS.cs" />
+    <Compile Include="Sql_view\VIEW_COINCIDENCIA_LISTA.cs" />
+    <Compile Include="Sql_view\VIEW_CREDITOS_ESCRITURADOS.cs" />
+    <Compile Include="Sql_view\VIEW_DEPARTAMENTO.cs" />
+    <Compile Include="Sql_view\VIEW_ESTADO_CARTERA.cs" />
+    <Compile Include="Sql_view\VIEW_ESTADO_CIVIL.cs" />
+    <Compile Include="Sql_view\VIEW_FACTORES_PERFIL.cs" />
+    <Compile Include="Sql_view\VIEW_FINANCIERAS.cs" />
+    <Compile Include="Sql_view\VIEW_FORMAS_PAGO.cs" />
+    <Compile Include="Sql_view\VIEW_LINEA.cs" />
+    <Compile Include="Sql_view\VIEW_MUNICIPIO.cs" />
+    <Compile Include="Sql_view\VIEW_OI_FUNCIONES.cs" />
+    <Compile Include="Sql_view\VIEW_OI_OPERADORES.cs" />
+    <Compile Include="Sql_view\VIEW_OI_PARAMETROS.cs" />
+    <Compile Include="Sql_view\VIEW_OPERACIONES.cs" />
+    <Compile Include="Sql_view\VIEW_ORIGEN.cs" />
+    <Compile Include="Sql_view\VIEW_PAISNACIONALIDAD.cs" />
+    <Compile Include="Sql_view\VIEW_PERFIL_TRANSACCIONAL.cs" />
+    <Compile Include="Sql_view\VIEW_PROFESIONES.cs" />
+    <Compile Include="Sql_view\VIEW_REPORTE_CONTROLPAGOS.cs" />
+    <Compile Include="Sql_view\VIEW_REPORTE_PRIMAS.cs" />
+    <Compile Include="Sql_view\VIEW_REPORTE_VENTAS.cs" />
+    <Compile Include="Sql_view\VIEW_SOLICITUDES_CREDITOS.cs" />
+    <Compile Include="Sql_view\VIEW_TIPO_CREDITO.cs" />
+    <Compile Include="Sql_view\VIEW_TIPO_DOCUMENTO.cs" />
+    <Compile Include="Sql_view\VIEW_TIPO_PRESTAMO.cs" />
+    <Compile Include="Sql_view\VIEW_TIPO_TRANSACCIONES.cs" />
+    <Compile Include="Sql_view\VIEW_TRANSACCIONES.cs" />
+    <Compile Include="Sql_view\VIEW_URBANIZACION.cs" />
+    <Compile Include="Sql_view\VIEW_VENTAS_CONTADO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,42 @@
+﻿@using Model;
+
+<style type="text/css">
+    table {
+        color: black;
+        font-family: arial,helvetica,sans-serif;
+        text-align: center;
+    }
+
+    th {
+        padding: 2px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        background: #BDBDBD;
+    }
+</style>
+
+<!--TABLA-->
+<table border="1" align="center">
+    <tr>
+        <th>Descripción</th>
+        <th>Código Cliente</th>
+        <th>Número Recibo</th>
+        <th>Fecha Aplicación</th>
+        <th>Fecha Alerta</th>
+        <th>Valor Transacción</th>
+    </tr>
+
+    @foreach (VIEW_TRANSACCIONES item in (List<VIEW_TRANSACCIONES>)ViewBag.tabla)
+    {
+        <tr>
+            <td>Alerta Manual</td>
+            <td>@item.CODIGO_CLIENTE</td>
+            <td>@item.NUMERO_RECIBO</td>
+            <td>@(item.FECHA_APLICACION != null ? item.FECHA_APLICACION.Value.ToString("dd/MM/yyyy"): "")</td>
+            <td>@DateTime.Today.ToShortDateString()</td>
+            <td>$@item.VALOR_TRANSACCION.Value.ToString("0,0.00")</td>
+        </tr>
+    }
+
+</table>

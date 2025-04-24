@@ -1,0 +1,803 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+    function Imprimir(formato) {
+        if (formato == "PDF")
+            window.open("../RptListaPersonalizada/Reporte?formato=PDF&idLista=" + $("#ID_LISTA_GENERAL").val(), '_blank');
+        else
+            location.href = "../RptListaPersonalizada/Reporte?formato=" + formato + "&idLista=" + $("#ID_LISTA_GENERAL").val();
+    }
+
+    function ImprimirDetalle(formato) {
+        if (formato == "PDF")
+            window.open("../RptListaPersonalizadaDetalle/Reporte?formato=PDF&idPersona=" + $("#ID_PERSONAD").val(), '_blank');
+        else
+            location.href = "../RptListaPersonalizadaDetalle/Reporte?formato=" + formato + "&idPersona=" + $("#ID_PERSONAD").val();
+    }
+
+    $(document).ready(function () {
+        var grid;
+
+        //=============================================
+        //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+        //=============================================
+        function load_PersonalizadaDocumento() {
+            $.ajax({
+                url: '@Url.Action("_Documento", "Personalizada")',
+                data: { ID_LISTA_PERSONALIZADA: $("#ID").val() },
+                type: "GET",
+                cache: false,
+                success: function (data) {
+                    $("#_documento").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+        function load_PersonalizadaDireccion() {
+            $.ajax({
+                url: '@Url.Action("_Direccion", "Personalizada")',
+                data: { ID_LISTA_PERSONALIZADA: $("#ID").val() },
+                type: "GET",
+                cache: false,
+                success: function (data) {
+                    $("#_direccion").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+        function load_PersonalizadaAlias() {
+            $.ajax({
+                url: '@Url.Action("_Alias", "Personalizada")',
+                data: { ID_LISTA_PERSONALIZADA: $("#ID").val() },
+                type: "GET",
+                cache: false,
+                success: function (data) {
+                    $("#_alias").html(data);
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES NIVELES
+        function Edit(e) {
+            $("#ID").val(e.data.record.ID);
+            $("#ID_UNICO").val(e.data.record.ID_UNICO);
+            $("#PRIMER_NOMBRE").val(e.data.record.PRIMER_NOMBRE);
+            $("#SEGUNDO_NOMBRE").val(e.data.record.SEGUNDO_NOMBRE);
+            $("#TERCER_NOMBRE").val(e.data.record.TERCER_NOMBRE);
+            $("#PRIMER_APELLIDO").val(e.data.record.PRIMER_APELLIDO);
+            $("#SEGUNDO_APELLIDO").val(e.data.record.SEGUNDO_APELLIDO);
+            $("#TERCER_APELLIDO").val(e.data.record.TERCER_APELLIDO);
+            $("#PAIS_NACIMIENTO").val(e.data.record.PAIS_NACIMIENTO);
+            $("#PAIS_NACIMIENTO").change();
+            $("#RAZON").val(e.data.record.RAZON);
+            $("#myModal").modal("show");
+
+            //cargar pestañas ========================================================
+            load_PersonalizadaDocumento();
+            load_PersonalizadaDireccion();
+            load_PersonalizadaAlias();
+            $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+            $('a[href="#Personalizada"]').tab('show');// Activar pestaña
+            $("#myModal").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function Add() {
+            $("#ID").val(""); //campos ocultos
+            $("#PAIS_NACIMIENTO").val("");
+            $("#PAIS_NACIMIENTO").change();
+
+            //cargar pestañas ========================================================
+            load_PersonalizadaDocumento();
+            load_PersonalizadaDireccion();
+            load_PersonalizadaAlias();
+            $('.nav-tabs').find('li').removeClass().addClass('disabled').find("a").removeClass().addClass('disabled');
+            $('a[href="#Personalizada"]').tab('show');// Activar pestaña
+
+            $("#myModal").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR PERSONA DE LA LISTA
+        function EliminarDeLista(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Personalizada/EliminarDeLista", type: "POST", data: { id: e.data.record.ID, ID_LISTA_GENERAL: @ViewBag.ID_LISTA_GENERAL } })
+                  .done(function (data, textStatus, jqXHR) {
+                      Mensajes(data.mensaje);
+                      location.reload();
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast',jqXHR);
+                  });
+                }
+            });
+        }
+
+        //EVENTO PARA ELIMINAR UNA PERSONA
+        function Remove(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Personalizada/Remove", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      Mensajes(data.mensaje);
+
+                      window.setTimeout(function () {
+                          location.reload();
+                      }, 1000 /*1 segundo*/);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      window.setTimeout(function () {
+                          location.reload();
+                      }, 1000 /*1 segundo*/);
+
+                      $().toastmessage('showErrorToast',jqXHR);
+                  });
+                }
+            });
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+        function ShowDetail(e) {
+            $("#ID_PERSONAD").val(e.data.record.ID); //campos ocultos
+            $("#ID_UNICOD").val(e.data.record.ID_UNICO);
+            $("#NOMBRES").val(e.data.record.NOMBRES);
+            $("#APELLIDOS").val(e.data.record.APELLIDOS);
+            $("#PAIS_NACIMIENTOD").val(e.data.record.NOMBRE_PAIS_NACIMIENTO);
+            $("#RAZOND").val(e.data.record.RAZON);
+
+            gridDocumento.reload({page: 1, ID_LISTA_PERSONALIZADA: e.data.record.ID });
+            gridDireccion.reload({page: 1, ID_LISTA_PERSONALIZADA: e.data.record.ID });
+            gridAlias.reload({page: 1, ID_LISTA_PERSONALIZADA: e.data.record.ID });
+
+            $("#modalDetalle").modal("show");
+        }
+
+        //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+        function Search() {
+            grid.reload({page: 1, searchString: $("#txtBuscar").val() });
+        }
+
+        $('#txtBuscar').keypress(function (e) {
+            if (e.which == 13) {
+                Search();
+            }
+        });
+
+        function PersonaExistente() {
+            $("#ID_PERSONA").val("");
+
+            $("#modalPersonaExistente").modal("show");
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        grid = $("#gridPersonalizada").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonalizada")",
+            autoLoad: false,
+            columns: [
+                { field: "ID", hidden: true},
+                { field: "ID_UNICO", title: "Identificador único del cliente" },
+                { field: "NOMBRES", title: "Nombres", sortable: true },
+                { field: "APELLIDOS", title: "Apellidos", sortable: true },
+                { title: "", field: "Show", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowDetail } },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                { title: "", field: "Delete2", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar de lista", events: { "click": EliminarDeLista } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-user btn btn-danger btn-xs", tooltip: "Eliminar persona", events: { "click": Remove } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        grid.reload({page: 1, ID_LISTA_GENERAL: @ViewBag.ID_LISTA_GENERAL });
+
+        gridDocumento = $("#gridDocumento").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 500,
+            dataSource: "@Url.Action("GetPersonalizadaDocumento")",
+            autoLoad: false,
+            columns: [
+                { field: "TIPO", title: "Tipo" },
+                { field: "NUMERO", title: "Número" },
+                { field: "NOMBRE_PAIS_EXPEDICION", title: "País de expedición" },
+                { field: "COMENTARIO", title: "Comentario" }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridDireccion = $("#gridDireccion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 500,
+            dataSource: "@Url.Action("GetPersonalizadaDireccion")",
+            autoLoad: false,
+            columns: [
+                { field: "ID_PAIS", hidden: true },
+                { field: "ID_DEPARTAMENTO", hidden: true },
+                { field: "ID_MUNICIPIO", hidden: true },
+                { field: "ID_URBANIZACION", hidden: true },
+                { field: "PAIS", title: "País" },
+                { field: "DEPARTAMENTO", title: "Departamento" },
+                { field: "MUNICIPIO", title: "Municipio" },
+                { field: "URBANIZACION", title: "Colonia/Sector/Urbanización" },
+                { field: "AVENIDA_CALLE_PASAJE", title: "Avenida, calle o pasaje" },
+                { field: "DIRECCION_ESPECIFICA", title: "Detalle dirección" },
+                { field: "COMENTARIO", title: "Comentario" }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridAlias = $("#gridAlias").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 500,
+            dataSource: "@Url.Action("GetPersonalizadaAlias")",
+            autoLoad: false,
+            columns: [
+                { field: "ALIAS", title: "Alias" },
+                { field: "CALIDAD", title: "Calidad" },
+                { field: "COMENTARIO", title: "Comentario" }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregar").on("click", Add);
+        $("#btnPersonaExistente").on("click", PersonaExistente);
+        $("#btnBuscar").on("click", Search);
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonalizada').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_UNICO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    RAZON: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({
+                url: $form.attr('action'),
+                type: "POST",
+                data: $form.serialize(),
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    Mensajes(data.mensaje);
+
+                    if (data.ID != null && data.ID != 0) {
+                        $("#ID").val(data.ID);
+                        $("#formPersonalizada").formValidation('resetForm'); // Elimina las clases de validacion
+
+                        //cargar pestañas ===================================================================================
+                        load_PersonalizadaDocumento();
+                        load_PersonalizadaDireccion();
+                        load_PersonalizadaAlias();
+                        $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                        $('a[href="#Personalizada"]').tab('show');// Activar pestaña
+                    }
+                    grid.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#myModal").modal("hide");
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+            }
+        })
+    });
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonaExistente').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_PERSONA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+            //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+            .on('success.field.fv', function (e, data) {
+                var $parent = data.element.parents('.form-group');
+                $parent.removeClass('has-success');
+                data.element.data('fv.icon').hide();
+            })
+            .on('success.form.fv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('formValidation');
+
+                //Envio de datos
+                $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                 .done(function (data, textStatus, jqXHR) {
+                     $("#modalPersonaExistente").modal("hide");
+                     location.reload();
+                 })
+                 .fail(function (data, textStatus, jqXHR) {
+                     $("#modalPersonaExistente").modal("hide");
+                     $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                 });
+
+            });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+        $('#myModal').on('hide.bs.modal', function () {
+            $('#formPersonalizada').trigger("reset"); // Resetea los NIVELes de todos campos
+            $("#formPersonalizada").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        $('#modalPersonaExistente').on('hide.bs.modal', function () {
+            $('#formPersonaExistente').trigger("reset"); // Resetea los NIVELes de todos campos
+            $("#formPersonaExistente").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        /*$('#ID_PERSONA').selectpicker({
+            actionsBox: true,
+            liveSearch: true,
+            size: 6,
+            selectAllText: "Todos",
+            deselectAllText: "Ninguno",
+            noneSelectedText: "Seleccione"
+        });*/
+
+        //SELECT2 PERSONALIZADO TIPO TABLA
+        $('.s2Grid_1').select2({
+            templateResult: function (data) {
+                if (data.text === 'Seleccione ...')
+                    return $(
+                        '<div class="row" style="font-weight: bold;">' +
+                        '<div class="col-md-6"> PERSONA </div>' +
+                        '<div class="col-md-6"> LISTA(S) </div>' +
+                        '</div>'
+                    );
+
+                var r = data.text.split('|');
+                var $result = $(
+                    '<div class="row">' +
+                        '<div class="col-md-6">' + r[0] + '</div>' +
+                        '<div class="col-md-6">' + r[1] + '</div>' +
+                    '</div>'
+                );
+                return $result;
+            },
+            templateSelection: function (data) {
+                if (data.text === 'Seleccione ...')
+                    return $(
+                         '<div class="row">' +
+                        '<div class="col-md-6">' + data.text + '</div>' +
+                        '<div class="col-md-6"></div>' +
+                    '</div>'
+                    );
+
+                var r = data.text.split('|');
+                var $result = $(
+                    '<div class="row">' +
+                        '<div class="col-md-6">' + r[0] + '</div>' +
+                        '<div class="col-md-6">' + r[1] + '</div>' +
+                    '</div>'
+                );
+                return $result;
+            }
+        });
+
+    });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @Html.Raw(ViewBag.NombreLista) (LISTA PERSONALIZADA)
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" id="btnAgregar" class="btn btn-primary"><span class='glyphicon glyphicon-plus'></span>Nueva persona</button>
+                    <button type="button" id="btnPersonaExistente" class="btn btn-primary"><span class='glyphicon glyphicon-plus'></span>Persona existente</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirLista</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="Imprimir('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridPersonalizada" data-source="@Url.Action("GetPersonalizada")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Lista
+            </div>
+            <div class="panel-body">
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#Personalizada" data-toggle="tab">Datos persona</a></li>
+                        <li><a href="#PersonalizadaDocumento" data-toggle="tab">Documentos</a></li>
+                        <li><a href="#PersonalizadaDireccion" data-toggle="tab">Dirección</a></li>
+                        <li><a href="#PersonalizadaAlias" data-toggle="tab">Alias</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="Personalizada">
+
+                            <form id="formPersonalizada" action="/Personalizada/Save" method="post">
+
+                                <input id="ID" type="hidden" name="ID" value="">
+
+                                <!--ID_LISTA_GENERAL este campo esta oculto ya que es el maestro de esta entidad
+                                Se establece el valor mediante un ViewBag cargado en el controller-->
+                                <input type="hidden" name="ID_LISTA_GENERAL" value="@ViewBag.ID_LISTA_GENERAL">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="ID_UNICO">Identificador único del cliente</label>
+                                            <input class="form-control" id="ID_UNICO" name="ID_UNICO" type="text" maxlength="15">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="PRIMER_NOMBRE">Primer nombre</label>
+                                            <input class="form-control" id="PRIMER_NOMBRE" name="PRIMER_NOMBRE" type="text" maxlength="100">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="SEGUNDO_NOMBRE">Segundo nombre</label>
+                                            <input class="form-control" id="SEGUNDO_NOMBRE" name="SEGUNDO_NOMBRE" type="text" maxlength="100">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="TERCER_NOMBRE">Tercer nombre</label>
+                                            <input class="form-control" id="TERCER_NOMBRE" name="TERCER_NOMBRE" type="text" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PRIMER_APELLIDO">Primer apellido</label>
+                                            <input class="form-control" id="PRIMER_APELLIDO" name="PRIMER_APELLIDO" type="text" maxlength="100">
+                                        </div>
+
+    
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="SEGUNDO_APELLIDO">Segundo apellido</label>
+                                            <input class="form-control" id="SEGUNDO_APELLIDO" name="SEGUNDO_APELLIDO" type="text" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="TERCER_APELLIDO">Apellido de casada</label>
+                                            <input class="form-control" id="TERCER_APELLIDO" name="TERCER_APELLIDO" type="text" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PAIS_NACIMIENTO">Pais de nacimiento</label>
+                                            <select id="PAIS_NACIMIENTO" name="PAIS_NACIMIENTO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (VIEW_PAISNACIONALIDAD item in (List<VIEW_PAISNACIONALIDAD>)ViewBag.nacionalidades)
+                                                {
+                                                <option value=@item.CODIGO_PAIS>@item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="RAZON">Razón</label>
+                                            <textarea class="form-control" id="RAZON" name="RAZON" rows="4" maxlength="500"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                </div>
+
+                            </form>
+
+                        </div><!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="PersonalizadaDocumento">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonalizadaDocumento" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonalizadaDocumento"></table>
+                            </div>
+                        </div><!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="PersonalizadaDireccion">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonalizadaDireccion" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonalizadaDireccion"></table>
+                            </div>
+                        </div><!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="PersonalizadaAlias">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonalizadaAlias" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonalizadaAlias"></table>
+                            </div>
+                        </div><!-- /.tab-pane -->
+
+                    </div><!-- /.tab-content -->
+                </div><!-- /.nav-tabs-custom -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
+    //===================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //===================================================================================================================
+*@
+
+<div id="_documento"></div> @*function load_PersonalizadaDocumento()*@
+<div id="_direccion"></div> @*function load_PersonalizadaDireccion()*@
+<div id="_alias"></div> @*function load_PersonalizadaAlias()*@
+
+<!--MODAL-->
+<div id='modalDetalle' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formPersonalizadaDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle persona en lista Personalizada
+                </div>
+                <div class="panel-body">
+
+                    <input type="hidden" class="form-control" id="ID_PERSONAD" name="ID_PERSONAD" readonly>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ID_UNICOD">Nímero identificador:</label>
+                                <input class="form-control" id="ID_UNICOD" name="ID_UNICOD" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PAIS_NACIMIENTOD">Pais de nacimiento:</label>
+                                <input class="form-control" id="PAIS_NACIMIENTOD" name="PAIS_NACIMIENTOD" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOMBRES">Nombres:</label>
+                                <input class="form-control" id="NOMBRES" name="NOMBRES" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="APELLIDOS">Apellidos:</label>
+                                <input class="form-control" id="APELLIDOS" name="APELLIDOS" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="RAZOND">Razón</label>
+                                <textarea class="form-control" id="RAZOND" name="RAZOND" rows="3" maxlength="500" readonly></textarea>
+                            </div>
+                        </div>
+                        </div>
+
+                    <!-- ***** HR TABLAS***** -->
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Documentos</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridDocumento" data-source="@Url.Action("GetPersonalizadaDocumentos")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Direcciones</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridDireccion" data-source="@Url.Action("GetPersonalizadaDirecciones")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Alias</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridAlias" data-source="@Url.Action("GetPersonalizadaAliases")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirDetalle</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id='modalPersonaExistente' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formPersonaExistente" action="/Personalizada/SavePersonaExistente" method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Personas en listas personalizadas
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_LISTA_GENERAL este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" id="ID_LISTA_GENERAL" name="ID_LISTA_GENERAL" value="@ViewBag.ID_LISTA_GENERAL">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="ID_LIS_PERSONALIZADA">Persona</label><br>
+                                <!--<select id="ID_PERSONA" name="ID_PERSONA" class="form-control" multiple>-->
+                                <select id="ID_PERSONA" name="ID_PERSONA" class="s2Grid_1" style="width:100%">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (var item in (Dictionary<string, string>)ViewBag.persona)
+                                    {
+                                        <option value=@item.Key>@item.Value</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

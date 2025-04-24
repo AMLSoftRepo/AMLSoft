@@ -1,0 +1,715 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //=============================================
+            //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+            //=============================================
+            function load_Personas() {
+                $.ajax({
+                    url: '@Url.Action("_Personas", "Oficio")',
+                    data: { ID_OFICIO: $("#ID").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_personas").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+
+            //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+            function Edit(e) {
+
+                $("#ID").val(e.data.record.ID);
+                $("#ID_CONTACTO_SOLICITANTE").val(e.data.record.ID_CONTACTO_SOLICITANTE);
+                $("#ID_CONTACTO_SOLICITANTE").change();
+                $("#ID_CONTACTO_INSTITUCION").val(e.data.record.ID_CONTACTO_INSTITUCION);
+                $("#ID_CONTACTO_INSTITUCION").change();
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").val(e.data.record.ID_CONTACTO_INSTITUCION_OFICIAL);
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").change();
+                $("#NUMERO_OFICIO").val(e.data.record.NUMERO_OFICIO);
+                $("#REFERENCIA").val(e.data.record.REFERENCIA);
+                $("#FECHA_OFICIO").val(formatDate(e.data.record.FECHA_OFICIO, 'dd/mm/yyyy'));
+                $("#FECHA_RECIBIDO").val(formatDate(e.data.record.FECHA_RECIBIDO, 'dd/mm/yyyy'));
+                $("#FORMATO_RESPUESTA").val(e.data.record.FORMATO_RESPUESTA);
+                $("#FECHA_RECIBIDO_UIF").val(formatDate(e.data.record.FECHA_RECIBIDO_UIF, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_INI").val(formatDate(e.data.record.FECHA_INVESTIGACION_INI, 'dd/mm/yyyy'));
+                $("#FECHA_INVESTIGACION_FIN").val(formatDate(e.data.record.FECHA_INVESTIGACION_FIN, 'dd/mm/yyyy'));
+                $("#DIAS_MAX").val(e.data.record.DIAS_MAX);
+                $("#COMENTARIO").val(e.data.record.COMENTARIO);
+                $("#ORIGEN").val(e.data.record.ORIGEN);
+                $("#ORIGEN").change();
+                //cargar pestañas ===========================================================================================
+                load_Personas();
+
+                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+
+                $("#ID_CONTACTO_SOLICITANTE").val("");
+                $("#ID_CONTACTO_SOLICITANTE").change();
+
+                $("#ID_CONTACTO_INSTITUCION").val("");
+                $("#ID_CONTACTO_INSTITUCION").change();
+
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").val(@ViewBag.idContacto);
+                $("#ID_CONTACTO_INSTITUCION_OFICIAL").change();
+
+                $("#ORIGEN").val("");
+                $("#ORIGEN").change();
+
+                $('.nav-tabs').find('li').removeClass().addClass('disabled').find("a").removeClass().addClass('disabled');
+                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../Oficio/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function ImprimirOficio(e) {
+                //window.open("../Oficio/ImprimirOficio?id=" + e.data.record.ID, '_blank');
+                // window.location = $('#DESCARGAR_OFICIO').attr('href');
+                //window.open("../Oficio/ImprimirOficio?id=" + e.data.record.ID, 'Download');
+                location.href = "../Oficio/ImprimirOficio?id=" + e.data.record.ID;
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridOficio").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    //{ field: "NOMBRE_CONTACTO", title: "Contacto", sortable: true, width: 200 },
+                    { field: "NUMERO_OFICIO", title: "Número oficio", sortable: true },
+                    { field: "REFERENCIA", title: "Referencia", sortable: true },
+                    { field: "FECHA_RECIBIDO", title: "Fecha recibido", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_RESPUESTA_UIF", title: "Fecha de respuesta UIF", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_RECIBIDO_UIF", title: "Fecha de recibido UIF", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "FECHA_MAXIMA_UIF", title: "Fecha máxima", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center' },
+                    { field: "CUMPLIMIENTO", title: "Cumplimiento", align: 'center' },
+                    { title: "", field: "Imprimir", width: 42 },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "CUMPLIMIENTO") {
+                    if (record.CUMPLIMIENTO <= 0)
+                        $wrapper.html("<spam>" + record.CUMPLIMIENTO + "</spam> <img width='20' height='20' src='/content/Imagenes/verde.png'>");
+                    else
+                        $wrapper.html("<spam>" + record.CUMPLIMIENTO + "</spam> <img width='20' height='20' src='/content/Imagenes/rojo.png'>");
+                }
+                if (column.field == "Imprimir") {
+                    $wrapper.html('<a title="Imprimir" href="../Oficio/ImprimirOficio?id=' + record.ID + '"  download>' +
+                                  '<span class="glyphicon glyphicon-print btn bg-black btn-xs"></span></a>');
+                }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+            $("#btnBuscar").on("click", Search);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formOficio').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_CONTACTO_SOLICITANTE: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_CONTACTO_INSTITUCION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ID_CONTACTO_INSTITUCION_OFICIAL: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    NUMERO_OFICIO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    REFERENCIA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    FECHA_OFICIO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },
+                    FECHA_RECIBIDO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },
+                    FORMATO_RESPUESTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    @*FECHA_RECIBIDO_UIF: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },*@
+                    DIAS_MAX: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ORIGEN: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    //Envio de datos
+                    $.ajax({
+                        url: $form.attr('action'),
+                        type: "POST",
+                        data: $form.serialize(),
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            Mensajes(data.mensaje);
+
+                            if (data.ID != null && data.ID != 0) {
+                                $("#ID").val(data.ID);
+                                //cargar pestañas ===================================================================================
+                                load_Personas();
+
+                                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                                $('a[href="#oficio"]').tab('show');// Activar pestaña
+                            }
+
+                            $("#formOficio").formValidation('resetForm'); // Elimina las clases de validacion
+                            grid.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                        }
+                    });
+
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formOficio').trigger("reset"); // Resetea los valores de todos campos
+                $("#formOficio").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+
+            //VALIDANDO RANGO DE FECHAS
+            $('#FECHA_RECIBIDO').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#FECHA_RECIBIDO_UIF').val() ? $('#FECHA_RECIBIDO_UIF').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO');
+                    //$('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO_UIF');
+                },
+                timepicker: false
+            });
+
+
+            $('#FECHA_RECIBIDO_UIF').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#FECHA_RECIBIDO').val() ? $('#FECHA_RECIBIDO').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO');
+                    //$('#formOficio').formValidation('revalidateField', 'FECHA_RECIBIDO_UIF');
+                },
+                timepicker: false
+            });
+
+
+
+            //SELECT2 PERSONALIZADO TIPO TABLA
+            $('.s2Grid_1').select2({
+                templateResult: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                            '<div class="row" style="font-weight: bold;">' +
+                            '<div class="col-md-6"> INSTITUCION </div>' +
+                            '<div class="col-md-6"> CONTACTO </div>' +
+                            '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div class="col-md-6">' + r[0] + '</div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                },
+                templateSelection: function (data) {
+                    if (data.text === 'Seleccione ...')
+                        return $(
+                             '<div class="row">' +
+                            '<div class="col-md-6">' + data.text + '</div>' +
+                            '<div></div>' +
+                        '</div>'
+                        );
+
+                    var r = data.text.split('|');
+                    var $result = $(
+                        '<div class="row">' +
+                            '<div></div>' +
+                            '<div class="col-md-6">' + r[1] + '</div>' +
+                        '</div>'
+                    );
+                    return $result;
+                }
+            });
+
+
+            //PERMITE VALIDAR LOS CAMPOS DE TIPO FECHA CUANDO CAMBIA SU VALOR
+            $(".dpicker").change(function () {
+                $('#formOficio').formValidation('revalidateField', 'FECHA_OFICIO');
+            });
+
+
+
+            //=============================================
+            //IMPLEMENTACION DE PANEL DE CONFIGURACION
+            //=============================================
+
+
+            //PERMITE ENVIAR LOS CAMBIOS DE CONFIGURACION PARA TODOS LOS OFICIOS
+            function AplicarConfiguracion() {
+                $.ajax({
+                    url: '@Url.Action("AplicarConfiguracion", "Oficio")',
+                    data: {
+                        ID_INSTITUCION_CONF: $("#ID_INSTITUCION_CONF").val(),
+                        ID_CONTACTO_CONF: $("#ID_CONTACTO_CONF").val(),
+                        NUMDIAS_CONF: $("#NUMDIAS_CONF").val()
+                    },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        if (data.mensaje == 'Transaccion realizada correctamente')
+                            window.location.reload();
+                        else
+                            $().toastmessage('showErrorToast', data.mensaje);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+
+            //OBTIENE LOS DATOS DE CONFIGURACION DE OFICIOS DESDE LA BASE DE DATOS
+            function ObtenerDatosConfi() {
+                $.ajax({
+                    url: '@Url.Action("ObtenerDatosConfi", "Oficio")',
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#ID_INSTITUCION_CONF").val(data.conf.ID_INSTITUCION);
+                        Pace.ignore(function () {
+
+                            LlenarComboContactos(data.conf.ID_INSTITUCION, data.conf.ID_CONTACTO_INSTITUCION_OFICIAL);
+
+                        });
+                        $("#NUMDIAS_CONF").val(data.conf.DIAS_NOTIFICACION);
+                        $(".control-sidebar-light").addClass("control-sidebar-open");
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+
+            $("#toggle-aplicar").on("click", AplicarConfiguracion)
+            $("#toggle-obtenerDatos").on("click", ObtenerDatosConfi)
+
+
+
+            //PERMITE LLENAR UN COMBO EN CASCADA
+            function LlenarComboContactos(value, selectVal) {
+                Pace.ignore(function () {
+                    $.post('@Url.Action("ObtenerContactosPorInstitucion")', { id: value }, function (response) {
+
+                        $("#ID_CONTACTO_CONF").empty();
+                        $.each(response.contacto, function (i, item) {
+                            $("#ID_CONTACTO_CONF").append("<option value='" + item.ID + "'>" + item.NOMBRE + "</option>");
+                        });
+                        //Seleccionar valor predetermindo
+                        $("#ID_CONTACTO_CONF").val(selectVal);
+
+                    }, 'json');
+                });
+            }
+
+
+            //PERMITE FILTRAR LOS CONTACTOS POR INSTITUCION
+            $("#ID_INSTITUCION_CONF").change(function () {
+                LlenarComboContactos($(this).val(), 0);
+            });
+
+
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header row">
+    <h1 class="col-md-6">
+        OFICIOS
+        <small>MONITOREO</small>
+    </h1>
+    <section class="text-right col-md-6">
+        <button id="toggle-obtenerDatos" class="btn btn-primary btn-xs">
+            <span class="fa fa-gear"></span> Configuración general
+        </button>
+    </section>
+</section>
+
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridOficio" data-source="@Url.Action("GetOficio")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in' data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width: 80%">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Oficio
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#oficio" data-toggle="tab">Datos generales de oficio</a></li>
+                        <li><a href="#personas" data-toggle="tab">Personas</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="oficio">
+                            <form id="formOficio" action="/Oficio/Save" method="post">
+
+                                <input id="ID" type="hidden" name="ID" value="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_SOLICITANTE">Solicitante</label><br>
+                                            <select id="ID_CONTACTO_SOLICITANTE" name="ID_CONTACTO_SOLICITANTE" class="form-control s2Grid_1" style="width:100%;">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.solicitante)
+                                                {
+                                                    <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_INSTITUCION">Destinatario</label><br>
+                                            <select id="ID_CONTACTO_INSTITUCION" name="ID_CONTACTO_INSTITUCION" class="form-control s2Grid_1" style="width:100%;">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.destinatarios)
+                                                {
+                                                    <option value=@item.ID>@item.MON_CARGO_INSTITUCION.MON_CAT_INSTITUCION.NOMBRE | @item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ID_CONTACTO_INSTITUCION_OFICIAL">Remitente</label><br>
+                                            <select id="ID_CONTACTO_INSTITUCION_OFICIAL" name="ID_CONTACTO_INSTITUCION_OFICIAL" class="form-control  select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MON_CONTACTO_INSTITUCION item in (List<MON_CONTACTO_INSTITUCION>)ViewBag.remitentes)
+                                                {
+                                                    <option value=@item.ID>@item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="NUMERO_OFICIO">Número de oficio</label>
+                                            <input class="form-control" id="NUMERO_OFICIO" name="NUMERO_OFICIO" type="text" value="" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="REFERENCIA">Código de referencia</label>
+                                            <input class="form-control" id="REFERENCIA" name="REFERENCIA" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ORIGEN">Origen</label>
+                                            <select id="ORIGEN" name="ORIGEN" class="form-control">
+                                                <option value="Presidencia">Presidencia</option>
+                                                <option value="CEP">CEP</option>
+                                                <option value="Mensajero">Mensajero</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_OFICIO">Fecha de oficio</label>
+                                            <input class="form-control dpicker" id="FECHA_OFICIO" name="FECHA_OFICIO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_RECIBIDO">Fecha de recibido</label>
+                                            <input class="form-control" id="FECHA_RECIBIDO" name="FECHA_RECIBIDO" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FORMATO_RESPUESTA">Formato de respuesta</label>
+                                            <select id="FORMATO_RESPUESTA" name="FORMATO_RESPUESTA" class="form-control">
+                                                <option value="Digital">Digital</option>
+                                                <option value="Físico">Físico</option>
+                                                <option value="Físico y Digital">Físico y Digital</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_INVESTIGACION_INI">Fecha Inicio de Investigación</label>
+                                            <input class="form-control dpicker" id="FECHA_INVESTIGACION_INI" name="FECHA_INVESTIGACION_INI" type="text" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="FECHA_INVESTIGACION_FIN">Fecha Fin de Investigación</label>
+                                            <input class="form-control dpicker" id="FECHA_INVESTIGACION_FIN" name="FECHA_INVESTIGACION_FIN" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FECHA_RECIBIDO_UIF">Fecha de recibido UIF</label>
+                                            <input class="form-control" id="FECHA_RECIBIDO_UIF" name="FECHA_RECIBIDO_UIF" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DIAS_MAX">Días Máximos</label>
+                                            <input class="form-control numeric" id="DIAS_MAX" name="DIAS_MAX" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="COMENTARIO">Comentario</label>
+                                            <textarea id="COMENTARIO" name="COMENTARIO" class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="personas">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarPersonas" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridPersonas"></table>
+                            </div>
+
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CONTROL DE LA BARRA LATERAL -->
+<aside class="control-sidebar control-sidebar-light">
+    <div class="tab-content">
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane active" id="control-sidebar-settings-tab">
+            <h3 class="control-sidebar-heading"><font><font>Configuración general</font></font></h3>
+            <hr>
+            <div class="form-group">
+                <label for="ID_INSTITUCION_CONF">Institución del remitente</label>
+                <select id="ID_INSTITUCION_CONF" class="form-control">
+                    @foreach (MON_CAT_INSTITUCION item in (List<MON_CAT_INSTITUCION>)ViewBag.institucion_cof)
+                    {
+                        <option value=@item.ID>@item.NOMBRE</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ID_CONTACTO_CONF">Remitente predeterminado</label>
+                <select id="ID_CONTACTO_CONF" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label for="NUMDIAS_CONF">Número de días a notificar antes del vencimiento de cada oficio</label>
+                <input class="form-control numeric" id="NUMDIAS_CONF" type="text" value="" maxlength="10">
+            </div>
+            <hr />
+            <div>
+                <button type="button" class="btn btn-default col-md-6" data-toggle="control-sidebar">Cancelar</button>
+                <button type="submit" id="toggle-aplicar" class="btn btn-primary col-md-6">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</aside>
+<!-- The sidebar's background -->
+<div class="control-sidebar-bg"></div>
+
+
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_personas"></div> @*function load_Personas()*@

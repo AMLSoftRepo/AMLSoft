@@ -1,0 +1,197 @@
+
+ ================= 2025-03-18 08:50:10,303 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 08:55:23,224 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 09:19:44,213 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 09:38:42,318 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 09:58:30,926 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 10:05:00,809 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 10:23:16,404 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 10:26:28,840 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  
+
+ ================= 2025-03-18 11:02:59,639 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable datosReporte, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 252 
+  
+
+ ================= 2025-03-18 11:18:36,989 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable datosReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 253 
+  
+
+ ================= 2025-03-18 11:44:11,059 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 253 
+  
+
+ ================= 2025-03-18 15:26:18,213 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 253 
+  
+
+ ================= 2025-03-18 15:42:27,850 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 253 
+  
+
+ ================= 2025-03-18 17:12:36,093 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 229 
+  
+
+ ================= 2025-03-18 17:15:19,621 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetParameterValue(String name, Object val)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 253 
+  
+
+ ================= 2025-03-18 21:33:42,560 ============== 
+ ERROR View.Controllers.BaseController 
+ System.IO.FileNotFoundException: El archivo del reporte no existe en la ruta: C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\{nombreReporte}.rpt
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, DataTable dtReporte, String VIEW_REPORTE_CONTROLPAGOS) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 224 
+  

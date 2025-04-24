@@ -1,0 +1,518 @@
+﻿@using Blo.Properties;
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+
+
+            //EVENTO PARA CAMBIAR ESTADO DE UNA ALERTA
+            function Desbloquear() {
+                bootbox.confirm("¿Esta seguro de <b>'DESBLOQUEAR'</b> el prestamo?", function (result) {
+                    if (result) {
+                        $("#lblBloquearDesbloquear").text("DESBLOQUEAR");
+                        $("#BLOQUEO").val(0);
+                        $("#OBSERVACION").val("");
+                        $("#myModalBloquearDesbloquear").modal("show");
+                    }
+                });
+            }
+
+            function Bloquear() {
+                bootbox.confirm("¿Esta seguro de <b>'BLOQUEAR'</b> el prestamo?", function (result) {
+                    if (result) {
+                        $("#lblBloquearDesbloquear").text("BLOQUEAR");
+                        $("#BLOQUEO").val(1);
+                        $("#OBSERVACION").val("");
+                        $("#myModalBloquearDesbloquear").modal("show");
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridAlerta").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                autoLoad: false,
+                columns: [
+                    { field: "NUMERO_RECIBO", title: "Factura", width: 100 },
+                    { field: "NUMERO_PRODUCTO", title: "Prestamo", width: 100 },
+                    { field: "CODIGO_CLIENTE", title: "Código Cliente", width: 100 },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre del cliente", width: 200 },
+                    { field: "FECHA_CALENDARIO", title: "Fecha de pago", width: 100, align: 'center', type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "VALOR_TRANSACCION", title: "Valor pagado", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>" },
+                    { field: "ESTADO", title: "Estatus", width: 150 },
+                    { field: "INFO_QUIEN_LLENO_DECLARACION_JURADA", title: "Quien lleno declaración jurada", width: 200 },
+                    { field: "TRAN_ORIGEN_FONDOS", title: "Indicación  en declaración jurada", align: 'center', width: 150 },
+                    { field: "INFO_DOCUMENTACION_REQUERIDA", title: "Documento requerido", width: 150 },
+                    { field: "INFO_TELEFONO_CONTACTO", title: "Teléfono de contacto", width: 100 },
+                    { field: "INFO_SEGUIMIENTO", title: "Seguimiento", align: 'center', width: 300 },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowDetail } }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            gridTransaccion = $("#gridTransaccion").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetTransaccion")",
+                autoLoad: false,
+                filterable: false,
+                //selectionType: 'multiple',
+                //selectionMethod: 'checkbox',
+                //primaryKey: 'ID',
+                columns: [
+                    { field: "CLASE_PRODUCTO", title: "Clase producto", width: 100 },
+                    { field: "CODIGO_CLIENTE", title: "Código cliente", width: 100 },
+                    { field: "NUMERO_PRODUCTO", title: "Número producto", width: 100 },
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100 },
+                    { field: "SECUENCIA", title: "Secuencia", width: 100 },
+                    { field: "FECHA_APLICACION", title: "Fecha aplicación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_FINANCIERA", title: "Código financiera", width: 200 },
+                    { field: "COLECTOR_MOVIMIENTO", title: "Colector movimiento", width: 100 },
+                    { field: "TIPO_TRANSACCION", title: "Tipo transacción", width: 200 },
+                    { field: "TIPO_OPERACION", title: "Tipo operación", width: 200 },
+                    { field: "FORMA_PAGO", title: "Forma pago", width: 200 },
+                    { field: "FECHA_CALENDARIO", title: "Fecha calendario", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_AGENCIA_BANCO", title: "Código agencia banco", width: 150 },
+                    { field: "VALOR_TRANSACCION", title: "Valor transacción", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>" },
+                    { field: "NUMERO_RECIBO", title: "Número recibo", width: 100 },
+                    { field: "CODIGO_PATRONO", title: "Código patrono", width: 100 },
+                    { field: "ESTADO_CARTERA", title: "Estado cartera", width: 100 },
+                    { field: "COLECTOR_CONVENIO", title: "Colector convenio", width: 100 },
+                    { field: "FACTURA_CONVENIO", title: "Factura convenio", width: 100 },
+                    { field: "SALDO_CAPITAL", title: "Saldo capital", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_CAPITAL}</span>" },
+                    { field: "SALDO_INTERES", title: "Saldo interés", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_INTERES}</span>" },
+                    { field: "SALDO_SEGUROS_IVA", title: "Saldo seguros IVA", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_SEGUROS_IVA}</span>" },
+                    { field: "SALDO_OTROS", title: "Saldo otros", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_OTROS}</span>" },
+                    { field: "EXCEDENTE", title: "Excedente", align: 'right', width: 150, tmpl: "<span class='currency'>{EXCEDENTE}</span>" },
+                    { field: "CAPITAL_VIGENTE", title: "Capital vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VIGENTE}</span>" },
+                    { field: "CAPITAL_MORA", title: "Capital mora", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_MORA}</span>" },
+                    { field: "CAPITAL_VENCIDO", title: "Capital vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VENCIDO}</span>" },
+                    { field: "INTERES_VIGENTE", title: "Interés vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VIGENTE}</span>" },
+                    { field: "INTERES_MORA", title: "Interés mora", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_MORA}</span>" },
+                    { field: "INTERES_VENCIDO", title: "Interés vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VENCIDO}</span>" },
+                    { field: "FECHA_CANCELACION", title: "Fecha cancelación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_APERTURA", title: "Fecha apertura", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "VALOR_CUOTA", title: "Valor cuota", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CUOTA}</span>" },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", align: 'right', width: 150, tmpl: "<span class='currency'>{MONTO_OTORGADO}</span>" },
+                    { field: "VALOR_VALUO", title: "Valor valuo", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_VALUO}</span>" },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CONTABLE}</span>" },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre cliente", width: 200 },
+                    { field: "CODIGO_AGENCIA", title: "Código agencia", width: 100 },
+                    { field: "TOTAL_INGRESOS", title: "Total ingresos", align: 'right', width: 150, tmpl: "<span class='currency'>{TOTAL_INGRESOS}</span>" }
+                ]
+            });
+
+            gridTransaccion.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#DETALLE_SECUENCIA").val(e.data.record.SECUENCIA);
+                $("#CODIGO_CLIENTE").val(e.data.record.CODIGO_CLIENTE);
+                $("#NUMERO_PRODUCTO").val(e.data.record.NUMERO_PRODUCTO);
+
+                if (e.data.record.ESTADO == "DOCUMENTADO") {
+                    $("#btnDesbloquear").prop('disabled', true);
+                    $("#btnBloquear").prop('disabled', false);
+                }
+
+                if (e.data.record.ESTADO == "PENDIENTE") {
+                    $("#btnDesbloquear").prop('disabled', false);
+                    $("#btnBloquear").prop('disabled', true);
+                }
+
+                if (e.data.record.ESTADO == "SP-ERROR-BLOQUEO") {
+                    $("#btnDesbloquear").prop('disabled', true);
+                    $("#btnBloquear").prop('disabled', false);
+                }
+
+                if (e.data.record.ESTADO == "SP-ERROR-DESBLOQUEO") {
+                    $("#btnDesbloquear").prop('disabled', false);
+                    $("#btnBloquear").prop('disabled', true);
+                }
+
+                if (e.data.record.ESTADO == "LINK-ERROR-BLOQUEO") {
+                    $("#btnDesbloquear").prop('disabled', true);
+                    $("#btnBloquear").prop('disabled', false);
+                }
+
+                if (e.data.record.ESTADO == "LINK-ERROR-DESBLOQUEO") {
+                    $("#btnDesbloquear").prop('disabled', false);
+                    $("#btnBloquear").prop('disabled', true);
+                }
+
+                load_Cliente();
+                load_DatosAdicionalesTransaccion();
+                $("#myModal").modal("show");
+
+                gridTransaccion.clear();
+                gridTransaccion.reload({ page: 1, SECUENCIA: e.data.record.SECUENCIA });
+            }
+
+            function load_Cliente() {
+                $.ajax({
+                    url: '@Url.Action("_Cliente")',
+                    data: { codigoCliente: $("#CODIGO_CLIENTE").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_cliente").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "ERROR CLIENTE");
+                    }
+                });
+            }
+
+            function load_DatosAdicionalesTransaccion() {
+                $.ajax({
+                    url: '@Url.Action("_DatosAdicionalesTransaccion")',
+                    data: { SECUENCIA: $("#DETALLE_SECUENCIA").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_datosadicionales").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            //EVENTOS DE BOTONES
+            $("#btnDesbloquear").on("click", Desbloquear);
+            $("#btnBloquear").on("click", Bloquear);
+
+            $('#formFiltroAlertas').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    fechaInicial: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    },
+                    fechaFinal: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            }
+                        }
+                    }
+                }
+
+            })
+
+                   //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                   .on('success.field.fv', function (e, data) {
+                       var $parent = data.element.parents('.form-group');
+                       $parent.removeClass('has-success');
+                       data.element.data('fv.icon').hide();
+                   })
+                   .on('success.form.fv', function (e) {
+                       e.preventDefault();
+                       var $form = $(e.target);
+                       var bv = $form.data('formValidation');
+
+                       $("#formFiltroAlertas").formValidation('resetForm'); // Elimina las clases de validacion
+
+                       grid.reload({
+                           page: 1, prestamo: $("#prestamo").val(), fechaInicial: $("#fechaInicial").val(), fechaFinal: $("#fechaFinal").val(),
+                           montoMinimo: $("#montoMinimo").val(), montoMaximo: $("#montoMaximo").val(), estado: $("#estado").val()
+                       });
+                   })
+
+
+            //DATEPICKERS
+            $('#fechaInicial').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#fechaFinal').val() ? $('#fechaFinal').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'fechaInicial');
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'fechaFinal');
+                },
+                timepicker: false
+            });
+
+
+            $('#fechaFinal').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#fechaInicial').val() ? $('#fechaInicial').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'fechaFinal');
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'fechaInicial');
+                },
+                timepicker: false
+            });
+
+
+            //-------------------------------------------------------------------------------
+            //VALIDACIONES DEL FORMULARIO // BLOQUEAR Y DESBLOQUEAR
+            $('#formBloquearDesbloquear').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    OBSERVACION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+                    $.ajax({
+                        url: '@Url.Action("BloquarDesbloquear")',
+                        type: "POST",
+                        data: {
+                            SECUENCIA: $("#DETALLE_SECUENCIA").val(),
+                            PRESTAMO: $("#NUMERO_PRODUCTO").val(),
+                            OBSERVACION: $("#OBSERVACION").val(),
+                            BLOQUEO: $("#BLOQUEO").val()
+                        }
+                    })
+                  .done(function (data, textStatus, jqXHR) {
+                      $("#myModalBloquearDesbloquear").modal("hide");
+                      Mensajes(data.mensaje);
+                      grid.reload();
+                      $("#myModal").modal("hide");
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', jqXHR);
+                  });
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModalBloquearDesbloquear').on('hide.bs.modal', function () {
+                $('#formBloquearDesbloquear').trigger("reset"); // Resetea los valores de todos campos
+                $("#formBloquearDesbloquear").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+            //$('#myModal').on('hide.bs.modal', function () {
+            //    grid.reload();
+            //})
+
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PAGOS
+        <small>MONITOREO</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+
+            <form id="formFiltroAlertas" class="form-inline">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="box box-primary box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"></h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Fecha Inicial:</label><br />
+                                    <input class="form-control" id="fechaInicial" name="fechaInicial" type="text" size="8">
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha Final:</label><br />
+                                    <input class="form-control" id="fechaFinal" name="fechaFinal" type="text" size="8">
+                                </div>
+                                <div class="form-group">
+                                    <label>Prestamo:</label><br />
+                                    <input type="text" id="prestamo" name="prestamo" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Monto Mínimo:</label><br />
+                                    <input type="text" id="montoMinimo" name="montoMinimo" class="form-control currency">
+                                </div>
+                                <div class="form-group">
+                                    <label>Monto máximo:</label><br />
+                                    <input type="text" id="montoMaximo" name="montoMaximo" class="form-control currency">
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado:</label><br />
+                                    <select id="estado" name="estado" class="form-control">
+                                        <option value="TODOS">TODOS</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="DOCUMENTADO">DOCUMENTADO</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <br />
+                                    <button type="submit" id="btnFiltrarAlertas" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-filter'></span> FILTRAR</button>
+                                </div>
+
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridAlerta" data-source="@Url.Action("GetAlertas")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formAnalizadaDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle
+                </div>
+                <div class="panel-body">
+
+                    <input id="CODIGO_CLIENTE" type="hidden" name="CODIGO_CLIENTE" value="">
+                    <input id="DETALLE_SECUENCIA" type="hidden" name="SECUENCIA" value="">
+                    <input id="NUMERO_PRODUCTO" type="hidden" name="NUMERO_PRODUCTO" value="">
+
+                    <!-- ***** HR CLIENTE *****-->
+                    <h4><span class="label label-primary">Detalle Cliente</span></h4>
+                    <hr />
+
+                    <div id="_cliente"></div>
+
+                    <!-- ***** HR TABLAS ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Transacción</span></h4>
+                    <hr />
+                    <div class="table-responsive" style="overflow-y: hidden;">
+                        <table id="gridTransaccion" data-source="@Url.Action("GetTransaccion")"></table>
+                    </div>
+
+
+
+                    <!-- ***** HR DATOS ADICIONALES ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Datos Adicionales</span></h4>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" id="btnAgregarDatosAdicionalesTransaccion" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="overflow-y: hidden;">
+                        <table id="gridDatosAdicionalesTransaccion"></table>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button type="button" id="btnDesbloquear" class="btn btn-success"><span class='fa  fa-unlock'></span>  Desbloquear</button>
+                    <button type="button" id="btnBloquear" class="btn btn-danger"><span class='fa fa-lock'></span>  Bloquear</button>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!--MODAL BLOQUEAR/DESBLOQUEAR PRESTAMO-->
+<div id='myModalBloquearDesbloquear' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formBloquearDesbloquear">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <label id="lblBloquearDesbloquear"></label>
+                </div>
+                <div class="panel-body">
+
+                    <input type="hidden" id="BLOQUEO" name="BLOQUEO" value="" />
+
+                    <div class="form-group">
+                        <label>Observación</label>
+                        <textarea class="form-control" id="OBSERVACION" name="OBSERVACION" rows="4"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnSaveBloquear" value="Guardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div id="_datosadicionales"></div> @*function load_DatosAdicionalesTransaccion()*@

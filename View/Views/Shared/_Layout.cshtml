@@ -1,0 +1,329 @@
+﻿@using System.Web.Mvc;
+@using Blo.Properties;
+
+<!DOCTYPE html>
+<html lang="es-sv">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AmlSoft</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="~/Content/Imagenes/favicon.ico" type="image/x-icon" />
+
+    <!-- CSS -->
+    <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/validation/css/formValidation.css" rel="stylesheet" />
+    <link href="~/Content/plugins/toastmessage/resources/css/jquery.toastmessage.css" rel="stylesheet" />
+    <link href="~/Content/plugins/datepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/tema/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/tema/css/adminLTE.min.css" rel="stylesheet" />
+    <link href="~/Content/tema/css/skins/skin-blue.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/Grid/css/grid.css" rel="stylesheet" />
+    <link href="~/Content/plugins/colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/tema/css/Style.css" rel="stylesheet" />
+    <link href="~/Content/plugins/pace/pace.min.css" rel="stylesheet" />
+
+    <!-- JS -->
+    <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/validation/js/formValidation.js"></script>
+    <script src="~/Content/plugins/validation/js/framework/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            @Scripts.Render("~/IE9")
+    <![endif]-->
+
+</head>
+
+<body class="skin-blue  fixed sidebar-mini">
+
+    <div class="locked" style="display:none;"></div>
+
+    <div class="wrapper">
+
+        <header class="main-header">
+
+            <!-- Logo de empresa -->
+            <div class="logo">
+                <a href="/Home" class="logo">
+                    <span class="glyphicon glyphicon-home"> Inicio</span>
+                </a>
+            </div>
+
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                <!-- Menu de usuario -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        @if ((bool)Session["AlertaNotificada"])
+                        {
+                            <li class="dropdown notifications-menu">
+                                <a href="/Alertas/Notificada" title="Alertas de transacciones notificadas">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="label-notificarAlerta label"></span>
+                                </a>
+                            </li>
+                        }
+                        @if ((bool)Session["AlertaAnalizada"])
+                        {
+                            <li class="dropdown notifications-menu">
+                                <a href="/Alertas/Analizada" title="Alertas de transacciones a analizar">
+                                    <i class="fa fa-search"></i>
+                                    <span class="label-notificarAlertaAnalizar label"></span>
+                                </a>
+                            </li>
+                        }
+                        @if ((bool)Session["AlertaOficio"])
+                        {
+                            <li class="dropdown tasks-menu">
+                                <a href="/NotificacionOficio/Notificacion" title="Notificaciones de oficios">
+                                    <i class="fa fa-book"></i>
+                                    <span class="label-notificarOficio label"></span>
+                                </a>
+                            </li>
+                        }
+                        @if ((bool)Session["AlertaPersonaLista"])
+                        {
+                            <li class="dropdown tasks-menu">
+                                <a href="/AlertaListaPersona/Index" title="Notificaciones de listas">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="label-notificarListas label"></span>
+                                </a>
+                            </li>
+                        }
+                        @if ((bool)Session["AlertaPerfilTransaccional"])
+                        {
+                            <li class="dropdown tasks-menu">
+                                <a href="/AlertaPerfilTransaccional/Index" title="Alertas Perfil Transaccional">
+                                    <i class="fa fa-bolt"></i>
+                                    <span class="label-notificarPerfilTransaccional label"></span>
+                                </a>
+                            </li>
+                        }
+                        <!-- Usuario logeado -->
+                        <li class="dropdown user user-menu open">
+                            <a href="/Login" class="dropdown-toggle">
+                                <img src="/content/tema/img/user.png" class="user-image">
+                                <span class="hidden-xs"> @Session["MyNombre"].ToString()</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header><!-- /.Encabezado -->
+
+
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <!-- sidebar menu -->
+                <div class="center-block" style="width:60%; margin-bottom:5px; margin-top:5px;">
+                    <img src="~/Content/Imagenes/AmlSoft.png" class="img-responsive">
+                </div>
+                @Html.Raw(@Session["bootstrapMenu"])
+            </section>
+        </aside>
+
+        <!-- Contenido de la pagina -->
+        <div class="content-wrapper">
+            @RenderBody()
+            <br />
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0
+            </div>
+            <strong>&copy; 2017 <a target="_blank" href="http://informaticaylogistica.com/"> lnfologic</a>.</strong> Todos los derechos reservados.
+            <br />
+            La licencia de este producto se concede de acuerdo con los terminos de licencia del software de Infologic a:
+            <strong>Fondo Social para la Vivienda.</strong>
+        </footer>
+
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+
+    <script data-pace-options='
+            {
+            "restartOnRequestAfter": true,
+            "eventLag": false,
+            "ajax": { "trackMethods": ["POST"] },
+            "startOnPageLoad": false
+            }'
+            src="~/Content/plugins/pace/pace.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            //Obtiene  las notificaciones de OFICIOS
+            function NotificarOficios() {
+                Pace.ignore(function () {
+                    $.ajax({
+                        url: "../NotificacionOficio/NotificarOficios",
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.cantidad != null) {
+
+                                $(".navbar .label-notificarOficio").html(data.cantidad == 0 ? '' : data.cantidad);
+
+                                if (data.cantidad > 0)
+                                    $(".navbar .label-notificarOficio").addClass("label-danger")
+                                else
+                                    $(".navbar .label-notificarOficio").removeClass("label-danger")
+                            }
+                        }
+                    });
+                });
+            };
+
+
+            //Obtiene las alertas de TRANSACCIONES
+            function NotificarAlertas() {
+                Pace.ignore(function () {
+                    $.ajax({
+                        url: "../Alertas/NotificarAlertas",
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.cantidad != null) {
+
+                                $(".navbar .label-notificarAlerta").html(data.cantidad == 0 ? '' : data.cantidad);
+
+                                if (data.cantidad > 0)
+                                    $(".navbar .label-notificarAlerta").addClass("label-warning")
+                                else
+                                    $(".navbar .label-notificarAlerta").removeClass("label-warning")
+                            }
+                        }
+                    });
+                });
+            };
+
+
+            //Obtiene las alertas de TRANSACCIONES
+            function NotificarAlertasAnalizar() {
+                Pace.ignore(function () {
+                    $.ajax({
+                        url: "../Alertas/NotificarAlertasAnalizar",
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.cantidad != null) {
+
+                                $(".navbar .label-notificarAlertaAnalizar").html(data.cantidad == 0 ? '' : data.cantidad);
+
+                                if (data.cantidad > 0)
+                                    $(".navbar .label-notificarAlertaAnalizar").addClass("label-warning")
+                                else
+                                    $(".navbar .label-notificarAlertaAnalizar").removeClass("label-warning")
+                            }
+                        }
+                    });
+                });
+            };
+
+            //Obtiene  las notificaciones de LISTAS
+            function NotificarAlertaPersonaLista() {
+                Pace.ignore(function () {
+                    $.ajax({
+                        url: "../AlertaListaPersona/NotificarListas",
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.cantidad != null) {
+
+                                $(".navbar .label-notificarListas").html(data.cantidad == 0 ? '' : data.cantidad);
+
+                                if (data.cantidad > 0)
+                                    $(".navbar .label-notificarListas").addClass("label-danger")
+                                else
+                                    $(".navbar .label-notificarListas").removeClass("label-danger")
+                            }
+                        }
+                    });
+                });
+            };
+
+            //Obtiene  las notificaciones de PERFIL TRANSACCIONAL
+            function NotificarPerfilTransaccional() {
+                Pace.ignore(function () {
+                    $.ajax({
+                        url: "../AlertaPerfilTransaccional/NotificarPerfilTransaccional",
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.cantidad != null) {
+
+                                $(".navbar .label-notificarPerfilTransaccional").html(data.cantidad == 0 ? '' : data.cantidad);
+
+                                if (data.cantidad > 0)
+                                    $(".navbar .label-notificarPerfilTransaccional").addClass("label-danger")
+                                else
+                                    $(".navbar .label-notificarPerfilTransaccional").removeClass("label-danger")
+                            }
+                        }
+                    });
+                });
+            };
+
+            //Gestion de notificaciones para los usuarios
+            function ActualizarNotificaciones() {
+                if ("@Session["AlertaOficio"].ToString()" == "True")
+                    NotificarOficios();
+
+                if ("@Session["AlertaNotificada"].ToString()" == "True")
+                    NotificarAlertas();
+
+                if ("@Session["AlertaAnalizada"].ToString()" == "True")
+                    NotificarAlertasAnalizar();
+
+            }
+
+
+
+            if ("@Session["AlertaPersonaLista"].ToString()" == "True")
+                NotificarAlertaPersonaLista();
+
+            if ("@Session["AlertaPerfilTransaccional"].ToString()" == "True")
+                NotificarPerfilTransaccional();
+
+            ActualizarNotificaciones();
+
+            setInterval(function () {
+                ActualizarNotificaciones();
+            }, 1000 * 60);
+
+
+        });
+
+    </script>
+
+    <script src="~/Content/plugins/bootstrap/js/bootstrap-filestyle.min.js"></script>
+    <script src="~/Content/plugins/toastmessage/javascript/jquery.toastmessage.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootbox.min.js"></script>
+    <script src="~/Content/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/jfunciones.js"></script>
+    <script src="~/Content/tema/js/app.min.js"></script>
+    <script src="~/Content/plugins/dataformat/date.format.js"></script>
+    <script src="~/Content/plugins/Grid/js/grid.js"></script>
+    <script src="~/Content/jquery.inputmask.bundle.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap-modal-mult.js"></script>
+    <script src="~/Content/plugins/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Content/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="~/Content/plugins/datepicker/jquery.datetimepicker.full.min.js"></script>
+
+</body>
+</html>

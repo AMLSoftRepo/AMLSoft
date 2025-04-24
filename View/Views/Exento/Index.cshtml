@@ -1,0 +1,321 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#lblNombreCliente").text("");
+
+                $("#myModal").modal("show");
+            }
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#lblNombreCliente").text("");
+                $("#CODIGO_CLIENTE_D").val(e.data.record.CODIGO_CLIENTE);
+                $("#IDENTIFICACION1_D").val(e.data.record.NUMERO_IDENTIFICACION);
+                $("#IDENTIFICACION2_D").val(e.data.record.NUMERO_IDENTIFICACION_2);
+                $("#NOMBRE_D").val(e.data.record.NOMBRES + " " + e.data.record.APELLIDOS);
+                $("#PAIS_D").val(e.data.record.PAIS_NACIMIENTO);
+                $("#COMENTARIO_D").val(e.data.record.COMENTARIO);
+                $("#MOTIVO_INGRESO_D").val(e.data.record.MOTIVO_INGRESO);
+                $("#USUARIO_D").val(e.data.record.USUARIO);
+                $("#FECHA_D").val(e.data.record.FECHA);
+
+                $("#modalDetalle").modal("show");
+            }
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../Exento/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridExento").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "CODIGO_CLIENTE", title: "Codigo cliente", sortable: true, width: 120 },
+                    { field: "NOMBRES", title: "Nombres", sortable: true, width: 150 },
+                    { field: "APELLIDOS", title: "Apellidos", width: 150 },
+                    { field: "USUARIO", title: "Usuario", width: 150 },
+                    { field: "FECHA", title: "Fecha", align: 'center', width: 150 },
+                    { title: "", field: "Show", width: 42, type: "icon", icon: "glyphicon-search btn btn-success btn-xs", tooltip: "Consultar", events: { "click": ShowDetail } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+            //PERMITE MOSTRAR NOMBRE DE CLIENTE POR SU CODIGO
+            function MostrarCliente(idCliente) {
+                Pace.ignore(function () {
+                    if ($("#CODIGO_CLIENTE").val() == null || $("#CODIGO_CLIENTE").val() == "")
+                        ("#lblNombreCliente").text("Digitar código de cliente");
+                    else
+                        $("#lblNombreCliente").text("Cargando...");
+
+                    $.post('@Url.Action("MostrarCliente")', { idCliente: $("#CODIGO_CLIENTE").val() }, function (response) {
+                        $("#lblNombreCliente").text(response.cliente);
+                    }, 'json');
+                });
+            }
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+            $("#btnMostrarCliente").on("click", MostrarCliente);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formExento').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    CODIGO_CLIENTE: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    MOTIVO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formExento').trigger("reset"); // Resetea los NIVELes de todos campos
+                $("#formExento").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        LISTA DE PERSONAS EXENTAS
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+                <div class="col-md-9">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Nombre ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridExento" data-source="@Url.Action("GetExento")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formExento" action="/Exento/Save" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Listas
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="CODIGO_CLIENTE">Codigo cliente</label>
+                        <div class="input-group">
+
+                            <input class="form-control" id="CODIGO_CLIENTE" name="CODIGO_CLIENTE" value="" onkeypress="return Numeros(event, this);">
+                            <span class="input-group-btn">
+                                <button type="button" id="btnMostrarCliente" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                            </span>
+                        </div>
+                        <label id="lblNombreCliente">111</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="MOTIVO">Motivo de ingreso</label>
+                        <textarea class="form-control" id="MOTIVO" name="MOTIVO" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="COMENTARIO">Comentario</label>
+                        <textarea class="form-control" id="COMENTARIO" name="COMENTARIO" rows="3"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--MODAL DETALLE CLIENTE-->
+<div id='modalDetalle' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formClienteDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle Cliente
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CODIGO_CLIENTE_D">Código cliente:</label>
+                                <input class="form-control" id="CODIGO_CLIENTE_D" name="CODIGO_CLIENTE_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="NOMBRE_D">Nombre:</label>
+                                <input class="form-control" id="NOMBRE_D" name="NOMBRE_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION1_D">Identificación 1:</label>
+                                <input class="form-control" id="IDENTIFICACION1_D" name="IDENTIFICACION1_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION2_D">Identificación 2:</label>
+                                <input class="form-control" id="IDENTIFICACION2_D" name="IDENTIFICACION2_D" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PAIS_D">País:</label>
+                                <input class="form-control" id="PAIS_D" name="PAIS_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="USUARIO_D">Usuario:</label>
+                            <input class="form-control" id="USUARIO_D" name="USUARIO_D" readonly value="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="FECHA_D">Fecha:</label>
+                            <input class="form-control" id="FECHA_D" name="FECHA_D" readonly value="">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="MOTIVO_INGRESO_D">Motivo de ingreso</label>
+                                <textarea class="form-control" id="MOTIVO_INGRESO_D" name="MOTIVO_INGRESO_D" rows="3" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="COMENTARIO_D">Comentario</label>
+                                <textarea class="form-control" id="COMENTARIO_D" name="COMENTARIO_D" rows="3" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditPersonalizadaAlias(e) {
+            $("#ID_PERSONALIZADA_ALIAS").val(e.data.record.ID);
+            $("#ALIAS").val(e.data.record.ALIAS);
+            $("#CALIDAD").val(e.data.record.CALIDAD);
+            $("#COMENTARIO").val(e.data.record.COMENTARIO);
+            $("#myModalPersonalizadaAlias").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddPersonalizadaAlias() {
+            $("#ID_PERSONALIZADA_ALIAS").val(""); //campos ocultos
+            $("#myModalPersonalizadaAlias").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemovePersonalizadaAlias(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Personalizada/RemovePersonalizadaAlias", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function () {
+                      gridPersonalizadaAlias.clear();
+                      gridPersonalizadaAlias.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_ALI").val() });
+                      $().toastmessage('showSuccessToast', '@PropertiesBlo.msgExito');
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', jqXHR);
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonalizadaAlias = $("#gridPersonalizadaAlias").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonalizadaAlias")",
+            autoLoad: false,
+            columns: [
+                { field: "ALIAS", title: "Alias" },
+                { field: "CALIDAD", title: "Calidad" },
+                { field: "COMENTARIO", title: "Comentario" },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonalizadaAlias } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemovePersonalizadaAlias } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridPersonalizadaAlias.clear();
+        gridPersonalizadaAlias.reload({ page: 1, ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_ALI").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarPersonalizadaAlias").off();
+        $("#btnAgregarPersonalizadaAlias").on("click", AddPersonalizadaAlias);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonalizadaAlias').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ALIAS: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function () {
+                 $("#myModalPersonalizadaAlias").modal("hide");
+                 $().toastmessage('showSuccessToast', "@PropertiesBlo.msgExito");
+                 gridPersonalizadaAlias.clear();
+                 gridPersonalizadaAlias.reload({ ID_LISTA_PERSONALIZADA: $("#ID_LISTA_PERSONALIZADA_ALI").val() });
+             })
+             .fail(function () {
+                 $("#myModalPersonalizadaAlias").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalPersonalizadaAlias').on('hide.bs.modal', function () {
+            $('#formPersonalizadaAlias').trigger("reset"); // Resetea los valores de todos campos
+            $("#formPersonalizadaAlias").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+    });
+</script>
+
+<!--MODAL-->
+<div id='myModalPersonalizadaAlias' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formPersonalizadaAlias" action="/Personalizada/SavePersonalizadaAlias" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Alias
+                </div>
+                <div class="panel-body">
+
+                    <!--ID_PERSONALIZADA_ALIAS es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONALIZADA_ALIAS" type="hidden" name="ID" value="">
+
+                    <!--ID_LISTA_PERSONALIZADA este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_LISTA_PERSONALIZADA" id="ID_LISTA_PERSONALIZADA_ALI" value="@ViewBag.ID_LISTA_PERSONALIZADA">
+
+                    <div class="form-group">
+                        <label for="ALIAS">Alias</label>
+                        <input class="form-control" id="ALIAS" name="ALIAS" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CALIDAD">Calidad del Alias</label>
+                        <input class="form-control" id="CALIDAD" name="CALIDAD" type="text" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="COMENTARIO">Comentario</label>
+                        <textarea class="form-control" id="COMENTARIO" name="COMENTARIO" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarPersonalizadaAlias" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

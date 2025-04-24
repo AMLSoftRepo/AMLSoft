@@ -1,0 +1,1163 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function ImprimirDetalle(formato) {
+            if (formato == "PDF")
+                window.open("../ResumenCliente/Reporte?formato=PDF&codigoCliente=" + $("#CODIGO_CLIENTE_D").val(), '_blank');
+            else
+                location.href = "../ResumenCliente/Reporte?formato=" + formato + "&codigoCliente=" + $("#CODIGO_CLIENTE_D").val();
+        }
+
+        function ImprimirTransacciones(formato) {
+            if ($("#FECHA_INI_T").val() != "" && $("#FECHA_FIN_T").val() != "") {
+                if (formato == "PDF")
+                    window.open("../ResumenCliente/ReporteTransaccionesCliente?formato=PDF&codigoCliente=" + $("#CODIGO_CLIENTE_T").val() + "&FECHA_INI_T=" + $("#FECHA_INI_T").val() + "&FECHA_FIN_T=" + $("#FECHA_FIN_T").val() + "&NOMBRE_T=" + $("#NOMBRE_T").val(), '_blank');
+                else
+                    location.href = "../ResumenCliente/ReporteTransaccionesCliente?formato=" + formato + "&codigoCliente=" + $("#CODIGO_CLIENTE_T").val() + "&FECHA_INI_T=" + $("#FECHA_INI_T").val() + "&FECHA_FIN_T=" + $("#FECHA_FIN_T").val() + "&NOMBRE_T=" + $("#NOMBRE_T").val();
+            }
+            else
+                $().toastmessage('showErrorToast', "Elegir fechas");
+        }
+
+        function ImprimirNotificaciones(formato) {
+            if (formato == "PDF")
+                window.open("../ResumenCliente/ReporteAlertasCliente?formato=PDF&codigoCliente=" + $("#CODIGO_CLIENTE_N").val() + "&NombreCliente=" + $("#NOMBRE_N").val(), '_blank');
+            else
+                location.href = "../ResumenCliente/ReporteAlertasCliente?formato=" + formato + "&codigoCliente=" + $("#CODIGO_CLIENTE_N").val() + "&NombreCliente=" + $("#NOMBRE_N").val();
+        }
+
+        $(document).ready(function () {
+            var grid;
+
+            function load_ClientePEP() {
+                $.ajax({
+                    url: '@Url.Action("_ClientePEP", "ResumenCliente")',
+                    data: { CODIGO_CLIENTE: $("#CODIGO_CLIENTE_P").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_clientepep").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, nombre: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#CODIGO_CLIENTE_D").val(e.data.record.CODIGO_CLIENTE);
+                $("#NOMBRE_D").val(e.data.record.NOMBRES + " " + e.data.record.PRIMER_APELLIDO
+                    + " " + e.data.record.SEGUNDO_APELLIDO + " " + e.data.record.APELLIDO_DE_CASADA);
+                $("#IDENTIFICACION1_D").val(e.data.record.IDENTIFICACION1);
+                $("#IDENTIFICACION2_D").val(e.data.record.IDENTIFICACION2);
+                $("#PAIS_D").val(e.data.record.PAIS);
+                $("#TIPO_DE_PERSONA_D").val(e.data.record.TIPO_DE_PERSONA);
+                $("#ESTADO_CIVIL_D").val(e.data.record.ESTADO_CIVIL);
+                $("#TIPO_CLIENTE_D").val(e.data.record.TIPO_CLIENTE);
+                $("#SECTOR_ECONOMICO_D").val(e.data.record.SECTOR_ECONOMICO);
+                $("#ACTIVIDAD_ECONOMICA_D").val(e.data.record.ACTIVIDAD_ECONOMICA);
+                $("#CLASE_ACTIVIDAD_ECONOMICA_D").val(e.data.record.CLASE_ACTIVIDAD_ECONOMICA);
+                $("#SUB_ACTIVIDAD_ECONOMICA_D").val(e.data.record.SUB_ACTIVIDAD_ECONOMICA);
+                $("#PROFESION_D").val(e.data.record.PROFESION);
+                $("#OCUPACION_D").val(e.data.record.OCUPACION);
+                $("#TOTAL_INGRESOS_D").val(e.data.record.TOTAL_INGRESOS);
+
+                gridDirecciones.reload({ page: 1, CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE });
+                gridTelefonos.reload({ page: 1, CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE });
+
+                $("#modalDetalle").modal("show");
+            }
+
+            function ShowTransactions(e) {
+                $("#CODIGO_CLIENTE_T").val(e.data.record.CODIGO_CLIENTE);
+                $("#NOMBRE_T").val(e.data.record.NOMBRES + " " + e.data.record.PRIMER_APELLIDO
+                    + " " + e.data.record.SEGUNDO_APELLIDO + " " + e.data.record.APELLIDO_DE_CASADA);
+                $("#IDENTIFICACION1_T").val(e.data.record.IDENTIFICACION1);
+                $("#IDENTIFICACION2_T").val(e.data.record.IDENTIFICACION2);
+                $("#PAIS_T").val(e.data.record.PAIS);
+                $("#TIPO_DE_PERSONA_T").val(e.data.record.TIPO_DE_PERSONA);
+                $("#ESTADO_CIVIL_T").val(e.data.record.ESTADO_CIVIL);
+                $("#TIPO_CLIENTE_T").val(e.data.record.TIPO_CLIENTE);
+                $("#SECTOR_ECONOMICO_T").val(e.data.record.SECTOR_ECONOMICO);
+                $("#ACTIVIDAD_ECONOMICA_T").val(e.data.record.ACTIVIDAD_ECONOMICA);
+                $("#CLASE_ACTIVIDAD_ECONOMICA_T").val(e.data.record.CLASE_ACTIVIDAD_ECONOMICA);
+                $("#SUB_ACTIVIDAD_ECONOMICA_T").val(e.data.record.SUB_ACTIVIDAD_ECONOMICA);
+                $("#PROFESION_T").val(e.data.record.PROFESION);
+                $("#OCUPACION_T").val(e.data.record.OCUPACION);
+                $("#TOTAL_INGRESOS_T").val(e.data.record.TOTAL_INGRESOS);
+
+                gridTransacciones.clear();
+                $("#modalTransacciones").modal("show");
+            }
+
+            function ShowNotificaciones(e) {
+                $("#CODIGO_CLIENTE_N").val(e.data.record.CODIGO_CLIENTE);
+                $("#NOMBRE_N").val(e.data.record.NOMBRES + " " + e.data.record.PRIMER_APELLIDO
+                    + " " + e.data.record.SEGUNDO_APELLIDO + " " + e.data.record.APELLIDO_DE_CASADA);
+                $("#IDENTIFICACION1_N").val(e.data.record.IDENTIFICACION1);
+                $("#IDENTIFICACION2_N").val(e.data.record.IDENTIFICACION2);
+                $("#PAIS_N").val(e.data.record.PAIS);
+                $("#TIPO_DE_PERSONA_N").val(e.data.record.TIPO_DE_PERSONA);
+                $("#ESTADO_CIVIL_N").val(e.data.record.ESTADO_CIVIL);
+                $("#TIPO_CLIENTE_N").val(e.data.record.TIPO_CLIENTE);
+                $("#SECTOR_ECONOMICO_N").val(e.data.record.SECTOR_ECONOMICO);
+                $("#ACTIVIDAD_ECONOMICA_N").val(e.data.record.ACTIVIDAD_ECONOMICA);
+                $("#CLASE_ACTIVIDAD_ECONOMICA_N").val(e.data.record.CLASE_ACTIVIDAD_ECONOMICA);
+                $("#SUB_ACTIVIDAD_ECONOMICA_N").val(e.data.record.SUB_ACTIVIDAD_ECONOMICA);
+                $("#PROFESION_N").val(e.data.record.PROFESION);
+                $("#OCUPACION_N").val(e.data.record.OCUPACION);
+                $("#TOTAL_INGRESOS_N").val(e.data.record.TOTAL_INGRESOS);
+
+                $("#FECHA_ALERTA").val(formatDate(e.data.record.FECHA_ALERTA, 'dd/mm/yyyy'));
+                $("#DESCRIPCION_ALERTA").val(e.data.record.DESCRIPCION_ALERTA);
+                $("#DESCRIPCION_ALERTA").attr('style', 'background-color: ' + e.data.record.COLOR);
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#FECHA_MOVIMIENTO").val(formatDate(e.data.record.FECHA_MOVIMIENTO, 'dd/mm/yyyy'));
+
+                $("#NUMERO_FACTURA").val(e.data.record.NUMERO_FACTURA);
+                $("#VALOR_PAGO").val(e.data.record.VALOR_PAGO);
+
+                gridAlerta.reload({ page: 1, estado: '@ALE_ALERTA.ESTADO_NATIFICADA', sortBy: 'FECHA_ALERTA', direction: 'asc', CODIGO_CLIENTE: e.data.record.CODIGO_CLIENTE });
+
+                $("#modalNotificaciones").modal("show");
+            }
+
+            function ShowPEPs(e) {
+                $("#CODIGO_CLIENTE_P").val(e.data.record.CODIGO_CLIENTE);
+                $("#NOMBRE_P").val(e.data.record.NOMBRES + " " + e.data.record.PRIMER_APELLIDO
+                    + " " + e.data.record.SEGUNDO_APELLIDO + " " + e.data.record.APELLIDO_DE_CASADA);
+                $("#IDENTIFICACION1_P").val(e.data.record.IDENTIFICACION1);
+                $("#IDENTIFICACION2_P").val(e.data.record.IDENTIFICACION2);
+                $("#PAIS_P").val(e.data.record.PAIS);
+                $("#TIPO_DE_PERSONA_P").val(e.data.record.TIPO_DE_PERSONA);
+                $("#ESTADO_CIVIL_P").val(e.data.record.ESTADO_CIVIL);
+                $("#TIPO_CLIENTE_P").val(e.data.record.TIPO_CLIENTE);
+                $("#SECTOR_ECONOMICO_P").val(e.data.record.SECTOR_ECONOMICO);
+                $("#ACTIVIDAD_ECONOMICA_P").val(e.data.record.ACTIVIDAD_ECONOMICA);
+                $("#CLASE_ACTIVIDAD_ECONOMICA_P").val(e.data.record.CLASE_ACTIVIDAD_ECONOMICA);
+                $("#SUB_ACTIVIDAD_ECONOMICA_P").val(e.data.record.SUB_ACTIVIDAD_ECONOMICA);
+                $("#PROFESION_P").val(e.data.record.PROFESION);
+                $("#OCUPACION_P").val(e.data.record.OCUPACION);
+                $("#TOTAL_INGRESOS_P").val(e.data.record.TOTAL_INGRESOS);
+
+                load_ClientePEP();
+
+                $("#modalClientePEP").modal("show");
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridCliente").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetCliente")",
+                autoLoad: false,
+                columns: [
+                    { field: "CODIGO_CLIENTE", title: "Código cliente", width: 150},
+                    { tmpl: '{NOMBRES} {PRIMER_APELLIDO} {SEGUNDO_APELLIDO} {APELLIDO_DE_CASADA}', title: "Nombre"},
+                    { field: "IDENTIFICACION1", title: "Identificación 1", width: 250 },
+                    { field: "IDENTIFICACION2", title: "Identificación 2", width: 250},
+                    { title: "", field: "ShowCliente", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle cliente", events: { "click": ShowDetail } },
+                    { title: "", field: "ShowTransacciones", width: 42, type: "icon", icon: "glyphicon-usd btn btn-default btn-xs", tooltip: "Ver transacciones", events: { "click": ShowTransactions } },
+                    { title: "", field: "ShowNotificaciones", width: 42, type: "icon", icon: "glyphicon-bell btn btn-default btn-xs", tooltip: "Ver notificaciones", events: { "click": ShowNotificaciones } },
+                    { title: "", field: "ShowPEPs", width: 42, type: "icon", icon: "glyphicon-link btn btn-default btn-xs", tooltip: "Relaciones con PEPs", events: { "click": ShowPEPs } }
+                ],
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+
+            });
+
+            gridDirecciones = $("#gridDirecciones").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 500,
+                dataSource: "@Url.Action("GetClienteDirecciones")",
+                autoLoad: false,
+                columns: [
+                    { field: "PAIS", title: "País" },
+                    { field: "DEPARTAMENTO", title: "Departamento" },
+                    { field: "MUNICIPIO", title: "Municipio" },
+                    { field: "URBANIZACION", title: "Urbanización" },
+                    { field: "DIRECCION_PRINCIPAL", title: "Principal", align: 'center' }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            gridDirecciones.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "DIRECCION_PRINCIPAL") {
+                    if (record.DIRECCION_PRINCIPAL == "S")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+            gridTelefonos = $("#gridTelefonos").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 500,
+                dataSource: "@Url.Action("GetClienteTelefonos")",
+                autoLoad: false,
+                columns: [
+                    { field: "DESCRIPCION", title: "Descripción" },
+                    { field: "AREA_TELEFONO", title: "Área" },
+                    { field: "NUM_TELEFONO", title: "Número de teléfono" },
+                    { field: "EXTENCION", title: "Extensión" },
+                    { field: "TELEFONO_PRINCIPAL", title: "Principal", align: 'center' }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            gridTelefonos.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "TELEFONO_PRINCIPAL") {
+                    if (record.TELEFONO_PRINCIPAL == "S")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+            gridTransacciones = $("#gridTransacciones").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteTransacciones")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "CLASE_PRODUCTO", title: "Clase producto", width: 100 },
+                    { field: "CODIGO_CLIENTE", title: "Código cliente", width: 100 },
+                    { field: "NUMERO_PRODUCTO", title: "Número producto", width: 100 },
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100 },
+                    { field: "SECUENCIA", title: "Secuencia", width: 100 },
+                    { field: "FECHA_APLICACION", title: "Fecha aplicación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_FINANCIERA", title: "Código financiera", width: 200 },
+                    { field: "COLECTOR_MOVIMIENTO", title: "Colector movimiento", width: 100 },
+                    { field: "TIPO_TRANSACCION", title: "Tipo transacción", width: 200 },
+                    { field: "TIPO_OPERACION", title: "Tipo operación", width: 200 },
+                    { field: "FORMA_PAGO", title: "Forma pago", width: 200 },
+                    { field: "FECHA_CALENDARIO", title: "Fecha calendario", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_AGENCIA_BANCO", title: "Código agencia banco", width: 150 },
+                    { field: "VALOR_TRANSACCION", title: "Valor transacción", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>" },
+                    { field: "NUMERO_RECIBO", title: "Número recibo", width: 100 },
+                    { field: "CODIGO_PATRONO", title: "Código patrono", width: 100 },
+                    { field: "ESTADO_CARTERA", title: "Estado cartera", width: 100 },
+                    { field: "COLECTOR_CONVENIO", title: "Colector convenio", width: 100 },
+                    { field: "FACTURA_CONVENIO", title: "Factura convenio", width: 100 },
+                    { field: "SALDO_CAPITAL", title: "Saldo capital", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_CAPITAL}</span>" },
+                    { field: "SALDO_INTERES", title: "Saldo interés", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_INTERES}</span>" },
+                    { field: "SALDO_SEGUROS_IVA", title: "Saldo seguros IVA", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_SEGUROS_IVA}</span>" },
+                    { field: "SALDO_OTROS", title: "Saldo otros", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_OTROS}</span>" },
+                    { field: "EXCEDENTE", title: "Excedente", align: 'right', width: 150, tmpl: "<span class='currency'>{EXCEDENTE}</span>" },
+                    { field: "CAPITAL_VIGENTE", title: "Capital vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VIGENTE}</span>" },
+                    { field: "CAPITAL_MORA", title: "Capital mora", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_MORA}</span>" },
+                    { field: "CAPITAL_VENCIDO", title: "Capital vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VENCIDO}</span>" },
+                    { field: "INTERES_VIGENTE", title: "Interés vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VIGENTE}</span>" },
+                    { field: "INTERES_MORA", title: "Interés mora", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_MORA}</span>" },
+                    { field: "INTERES_VENCIDO", title: "Interés vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VENCIDO}</span>" },
+                    { field: "FECHA_CANCELACION", title: "Fecha cancelación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_APERTURA", title: "Fecha apertura", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "VALOR_CUOTA", title: "Valor cuota", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CUOTA}</span>" },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", align: 'right', width: 150, tmpl: "<span class='currency'>{MONTO_OTORGADO}</span>" },
+                    { field: "VALOR_VALUO", title: "Valor valuo", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_VALUO}</span>" },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CONTABLE}</span>" },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre cliente", width: 200 },
+                    { field: "CODIGO_AGENCIA", title: "Código agencia", width: 100 },
+                    { field: "TOTAL_INGRESOS", title: "Total ingresos", align: 'right', width: 150, tmpl: "<span class='currency'>{TOTAL_INGRESOS}</span>" }
+                ],
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridTransacciones.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            ///////////////////////////////////////  NOTIFICACIONES ///////////////////////////////////
+            gridAlerta = $("#gridAlerta").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteAlertas")",
+                autoLoad: false,
+
+                columns: [
+                    { field: "COLOR", title: "Notificación", width: 100, align: 'center' },
+                    { field: "FECHA_ALERTA", title: "Fecha Alerta", width: 150, align: 'center', type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "DESCRIPCION", title: "Descripción", width: 400, sortable: true },
+                    { field: "NUMERO_FACTURA", title: "Factura", align: 'center', width: 150, sortable: true },
+                    { field: "FECHA_MOVIMIENTO", title: "Fecha movimiento", width: 150, align: 'center', type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "VALOR_PAGO", title: "Valor pago", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_PAGO}</span>", sortable: true }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            gridAlerta.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "COLOR") {
+                    $wrapper.html("<button  class='btn btn-sm' style='background-color:" + record.COLOR + ";'> " + record.DESCRIPCION_ALERTA + "</button>");
+                }
+            });
+
+            gridAlerta.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+
+            $('#formTransaccionesCliente').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    FECHA_INI_T: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+                                    var i = value.split('/');
+                                    var f = $('#FECHA_FIN_T').val().split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (fini > ffin) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha inicial debe ser menor o igual a la fecha final'
+                                        }
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    },
+                    FECHA_FIN_T: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+
+                                    var i = $('#FECHA_INI_T').val().split('/');
+                                    var f = value.split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (ffin < fini) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha final debe ser mayor o igual a la fecha inicial'
+                                        }
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            })
+
+            //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+            .on('success.field.fv', function (e, data) {
+                var $parent = data.element.parents('.form-group');
+                $parent.removeClass('has-success');
+                data.element.data('fv.icon').hide();
+            })
+            .on('success.form.fv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('formValidation');
+
+                $("#formTransaccionesCliente").formValidation('resetForm'); // Elimina las clases de validacion
+
+                gridTransacciones.reload({ page: 1, CODIGO_CLIENTE: $("#CODIGO_CLIENTE_T").val(), FECHA_INI_T: $("#FECHA_INI_T").val(), FECHA_FIN_T: $("#FECHA_FIN_T").val() });
+
+            })
+
+            //DATEPICKERS
+            $('#FECHA_INI_T').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#FECHA_FIN_T').val() ? $('#FECHA_FIN_T').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_INI_T');
+                    $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_FIN_T');
+                },
+                timepicker: false
+            });
+
+
+            $('#FECHA_FIN_T').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#FECHA_INI_T').val() ? $('#FECHA_INI_T').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_FIN_T');
+                    $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_INI_T');
+                },
+                timepicker: false
+            });
+
+        });
+
+        $(".dpicker").change(function () {
+            $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_INI_T');
+        });
+        $(".dpicker").change(function () {
+            $('#formTransaccionesCliente').formValidation('revalidateField', 'FECHA_FIN_T');
+        });
+
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Resumen Cliente
+        <small>PERFIL</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Nombre ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridCliente" data-source="@Url.Action("GetCliente")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL DETALLE CLIENTE-->
+<div id='modalDetalle' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formClienteDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle Cliente
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CODIGO_CLIENTE_D">Código cliente:</label>
+                                <input class="form-control" id="CODIGO_CLIENTE_D" name="CODIGO_CLIENTE_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOMBRE_D">Nombre:</label>
+                                <input class="form-control" id="NOMBRE_D" name="NOMBRE_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION1_D">Identificación 1:</label>
+                                <input class="form-control" id="IDENTIFICACION1_D" name="IDENTIFICACION1_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION2_D">Identificación 2:</label>
+                                <input class="form-control" id="IDENTIFICACION2_D" name="IDENTIFICACION2_D" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PAIS_D">País:</label>
+                                <input class="form-control" id="PAIS_D" name="PAIS_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_DE_PERSONA_D">Tipo persona:</label>
+                                <input class="form-control" id="TIPO_DE_PERSONA_D" name="TIPO_DE_PERSONA_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ESTADO_CIVIL_D">Estado civil:</label>
+                                <input class="form-control" id="ESTADO_CIVIL_D" name="ESTADO_CIVIL_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_CLIENTE_D">Tipo cliente:</label>
+                                <input class="form-control" id="TIPO_CLIENTE_D" name="TIPO_CLIENTE_D" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SECTOR_ECONOMICO_D">Sector económico:</label>
+                                <input class="form-control" id="SECTOR_ECONOMICO_D" name="SECTOR_ECONOMICO_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ACTIVIDAD_ECONOMICA_D">Actividad económica:</label>
+                                <input class="form-control" id="ACTIVIDAD_ECONOMICA_D" name="ACTIVIDAD_ECONOMICA_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CLASE_ACTIVIDAD_ECONOMICA_D">Clase actividad económica:</label>
+                                <input class="form-control" id="CLASE_ACTIVIDAD_ECONOMICA_D" name="CLASE_ACTIVIDAD_ECONOMICA_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SUB_ACTIVIDAD_ECONOMICA_D">Subactividad económica:</label>
+                                <input class="form-control" id="SUB_ACTIVIDAD_ECONOMICA_D" name="SUB_ACTIVIDAD_ECONOMICA_D" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PROFESION_D">Profesión:</label>
+                                <input class="form-control" id="PROFESION_D" name="PROFESION_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="OCUPACION_D">Ocupación:</label>
+                                <input class="form-control" id="OCUPACION_D" name="OCUPACION_D" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TOTAL_INGRESOS_D">Total ingresos:</label>
+                                <input class="form-control currency" id="TOTAL_INGRESOS_D" name="TOTAL_INGRESOS_D" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ***** HR TABLAS***** -->
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Direcciones</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridDirecciones" data-source="@Url.Action("GetClienteDirecciones")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Telefonos</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridTelefonos" data-source="@Url.Action("GetClienteTelefonos")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirDetalle</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--MODAL DETALLE TRANSACCIONES-->
+<div id='modalTransacciones' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Transacciones Cliente
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="CODIGO_CLIENTE_T">Código cliente:</label>
+                            <input class="form-control" id="CODIGO_CLIENTE_T" name="CODIGO_CLIENTE_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="NOMBRE_T">Nombre:</label>
+                            <input class="form-control" id="NOMBRE_T" name="NOMBRE_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="IDENTIFICACION1_T">Identificación 1:</label>
+                            <input class="form-control" id="IDENTIFICACION1_T" name="IDENTIFICACION1_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="IDENTIFICACION2_T">Identificación 2:</label>
+                            <input class="form-control" id="IDENTIFICACION2_T" name="IDENTIFICACION2_T" readonly value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="PAIS_T">País:</label>
+                            <input class="form-control" id="PAIS_T" name="PAIS_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="TIPO_DE_PERSONA_T">Tipo persona:</label>
+                            <input class="form-control" id="TIPO_DE_PERSONA_T" name="TIPO_DE_PERSONA_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ESTADO_CIVIL_T">Estado civil:</label>
+                            <input class="form-control" id="ESTADO_CIVIL_T" name="ESTADO_CIVIL_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="TIPO_CLIENTE_T">Tipo cliente:</label>
+                            <input class="form-control" id="TIPO_CLIENTE_T" name="TIPO_CLIENTE_T" readonly value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="SECTOR_ECONOMICO_T">Sector económico:</label>
+                            <input class="form-control" id="SECTOR_ECONOMICO_T" name="SECTOR_ECONOMICO_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ACTIVIDAD_ECONOMICA_T">Actividad económica:</label>
+                            <input class="form-control" id="ACTIVIDAD_ECONOMICA_T" name="ACTIVIDAD_ECONOMICA_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="CLASE_ACTIVIDAD_ECONOMICA_T">Clase actividad económica:</label>
+                            <input class="form-control" id="CLASE_ACTIVIDAD_ECONOMICA_T" name="CLASE_ACTIVIDAD_ECONOMICA_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="SUB_ACTIVIDAD_ECONOMICA_T">Subactividad económica:</label>
+                            <input class="form-control" id="SUB_ACTIVIDAD_ECONOMICA_T" name="SUB_ACTIVIDAD_ECONOMICA_T" readonly value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="PROFESION_T">Profesión:</label>
+                            <input class="form-control" id="PROFESION_T" name="PROFESION_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="OCUPACION_T">Ocupación:</label>
+                            <input class="form-control" id="OCUPACION_T" name="OCUPACION_T" readonly value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="TOTAL_INGRESOS_T">Total ingresos:</label>
+                            <input class="form-control currency" id="TOTAL_INGRESOS_T" name="TOTAL_INGRESOS_T" readonly value="">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ***** HR TABLAS***** -->
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary collapsed-box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Transacciones</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form id="formTransaccionesCliente" class="form-inline">
+                                            <div class="form-group">
+                                                <input class="form-control" id="FECHA_INI_T" name="FECHA_INI_T" placeholder="Fecha Inicio" type="text" value="">
+                                            </div>
+                                            <div class="form-group ">
+                                                <input class="form-control" id="FECHA_FIN_T" name="FECHA_FIN_T" placeholder="Fecha Fin" type="text" value="">
+                                            </div>
+                                            <div class="form-group ">
+                                                <button type="submit" id="btnFiltrarTransaciones" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-filter'></span> FILTRAR</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                    <table id="gridTransacciones" data-source="@Url.Action("GetClienteTransacciones")"></table>
+                                </div>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirDetalle</button>
+                    <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu " role="menu">
+                        <li><a href="javascript:void(0)" onclick="ImprimirTransacciones('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" onclick="ImprimirTransacciones('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" onclick="ImprimirTransacciones('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--MODAL NOTIFICACIONES CLIENTE-->
+<div id='modalNotificaciones' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formClienteDetalle">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Notificaciones Cliente
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CODIGO_CLIENTE_N">Código cliente:</label>
+                                <input class="form-control" id="CODIGO_CLIENTE_N" name="CODIGO_CLIENTE_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOMBRE_N">Nombre:</label>
+                                <input class="form-control" id="NOMBRE_N" name="NOMBRE_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION1_N">Identificación 1:</label>
+                                <input class="form-control" id="IDENTIFICACION1_N" name="IDENTIFICACION1_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION2_N">Identificación 2:</label>
+                                <input class="form-control" id="IDENTIFICACION2_N" name="IDENTIFICACION2_N" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PAIS_N">País:</label>
+                                <input class="form-control" id="PAIS_N" name="PAIS_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_DE_PERSONA_N">Tipo persona:</label>
+                                <input class="form-control" id="TIPO_DE_PERSONA_N" name="TIPO_DE_PERSONA_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ESTADO_CIVIL_N">Estado civil:</label>
+                                <input class="form-control" id="ESTADO_CIVIL_N" name="ESTADO_CIVIL_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_CLIENTE_N">Tipo cliente:</label>
+                                <input class="form-control" id="TIPO_CLIENTE_N" name="TIPO_CLIENTE_N" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SECTOR_ECONOMICO_N">Sector económico:</label>
+                                <input class="form-control" id="SECTOR_ECONOMICO_N" name="SECTOR_ECONOMICO_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ACTIVIDAD_ECONOMICA_N">Actividad económica:</label>
+                                <input class="form-control" id="ACTIVIDAD_ECONOMICA_N" name="ACTIVIDAD_ECONOMICA_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CLASE_ACTIVIDAD_ECONOMICA_N">Clase actividad económica:</label>
+                                <input class="form-control" id="CLASE_ACTIVIDAD_ECONOMICA_N" name="CLASE_ACTIVIDAD_ECONOMICA_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SUB_ACTIVIDAD_ECONOMICA_N">Subactividad económica:</label>
+                                <input class="form-control" id="SUB_ACTIVIDAD_ECONOMICA_N" name="SUB_ACTIVIDAD_ECONOMICA_N" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PROFESION_N">Profesión:</label>
+                                <input class="form-control" id="PROFESION_N" name="PROFESION_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="OCUPACION_N">Ocupación:</label>
+                                <input class="form-control" id="OCUPACION_N" name="OCUPACION_N" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TOTAL_INGRESOS_N">Total ingresos:</label>
+                                <input class="form-control currency" id="TOTAL_INGRESOS_N" name="TOTAL_INGRESOS_N" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ***** HR TABLAS***** -->
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Alertas</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridAlerta" data-source="@Url.Action("GetClienteAlertas")"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirDetalle</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="ImprimirNotificaciones('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirNotificaciones('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirNotificaciones('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                        <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--MODAL CLIENTE PEP-->
+<div id='modalClientePEP' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formClientePEP">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Relaciones Cliente con PEP
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CODIGO_CLIENTE_P">Código cliente:</label>
+                                <input class="form-control" id="CODIGO_CLIENTE_P" name="CODIGO_CLIENTE_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOMBRE_P">Nombre:</label>
+                                <input class="form-control" id="NOMBRE_P" name="NOMBRE_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION1_P">Identificación 1:</label>
+                                <input class="form-control" id="IDENTIFICACION1_P" name="IDENTIFICACION1_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="IDENTIFICACION2_P">Identificación 2:</label>
+                                <input class="form-control" id="IDENTIFICACION2_P" name="IDENTIFICACION2_P" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PAIS_P">País:</label>
+                                <input class="form-control" id="PAIS_P" name="PAIS_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_DE_PERSONA_P">Tipo persona:</label>
+                                <input class="form-control" id="TIPO_DE_PERSONA_P" name="TIPO_DE_PERSONA_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ESTADO_CIVIL_P">Estado civil:</label>
+                                <input class="form-control" id="ESTADO_CIVIL_P" name="ESTADO_CIVIL_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TIPO_CLIENTE_P">Tipo cliente:</label>
+                                <input class="form-control" id="TIPO_CLIENTE_P" name="TIPO_CLIENTE_P" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SECTOR_ECONOMICO_P">Sector económico:</label>
+                                <input class="form-control" id="SECTOR_ECONOMICO_P" name="SECTOR_ECONOMICO_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ACTIVIDAD_ECONOMICA_P">Actividad económica:</label>
+                                <input class="form-control" id="ACTIVIDAD_ECONOMICA_P" name="ACTIVIDAD_ECONOMICA_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CLASE_ACTIVIDAD_ECONOMICA_P">Clase actividad económica:</label>
+                                <input class="form-control" id="CLASE_ACTIVIDAD_ECONOMICA_P" name="CLASE_ACTIVIDAD_ECONOMICA_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SUB_ACTIVIDAD_ECONOMICA_P">Subactividad económica:</label>
+                                <input class="form-control" id="SUB_ACTIVIDAD_ECONOMICA_P" name="SUB_ACTIVIDAD_ECONOMICA_P" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="PROFESION_P">Profesión:</label>
+                                <input class="form-control" id="PROFESION_P" name="PROFESION_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="OCUPACION_P">Ocupación:</label>
+                                <input class="form-control" id="OCUPACION_P" name="OCUPACION_P" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="TOTAL_INGRESOS_P">Total ingresos:</label>
+                                <input class="form-control currency" id="TOTAL_INGRESOS_P" name="TOTAL_INGRESOS_P" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ***** HR TABLAS***** -->
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">PEP's</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <button type="button" id="btnAgregarClientePEP" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        <table id="gridClientePEP"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="_clientepep"></div> @*function load_ClientePEP()*@
+

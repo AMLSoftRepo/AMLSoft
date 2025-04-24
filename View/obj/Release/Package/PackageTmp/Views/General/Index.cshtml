@@ -1,0 +1,205 @@
+﻿@using Blo.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid;
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES NIVELES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#NOMBRE_LISTA").val(e.data.record.NOMBRE_LISTA);
+                $("#DESCRIPCION_LISTA").val(e.data.record.DESCRIPCION_LISTA);
+                $("#URL_LISTA").val(e.data.record.URL_LISTA);
+                if (e.data.record.LLENADO_AUTOMATICO == "1")
+                    $("#LLENADO_AUTOMATICO").prop("checked", true);
+                $("#myModal").modal("show");
+            }
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#myModal").modal("show");
+            }
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../General/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridGeneral").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "NOMBRE_LISTA", title: "Nombre de la lista" },
+                    { field: "DESCRIPCION_LISTA", title: "Descripción" },
+                    { field: "URL_LISTA", title: "Sitio web" },
+                    { field: "LLENADO_AUTOMATICO", title: "Llenado automatico", width: 130, align: 'center', hidden: true },
+                    { title: "Información", width: 100, align: 'center', type: "icon", icon: "glyphicon-info-sign btn btn-info btn-xs", tooltip: "Ir a sitio web", events: { "click": GoToInfo } },
+                    { title: "", field: "Show", width: 42, type: "icon", icon: "glyphicon-search btn btn-success btn-xs", tooltip: "Consultar", events: { "click": GoToLista } },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "LLENADO_AUTOMATICO") {
+                    if (record.LLENADO_AUTOMATICO == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formGeneral').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    NOMBRE_LISTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formGeneral').trigger("reset"); // Resetea los NIVELes de todos campos
+                $("#formGeneral").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+            //IR A INFORMACION
+            function GoToInfo(e) {
+                if (e.data.record.URL_LISTA != null)
+                    window.open(e.data.record.URL_LISTA);
+            }
+
+            //IR A LISTA
+            function GoToLista(e) {
+                window.location = "../PERSONALIZADA?idgen=" + e.data.record.ID;
+            }
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        LISTAS PERSONALIZADAS
+        <small>LISTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridGeneral" data-source="@Url.Action("GetGeneral")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formGeneral" action="/General/Save" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Listas
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="NOMBRE_LISTA">Nombre de la lista</label>
+                        <input class="form-control" id="NOMBRE_LISTA" name="NOMBRE_LISTA" type="text" maxlength="250">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="DESCRIPCION_LISTA">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION_LISTA" name="DESCRIPCION_LISTA" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="URL_LISTA">URL a la lista</label>
+                        <input class="form-control" id="URL_LISTA" name="URL_LISTA" type="text" maxlength="250">
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <label for="LLENADO_AUTOMATICO">Llenado automatico</label>
+                        <input id="LLENADO_AUTOMATICO" name="LLENADO_AUTOMATICO" type="checkbox" value="true">
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

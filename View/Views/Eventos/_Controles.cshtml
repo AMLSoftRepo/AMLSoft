@@ -1,0 +1,446 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+     
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveControles(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Eventos/RemoveControles", type: "POST", data: { ID_EVENTO: $("#ID_EVENTO_CONTROL").val(), ID_CONTROL: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridSeleccionControles.clear();
+                      gridControles.reload({ ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridControles = $("#gridControles").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetControles")",
+            autoLoad: false,
+            columns: [
+                { field: "AUTOMATIZACION", title: "Automatización",  width: 150 },
+                { field: "DISENO", title: "Diseño", width: 150 },
+                { field: "DOCUMENTACION", title: "Documentación", width: 150 },
+                { field: "FRECUENCIA", title: "Frecuencia",  width: 150 },
+                { field: "MEZCLA", title: "Mezcla",  width: 150 },
+                { field: "TIPO_CONTROL", title: "Tipo Control",  width: 150 },
+                { field: "TOTAL_POR", title: "Total",  width: 100 },
+                { field: "DESCRIPCION", title: "Descripción", width: 400 },
+                { field: "OBSERVACIONES", title: "Observaciones", width: 400 },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", aling: "center", events: { "click": RemoveControles } }
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+        });
+
+
+        gridControles.on("cellDataBound", function (e, $wrapper, id, column, record) {
+
+            if (column.field == "TOTAL_POR") {
+                $wrapper.html("<span class='label label-primary'><font><font>" + record.TOTAL_POR + "</font></font></span>");
+            }
+
+        });
+
+        gridControles.clear();
+        gridControles.reload({ page: 1, ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+
+
+        //BUSCAR EN CONTROLES
+        function SearchControl() {
+            gridControles.clear();
+            gridControles.reload({ page: 1, searchString: $("#txtBuscarControl").val(), ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+        }
+
+        $('#txtBuscarControl').off();
+        $('#txtBuscarControl').keypress(function (e) {
+            if (e.which == 13) {
+                SearchControl();
+            }
+        });
+
+        $('#btnBuscarControl').off();
+        $("#btnBuscarControl").on("click", SearchControl);
+
+
+
+        //=============================================
+        //SELECCION DE MULTIPLES CONTROLES
+        //=============================================
+
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddControles() {
+            gridSeleccionControles.clear();
+            gridSeleccionControles.reload({ page: 1, ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+            $("#myModalGridControles").modal("show");
+        }
+
+        $("#btnAgregarcontroles").off();
+        $("#btnAgregarcontroles").on("click", AddControles);
+
+
+        //PERMITE AGREGAR UN NUEVO CONTROL AL EVENTO
+        function SaveControles(e) {
+            $.ajax({ url: "../Eventos/SaveControles", type: "POST", data: { ID_EVENTO: $("#ID_EVENTO_CONTROL").val(), ID_CONTROL: e.data.record.ID } })
+          .done(function (data, textStatus, jqXHR) {
+              gridSeleccionControles.clear();
+              gridSeleccionControles.reload({ ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+              gridControles.clear()
+              gridControles.reload({ ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+              Mensajes(data.mensaje);
+          })
+          .fail(function (data, textStatus, jqXHR) {
+              $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+          });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridSeleccionControles = $("#gridSeleccionControles").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetSeleccionControles")",
+            autoLoad: false,
+            columns: [
+                { field: "AUTOMATIZACION", title: "Automatización",  width: 150 },
+                { field: "DISENO", title: "Diseño",  width: 150 },
+                { field: "DOCUMENTACION", title: "Documentación", width: 150 },
+                { field: "FRECUENCIA", title: "Frecuencia",  width: 150 },
+                { field: "MEZCLA", title: "Mezcla",  width: 150 },
+                { field: "TIPO_CONTROL", title: "Tipo Control", width: 150 },
+                { field: "TOTAL_POR", title: "Total",  width: 100 },
+                { field: "DESCRIPCION", title: "Descripción",  width: 400 },
+                { field: "OBSERVACIONES", title: "Observaciones",  width: 400 },
+                { title: "", field: "Agregar", width: 42, type: "icon", icon: "glyphicon-ok btn btn-success btn-xs", tooltip: "Agregar", aling: "center", events: { "click": SaveControles } }
+            ],
+
+            pager: { enable: true, limit: 8, sizes: [8, 20, 30] }
+        });
+
+
+        gridSeleccionControles.on("cellDataBound", function (e, $wrapper, id, column, record) {
+
+            if (column.field == "TOTAL_POR") {
+                $wrapper.html("<span class='label label-primary'><font><font>" + record.TOTAL_POR + "</font></font></span>");
+            }
+
+        });
+
+
+        //BUSCAR  EN GRID PARA SELECCION DE CONTROLES
+        function SearchSeleccionControl() {
+            gridSeleccionControles.clear();
+            gridSeleccionControles.reload({ page: 1, searchString: $("#txtBuscarSeleccionControl").val(), ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+        }
+
+        $('#txtBuscarSeleccionControl').off();
+        $('#txtBuscarSeleccionControl').keypress(function (e) {
+            if (e.which == 13) {
+                SearchSeleccionControl();
+            }
+        });
+
+        $("#btnBuscarSeleccionControl").off();
+        $("#btnBuscarSeleccionControl").on("click", SearchSeleccionControl);
+
+
+
+
+        //=============================================
+        //AGREGAR NUEVO CONTROL AL EVENTO DE RIESGO
+        //=============================================
+
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddNewControl() {
+            $("#ID_AUTOMATIZACION").val("");
+            $("#ID_AUTOMATIZACION").change();
+            $("#ID_DISENO").val("");
+            $("#ID_DISENO").change();
+            $("#ID_DOCUMENTACION").val("");
+            $("#ID_DOCUMENTACION").change();
+            $("#ID_FRECUENCIA").val("");
+            $("#ID_FRECUENCIA").change();
+            $("#ID_MEZCLA").val("");
+            $("#ID_MEZCLA").change();
+            $("#ID_TIPO_CONTROL").val("");
+            $("#ID_TIPO_CONTROL").change();
+            $("#myModalNuevoControl").modal("show");
+        }
+
+        $("#btnAgregarNuevoControl").off();
+        $("#btnAgregarNuevoControl").on("click", AddNewControl);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formControles').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_AUTOMATIZACION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_DISENO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_DOCUMENTACION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_FRECUENCIA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_MEZCLA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_TIPO_CONTROL: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                DESCRIPCION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalNuevoControl").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridControles.clear();
+                 gridControles.reload({ ID_EVENTO: $("#ID_EVENTO_CONTROL").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalNuevoControl").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalNuevoControl').on('hide.bs.modal', function () {
+            $('#formControles').trigger("reset"); // Resetea los valores de todos campos
+            $("#formControles").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+
+    });
+
+</script>
+
+
+<!--MODAL GRID CONTROLES-->
+<div id='myModalGridControles' class='modal fade'>
+    <div class="modal-dialog modal-lg">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Controles
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <button type="button" id="btnAgregarNuevoControl" class="btn bg-black pull-left"><span class='glyphicon glyphicon-file'></span> @PropertiesBlo.btnNuevoControl</button>
+                    </div>
+                    <div class="col-md-9 ">
+                        <div class="input-group pull-right">
+                            <input type="text" id="txtBuscarSeleccionControl" class="form-control" placeholder="Buscar ...">
+                            <span class="input-group-btn">
+                                <button type="submit" id="btnBuscarSeleccionControl" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive" style="overflow-y: hidden;">
+                    @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                    <table id="gridSeleccionControles"></table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL NUEVO CONTROL-->
+<div id='myModalNuevoControl' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formControles" action="/Eventos/GuardarNuevoControl" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                   Nuevo Control
+                </div>
+                <div class="panel-body">
+                    <!--ID_OFICIO este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" id="ID_EVENTO_CONTROL" name="ID_EVENTO" value="@ViewBag.ID_EVENTO">
+                    <input id="ID_CONTROL" type="hidden" name="ID" value="">
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="ID_AUTOMATIZACION">Automatización</label><br>
+                                <select id="ID_AUTOMATIZACION" name="ID_AUTOMATIZACION" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_AUTOMATIZACION item in (List<MAT_CAT_AUTOMATIZACION>)ViewBag.automatizacion)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ID_DISENO">Diseño</label><br>
+                                <select id="ID_DISENO" name="ID_DISENO" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_DISENO item in (List<MAT_CAT_DISENO>)ViewBag.deseno)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ID_DOCUMENTACION">Documentación</label><br>
+                                <select id="ID_DOCUMENTACION" name="ID_DOCUMENTACION" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_DOCUMENTACION item in (List<MAT_CAT_DOCUMENTACION>)ViewBag.documentacion)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ID_FRECUENCIA">Frecuencia</label><br>
+                                <select id="ID_FRECUENCIA" name="ID_FRECUENCIA" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_FRECUENCIA item in (List<MAT_CAT_FRECUENCIA>)ViewBag.frecuencia)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ID_MEZCLA">Mezcla</label><br>
+                                <select id="ID_MEZCLA" name="ID_MEZCLA" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_MEZCLA item in (List<MAT_CAT_MEZCLA>)ViewBag.mezcla)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="ID_TIPO_CONTROL">Tipo de control</label><br>
+                                <select id="ID_TIPO_CONTROL" name="ID_TIPO_CONTROL" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (MAT_CAT_TIPO_CONTROL item in (List<MAT_CAT_TIPO_CONTROL>)ViewBag.tipoControl)
+                                    {
+                                        <option value=@item.ID>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="DESCRIPCION">Descripción</label>
+                                <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="4" maxlength="250"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="OBSERVACIONES">Observaciones</label>
+                                <textarea class="form-control" id="OBSERVACIONES" name="OBSERVACIONES" rows="4" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+

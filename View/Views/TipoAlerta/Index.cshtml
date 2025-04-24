@@ -1,0 +1,232 @@
+﻿@using Blo.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var grid;
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES NIVELES
+        function Edit(e) {
+            $("#ID").val(e.data.record.ID);
+            $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+            if (e.data.record.NOTIFICAR == "1")
+                $("#NOTIFICAR").prop("checked", true);
+            if (e.data.record.REPORTE == "1")
+                $("#REPORTE").prop("checked", true);
+
+            $("#COLOR").colorpicker('setValue', e.data.record.COLOR);
+            $("#myModal").modal("show");
+        }
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function Add() {
+            $("#ID").val(""); //campos ocultos
+            $("#COLOR").colorpicker('setValue', '#000000');
+            $("#myModal").modal("show");
+        }
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function Remove(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../TipoAlerta/Remove", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      grid.reload();
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        grid = $("#gridTipoAlerta").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            columns: [
+                { field: "DESCRIPCION", title: "Descripción", sortable: true, width: 200 },
+                { field: "NOTIFICAR", title: "Notificación", align: 'center', width: 100 },
+                { field: "REPORTE", title: "Reporte", align: 'center', width: 100 },
+                { field: "COLOR", title: "Color", align: 'center', width: 100 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "NOTIFICAR") {
+                if (record.NOTIFICAR == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "REPORTE") {
+                if (record.REPORTE == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "COLOR") {
+                $wrapper.html("<button  class='btn btn-lg' style='background-color:" + record.COLOR + ";'></button>");
+            }
+        });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregar").on("click", Add);
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formTipoAlerta').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                DESCRIPCION: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                COLOR: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+            //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+            .on('success.field.fv', function (e, data) {
+                var $parent = data.element.parents('.form-group');
+                $parent.removeClass('has-success');
+                data.element.data('fv.icon').hide();
+            })
+            .on('success.form.fv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                var bv = $form.data('formValidation');
+
+                //Envio de datos
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: "POST",
+                    data: $form.serialize(),
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+
+                        Mensajes(data.mensaje);
+                        $("#myModal").modal("hide");
+                        grid.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+
+
+            });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+        $('#myModal').on('hide.bs.modal', function () {
+            $('#formTipoAlerta').trigger("reset"); // Resetea los NIVELes de todos campos
+            $("#formTipoAlerta").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        //SELECCIONAR COLOR
+        $(function () {
+            $('#cp2').colorpicker({
+                format: 'hex'
+            });
+        });
+
+    });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        TIPOS DE ALERTA
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridTipoAlerta" data-source="@Url.Action("GetTipoAlerta")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formTipoAlerta" action="/TipoAlerta/Save" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Tipos de alerta
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción</label>
+                        <textarea class="form-control" id="DESCRIPCION" name="DESCRIPCION" rows="3" maxlength="200"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="COLOR">Color</label>
+                        <div id="cp2" class="input-group colorpicker-component">
+                            <input class="form-control" id="COLOR" name="COLOR" type="text" maxlength="7"/>
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOTIFICAR">Notificación</label>
+                                <input id="NOTIFICAR" name="NOTIFICAR" type="checkbox" value="true">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="REPORTE">Reporte</label>
+                                <input id="REPORTE" name="REPORTE" type="checkbox" value="true">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

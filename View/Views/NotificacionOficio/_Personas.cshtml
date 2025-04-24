@@ -1,0 +1,318 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+        function EditPersonas(e) {
+            $("#ID_PERSONAS").val(e.data.record.ID);
+            $("#TIPO_PERSONA").val(e.data.record.TIPO_PERSONA);
+            $("#NOMBRE").val(e.data.record.NOMBRE);
+            $("#GENERALES").val(e.data.record.GENERALES);
+            $("#DUI").val(e.data.record.DUI);
+            $("#NIT").val(e.data.record.NIT);
+            $("#TIPO_DOCUMENTO").val(e.data.record.TIPO_DOCUMENTO);
+            $("#TIPO_DOCUMENTO").change();
+            $("#NUMERO_DOCUMENTO").val(e.data.record.NUMERO_DOCUMENTO);
+            $("#RESULTADO").val(e.data.record.RESULTADO);
+
+            if (e.data.record.COTIZACIONES == "1")
+                $("#COTIZACIONES").prop("checked", true);
+            if (e.data.record.SOLICITUDES == "1")
+                $("#SOLICITUDES").prop("checked", true);
+            if (e.data.record.PRESTAMOS == "1")
+                $("#PRESTAMOS").prop("checked", true);
+            if (e.data.record.CHEQUES == "1")
+                $("#CHEQUES").prop("checked", true);
+            if (e.data.record.AEX == "1")
+                $("#AEX").prop("checked", true);
+
+            $("#myModalPersonas").modal("show");
+        }
+
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+        function AddPersonas() {
+            $("#ID_PERSONAS").val(""); //campos ocultos
+            $("#TIPO_DOCUMENTO").val("");
+            $("#TIPO_DOCUMENTO").change();
+            $("#myModalPersonas").modal("show");
+        }
+
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemovePersonas(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../NotificacionOficio/RemovePersonas", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridPersonas.clear();
+                      gridPersonas.reload({ ID_OFICIO: $("#ID_OFICIO_PER").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridPersonas = $("#gridPersonas").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetPersonas")",
+            autoLoad: false,
+            columns: [
+                { field: "NOMBRE", title: "Nombre", sortable: true, width: 200 },
+                { field: "DUI", title: "DUI", sortable: true, width: 100 },
+                { field: "NIT", title: "NIT", sortable: true, width: 130 },
+                { field: "COTIZACIONES", title: "Cotizaciones", align: 'center', width: 80 },
+                { field: "SOLICITUDES", title: "Solicitudes", align: 'center', width: 80 },
+                { field: "PRESTAMOS", title: "préstamos", align: 'center', width: 80 },
+                { field: "CHEQUES", title: "Cheques", align: 'center', width: 80 },
+                { field: "AEX", title: "AEX", align: 'center', width: 50 },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": EditPersonas } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemovePersonas } }
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+        });
+
+
+        gridPersonas.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "COTIZACIONES") {
+                if (record.COTIZACIONES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "SOLICITUDES") {
+                if (record.SOLICITUDES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "PRESTAMOS") {
+                if (record.PRESTAMOS == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "CHEQUES") {
+                if (record.CHEQUES == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+            if (column.field == "AEX") {
+                if (record.AEX == "1")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+        });
+
+
+        gridPersonas.clear();
+        gridPersonas.reload({ page: 1, ID_OFICIO: $("#ID_OFICIO_PER").val() });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarPersonas").off();
+        $("#btnAgregarPersonas").on("click", AddPersonas);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formPersonas').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                NOMBRE: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                @*GENERALES: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },*@
+                RESULTADO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+        .on('success.field.fv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+            $parent.removeClass('has-success');
+            data.element.data('fv.icon').hide();
+        })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+
+            //Envio de datos
+            $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+             .done(function (data, textStatus, jqXHR) {
+                 $("#myModalPersonas").modal("hide");
+                 Mensajes(data.mensaje);
+                 gridPersonas.clear();
+                 gridPersonas.reload({ ID_OFICIO: $("#ID_OFICIO_PER").val() });
+             })
+             .fail(function (data, textStatus, jqXHR) {
+                 $("#myModalPersonas").modal("hide");
+                 $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+             });
+
+        });
+
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalPersonas').on('hide.bs.modal', function () {
+            $('#formPersonas').trigger("reset"); // Resetea los valores de todos campos
+            $("#formPersonas").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+        //Anular ENTER en etiquetas input
+        $('textarea').keypress(function (e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+
+        //$(".DUI").inputmask("99999999-9", { placeholder: "0", clearMaskOnLostFocus: true });
+        //$(".NIT").inputmask("9999-999999-999-9", { placeholder: "0", clearMaskOnLostFocus: true });
+        //Asignacion de Select2 a una clase CSS
+        $(".select2-single").select2({
+            language: "es",
+            width: '100%'
+        });
+    });
+
+</script>
+
+
+<!--MODAL-->
+<div id='myModalPersonas' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <form id="formPersonas" action="/NotificacionOficio/SavePersonas" method="post">
+
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Personas
+                </div>
+                <div class="panel-body">
+                    <!--ID_PERSONAS es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_PERSONAS" type="hidden" name="ID" value="">
+
+                    <!--ID_OFICIO este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_OFICIO" id="ID_OFICIO_PER" value="@ViewBag.ID_OFICIO">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre</label>
+                                <input class="form-control" id="NOMBRE" name="NOMBRE" type="text" value="" maxlength="150">
+                            </div>
+                            <div class="form-group">
+                                <label for="DUI">DUI</label>
+                                <input class="form-control DUI" id="DUI" name="DUI" type="text" value="" maxlength="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="NIT">NIT</label>
+                                <input class="form-control NIT" id="NIT" name="NIT" type="text" value="" maxlength="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="TIPO_DOCUMENTO">Tipo de documento</label>
+                                <select id="TIPO_DOCUMENTO" name="TIPO_DOCUMENTO" class="form-control select2-single">
+                                    <option value="">Seleccione ...</option>
+                                    @foreach (VIEW_TIPO_DOCUMENTO item in (List<VIEW_TIPO_DOCUMENTO>)ViewBag.tiposDocumentos)
+                                    {
+                                        <option value=@item.CODIGO_TIPO_IDENTIFICACION>@item.DESCRIPCION</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="NUMERO_DOCUMENTO">Número de documento</label>
+                                <input class="form-control" id="NUMERO_DOCUMENTO" name="NUMERO_DOCUMENTO" type="text" value="" maxlength="20">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="TIPO_PERSONA">Tipo de persona</label>
+                                <select id="TIPO_PERSONA" name="TIPO_PERSONA" class="form-control">
+                                    <option value="N">Natural</option>
+                                    <option value="J">Jurídica</option>
+                                    <option value="V">Vivienda</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="GENERALES">Datos generales</label>
+                                <textarea id="GENERALES" name="GENERALES" class="form-control" rows="4" maxlength="200"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="RESULTADO">Resultado</label>
+                                <textarea id="RESULTADO" name="RESULTADO" class="form-control" rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="COTIZACIONES">Cotizaciones</label>
+                                    <input id="COTIZACIONES" name="COTIZACIONES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="SOLICITUDES">Solicitudes</label>
+                                    <input id="SOLICITUDES" name="SOLICITUDES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="PRESTAMOS">Préstamos</label>
+                                    <input id="PRESTAMOS" name="PRESTAMOS" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="CHEQUES">Cheques</label>
+                                    <input id="CHEQUES" name="CHEQUES" type="checkbox" value="true">
+                                    &nbsp;&nbsp;
+                                    <label for="AEX">AEX</label>
+                                    <input id="AEX" name="AEX" type="checkbox" value="true">
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarPersonas" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridEmpleos = $("#gridEmpleos").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetEmpleos")",
+            autoLoad: false,
+            columns: [
+                { field: "PRINCIPAL", title: "Principal", width: 100, align: 'center' },
+                { field: "NOMBRE_EMPRESA", title: "Empresa", width: 200, align: 'center' },
+                { field: "FECHA_PROCESO", title: "Fecha proceso", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center', width: 150 },
+            ]
+        });
+
+        gridEmpleos.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "PRINCIPAL") {
+                if (record.PRINCIPAL == "S")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+        });
+
+        gridEmpleos.clear();
+        gridEmpleos.reload({page: 1, CODIGO_CLIENTE: @ViewBag.CODIGO_CLIENTE });
+
+    });
+
+</script>

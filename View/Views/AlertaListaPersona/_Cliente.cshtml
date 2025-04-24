@@ -1,0 +1,124 @@
+﻿@using Model;
+<script>
+
+    $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+
+</script>
+
+@foreach (VIEW_CLIENTE item in (List<VIEW_CLIENTE>)ViewBag.cliente)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Código cliente:</label>
+                <input class="form-control" value="@item.CODIGO_CLIENTE" id="CODIGO_CLIENTE_N" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input class="form-control" value="@item.NOMBRES @item.PRIMER_APELLIDO @item.SEGUNDO_APELLIDO @item.APELLIDO_DE_CASADA" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>País:</label>
+                <input class="form-control" value="@item.PAIS" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Tipo persona:</label>
+                <input class="form-control" value="@item.TIPO_DE_PERSONA" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Tipo cliente:</label>
+                <input class="form-control" value="@item.TIPO_CLIENTE" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@item.TIPO_IDENTIFICACION_1 :</label>
+                <input class="form-control" value="@item.NUMERO_IDENTIFICACION_1" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@item.TIPO_IDENTIFICACION_2:</label>
+                <input class="form-control" value="@item.NUMERO_IDENTIFICACION_2" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Fecha de nacimiento:</label>
+                @if (item.FECHA_DE_NACIMIENTO != null)
+                {       
+                    <input class="form-control" value="@item.FECHA_DE_NACIMIENTO.Value.ToString("dd/MM/yyyy")" readonly>
+                }
+                else
+                {
+                    <input class="form-control" readonly>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Edad:</label>
+                <input class="form-control" value="@ViewBag.edad" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Sexo:</label>
+                <input class="form-control" value="@item.SEXO" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Estado civil:</label>
+                <input class="form-control" value="@item.ESTADO_CIVIL" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Profesión:</label>
+                <input class="form-control" value="@item.PROFESION" title="@item.PROFESION" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Sector económico:</label>
+                <input class="form-control" value="@item.SECTOR_ECONOMICO" title="@item.SECTOR_ECONOMICO" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Actividad económica:</label>
+                <input class="form-control" value="@item.ACTIVIDAD_ECONOMICA" title="@item.ACTIVIDAD_ECONOMICA" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Clase actividad económica:</label>
+                <input class="form-control" value="@item.CLASE_ACTIVIDAD_ECONOMICA" title="@item.CLASE_ACTIVIDAD_ECONOMICA" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Total ingresos:</label>
+                <input class="form-control currency"  value="@item.TOTAL_INGRESOS" readonly>
+            </div>
+        </div>
+    </div>
+}

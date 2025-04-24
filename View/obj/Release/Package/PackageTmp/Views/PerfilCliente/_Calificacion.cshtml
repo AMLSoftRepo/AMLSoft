@@ -1,0 +1,56 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridCalificacion = $("#gridCalificacion").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetCalificacion")",
+            autoLoad: false,
+            columns: [
+                { field: "factor", title: "Factor", width: 400 },
+                { field: "valor", title: "Puntaje", width: 100, align:'center' },
+            ]
+        });
+
+        gridCalificacion.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "factor" && record.factor.indexOf("CALIFICACION") != -1) {
+                $.ajax({
+                    url: "../PerfilCliente/ObtenerColor",
+                    data: { valor: record.valor },
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $wrapper.html("<button  class='btn btn-sm' style='background-color:" + data.color + ";'>" + record.factor + "</button>");
+                    }
+                });
+            }
+
+            if (record.factor.indexOf("CALIFICACION") != -1 && column.field == "valor") {
+                $.ajax({
+                    url: "../PerfilCliente/ObtenerColor",
+                    data: { valor: record.valor },
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $wrapper.html("<button  class='btn btn-sm' style='background-color:" + data.color + ";'>" + record.valor + "</button>");
+                    }
+                });
+
+            }
+        });
+
+        gridCalificacion.clear();
+        gridCalificacion.reload({page: 1, CODIGO_CLIENTE: @ViewBag.CODIGO_CLIENTE });
+
+
+
+    });
+
+</script>

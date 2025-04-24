@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CCA8CAC1-6CC5-4962-BA03-B2A90D5D6F2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Blo</RootNamespace>
+    <AssemblyName>Blo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocX">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alertas\AlertaBlo.cs" />
+    <Compile Include="Alertas\AlertaListaPersonaBlo.cs" />
+    <Compile Include="Alertas\AlertaPerfilTransaccionalBlo.cs" />
+    <Compile Include="Alertas\BloqueoBlo.cs" />
+    <Compile Include="Alertas\DatosAdicionalesTransaccionBlo.cs" />
+    <Compile Include="Alertas\IAlertaListaPersonaBlo.cs" />
+    <Compile Include="Alertas\IalertaPerfilTransaccionalBlo.cs" />
+    <Compile Include="Alertas\IBloqueoBlo.cs" />
+    <Compile Include="Alertas\IDatosAdicionalesTransaccionBlo.cs" />
+    <Compile Include="Listas\CatEntidadBlo.cs" />
+    <Compile Include="Listas\CatGrupoBlo.cs" />
+    <Compile Include="Listas\CatOrganoBlo.cs" />
+    <Compile Include="Listas\CatTituloBlo.cs" />
+    <Compile Include="Listas\ExentoBlo.cs" />
+    <Compile Include="Listas\GeneralBlo.cs" />
+    <Compile Include="Listas\GeneralPersonalizadaBlo.cs" />
+    <Compile Include="Listas\ICatEntidadBlo.cs" />
+    <Compile Include="Listas\ICatGrupoBlo.cs" />
+    <Compile Include="Listas\ICatOrganoBlo.cs" />
+    <Compile Include="Listas\ICatTituloBlo.cs" />
+    <Compile Include="Listas\IExentoBlo.cs" />
+    <Compile Include="Listas\IGeneralBlo.cs" />
+    <Compile Include="Listas\IGeneralPersonalizadaBlo.cs" />
+    <Compile Include="Listas\IONUAliasBlo.cs" />
+    <Compile Include="Listas\IONUBlo.cs" />
+    <Compile Include="Listas\IONUDireccionBlo.cs" />
+    <Compile Include="Listas\IONUDocumentoBlo.cs" />
+    <Compile Include="Listas\IPaisGrupoBlo.cs" />
+    <Compile Include="Listas\IParametroONUSDNBlo.cs" />
+    <Compile Include="Listas\IPEPBlo.cs" />
+    <Compile Include="Listas\IPEPCargoBlo.cs" />
+    <Compile Include="Listas\IPEPRelacionBlo.cs" />
+    <Compile Include="Listas\IPersonalizadaAliasBlo.cs" />
+    <Compile Include="Listas\IPersonalizadaBlo.cs" />
+    <Compile Include="Listas\IPersonalizadaDireccionBlo.cs" />
+    <Compile Include="Listas\IPersonalizadaDocumentoBlo.cs" />
+    <Compile Include="Listas\ONUAliasBlo.cs" />
+    <Compile Include="Listas\ONUBlo.cs" />
+    <Compile Include="Listas\ONUDireccionBlo.cs" />
+    <Compile Include="Listas\ONUDocumentoBlo.cs" />
+    <Compile Include="Listas\PaisGrupoBlo.cs" />
+    <Compile Include="Listas\ParametroONUSDNBlo.cs" />
+    <Compile Include="Listas\PEPBlo.cs" />
+    <Compile Include="Listas\PEPCargoBlo.cs" />
+    <Compile Include="Listas\PEPRelacionBlo.cs" />
+    <Compile Include="Listas\PersonalizadaAliasBlo.cs" />
+    <Compile Include="Listas\PersonalizadaBlo.cs" />
+    <Compile Include="Listas\PersonalizadaDireccionBlo.cs" />
+    <Compile Include="Listas\PersonalizadaDocumentoBlo.cs" />
+    <Compile Include="Matriz\CatAutomatizacionBlo.cs" />
+    <Compile Include="Matriz\CatDisenoBlo.cs" />
+    <Compile Include="Matriz\CatDocumentacionBlo.cs" />
+    <Compile Include="Matriz\CatFrecuenciaBlo.cs" />
+    <Compile Include="Matriz\CatMezclaBlo.cs" />
+    <Compile Include="Matriz\CatSeveridadBlo.cs" />
+    <Compile Include="Matriz\CatTipoRiesgoBlo.cs" />
+    <Compile Include="Alertas\ContactoAlertaBlo.cs" />
+    <Compile Include="Matriz\CatFactorRiesgoBlo.cs" />
+    <Compile Include="Alertas\IAlertaBlo.cs" />
+    <Compile Include="Matriz\CausaRiesgoBlo.cs" />
+    <Compile Include="Matriz\ControlBlo.cs" />
+    <Compile Include="Matriz\ControlEventoBlo.cs" />
+    <Compile Include="Matriz\EventoRiesgoBlo.cs" />
+    <Compile Include="Matriz\ICatAutomatizacionBlo.cs" />
+    <Compile Include="Matriz\ICatDisenoBlo.cs" />
+    <Compile Include="Matriz\ICatDocumentacionBlo.cs" />
+    <Compile Include="Matriz\ICatFrecuenciaBlo.cs" />
+    <Compile Include="Matriz\ICatMezclaBlo.cs" />
+    <Compile Include="Matriz\ICatSeveridadBlo.cs" />
+    <Compile Include="Matriz\ICatTipoRiesgoBlo.cs" />
+    <Compile Include="Alertas\IContactoAlertaBlo.cs" />
+    <Compile Include="Matriz\ICatFactorRiesgoBlo.cs" />
+    <Compile Include="Alertas\INotificacionAlertaBlo.cs" />
+    <Compile Include="Alertas\ITipoAlertaBlo.cs" />
+    <Compile Include="Alertas\NotificacionAlertaBlo.cs" />
+    <Compile Include="Alertas\TipoAlertaBlo.cs" />
+    <Compile Include="Listas\ISDNAkaBlo.cs" />
+    <Compile Include="Listas\ISDNBlo.cs" />
+    <Compile Include="Listas\ISDNDireccionBlo.cs" />
+    <Compile Include="Listas\ISDNDocumentoBlo.cs" />
+    <Compile Include="Listas\ISDNNacionalidadBlo.cs" />
+    <Compile Include="Listas\SDNAkaBlo.cs" />
+    <Compile Include="Listas\SDNBlo.cs" />
+    <Compile Include="Listas\SDNDireccionBlo.cs" />
+    <Compile Include="Listas\SDNDocumentoBlo.cs" />
+    <Compile Include="Listas\SDNNacionalidadBlo.cs" />
+    <Compile Include="Matriz\ICausaRiesgoBlo.cs" />
+    <Compile Include="Matriz\IControlBlo.cs" />
+    <Compile Include="Matriz\IControlEventoBlo.cs" />
+    <Compile Include="Matriz\IEventoRiesgoBlo.cs" />
+    <Compile Include="Matriz\IMatrizBlo.cs" />
+    <Compile Include="Matriz\IMatrizControlBlo.cs" />
+    <Compile Include="Matriz\IMatrizControlEventoBlo.cs" />
+    <Compile Include="Matriz\IMatrizEventoRiesgoBlo.cs" />
+    <Compile Include="Matriz\IRiesgoBlo.cs" />
+    <Compile Include="Matriz\ISeveridadBlo.cs" />
+    <Compile Include="Matriz\IEscalaCalificacionBlo.cs" />
+    <Compile Include="Matriz\MatrizBlo.cs" />
+    <Compile Include="Matriz\MatrizControlBlo.cs" />
+    <Compile Include="Matriz\MatrizControlEventoBlo.cs" />
+    <Compile Include="Matriz\MatrizEventoRiesgoBlo.cs" />
+    <Compile Include="Matriz\RiesgoBlo.cs" />
+    <Compile Include="Matriz\SeveridadBlo.cs" />
+    <Compile Include="Matriz\EscalaCalificacionBlo.cs" />
+    <Compile Include="Monitoreo\AdjuntosRosBlo.cs" />
+    <Compile Include="Monitoreo\AgenciaBancariaBlo.cs" />
+    <Compile Include="Monitoreo\CargoInstitucionBlo.cs" />
+    <Compile Include="Matriz\CatAgenciaBlo.cs" />
+    <Compile Include="Monitoreo\CatFinancieraBlo.cs" />
+    <Compile Include="Monitoreo\CatInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\CatUnidadInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\ClientePEPBlo.cs" />
+    <Compile Include="Monitoreo\ConfiguracionOficioBlo.cs" />
+    <Compile Include="Monitoreo\ContactoInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\DiaFestivoBlo.cs" />
+    <Compile Include="Monitoreo\IAdjuntosRosBlo.cs" />
+    <Compile Include="Monitoreo\IAgenciaBancariaBlo.cs" />
+    <Compile Include="Monitoreo\ICargoInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\ICatUnidadInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\IClientePEPBlo.cs" />
+    <Compile Include="Monitoreo\IConfiguracionOficioBlo.cs" />
+    <Compile Include="Monitoreo\IContactoInstitucionBlo.cs" />
+    <Compile Include="Monitoreo\IDiaFestivoBlo.cs" />
+    <Compile Include="Monitoreo\IOficioBlo.cs" />
+    <Compile Include="Monitoreo\IOperacionesRosBlo.cs" />
+    <Compile Include="Monitoreo\IPersonasOficioBlo.cs" />
+    <Compile Include="Monitoreo\IPersonasRosBlo.cs" />
+    <Compile Include="Monitoreo\IRosBlo.cs" />
+    <Compile Include="Monitoreo\OficioBlo.cs" />
+    <Compile Include="Alertas\OperacionIrregularBlo.cs" />
+    <Compile Include="Matriz\CatProbabilidadOcurrenciaBlo.cs" />
+    <Compile Include="Matriz\CatTipoControlBlo.cs" />
+    <Compile Include="Matriz\CatUnidadBlo.cs" />
+    <Compile Include="Matriz\ICatAgenciaBlo.cs" />
+    <Compile Include="Monitoreo\ICatFinancieraBlo.cs" />
+    <Compile Include="Monitoreo\ICatInstitucionBlo.cs" />
+    <Compile Include="Alertas\IOperacionIrregularBlo.cs" />
+    <Compile Include="Matriz\ICatProbabilidadOcurrenciaBlo.cs" />
+    <Compile Include="Matriz\ICatTipoControlBlo.cs" />
+    <Compile Include="Matriz\ICatUnidadBlo.cs" />
+    <Compile Include="Monitoreo\OperacionesRosBlo.cs" />
+    <Compile Include="Monitoreo\PersonasOficioBlo.cs" />
+    <Compile Include="Monitoreo\PersonasRosBlo.cs" />
+    <Compile Include="Monitoreo\RosBlo.cs" />
+    <Compile Include="NinjectBlo.cs" />
+    <Compile Include="GenericBlo.cs" />
+    <Compile Include="IGenericBlo.cs" />
+    <Compile Include="Perfiles\CalificacionFactorBlo.cs" />
+    <Compile Include="Perfiles\CoincidenciaListaBlo.cs" />
+    <Compile Include="Perfiles\ConfiguracionFactorBlo.cs" />
+    <Compile Include="Perfiles\FactorBlo.cs" />
+    <Compile Include="Perfiles\HistorialPerfilBlo.cs" />
+    <Compile Include="Perfiles\ICalificacionFactorBlo.cs" />
+    <Compile Include="Perfiles\ICoincidenciaListaBlo.cs" />
+    <Compile Include="Perfiles\IConfiguracionFactorBlo.cs" />
+    <Compile Include="Perfiles\IFactorBlo.cs" />
+    <Compile Include="Perfiles\IHistorialPerfilBlo.cs" />
+    <Compile Include="Perfiles\ITipoCalificacionBlo.cs" />
+    <Compile Include="Perfiles\TipoCalificacionBlo.cs" />
+    <Compile Include="Properties\PropertiesBlo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PropertiesBlo.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\IReportesBlo.cs" />
+    <Compile Include="Reportes\ReportesBlo.cs" />
+    <Compile Include="Seguridad\AccesoUsuarioBlo.cs" />
+    <Compile Include="Seguridad\CargaDatosBlo.cs" />
+    <Compile Include="Seguridad\EmpresaBlo.cs" />
+    <Compile Include="Seguridad\IAccesoUsuarioBlo.cs" />
+    <Compile Include="Seguridad\ICargaDatosBlo.cs" />
+    <Compile Include="Seguridad\IEmpresaBlo.cs" />
+    <Compile Include="Seguridad\IModuloBlo.cs" />
+    <Compile Include="Seguridad\IOpcionBlo.cs" />
+    <Compile Include="Seguridad\IParametroBlo.cs" />
+    <Compile Include="Seguridad\IPermisoBlo.cs" />
+    <Compile Include="Seguridad\IRolBlo.cs" />
+    <Compile Include="Seguridad\IRolPermisoBlo.cs" />
+    <Compile Include="Seguridad\IRolUsuarioBlo.cs" />
+    <Compile Include="Seguridad\ModuloBlo.cs" />
+    <Compile Include="Seguridad\OpcionBlo.cs" />
+    <Compile Include="Seguridad\ParametroBlo.cs" />
+    <Compile Include="Seguridad\PermisoBlo.cs" />
+    <Compile Include="Seguridad\RolBlo.cs" />
+    <Compile Include="Seguridad\RolPermisoBlo.cs" />
+    <Compile Include="Seguridad\RolUsuarioBlo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dao\Dao.csproj">
+      <Project>{04cbc4ab-2c94-409b-808c-d6955d9943b2}</Project>
+      <Name>Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{f289cb55-5944-43a8-8366-786605705e34}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\PropertiesBlo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PropertiesBlo.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

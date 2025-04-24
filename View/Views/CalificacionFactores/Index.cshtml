@@ -1,0 +1,250 @@
+﻿@using Blo.Properties
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var grid;
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        function edit($container, currentValue, record) {
+            $container.append('<input type="text" value="' + currentValue + '" onkeypress="return Numeros(event, this)" maxlength="10"/>');
+        }
+
+            grid = $("#grid").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                primaryKey: 'CODIGO',
+                inlineEditing: { mode: 'dblclick' },
+                columns: [
+                    { field: "CODIGO", title: "Código", sortable: true, width: 100 },
+                    { field: "FACTOR", title: "Factor", sortable: true, width: 200 },
+                    { field: "DESCRIPCION", title: "Descripción", sortable: true, width: 200 },
+                    { field: "VALOR", title: "Valor", editor: edit, sortable: true, width: 100, align: 'center' }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+        grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "VALOR") {
+                $wrapper.html("<span class='label label-primary'><font><font>" + record.VALOR + "</font></font></span>");
+            }
+        });
+
+        grid.on('cellDataChanged', function (e, $cell, column, record, oldValue, newValue) {
+
+            var valorMin = @((int)ViewBag.valorMin);
+            var valorMax = @((int)ViewBag.valorMax);
+
+            var datos = {
+                ID: record.ID,
+                ID_FACTOR: record.ID_FACTOR,
+                ID_ITEM: record.CODIGO,
+                PUNTAJE: newValue
+            };
+
+            if (oldValue != newValue) {
+                if (newValue >= valorMin && newValue <= valorMax) {
+                    $.ajax({ url: "../CalificacionFactores/Save", type: "POST", data: datos })
+                     .done(function (data, textStatus, jqXHR) {
+                         Mensajes(data.mensaje);
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+                }
+                else {
+                    window.setTimeout(function () {
+                        var data = grid.getById(record.CODIGO)
+                        grid.updateRow(data.CODIGO, { 'VALOR': oldValue, 'ID': data.ID, 'ID_FACTOR': data.ID_FACTOR, 'FACTOR': data.FACTOR, 'DESCRIPCION': data.DESCRIPCION, 'CODIGO': data.CODIGO });
+                        grid.edit(data.CODIGO);
+                    }, 1000 /*1 segundo*/);
+
+                    $().toastmessage('showErrorToast', "El valor debe estar entre " + valorMin + " y " + valorMax);
+                }
+            }
+
+        });
+
+
+        //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+        function Search() {
+            grid.reload({page: 1, searchString: $("#txtBuscar").val() });
+        }
+
+        $('#txtBuscar').keypress(function (e) {
+            if (e.which == 13) {
+                Search();
+            }
+        });
+
+        $("#btnBuscar").on("click", Search);
+
+
+
+        //=============================================
+        //IMPLEMENTACION DE PANEL DE CONFIGURACION
+        //=============================================
+
+
+        //PERMITE ENVIAR LOS CAMBIOS DE CONFIGURACION PARA TODOS LOS OFICIOS
+        function AplicarConfiguracion() {
+
+            var valorMin = @((int)ViewBag.valorMin);
+            var valorMax = @((int)ViewBag.valorMax);
+
+            var datos = {
+                tipoCliente: $("#tipoCliente").val(),
+                actividadEconomica: $("#actividadEconomica").val(),
+                sectorEconomico: $("#sectorEconomico").val(),
+                profesion: $("#profesion").val(),
+                geografico: $("#geografico").val(),
+            }
+
+            if (datos.tipoCliente >= valorMin && datos.tipoCliente <= valorMax &&
+                datos.actividadEconomica >= valorMin && datos.actividadEconomica <= valorMax &&              
+                datos.sectorEconomico >= valorMin && datos.sectorEconomico <= valorMax &&
+                datos.profesion >= valorMin && datos.profesion <= valorMax &&
+                datos.geografico >= valorMin && datos.geografico <= valorMax) {
+                $.ajax({
+                    url: '@Url.Action("AplicarConfiguracion", "CalificacionFactores")',
+                    data: datos,
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        Mensajes(data.mensaje);
+                        grid.reload();
+                        $(".control-sidebar-light").removeClass("control-sidebar-open");
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+            else {
+                $().toastmessage('showErrorToast', "Debe validar que los valores estén entre " + valorMin + " y " + valorMax);
+            }
+
+        }
+
+
+        //OBTIENE LOS DATOS DE CONFIGURACION DE OFICIOS DESDE LA BASE DE DATOS
+        function ObtenerDatosConfi() {
+            $.ajax({
+                url: '@Url.Action("ObtenerDatosConfi", "CalificacionFactores")',
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#tipoCliente").val(data.conf.tipoCliente);
+                    $("#actividadEconomica").val(data.conf.actividadEconomica);                  
+                    $("#sectorEconomico").val(data.conf.sectorEconomico);
+                    $("#profesion").val(data.conf.profesion);
+                    $("#geografico").val(data.conf.geografico);
+
+                    $(".control-sidebar-light").addClass("control-sidebar-open");
+                },
+                error: function () {
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            });
+        }
+
+
+        $("#toggle-aplicar").on("click", AplicarConfiguracion)
+        $("#toggle-obtenerDatos").on("click", ObtenerDatosConfi)
+
+
+        $('#slim_toggle').slimScroll({
+            color: '#00f',
+            size: '5px',
+            height: '350px',
+            alwaysVisible: true
+        });
+
+    });
+</script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header row">
+    <h1 class="col-md-6">
+        CALIFICACION DE FACTORES
+        <small>PERFIL</small>
+    </h1>
+    <section class="text-right col-md-6">
+        <button id="toggle-obtenerDatos" class="btn btn-primary btn-xs">
+            <span class="fa fa-gear"></span> Configuración general
+        </button>
+    </section>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="grid" data-source="@Url.Action("GetFactores")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!-- CONTROL DE LA BARRA LATERAL -->
+<aside class="control-sidebar control-sidebar-light">
+    <div class="tab-content">
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane active" id="control-sidebar-settings-tab">
+            <h3 class="control-sidebar-heading"><font><font>Configuración general</font></font></h3>
+            <hr>
+
+            <div id="slim_toggle">
+                <div class="form-group">
+                    <label for="tipoCliente">Tipo de cliente</label>
+                    <input class="form-control numeric" id="tipoCliente" name="tipoCliente" type="text" value="" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="actividadEconomica">Actividad económica</label>
+                    <input class="form-control numeric" id="actividadEconomica" name="actividadEconomica" type="text" value="" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="sectorEconomico">Sector económico</label>
+                    <input class="form-control numeric" id="sectorEconomico" name="sectorEconomico" type="text" value="" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="profesion">Profesión</label>
+                    <input class="form-control numeric" id="profesion" name="profesion" type="text" value="" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="geografico">Geográfico</label>
+                    <input class="form-control numeric" id="geografico" name="geografico" type="text" value="" maxlength="10">
+                </div>
+            </div>
+            <hr />
+            <div>
+                <button type="button" class="btn btn-default col-md-6" data-toggle="control-sidebar">Cancelar</button>
+                <button type="submit" id="toggle-aplicar" class="btn btn-primary col-md-6">Aplicar</button>
+            </div>
+
+        </div>
+    </div>
+</aside>
+<!-- The sidebar's background -->
+<div class="control-sidebar-bg"></div>

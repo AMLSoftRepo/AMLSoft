@@ -1,0 +1,136 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridOperaciones").grid({
+                uiLibrary: "bootstrap",
+                autoLoad: false,
+                minWidth: 600,
+                columns: [
+                    { field: "NUMERO_PRODUCTO", title: "Prestamo", align: 'center', width: 100 },
+                    { field: "NUMERO_RECIBO", title: "Recibo", align: 'center', width: 100 },
+                    { field: "CODIGO_CLIENTE", title: "Código",align:'center', width: 100 },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre del cliente", width: 200 },
+                    { field: "VALOR_TRANSACCION", title: "Monto", tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>", align: 'right', width: 100 },
+                    { title: "Exportar", field: "Imprimir", width: 150, align: 'center' }
+                ]
+            });
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "Imprimir") {
+                    $wrapper.html('<a title="PDF" href="../RptOperacionesDiarias/Reporte?codigoCliente=' + record.CODIGO_CLIENTE +
+                                  '&secuencia=' + record.SECUENCIA +
+                                  '&formato=PDF" target="_blank">' + '<span class="fa  fa-file-pdf-o btn bg-red"></span></a> ' +
+                                  '<a title="WORD" href="../RptOperacionesDiarias/Reporte?codigoCliente=' + record.CODIGO_CLIENTE +
+                                  '&secuencia=' + record.SECUENCIA  +
+                                  '&formato=WORD" download>' + '<span class="fa  fa-file-word-o btn bg-blue"></span></a> ' +
+                                  '<a title="EXCEL" href="../RptOperacionesDiarias/Reporte?codigoCliente=' + record.CODIGO_CLIENTE +
+                                  '&secuencia=' + record.SECUENCIA +
+                                  '&formato=EXCEL" download>' + '<span class="fa  fa-file-excel-o btn bg-green"></span></a>');
+                }
+            });
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                if ($("#fechaInicial").val() != "" && $("#fechaFinal").val() != "" && $("#txtBuscar").val() !="")
+                    grid.reload({ page: 1, searchString: $("#txtBuscar").val(), fechaInicial: $("#fechaInicial").val(), fechaFinal: $("#fechaFinal").val() });
+                else
+                    $().toastmessage('showErrorToast', "Debe selecionar un rango de fechas e indicar el filtro de busqueda.");
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            $("#btnBuscar").on("click", Search);
+
+
+
+            //PERMITE VALIDAR LOS CAMPOS DE TIPO FECHA CUANDO CAMBIA SU VALOR
+            $('#fechaInicial').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#fechaFinal').val() ? $('#fechaFinal').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                timepicker: false
+            });
+
+
+            $('#fechaFinal').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#fechaInicial').val() ? $('#fechaInicial').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                timepicker: false
+            });
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        OPERACIONES DIARIAS IGUALES O SUPERIORES A $10,000
+        <small>REPORTE</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-success" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input class="form-control dpicker" id="fechaInicial" name="fechaInicial" type="text" value="" placeholder="Fecha inicial">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                   
+                    <div class="form-group">
+                        <input class="form-control dpicker" id="fechaFinal" name="fechaFinal" type="text" value="" placeholder="Fecha final">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar por prestamo o numero de cliente.">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-success"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridOperaciones" data-source="@Url.Action("GetOperaciones")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+

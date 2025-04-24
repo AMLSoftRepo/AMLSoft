@@ -1,0 +1,28 @@
+
+ ================= 2025-03-12 15:17:21,307 ============== 
+ ERROR View.Controllers.BaseController 
+ System.IO.FileLoadException: No se puede cargar el archivo o ensamblado 'log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a' ni una de sus dependencias. La definición del manifiesto del ensamblado no coincide con la referencia al ensamblado. (Excepción de HRESULT: 0x80131040)
+Nombre de archivo: 'log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a'
+   en Dao.Seguridad.AccesoUsuarioDao.GetOpcionesxPerfil(Int32 rol)
+   en Blo.Seguridad.AccesoUsuarioBlo.GetOpcionesxPerfil(Int32 rol) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Seguridad\AccesoUsuarioBlo.cs:línea 37
+   en View.Controllers.Seguridad.LoginController.LoadMenu(Int32 perfil) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\Seguridad\LoginController.cs:línea 66
+
+=== Información de estado anterior al enlace ===
+LOG: DisplayName = log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a
+ (Fully-specified)
+LOG: Appbase = file:///C:/Antilavado SQL SERVER/fsv_mvc/View/
+LOG: PrivatePath inicial = C:\Antilavado SQL SERVER\fsv_mvc\View\bin
+Ensamblado de llamada : Dao, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null.
+===
+LOG: Este enlace empieza en el contexto de carga default.
+LOG: Utilización del archivo de configuración de la aplicación: C:\Antilavado SQL SERVER\fsv_mvc\View\web.config
+LOG: Utilizando el archivo de configuración de host: C:\Users\Ashly Ramos\OneDrive\Documentos\IISExpress\config\aspnet.config
+LOG: Utilizando el archivo de configuración del equipo en C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
+LOG: Referencia posterior a la directiva: log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/Ashly Ramos/AppData/Local/Temp/Temporary ASP.NET Files/vs/3aea43ab/2f6c3001/log4net.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Users/Ashly Ramos/AppData/Local/Temp/Temporary ASP.NET Files/vs/3aea43ab/2f6c3001/log4net/log4net.DLL.
+LOG: Intento de descarga de la nueva dirección URL file:///C:/Antilavado SQL SERVER/fsv_mvc/View/bin/log4net.DLL.
+AVS: Al comparar el nombre de ensamblado se generó la incompatibilidad: Número de compilación
+ERR: Error al completar la instalación del ensamblado (hr = 0x80131040). Finalizó la búsqueda.
+ 
+  

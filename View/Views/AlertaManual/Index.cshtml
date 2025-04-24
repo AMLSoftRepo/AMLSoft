@@ -1,0 +1,995 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+
+            function ShowFilters() {
+                $("#myModal").modal("show");
+            }
+
+            function ShowAlertas() {
+                if (grid.getSelections() != "") {
+                    load_Tabla();                   
+                    $("#ID_TIPO_ALERTA").val('default');
+                    $("#ID_TIPO_ALERTA").selectpicker("refresh");
+                    $("#ASUNTO").val("");
+                    $("#CONTACTOS").val('default');
+                    $("#CONTACTOS").selectpicker("refresh");
+                    $("#CORREO").val("");
+                    $("#CORREOS").val("");
+                    $("#myModalAlertas").modal("show");
+                }
+                else
+                    $().toastmessage('showErrorToast', "Debe seleccionar al menos un registro");
+            }
+
+            function load_Tabla() {
+                $.ajax({
+                    url: '@Url.Action("_Tabla", "AlertaManual")',
+                    data: { ids: grid.getSelections() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_Tabla").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "ERROR TABLA");
+                    }
+                });
+            }
+
+            function AddEmail() {
+                if (validateEmail($("#CORREO").val())) {
+                    var correos;
+                    if ($("#CORREOS").val() != "")
+                        correos = $("#CORREOS").val() + "; " + $("#CORREO").val();
+                    else
+                        correos = $("#CORREO").val();
+                    $("#CORREO").val("");
+                    $("#CORREOS").val(correos);
+                    $('#formAlertaManual').formValidation('revalidateField', 'CORREOS');
+                }
+                else
+                    $().toastmessage('showErrorToast', "Correo no válido " + validateEmail($("#CORREO").val()));
+            }
+
+            function SendNotification() {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "../AlertaManual/NotificarAlertaManual",
+                            type: "POST",
+                            data: {
+                                ID_TIPO_ALERTA: $("#ID_TIPO_ALERTA").val(),
+                                asunto: $("#ASUNTO").val(),
+                                correos: $("#CORREOS").val() + ";" + $("#CONTACTOS").val(),
+                                ids: grid.getSelections()
+                            }
+                        })
+                  .done(function (data, textStatus, jqXHR) {
+                      $("#myModalAlertas").modal("hide");
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', jqXHR);
+                  });
+                    }
+                });
+            }
+
+            function Filter() {
+                 grid.reload({page: 1,
+                    filtrar: true,
+                    fechaAplicacionO: $("#FECHA_APLICACION_O").val(),
+                    fechaAplicacion: $("#FECHA_APLICACION").val(),
+                    fechaCalendarioO: $("#FECHA_CALENDARIO_O").val(),
+                    fechaCalendario: $("#FECHA_CALENDARIO").val(),
+                    fechaCancelacionO: $("#FECHA_CANCELACION_O").val(),
+                    fechaCancelacion: $("#FECHA_CANCELACION").val(),
+                    fechaAperturaO: $("#FECHA_APERTURA_O").val(),
+                    fechaApertura: $("#FECHA_APERTURA").val(),
+                    fechaVencimientoO: $("#FECHA_VENCIMIENTO_O").val(),
+                    fechaVencimiento: $("#FECHA_VENCIMIENTO").val(),
+                    fechaSolicitudO: $("#FECHA_SOLICITUD_O").val(),
+                    fechaSolicitud: $("#FECHA_SOLICITUD").val(),
+
+                    valorTransaccionO: $("#VALOR_TRANSACCION_O").val(),
+                    valorTransaccion: $("#VALOR_TRANSACCION").val(),
+                    saldoCapitalO: $("#SALDO_CAPITAL_O").val(),
+                    saldoCapital: $("#SALDO_CAPITAL").val(),
+                    saldoInteresO: $("#SALDO_INTERES_O").val(),
+                    saldoInteres: $("#SALDO_INTERES").val(),
+                    saldoSegurosIVAO: $("#SALDO_SEGUROS_IVA_O").val(),
+                    saldoSegurosIVA: $("#SALDO_SEGUROS_IVA").val(),
+                    saldoOtrosO: $("#SALDO_OTROS_O").val(),
+                    saldoOtros: $("#SALDO_OTROS").val(),
+                    excedenteO: $("#EXCEDENTE_O").val(),
+                    excedente: $("#EXCEDENTE").val(),
+                    capitalVigenteO: $("#CAPITAL_VIGENTE_O").val(),
+                    capitalVigente: $("#CAPITAL_VIGENTE").val(),
+                    capitalMoraO: $("#CAPITAL_MORA_O").val(),
+                    capitalMora: $("#CAPITAL_MORA").val(),
+                    capitalVencidoO: $("#CAPITAL_VENCIDO_O").val(),
+                    capitalVencido: $("#CAPITAL_VENCIDO").val(),
+                    interesVigenteO: $("#INTERES_VIGENTE_O").val(),
+                    interesVigente: $("#INTERES_VIGENTE").val(),
+                    interesMoraO: $("#INTERES_MORA_O").val(),
+                    interesMora: $("#INTERES_MORA").val(),
+                    interesVencidoO: $("#INTERES_VENCIDO_O").val(),
+                    interesVencido: $("#INTERES_VENCIDO").val(),
+                    valorCuotaO: $("#VALOR_CUOTA_O").val(),
+                    valorCuota: $("#VALOR_CUOTA").val(),
+                    montoOtorgadoO: $("#MONTO_OTORGADO_O").val(),
+                    montoOtorgado: $("#MONTO_OTORGADO").val(),
+                    valorValuoO: $("#VALOR_VALUO_O").val(),
+                    valorValuo: $("#VALOR_VALUO").val(),
+                    valorContableO: $("#VALOR_CONTABLE_O").val(),
+                    valorContable: $("#VALOR_CONTABLE").val(),
+                    totalIngresosO: $("#TOTAL_INGRESOS_O").val(),
+                    totalIngresos: $("#TOTAL_INGRESOS").val(),
+
+                    claseProducto: $("#CLASE_PRODUCTO").val(),
+                    codigoCliente: $("#CODIGO_CLIENTE").val(),
+                    numeroProducto: $("#NUMERO_PRODUCTO").val(),
+                    codigoUsuario: $("#CODIGO_USUARIO").val(),
+                    secuencia: $("#SECUENCIA").val(),
+                    codigoFinanciera: $("#CODIGO_FINANCIERA").val(),
+                    colectorMovimiento: $("#COLECTOR_MOVIMIENTO").val(),
+                    tipoTransaccion: $("#TIPO_TRANSACCION").val(),
+                    tipoOperacion: $("#TIPO_OPERACION").val(),
+                    formaPago: $("#FORMA_PAGO").val(),
+                    codigoAgenciaBanco: $("#CODIGO_AGENCIA_BANCO").val(),
+                    numeroRecibo: $("#NUMERO_RECIBO").val(),
+                    codigoPatrono: $("#CODIGO_PATRONO").val(),
+                    estadoCartera: $("#ESTADO_CARTERA").val(),
+                    colectorConvenio: $("#COLECTOR_CONVENIO").val(),
+                    facturaConvenio: $("#FACTURA_CONVENIO").val(),
+                    nombreCompleto: $("#NOMBRE_COMPLETO").val(),
+                    codigoAgencia: $("#CODIGO_AGENCIA").val()
+                });
+
+                $("#myModal").modal("hide");
+            }
+
+            function RemoveFilters() {
+                $("#FECHA_APLICACION").val("");
+                $("#FECHA_CALENDARIO").val("");
+                $("#FECHA_CANCELACION").val("");
+                $("#FECHA_APERTURA").val("");
+                $("#FECHA_VENCIMIENTO").val("");
+                $("#FECHA_SOLICITUD").val("");
+
+                $("#VALOR_TRANSACCION").val("");
+                $("#SALDO_CAPITAL").val("");
+                $("#SALDO_INTERES").val("");
+                $("#SALDO_SEGUROS_IVA").val("");
+                $("#SALDO_OTROS").val("");
+                $("#EXCEDENTE").val("");
+                $("#CAPITAL_VIGENTE").val("");
+                $("#CAPITAL_MORA").val("");
+                $("#CAPITAL_VENCIDO").val("");
+                $("#INTERES_VIGENTE").val("");
+                $("#INTERES_MORA").val("");
+                $("#INTERES_VENCIDO").val("");
+                $("#VALOR_CUOTA").val("");
+                $("#MONTO_OTORGADO").val("");
+                $("#VALOR_VALUO").val("");
+                $("#VALOR_CONTABLE").val("");
+                $("#TOTAL_INGRESOS").val("");
+
+                $("#CLASE_PRODUCTO").val("");
+                $("#CODIGO_CLIENTE").val("");
+                $("#NUMERO_PRODUCTO").val("");
+                $("#CODIGO_USUARIO").val("");
+                $("#SECUENCIA").val("");
+                $("#CODIGO_FINANCIERA").val("");
+                $("#COLECTOR_MOVIMIENTO").val("");
+                $("#TIPO_TRANSACCION").val("");
+                $("#TIPO_OPERACION").val("");
+                $("#FORMA_PAGO").val("");
+                $("#CODIGO_AGENCIA_BANCO").val("");
+                $("#NUMERO_RECIBO").val("");
+                $("#CODIGO_PATRONO").val("");
+                $("#ESTADO_CARTERA").val("");
+                $("#COLECTOR_CONVENIO").val("");
+                $("#FACTURA_CONVENIO").val("");
+                $("#NOMBRE_COMPLETO").val("");
+                $("#CODIGO_AGENCIA").val("");
+
+                 grid.reload({page: 1,
+                    filtrar: true,
+                    fechaAplicacion: $("#FECHA_APLICACION").val(),
+                    fechaCalendario: $("#FECHA_CALENDARIO").val(),
+                    fechaCancelacion: $("#FECHA_CANCELACION").val(),
+                    fechaApertura: $("#FECHA_APERTURA").val(),
+                    fechaVencimiento: $("#FECHA_VENCIMIENTO").val(),
+                    fechaSolicitud: $("#FECHA_SOLICITUD").val(),
+
+                    valorTransaccion: $("#VALOR_TRANSACCION").val(),
+                    saldoCapital: $("#SALDO_CAPITAL").val(),
+                    saldoInteres: $("#SALDO_INTERES").val(),
+                    saldoSegurosIVA: $("#SALDO_SEGUROS_IVA").val(),
+                    saldoOtros: $("#SALDO_OTROS").val(),
+                    excedente: $("#EXCEDENTE").val(),
+                    capitalVigente: $("#CAPITAL_VIGENTE").val(),
+                    capitalMora: $("#CAPITAL_MORA").val(),
+                    capitalVencido: $("#CAPITAL_VENCIDO").val(),
+                    interesVigente: $("#INTERES_VIGENTE").val(),
+                    interesMora: $("#INTERES_MORA").val(),
+                    interesVencido: $("#INTERES_VENCIDO").val(),
+                    valorCuota: $("#VALOR_CUOTA").val(),
+                    montoOtorgado: $("#MONTO_OTORGADO").val(),
+                    valorValuo: $("#VALOR_VALUO").val(),
+                    valorContable: $("#VALOR_CONTABLE").val(),
+                    totalIngresos: $("#TOTAL_INGRESOS").val(),
+
+                    claseProducto: $("#CLASE_PRODUCTO").val(),
+                    codigoCliente: $("#CODIGO_CLIENTE").val(),
+                    numeroProducto: $("#NUMERO_PRODUCTO").val(),
+                    codigoUsuario: $("#CODIGO_USUARIO").val(),
+                    secuencia: $("#SECUENCIA").val(),
+                    codigoFinanciera: $("#CODIGO_FINANCIERA").val(),
+                    colectorMovimiento: $("#COLECTOR_MOVIMIENTO").val(),
+                    tipoTransaccion: $("#TIPO_TRANSACCION").val(),
+                    tipoOperacion: $("#TIPO_OPERACION").val(),
+                    formaPago: $("#FORMA_PAGO").val(),
+                    codigoAgenciaBanco: $("#CODIGO_AGENCIA_BANCO").val(),
+                    numeroRecibo: $("#NUMERO_RECIBO").val(),
+                    codigoPatrono: $("#CODIGO_PATRONO").val(),
+                    estadoCartera: $("#ESTADO_CARTERA").val(),
+                    colectorConvenio: $("#COLECTOR_CONVENIO").val(),
+                    facturaConvenio: $("#FACTURA_CONVENIO").val(),
+                    nombreCompleto: $("#NOMBRE_COMPLETO").val(),
+                    codigoAgencia: $("#CODIGO_AGENCIA").val()
+                });
+
+                $("#myModal").modal("hide");
+            }
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridTransacciones").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetTransacciones")",
+                autoLoad: true,
+                filterable: true,
+                selectionType: 'multiple',
+                selectionMethod: 'checkbox',
+                primaryKey: 'SECUENCIA',
+                columns: [
+                    { field: "CLASE_PRODUCTO", title: "Clase producto", width: 100, sortable: true },
+                    { field: "CODIGO_CLIENTE", title: "Código cliente", width: 100, sortable: true },
+                    { field: "NUMERO_PRODUCTO", title: "Número producto", width: 100, sortable: true },
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100, sortable: true },
+                    { field: "SECUENCIA", title: "Secuencia", width: 100, sortable: true },
+                    { field: "FECHA_APLICACION", title: "Fecha aplicación", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "CODIGO_FINANCIERA", title: "Código financiera", width: 200, sortable: true },
+                    { field: "COLECTOR_MOVIMIENTO", title: "Colector movimiento", width: 100, sortable: true },
+                    { field: "TIPO_TRANSACCION", title: "Tipo transacción", width: 200, sortable: true },
+                    { field: "TIPO_OPERACION", title: "Tipo operación", width: 200, sortable: true },
+                    { field: "FORMA_PAGO", title: "Forma pago", width: 200, sortable: true },
+                    { field: "FECHA_CALENDARIO", title: "Fecha calendario", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "CODIGO_AGENCIA_BANCO", title: "Código agencia banco", width: 150, sortable: true },
+                    { field: "VALOR_TRANSACCION", title: "Valor transacción", width: 100, sortable: true },
+                    { field: "NUMERO_RECIBO", title: "Número recibo", width: 100, sortable: true },
+                    { field: "CODIGO_PATRONO", title: "Código patrono", width: 100, sortable: true },
+                    { field: "ESTADO_CARTERA", title: "Estado cartera", width: 100, sortable: true },
+                    { field: "COLECTOR_CONVENIO", title: "Colector convenio", width: 100, sortable: true },
+                    { field: "FACTURA_CONVENIO", title: "Factura convenio", width: 100, sortable: true },
+                    { field: "SALDO_CAPITAL", title: "Saldo capital", width: 100, sortable: true },
+                    { field: "SALDO_INTERES", title: "Saldo interés", width: 100, sortable: true },
+                    { field: "SALDO_SEGUROS_IVA", title: "Saldo seguros IVA", width: 100, sortable: true },
+                    { field: "SALDO_OTROS", title: "Saldo otros", width: 100, sortable: true },
+                    { field: "EXCEDENTE", title: "Excedente", width: 100, sortable: true },
+                    { field: "CAPITAL_VIGENTE", title: "Capital vigente", width: 100, sortable: true },
+                    { field: "CAPITAL_MORA", title: "Capital mora", width: 100, sortable: true },
+                    { field: "CAPITAL_VENCIDO", title: "Capital vencido", width: 100, sortable: true },
+                    { field: "INTERES_VIGENTE", title: "Interés vigente", width: 100, sortable: true },
+                    { field: "INTERES_MORA", title: "Interés mora", width: 250, sortable: true },
+                    { field: "INTERES_VENCIDO", title: "Interés vencido", width: 100, sortable: true },
+                    { field: "FECHA_CANCELACION", title: "Fecha cancelación", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "FECHA_APERTURA", title: "Fecha apertura", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "VALOR_CUOTA", title: "Valor cuota", width: 100, sortable: true },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", width: 100, sortable: true },
+                    { field: "VALOR_VALUO", title: "Valor valuo", width: 100, sortable: true },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", width: 100, sortable: true },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud", width: 100, type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre cliente", width: 200, sortable: true },
+                    { field: "CODIGO_AGENCIA", title: "Código agencia", width: 100, sortable: true },
+                    { field: "TOTAL_INGRESOS", title: "Total ingresos", width: 100, sortable: true }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnFiltros").on("click", ShowFilters);
+            $("#btnFiltrar").on("click", Filter);
+            $("#btnLimpiarFiltros").on("click", RemoveFilters);
+            $("#btnMostrarSeleccion").on("click", ShowAlertas);
+            $("#btnAgregarCorreo").on("click", AddEmail);
+
+            function validateEmail(email) {
+                var re = /^[a-z0-9\.\_%+-]+@@[a-z0-9\.\-]+\.[a-z]{2,4}$/i;
+                return re.test(email);
+            }
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formAlertaManual').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_TIPO_ALERTA: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    ASUNTO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    CORREO: {
+                        validators: {
+                            regexp: {
+                                regexp: /^[a-z0-9\.\_%+-]+@@[a-z0-9\.\-]+\.[a-z]{2,4}$/i,
+                                message: 'Correo no válido'
+                            }
+                        }
+                    },
+                    CONTACTOS: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                            .on('success.field.fv', function (e, data) {
+                                var $parent = data.element.parents('.form-group');
+                                $parent.removeClass('has-success');
+                                data.element.data('fv.icon').hide();
+                            })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            SendNotification();
+
+        });
+
+            //SELECTS
+            $(function () {
+                $('#ID_TIPO_ALERTA').selectpicker();
+            });
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        TRANSACCIONES
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnFiltros" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-refresh'></span>Filtrar</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" id="btnMostrarSeleccion" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-refresh'></span>Notificar</button>
+                </div>
+            </div>
+
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridTransacciones" data-source="@Url.Action("GetTransacciones")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <!--<form id="formONUDetalle">-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Filtros para transacciones
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary collapsed-box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Fechas</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_APLICACION">Fecha aplicación</label>
+
+                                            <select id="FECHA_APLICACION_O" name="FECHA_APLICACION_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_APLICACION" name="FECHA_APLICACION" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_CALENDARIO">Fecha calendario</label>
+
+                                            <select id="FECHA_CALENDARIO_O" name="FECHA_CALENDARIO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_CALENDARIO" name="FECHA_CALENDARIO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_CANCELACION">Fecha cancelación</label>
+
+                                            <select id="FECHA_CANCELACION_O" name="FECHA_CANCELACION_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_CANCELACION" name="FECHA_CANCELACION" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_APERTURA">Fecha apertura</label>
+
+                                            <select id="FECHA_APERTURA_O" name="FECHA_APERTURA_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_APERTURA" name="FECHA_APERTURA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_VENCIMIENTO">Fecha vencimiento</label>
+
+                                            <select id="FECHA_VENCIMIENTO_O" name="FECHA_VENCIMIENTO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_VENCIMIENTO" name="FECHA_VENCIMIENTO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FECHA_SOLICITUD">Fecha solicitud</label>
+
+                                            <select id="FECHA_SOLICITUD_O" name="FECHA_SOLICITUD_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control dpicker" id="FECHA_SOLICITUD" name="FECHA_SOLICITUD" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary collapsed-box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Montos</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="VALOR_TRANSACCION">Valor transacción</label>
+
+                                            <select id="VALOR_TRANSACCION_O" name="VALOR_TRANSACCION_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="VALOR_TRANSACCION" name="VALOR_TRANSACCION" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="SALDO_CAPITAL">Saldo capital</label>
+
+                                            <select id="SALDO_CAPITAL_O" name="SALDO_CAPITAL_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="SALDO_CAPITAL" name="SALDO_CAPITAL" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="SALDO_INTERES">Saldo interes</label>
+
+                                            <select id="SALDO_INTERES_O" name="SALDO_INTERES_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="SALDO_INTERES" name="SALDO_INTERES" type="text" value="" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="SALDO_SEGUROS_IVA">Saldo seguros IVA</label>
+
+                                            <select id="SALDO_SEGUROS_IVA_O" name="SALDO_SEGUROS_IVA_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="SALDO_SEGUROS_IVA" name="SALDO_SEGUROS_IVA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="SALDO_OTROS">Saldo otros</label>
+
+                                            <select id="SALDO_OTROS_O" name="SALDO_OTROS_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="SALDO_OTROS" name="SALDO_OTROS" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="EXCEDENTE">Excedente</label>
+
+                                            <select id="EXCEDENTE_O" name="EXCEDENTE_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="EXCEDENTE" name="EXCEDENTE" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CAPITAL_VIGENTE">Capital vigente</label>
+
+                                            <select id="CAPITAL_VIGENTE_O" name="CAPITAL_VIGENTE_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="CAPITAL_VIGENTE" name="CAPITAL_VIGENTE" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CAPITAL_MORA">Capital mora</label>
+
+                                            <select id="CAPITAL_MORA_O" name="CAPITAL_MORA_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="CAPITAL_MORA" name="CAPITAL_MORA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CAPITAL_VENCIDO">Capital vencido</label>
+
+                                            <select id="CAPITAL_VENCIDO_O" name="CAPITAL_VENCIDO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="CAPITAL_VENCIDO" name="CAPITAL_VENCIDO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="INTERES_VIGENTE">Interes vigente</label>
+
+                                            <select id="INTERES_VIGENTE_O" name="INTERES_VIGENTE_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="INTERES_VIGENTE" name="INTERES_VIGENTE" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="INTERES_MORA">Interes mora</label>
+
+                                            <select id="INTERES_MORA_O" name="INTERES_MORA_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="INTERES_MORA" name="INTERES_MORA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="INTERES_VENCIDO">Interes vencido</label>
+
+                                            <select id="INTERES_VENCIDO_O" name="INTERES_VENCIDO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="INTERES_VENCIDO" name="INTERES_VENCIDO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="VALOR_CUOTA">Valor cuota</label>
+
+                                            <select id="VALOR_CUOTA_O" name="VALOR_CUOTA_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="VALOR_CUOTA" name="VALOR_CUOTA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="MONTO_OTORGADO">Monto otorgado</label>
+
+                                            <select id="MONTO_OTORGADO_O" name="MONTO_OTORGADO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="MONTO_OTORGADO" name="MONTO_OTORGADO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="VALOR_VALUO">Valor valuo</label>
+
+                                            <select id="VALOR_VALUO_O" name="VALOR_VALUO_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="VALOR_VALUO" name="VALOR_VALUO" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="VALOR_CONTABLE">Valor contable</label>
+
+                                            <select id="VALOR_CONTABLE_O" name="VALOR_CONTABLE_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="VALOR_CONTABLE" name="VALOR_CONTABLE" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="TOTAL_INGRESOS">Total ingresos</label>
+
+                                            <select id="TOTAL_INGRESOS_O" name="TOTAL_INGRESOS_O" class="form-control" single>
+                                                <option value="=">Igual que</option>
+                                                <option value=">">Mayor que</option>
+                                                <option value="<">Menor que</option>
+                                            </select>
+
+                                            <input class="form-control decimal" id="TOTAL_INGRESOS" name="TOTAL_INGRESOS" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary collapsed-box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Otros</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CLASE_PRODUCTO">Clase de producto</label>
+                                            <input class="form-control" id="CLASE_PRODUCTO" name="CLASE_PRODUCTO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_CLIENTE">Código cliente</label>
+                                            <input class="form-control" id="CODIGO_CLIENTE" name="CODIGO_CLIENTE" type="text" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="NUMERO_PRODUCTO">Número producto</label>
+                                            <input class="form-control" id="NUMERO_PRODUCTO" name="NUMERO_PRODUCTO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_USUARIO">Código usuario</label>
+                                            <input class="form-control" id="CODIGO_USUARIO" name="CODIGO_USUARIO" type="text" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="SECUENCIA">Secuencia</label>
+                                            <input class="form-control" id="SECUENCIA" name="SECUENCIA" type="text" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_FINANCIERA">Código financiera</label>
+                                            <input class="form-control" id="CODIGO_FINANCIERA" name="CODIGO_FINANCIERA" type="text" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="COLECTOR_MOVIMIENTO">Colector movimiento</label>
+                                            <input class="form-control" id="COLECTOR_MOVIMIENTO" name="COLECTOR_MOVIMIENTO" type="text" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="TIPO_TRANSACCION">Tipo de transacción</label>
+                                            <input class="form-control" id="TIPO_TRANSACCION" name="TIPO_TRANSACCION" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="TIPO_OPERACION">Tipo de operación</label>
+                                            <input class="form-control" id="TIPO_OPERACION" name="TIPO_OPERACION" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FORMA_PAGO">Forma de pago</label>
+                                            <input class="form-control" id="FORMA_PAGO" name="FORMA_PAGO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_AGENCIA_BANCO">Código agencia bancaria</label>
+                                            <input class="form-control" id="CODIGO_AGENCIA_BANCO" name="CODIGO_AGENCIA_BANCO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="NUMERO_RECIBO">Número recibo</label>
+                                            <input class="form-control" id="NUMERO_RECIBO" name="NUMERO_RECIBO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_PATRONO">Código patrono</label>
+                                            <input class="form-control" id="CODIGO_PATRONO" name="CODIGO_PATRONO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ESTADO_CARTERA">Estado cartera</label>
+                                            <input class="form-control" id="ESTADO_CARTERA" name="ESTADO_CARTERA" type="text" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="COLECTOR_CONVENIO">Colector convenio</label>
+                                            <input class="form-control" id="COLECTOR_CONVENIO" name="COLECTOR_CONVENIO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="FACTURA_CONVENIO">Factura convenio</label>
+                                            <input class="form-control" id="FACTURA_CONVENIO" name="FACTURA_CONVENIO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="NOMBRE_COMPLETO">Nombre cliente</label>
+                                            <input class="form-control" id="NOMBRE_COMPLETO" name="NOMBRE_COMPLETO" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="CODIGO_AGENCIA">Código agencia</label>
+                                            <input class="form-control" id="CODIGO_AGENCIA" name="CODIGO_AGENCIA" type="text" value="" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" id="btnFiltrar" value="Filtrar" class="btn btn-primary">
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" id="btnLimpiarFiltros" value="Quitar filtros" class="btn btn-primary">
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br />
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                    </div>
+                    <div class="col-md-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--</form>-->
+    </div>
+</div>
+<!--MODAL ALERTAS-->
+<div id='myModalAlertas' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog" style="width :70%">
+        <form id="formAlertaManual">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Datos Alerta Manual
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label for="ID_TIPO_ALERTA">Alerta</label>
+                        <select id="ID_TIPO_ALERTA" name="ID_TIPO_ALERTA" class="form-control" single>
+                            @foreach (ALE_TIPO_ALERTA item in (List<ALE_TIPO_ALERTA>)ViewBag.alertas)
+                            {
+                                <option value=@item.ID style="background: @item.COLOR; color: #000000;">@item.DESCRIPCION</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ASUNTO">Asunto:</label>
+                        <input class="form-control" id="ASUNTO" name="ASUNTO" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CORREOS">Correos:</label>
+                        <div class="form-group">
+                            <select id="CONTACTOS" name="CONTACTOS" class="selectpicker" data-live-search="true" multiple data-actions-box="true" data-width="fit">
+                                @foreach (ALE_CONTACTO_ALERTA item2 in (List<ALE_CONTACTO_ALERTA>)ViewBag.contactos)
+                                {
+                                    <option value=@item2.CORREO data-subtext=@item2.NOMBRE>@item2.CORREO</option>
+                                }
+                            </select>
+                        </div>
+                        <input class="form-control" id="CORREO" name="CORREO" placeholder="nombre@correo.com">
+                        <button type="button" id="btnAgregarCorreo" class="btn btn-success">Agregar</button>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control email" id="CORREOS" name="CORREOS" rows="3" readonly></textarea>
+                    </div>
+
+                    @*
+                        //=====================================================================================================================
+                        //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+                        //=====================================================================================================================
+                    *@
+
+                    <div id="_Tabla"></div> @*function load_Tabla()*@
+
+                </div>
+                <div class="panel-footer text-right">
+                    <!--<button type="button" id="btnEnviarCorreo" class="btn btn-primary">Enviar Correo</button>-->
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnEnviarCorreo" value="Enviar Correo" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+

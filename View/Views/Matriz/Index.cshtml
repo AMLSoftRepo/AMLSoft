@@ -1,0 +1,92 @@
+﻿
+@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridMatriz").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "ID", title: "Id", sortable: true },
+                    { field: "FECHA", title: "Fecha" },
+                    { field: "USUARIO", title: "Usuario", sortable: true },
+                    { title: "Exportar", field: "Imprimir", width: 160, align:'center' }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "Imprimir") {
+                    $wrapper.html('<a title="PDF" href="../Matriz/Reporte?id=' + record.ID + '&formato=PDF" target="_blank">' +
+                                  '<span class="fa  fa-file-pdf-o btn bg-red"></span></a> ' +
+                                  '<a title="WORD" href="../Matriz/Reporte?id=' + record.ID + '&formato=WORD" download>' +
+                                  '<span class="fa  fa-file-word-o btn bg-blue"></span></a> ' +
+                                  '<a title="EXCEL" href="../Matriz/Reporte?id=' + record.ID + '&formato=EXCEL" download>' +
+                                  '<span class="fa  fa-file-excel-o btn bg-green"></span></a>');
+                }
+            });
+
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            $("#btnBuscar").on("click", Search);
+
+
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        MATRIZ DE RIESGO
+        <small>MATRIZ</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridMatriz" data-source="@Url.Action("GetMatriz")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+

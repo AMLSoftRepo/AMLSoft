@@ -1,0 +1,258 @@
+﻿
+
+@using hbehr.AdAuthentication;
+@using Blo.Properties;
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES VALORES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#ID_ROL").val(e.data.record.ID_ROL);
+                $("#ID_ROL").change();
+                $("#USUARIO").val(e.data.record.USUARIO);
+                $("#USUARIO").change();
+                $("#USUARIO").prop('disabled', true);
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_ROL").val("");
+                $("#ID_ROL").change();
+                $("#USUARIO").val("");
+                $("#USUARIO").change();
+                $("#USUARIO").prop('disabled', false);
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../RolUsuario/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridRolUsuario").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "USUARIO", title: "Usuario", sortable: true },
+                    { field: "NOMBREROL", title: "Rol" },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formRolUsuario').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ID_ROL: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    USUARIO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            },
+                            remote: {
+                                url: '../RolUsuario/ValidaUsuario',
+                                type: 'POST',
+                                delay: 2000
+                            }
+                        }
+                    }
+                }
+            })
+                //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+                .on('success.form.fv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('formValidation');
+
+
+                    //Envio de datos
+                    $.ajax({ url: $form.attr('action'), type: "POST", data: $form.serialize() })
+                     .done(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         Mensajes(data.mensaje);
+                         grid.reload();
+                     })
+                     .fail(function (data, textStatus, jqXHR) {
+                         $("#myModal").modal("hide");
+                         $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                     });
+
+                });
+
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formRolUsuario').trigger("reset"); // Resetea los valores de todos campos
+                $("#formRolUsuario").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+
+
+            //SELECT2 PERSONALIZADO TIPO TABLA
+            //$('.s2Grid_1').select2({
+            //    templateResult: function (data) {
+            //        if (data.text === 'Seleccione ...')
+            //            return $(
+            //                '<div class="row" style="font-weight: bold;">' +
+            //                '<div class="col-md-6"> CODIGO </div>' +
+            //                '<div class="col-md-6"> NOMBRE </div>' +
+            //                '</div>'
+            //            );
+
+            //        var r = data.text.split('|');
+            //        var $result = $(
+            //            '<div class="row">' +
+            //                '<div class="col-md-6">' + r[0] + '</div>' +
+            //                '<div class="col-md-6">' + r[1] + '</div>' +
+            //            '</div>'
+            //        );
+            //        return $result;
+            //    },
+            //    templateSelection: function (data) {
+            //        if (data.text === 'Seleccione ...')
+            //            return $(
+            //                 '<div class="row">' +
+            //                '<div class="col-md-6">' + data.text + '</div>' +
+            //                '<div class="col-md-6"></div>' +
+            //            '</div>'
+            //            );
+
+            //        var r = data.text.split('|');
+            //        var $result = $(
+            //            '<div class="row">' +
+            //                '<div class="col-md-6">' + r[1] + '</div>' +
+            //            '</div>'
+            //        );
+            //        return $result;
+            //    }
+            //});
+
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        ROLES Y USUARIOS
+        <small>ADMINISTRACION</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridRolUsuario" data-source="@Url.Action("GetRolUsuarios")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formRolUsuario" action="/RolUsuario/Save" method="post">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Roles y Usuarios
+                </div>
+                <div class="panel-body">
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="form-group">
+                        <label for="USUARIO">Usuario</label>
+                        <input class="form-control" id="USUARIO" name="USUARIO" type="text" value="">
+                        @*<select id="USUARIO" name="USUARIO" class="form-control s2Grid_1" style="width:100%">
+                            <option value="">Seleccione ...</option>
+                            @foreach (AdUser item in (List<AdUser>)ViewBag.usuarios)
+                            {
+                                <option value=@item.Login>@item.Login | @item.Name</option>
+                            }
+                        </select>*@
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ID_ROL">Rol</label><br>
+                        <select id="ID_ROL" name="ID_ROL" class="form-control select2-single">
+                            <option value="">Seleccione ...</option>
+                            @foreach (SEG_ROL item in (List<SEG_ROL>)ViewBag.roles)
+                            {
+                                <option value=@item.ID>@item.NOMBRE</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridDirecciones = $("#gridDirecciones").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetDirecciones")",
+            autoLoad: false,
+            columns: [
+                { field: "DIRECCION_PRINCIPAL", title: "Principal", width: 100, align: 'center' },
+                { field: "PAIS", title: "País", width: 100, align: 'center' },
+                { field: "DEPARTAMENTO", title: "Departamento", width: 100},
+                { field: "MUNICIPIO", title: "Municipio", width: 100 },
+                { field: "URBANIZACION", title: "Urbanización", width: 200 },
+            ]
+        });
+
+        gridDirecciones.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "DIRECCION_PRINCIPAL") {
+                if (record.DIRECCION_PRINCIPAL == "S")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+        });
+
+        gridDirecciones.clear();
+        gridDirecciones.reload({page: 1, CODIGO_CLIENTE: @ViewBag.CODIGO_CLIENTE });
+
+    });
+
+</script>

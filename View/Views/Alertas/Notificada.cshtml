@@ -1,0 +1,678 @@
+﻿@using Blo.Properties;
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+            var gridContado;
+            var gridCredito;
+            var gridSolicitud;
+            var gridEmpleos;
+
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+
+            //EVENTO PARA CAMBIAR ESTADO DE UNA ALERTA
+            function EstadoAnalizada() {
+                bootbox.confirm("¿Esta seguro de enviar a <b>'ANALISIS'</b>?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "../Alertas/CambiarEstado",
+                            type: "POST",
+                            data: { estado: "ANALIZADA", ID_ALE_ALERTA: $("#ID").val() }
+                        })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          $("#myModal").modal("hide");
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', jqXHR);
+                      });
+                    }
+                });
+            }
+
+
+            //EVENTO PARA CAMBIAR ESTADO DE UNA ALERTA
+            function EstadoDescartada() {
+                bootbox.confirm("¿Esta seguro de <b>'DESCARTAR'</b> alerta?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "../Alertas/CambiarEstado",
+                            type: "POST",
+                            data: { estado: "DESCARTADA", ID_ALE_ALERTA: $("#ID").val() }
+                        })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          $("#myModal").modal("hide");
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', jqXHR);
+                      });
+                    }
+                });
+            }
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridAlerta").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                autoLoad: false,
+                columns: [
+                    { field: "COLOR", title: "Notificación", width: 100, align: 'center' },
+                    { field: "FECHA_ALERTA", title: "Fecha Alerta", width: 150, align: 'center', type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "DESCRIPCION", title: "Descripción", width: 400, sortable: true },
+                    { field: "PRESTAMO", title: "Préstamo", width: 150, sortable: true },
+                    { field: "ID_CLIENTE", title: "Código de cliente", width: 150, sortable: true },
+                    { field: "NOMBRE_CLIENTE", title: "Nombre de cliente", width: 350, sortable: true },
+                    { field: "NUMERO_FACTURA", title: "Factura", align: 'center', width: 150, sortable: true },
+                    { field: "FECHA_MOVIMIENTO", title: "Fecha movimiento", width: 150, align: 'center', type: 'date', format: 'dd/mm/yyyy', sortable: true },
+                    { field: "VALOR_PAGO", title: "Valor pago", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_PAGO}</span>", sortable: true },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowDetail } }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "COLOR") {
+                    $wrapper.html("<button  class='btn btn-sm' style='background-color:" + record.COLOR + ";'> " + record.DESCRIPCION_ALERTA + "</button>");
+                }
+            });
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            grid.reload({ page: 1, searchString: $("#txtBuscar").val(), estado: '@ALE_ALERTA.ESTADO_NATIFICADA', tipoAlerta: $("#ID_TIPO_ALERTA_F").val(), FECHA_INI_F: $("#FECHA_INI_F").val(), FECHA_FIN_F: $("#FECHA_FIN_F").val(), sortBy: 'FECHA_ALERTA', direction: 'asc' });
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            gridEmpleos = $("#gridEmpleos").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetEmpleos")",
+                autoLoad: false,
+                columns: [
+                    { field: "PRINCIPAL", title: "Principal", width: 100, align: 'center' },
+                    { field: "NOMBRE_EMPRESA", title: "Empresa", width: 200, align: 'center' },
+                    { field: "FECHA_PROCESO", title: "Fecha proceso", type: 'date', format: 'dd/mm/yyyy', sortable: true, align: 'center', width: 150 },
+                ]
+            });
+
+            gridEmpleos.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "PRINCIPAL") {
+                    if (record.PRINCIPAL == "S")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            gridTransaccion = $("#gridTransaccion").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetTransaccion")",
+                autoLoad: false,
+                filterable: false,
+                //selectionType: 'multiple',
+                //selectionMethod: 'checkbox',
+                //primaryKey: 'ID',
+                columns: [
+                    { field: "CLASE_PRODUCTO", title: "Clase producto", width: 100 },
+                    { field: "CODIGO_CLIENTE", title: "Código cliente", width: 100 },
+                    { field: "NUMERO_PRODUCTO", title: "Número producto", width: 100 },
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100 },
+                    { field: "SECUENCIA", title: "Secuencia", width: 100 },
+                    { field: "FECHA_APLICACION", title: "Fecha aplicación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_FINANCIERA", title: "Código financiera", width: 200 },
+                    { field: "COLECTOR_MOVIMIENTO", title: "Colector movimiento", width: 100 },
+                    { field: "TIPO_TRANSACCION", title: "Tipo transacción", width: 200 },
+                    { field: "TIPO_OPERACION", title: "Tipo operación", width: 200 },
+                    { field: "FORMA_PAGO", title: "Forma pago", width: 200 },
+                    { field: "FECHA_CALENDARIO", title: "Fecha calendario", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_AGENCIA_BANCO", title: "Código agencia banco", width: 150 },
+                    { field: "VALOR_TRANSACCION", title: "Valor transacción", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>" },
+                    { field: "NUMERO_RECIBO", title: "Número recibo", width: 100 },
+                    { field: "CODIGO_PATRONO", title: "Código patrono", width: 100 },
+                    { field: "ESTADO_CARTERA", title: "Estado cartera", width: 100 },
+                    { field: "COLECTOR_CONVENIO", title: "Colector convenio", width: 100 },
+                    { field: "FACTURA_CONVENIO", title: "Factura convenio", width: 100 },
+                    { field: "SALDO_CAPITAL", title: "Saldo capital", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_CAPITAL}</span>" },
+                    { field: "SALDO_INTERES", title: "Saldo interés", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_INTERES}</span>" },
+                    { field: "SALDO_SEGUROS_IVA", title: "Saldo seguros IVA", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_SEGUROS_IVA}</span>" },
+                    { field: "SALDO_OTROS", title: "Saldo otros", align: 'right', width: 150, tmpl: "<span class='currency'>{SALDO_OTROS}</span>" },
+                    { field: "EXCEDENTE", title: "Excedente", align: 'right', width: 150, tmpl: "<span class='currency'>{EXCEDENTE}</span>" },
+                    { field: "CAPITAL_VIGENTE", title: "Capital vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VIGENTE}</span>" },
+                    { field: "CAPITAL_MORA", title: "Capital mora", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_MORA}</span>" },
+                    { field: "CAPITAL_VENCIDO", title: "Capital vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{CAPITAL_VENCIDO}</span>" },
+                    { field: "INTERES_VIGENTE", title: "Interés vigente", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VIGENTE}</span>" },
+                    { field: "INTERES_MORA", title: "Interés mora", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_MORA}</span>" },
+                    { field: "INTERES_VENCIDO", title: "Interés vencido", align: 'right', width: 150, tmpl: "<span class='currency'>{INTERES_VENCIDO}</span>" },
+                    { field: "FECHA_CANCELACION", title: "Fecha cancelación", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_APERTURA", title: "Fecha apertura", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "VALOR_CUOTA", title: "Valor cuota", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CUOTA}</span>" },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", align: 'right', width: 150, tmpl: "<span class='currency'>{MONTO_OTORGADO}</span>" },
+                    { field: "VALOR_VALUO", title: "Valor valuo", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_VALUO}</span>" },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_CONTABLE}</span>" },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre cliente", width: 200 },
+                    { field: "CODIGO_AGENCIA", title: "Código agencia", width: 100 },
+                    { field: "TOTAL_INGRESOS", title: "Total ingresos", align: 'right', width: 150, tmpl: "<span class='currency'>{TOTAL_INGRESOS}</span>" }
+                ],
+            });
+
+            gridTransaccion.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridSolicitud = $("#gridSolicitud").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteSolicitud")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "NRO_SOLICITUD", title: "Solicitud", width: 100 },
+                    { field: "FECHA_SOLICITUD", title: "Fecha solicitud ", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "CODIGO_LINEA_CREDITO", title: "Línea de Crédito", width: 100 },
+                    { field: "CODIGO_AGENCIA", title: "Código Agencia", width: 100 },
+                    { field: "CODIGO_EJECUTIVO", title: "Código Ejecutivo", width: 100 },
+                    { field: "CUOTA_DEL_CREDITO", title: "Cuota del credito", width: 150, tmpl: "<span class='currency'>{CUOTA_DEL_CREDITO}</span>" },
+                    { field: "VALOR_PRIMA_COMPLEMENTO", title: "Valor prima complemento", width: 150, tmpl: "<span class='currency'>{VALOR_PRIMA_COMPLEMENTO}</span>" },
+                    { field: "NUMERO_PRESTAMO", title: "Numero de prestamo", width: 100 },
+                    { field: "FECHA_PROCESO", title: "Fecha proceso", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridSolicitud.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridContado = $("#gridContado").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteContados")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "CODIGO_USUARIO", title: "Código usuario", width: 100 },
+                    { field: "SECUENCIA_MOVIMIENTO", title: "Secuencia", width: 100 },
+                    { field: "FECHA_VALIDA", title: "Fecha válida", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_HORA", title: "Fecha hora", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PRECIO_VENTA", title: "Precio venta", width: 150, tmpl: "<span class='currency'>{PRECIO_VENTA}</span>" },
+                    { field: "VALUO", title: "Valuo", width: 150, tmpl: "<span class='currency'>{VALUO}</span>" },
+                    { field: "VALOR_CONTABLE", title: "Valor contable", width: 150, tmpl: "<span class='currency'>{VALOR_CONTABLE}</span>" },
+                    { field: "FECHA_PROCESO", title: "Fecha proceso", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridContado.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+
+            gridCredito = $("#gridCredito").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                dataSource: "@Url.Action("GetClienteCreditos")",
+                autoLoad: false,
+                filterable: false,
+                columns: [
+                    { field: "ID_PRESTAMO", title: "ID Préstamo", width: 100 },
+                    { field: "AGENCIA", title: "Agencia", width: 150 },
+                    { field: "SUCURSAL", title: "Sucursal", width: 150 },
+                    { field: "EJECUTIVO_VENTA", title: "Ejecutivo de venta", width: 150 },
+                    { field: "VENDEDOR", title: "Vendedor", width: 150 },
+                    { field: "FECHA_APERTURA", title: "Fecha apertuta", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha vencimiento", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "FECHA_VENCIMIENTO", title: "Fecha cancelacion", width: 100, type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "PLAZO", title: "Plazo", width: 100 },
+                    { field: "PRODUCTO_BANCO", title: "Producto banco", width: 200 },
+                    { field: "SUB_APLICACION", title: "Sub-aplicación", width: 150 },
+                    { field: "LINEA_FINANCIERA", title: "Linea financiera", width: 200 },
+                    { field: "PROGRAMA", title: "Programa", width: 150 },
+                    { field: "ORIGEN_RECURSOS", title: "Origen recursos", width: 200 },
+                    { field: "MONTO_OTORGADO", title: "Monto otorgado", width: 150, tmpl: "<span class='currency'>{MONTO_OTORGADO}</span>" },
+                    { field: "TASA_TOTAL", title: "Tasa total", width: 150 },
+                    { field: "PRESIO_VENTA", title: "Presio venta", width: 150, tmpl: "<span class='currency'>{PRESIO_VENTA}</span>" },
+                    { field: "SISTEMA", title: "Sistema", width: 100 },
+                    { field: "PAIS", title: "País", width: 150 },
+                    { field: "DEPARTAMENTO", title: "Departamento", width: 150 },
+                    { field: "MUNICIPIO", title: "Municipio", width: 150 },
+                    { field: "UBICACION_FISICA", title: "Ubicación física", width: 250 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+            gridCredito.on('dataBound', function (e, records, totalRecords) {
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+            });
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#FECHA_ALERTA").val(formatDate(e.data.record.FECHA_ALERTA, 'dd/mm/yyyy'));
+                $("#DESCRIPCION_ALERTA").val(e.data.record.DESCRIPCION_ALERTA);
+                $("#DESCRIPCION_ALERTA").attr('style', 'background-color: ' + e.data.record.COLOR);
+                $("#DESCRIPCION").val(e.data.record.DESCRIPCION);
+                $("#FECHA_MOVIMIENTO").val(formatDate(e.data.record.FECHA_MOVIMIENTO, 'dd/mm/yyyy'));
+                $("#ID_CLIENTE").val(e.data.record.ID_CLIENTE);
+                $("#NOMBRE_CLIENTE").val(e.data.record.NOMBRE_CLIENTE);
+                $("#NUMERO_FACTURA").val(e.data.record.NUMERO_FACTURA);
+                $("#VALOR_PAGO").val(e.data.record.VALOR_PAGO);
+                load_Cliente();
+
+                if (e.data.record.CLASE_PRODUCTO.indexOf("PC") > -1) {
+                    $("#gridSolicitud").show();
+                    $("#gridContado").hide();
+                    $("#gridCredito").hide();
+
+                    gridSolicitud.clear();
+                    gridSolicitud.reload({ page: 1, producto: e.data.record.PRESTAMO });
+                }
+                else if (e.data.record.CLASE_PRODUCTO.indexOf("VC") > -1) {
+                    $("#gridSolicitud").hide();
+                    $("#gridContado").show();
+                    $("#gridCredito").hide();
+
+                    gridContado.clear();
+                    gridContado.reload({ page: 1, producto: e.data.record.PRESTAMO });
+                }
+                else if (e.data.record.CLASE_PRODUCTO.indexOf("PA") > -1) {
+                    $("#gridSolicitud").hide();
+                    $("#gridContado").hide();
+                    $("#gridCredito").show();
+
+                    gridCredito.clear();
+                    gridCredito.reload({ page: 1, producto: e.data.record.PRESTAMO });
+                }
+                else {
+                    $("#gridSolicitud").hide();
+                    $("#gridContado").hide();
+                    $("#gridCredito").hide();
+                }
+
+                gridEmpleos.clear();
+                gridEmpleos.reload({ page: 1, CODIGO_CLIENTE: e.data.record.ID_CLIENTE });
+                gridTransaccion.clear();
+                gridTransaccion.reload({ SECUENCIA: e.data.record.SECUENCIA });
+
+                $("#myModal").modal("show");
+            }
+
+            function load_Cliente() {
+                $.ajax({
+                    url: '@Url.Action("_Cliente", "Alertas")',
+                    data: { codigoCliente: $("#ID_CLIENTE").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_cliente").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "ERROR CLIENTE");
+                    }
+                });
+            }
+
+            //EVENTOS DE BOTONES
+            $("#btnAnalizar").on("click", EstadoAnalizada);
+            $("#btnDescartar").on("click", EstadoDescartada);
+            $("#btnBuscar").on("click", Search);
+
+            $('#formFiltroAlertas').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    FECHA_INI_F: {
+                        validators: {
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+                                    var i = value.split('/');
+                                    var f = $('#FECHA_FIN_F').val().split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (fini > ffin) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha inicial debe ser menor o igual a la fecha final'
+                                        }
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    },
+                    FECHA_FIN_F: {
+                        validators: {
+                            date: {
+                                format: '@PropertiesBlo.formatDate',
+                                message: '@PropertiesBlo.msgFechaInvalida'
+                            },
+                            callback: {
+                                callback: function (value, validator) {
+
+                                    var i = $('#FECHA_INI_F').val().split('/');
+                                    var f = value.split('/');
+
+                                    //Cambiamos el orden al formato americano, de esto dd/mm/yyyy a esto mm/dd/yyyy
+                                    var fini = new Date(i[1] + '/' + i[0] + '/' + i[2]);
+                                    var ffin = new Date(f[1] + '/' + f[0] + '/' + f[2]);
+
+                                    if (ffin < fini) {
+                                        return {
+                                            valid: false,
+                                            message: 'La fecha final debe ser mayor o igual a la fecha inicial'
+                                        }
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            })
+
+               //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+               .on('success.field.fv', function (e, data) {
+                   var $parent = data.element.parents('.form-group');
+                   $parent.removeClass('has-success');
+                   data.element.data('fv.icon').hide();
+               })
+               .on('success.form.fv', function (e) {
+                   e.preventDefault();
+                   var $form = $(e.target);
+                   var bv = $form.data('formValidation');
+
+                   $("#formFiltroAlertas").formValidation('resetForm'); // Elimina las clases de validacion
+
+                   grid.reload({ page: 1, searchString: null, estado: '@ALE_ALERTA.ESTADO_NATIFICADA', tipoAlerta: $("#ID_TIPO_ALERTA_F").val(), FECHA_INI_F: $("#FECHA_INI_F").val(), FECHA_FIN_F: $("#FECHA_FIN_F").val(), sortBy: 'FECHA_ALERTA', direction: 'asc' });
+
+               })
+
+            //SELECTS
+            $(function () {
+                $('#ID_TIPO_ALERTA').selectpicker();
+            });
+
+            //DATEPICKERS
+            $('#FECHA_INI_F').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: $('#FECHA_FIN_F').val() ? $('#FECHA_FIN_F').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'FECHA_INI_F');
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'FECHA_FIN_F');
+                },
+                timepicker: false
+            });
+
+
+            $('#FECHA_FIN_F').datetimepicker({
+                format: 'd/m/Y',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: $('#FECHA_INI_F').val() ? $('#FECHA_INI_F').val() : false,
+                        formatDate: 'd/m/Y'
+                    })
+                },
+                onChangeDateTime: function (dp, $input) {
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'FECHA_FIN_F');
+                    $('#formFiltroAlertas').formValidation('revalidateField', 'FECHA_INI_F');
+                },
+                timepicker: false
+            });
+
+        });
+
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        NOTIFICACION
+        <small>ALERTAS</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="formFiltroAlertas" class="form-inline">
+                        <div class="form-group">
+                            <select id="ID_TIPO_ALERTA_F" name="ID_TIPO_ALERTA_F" class="form-control" single>
+                                <option value=0 style="color: #000000;">TODAS</option>
+                                @foreach (ALE_TIPO_ALERTA item in (List<ALE_TIPO_ALERTA>)ViewBag.alertas)
+                                {
+                                    <option value=@item.ID style="background: @item.COLOR; color: #000000;">@item.DESCRIPCION</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="FECHA_INI_F" name="FECHA_INI_F" placeholder="Fecha Inicio" type="text" value="" size="8">
+                        </div>
+                        <div class="form-group ">
+                            <input class="form-control" id="FECHA_FIN_F" name="FECHA_FIN_F" placeholder="Fecha Fin" type="text" value="" size="8">
+                        </div>
+                        <div class="form-group ">
+                            <button type="submit" id="btnFiltrarAlertas" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-filter'></span> FILTRAR</button>
+                        </div>
+                    </form>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridAlerta" data-source="@Url.Action("GetAlertas")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formNotificadaDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle de Alerta Notificada
+                </div>
+                <div class="panel-body">
+
+                    <input id="ID" type="hidden" name="ID" value="">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FECHA_ALERTA">Fecha de alerta:</label>
+                                <input class="form-control" id="FECHA_ALERTA" name="FECHA_ALERTA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="DESCRIPCION_ALERTA">Tipo de alerta:</label>
+                                <input class="form-control" id="DESCRIPCION_ALERTA" name="DESCRIPCION_ALERTA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="DESCRIPCION">Descripción:</label>
+                                <input class="form-control" id="DESCRIPCION" name="DESCRIPCION" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FECHA_MOVIMIENTO">Fecha de movimiento:</label>
+                                <input class="form-control" id="FECHA_MOVIMIENTO" name="FECHA_MOVIMIENTO" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="ID_CLIENTE">ID cliente:</label>
+                                <input class="form-control" id="ID_CLIENTE" name="ID_CLIENTE" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="NOMBRE_CLIENTE">Nombre cliente:</label>
+                                <input class="form-control" id="NOMBRE_CLIENTE" name="NOMBRE_CLIENTE" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="NUMERO_FACTURA">Número de factura:</label>
+                                <input class="form-control" id="NUMERO_FACTURA" name="NUMERO_FACTURA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="VALOR_PAGO">Valor del pago:</label>
+                                <input class="form-control currency" id="VALOR_PAGO" name="VALOR_PAGO" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ***** HR CLIENTE *****-->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Cliente</span></h4>
+                    <hr />
+
+                    <div id="_cliente"></div>
+
+
+                    <!-- ***** HR EMPLEOS ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Empleos</span></h4>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                    <table id="gridEmpleos"></table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- ***** HR PRODUCTO ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Producto</span></h4>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    <table id="gridSolicitud"></table>
+                                    <table id="gridContado"></table>
+                                    <table id="gridCredito"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ***** HR TRANSACCION ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Transacción</span></h4>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                    <table id="gridTransaccion" data-source="@Url.Action("GetTransaccion")"></table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button type="button" id="btnAnalizar" class="btn btn-success"><span class='glyphicon glyphicon-refresh'></span> Analizar</button>
+                    <button type="button" id="btnDescartar" class="btn btn-danger"><span class='glyphicon glyphicon-refresh'></span> Descartar</button>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

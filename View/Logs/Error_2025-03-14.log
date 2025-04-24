@@ -1,0 +1,82 @@
+
+ ================= 2025-03-14 15:37:02,327 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.Shared.CrystalReportsException: No se ha podido cargar el informe. ---> System.Runtime.InteropServices.COMException: El sistema no puede encontrar el archivo especificado.
+   en CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 215 
+  
+
+ ================= 2025-03-14 15:43:46,398 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 217 
+  
+
+ ================= 2025-03-14 16:04:47,383 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 217 
+  
+
+ ================= 2025-03-14 16:20:37,291 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.Shared.CrystalReportsException: No se ha podido cargar el informe. ---> System.Runtime.InteropServices.COMException: El sistema no puede encontrar la ruta especificada.
+   en CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 215 
+  
+
+ ================= 2025-03-14 16:39:41,792 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.Shared.CrystalReportsException: No se ha podido cargar el informe. ---> System.Runtime.InteropServices.COMException: El sistema no puede encontrar la ruta especificada.
+   en CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 215 
+  
+
+ ================= 2025-03-14 16:44:58,554 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.Shared.CrystalReportsException: No se ha podido cargar el informe. ---> System.Runtime.InteropServices.COMException: El sistema no puede encontrar la ruta especificada.
+   en CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 215 
+  

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d9f06707d5b4552b07449750f747fd6" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ALE_ALERTA" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_ALERTA_LISTA_PERSONA" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_ALERTA_PERFIL_TRAN" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_BLOQUEO_PRESTAMO" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_CONTACTO_ALERTA" Width="1.5" PointX="3.75" PointY="54.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_DATOS_ADICIONALES_TRANSACCION" Width="1.5" PointX="15.75" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_NOTIFICACION_ALERTA" Width="1.5" PointX="6" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_OPERACION_IRREGULAR" Width="1.5" PointX="6" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALE_TIPO_ALERTA" Width="1.5" PointX="0.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_CAT_ENTIDADES" Width="1.5" PointX="27" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_CAT_GRUPO_FATF" Width="1.5" PointX="8.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_CAT_ORGANOS" Width="1.5" PointX="24.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_CAT_TITULOS" Width="1.5" PointX="11" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_EXENTO" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_GENERAL" Width="1.5" PointX="20.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_GENERAL_PERSONALIZADA" Width="1.5" PointX="23" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_ONU" Width="1.5" PointX="5.75" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_ONU_ALIAS" Width="1.5" PointX="8" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_ONU_DIRECCION" Width="1.5" PointX="8" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_ONU_DOCUMENTO" Width="1.5" PointX="8" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PAIS_GRUPO" Width="1.5" PointX="11" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PARAMETRO_ONU_SDN" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PEP" Width="1.5" PointX="27" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PEP_CARGO" Width="1.5" PointX="29.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PEP_RELACION" Width="1.5" PointX="29.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PERSONALIZADA" Width="1.5" PointX="17.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PERSONALIZADA_ALIAS" Width="1.5" PointX="20" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PERSONALIZADA_DIRECCION" Width="1.5" PointX="20" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_PERSONALIZADA_DOCUMENTO" Width="1.5" PointX="20" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_SDN" Width="1.5" PointX="12.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_SDN_AKA" Width="1.5" PointX="15" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_SDN_DIRECCION" Width="1.5" PointX="15" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_SDN_DOCUMENTO" Width="1.5" PointX="15" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LIS_SDN_NACIONALIDAD" Width="1.5" PointX="15" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_AGENCIA" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_AUTOMATIZACION" Width="1.5" PointX="3.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_DISENO" Width="1.5" PointX="3.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_DOCUMENTACION" Width="1.5" PointX="3.75" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_FACTOR_RIESGO" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_FRECUENCIA" Width="1.5" PointX="3.75" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_MEZCLA" Width="1.5" PointX="3.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_PROBABILIDAD_OCURRENCIA" Width="1.5" PointX="3" PointY="42" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_SEVERIDAD" Width="1.5" PointX="3" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_TIPO_CONTROL" Width="1.5" PointX="3.75" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_TIPO_RIESGO" Width="1.5" PointX="0.75" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAT_UNIDAD" Width="1.5" PointX="3" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CAUSA_RIESGO" Width="1.5" PointX="3" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CONTROL" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_CONTROL_EVENTO" Width="1.5" PointX="10.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_ESCALA_CALIFICACION" Width="1.5" PointX="8.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_EVENTO_RIESGO" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_MATRIZ" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_MATRIZ_CONTROL" Width="1.5" PointX="8" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_MATRIZ_CONTROL_EVENTO" Width="1.5" PointX="10.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_MATRIZ_EVENTO_RIESGO" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_RIESGO" Width="1.5" PointX="3" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MAT_SEVERIDAD" Width="1.5" PointX="5.25" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_AGENCIA_BANCARIA" Width="1.5" PointX="25.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CARGO_INSTITUCION" Width="1.5" PointX="11" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CAT_FINANCIERA" Width="1.5" PointX="23.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CAT_INSTITUCION" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CAT_UNIDAD" Width="1.5" PointX="11" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CLIENTE_PEP" Width="1.5" PointX="17.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_CONTACTO_INSTITUCION" Width="1.5" PointX="13.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_DIA_FESTIVO" Width="1.5" PointX="10.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_OFICIO" Width="1.5" PointX="15.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_OFICIO_CONFIGURACION" Width="1.5" PointX="22.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_OFICIO_PERSONA" Width="1.5" PointX="17.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_ROS" Width="1.5" PointX="22.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_ROS_ACTOR" Width="1.5" PointX="25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_ROS_ARCHIVOS" Width="1.5" PointX="25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MON_ROS_OPERACION" Width="1.5" PointX="28" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_CALIFICACION_FACTOR" Width="1.5" PointX="13" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_COINCIDENCIA_LISTA" Width="1.5" PointX="25.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_CONFIGURACION_FACTOR" Width="1.5" PointX="13" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_FACTOR" Width="1.5" PointX="10.75" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_HISTORIAL_PERFIL" Width="1.5" PointX="13" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_PERFIL_TRANSACCIONAL" Width="1.5" PointX="27.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PER_TIPO_CALIFICACION" Width="1.5" PointX="24.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_ACCESO_USUARIO" Width="1.5" PointX="22" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_CARGAR_DATOS" Width="1.5" PointX="26.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_EMPRESA" Width="1.5" PointX="27.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_ERROR_LOG" Width="1.5" PointX="21.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_LOG_AUDITORIA" Width="1.5" PointX="0.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_MODULO" Width="1.5" PointX="19.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_OPCION" Width="1.5" PointX="19.75" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_PARAMETRO" Width="1.5" PointX="28.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_PERMISO" Width="1.5" PointX="19.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_ROL" Width="1.5" PointX="19.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_ROL_PERMISO" Width="1.5" PointX="22" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEG_ROL_USUARIO" Width="1.5" PointX="22" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_ACTIVIDAD_ECONOMICA" Width="1.5" PointX="27.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CALIFICACION" Width="1.5" PointX="27.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CLIENTE" Width="1.5" PointX="29.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CLIENTE_DIRECCIONES" Width="1.5" PointX="17.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CLIENTE_EMPLEOS" Width="1.5" PointX="29.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CLIENTE_TELEFONOS" Width="1.5" PointX="19.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_COINCIDENCIA_LISTA" Width="1.5" PointX="30.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_CREDITOS_ESCRITURADOS" Width="1.5" PointX="30.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_DEPARTAMENTO" Width="1.5" PointX="21.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_ESTADO_CARTERA" Width="1.5" PointX="23.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_ESTADO_CIVIL" Width="1.5" PointX="31.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_FACTORES_PERFIL" Width="1.5" PointX="31.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_FINANCIERAS" Width="1.5" PointX="10.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_FORMAS_PAGO" Width="1.5" PointX="31.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_LINEA" Width="1.5" PointX="12.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_MUNICIPIO" Width="1.5" PointX="31.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_OI_FUNCIONES" Width="1.5" PointX="14.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_OI_OPERADORES" Width="1.5" PointX="31.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_OI_PARAMETROS" Width="1.5" PointX="25.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_OPERACIONES" Width="1.5" PointX="31.75" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_ORIGEN" Width="1.5" PointX="27.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_PAISNACIONALIDAD" Width="1.5" PointX="29.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_PERFIL_TRANSACCIONAL" Width="1.5" PointX="31.75" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_PROFESIONES" Width="1.5" PointX="0.75" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_REPORTE_CONTROLPAGOS" Width="1.5" PointX="33.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_REPORTE_PRIMAS" Width="1.5" PointX="32.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_REPORTE_VENTAS" Width="1.5" PointX="33.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_SOLICITUDES_CREDITOS" Width="1.5" PointX="16.75" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_TIPO_CREDITO" Width="1.5" PointX="33.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_TIPO_DOCUMENTO" Width="1.5" PointX="21.75" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_TIPO_PRESTAMO" Width="1.5" PointX="33.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_TIPO_TRANSACCIONES" Width="1.5" PointX="33.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_TRANSACCIONES" Width="1.5" PointX="33.75" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_URBANIZACION" Width="1.5" PointX="10.75" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VIEW_VENTAS_CONTADO" Width="1.5" PointX="12.75" PointY="36.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_ALE_ALERTA_ALE_TIPO_ALERTA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ALE_ALERTA_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ALE_NOTIFICACION_ALERTA_ALE_CONTACTO_ALERTA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ALE_NOTIFICACION_ALERTA_ALE_TIPO_ALERTA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ALE_OPERACION_IRREGULAR_ALE_TIPO_ALERTA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ALE_OPERACION_IRREGULAR_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_CAT_ENTIDADES_LIS_CAT_ORGANOS1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PEP_CARGO_LIS_CAT_ENTIDADES" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PAIS_GRUPO_LIS_CAT_GRUPO_FATF" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PEP_CARGO_LIS_CAT_ORGANOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PEP_LIS_CAT_TITULOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_CONTACTO_INSTITUCION_LIS_CAT_TITULOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_GENE_PERSONALI_LIS_GENE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_GENE_GENERAL_LIS_PERS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_ONU__ALIAS_LIS_ONU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_ONU__DIRECCION_LIS_ONU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_ONU__DOCUMENTO_LIS_ONU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PEP_CARGO_LIS_PEP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PEP_RELACION_LIS_PEP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PERS_ALIAS_LIS_PERS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PERS_DIRECCION_LIS_PERS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_PERS_DOCUMENTO_LIS_PERS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_SDN__AKA_LIS_SDN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_SDN__DIRECCION_LIS_SDN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_SDN__DOCUMENTO_LIS_SDN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LIS_SDN__NACIONALI_LIS_SDN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CAT_UNIDAD_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_CONTROL_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_EVENTO_RIESGO_MAT_CAT_AGENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_AUTOMATIZACION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_DISENO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_DOCUMENTACION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAT_FACTOR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_FRECUENCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_MEZCLA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAT_PROBABILIDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAT_SEVERIDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_SEVERIDAD_MAT_CAT_SEVERIDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_MAT_CAT_TIPO_CONTROL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CAUSA_RIESGO_MAT_CAT_TIPO_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_RIESGO_MAT_CAT_TIPO_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_SEVERIDAD_MAT_CAT_TIPO_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAT_UNIDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_CAUSA_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_EVENTO_MAT_CONTROL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_CONTROL_EVENTO_MAT_EVENTO_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_EVENTO_RIESGO_MAT_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_CONTROL_EVENTO_MAT_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_CONTROL_MAT_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_EVENTO_RIESGO_MAT_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_CONTROL_EVENTO_MAT_MATRIZ_CONTROL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MAT_MATRIZ_CONTROL_EVENTO_MAT_MATRIZ_EVENTO_RIESGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_AGEN_FINANCIER_MON_CAT_" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_ROS_OPERACION_MON_AGENCIA_BANCARIA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_CARG_INSTITUCI_MON_CAT_" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_CONT_INSTITUCI_MON_CARG" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_CAT_UNIDAD_MON_CAT_INSTITUCION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_CONTACTO_INSTITUCION_MON_CAT_UNIDAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_OFIC_CONCATCTO_MON_CONT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_OFICIO_MON_CONTACTO_INSTITUCION_OFICIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_OFICIO_MON_CONTACTO_SOLICITANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_OFICIO_PERSONA_MON_OFIC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_ROS_ARCHIVOS_MON_ROS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MON_ROS_OPERACION_MON_ROS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ROS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PER_CALIFICACION_FACTOR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PER_CONFIGURACION_FACTOR_PER_FACTOR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PER_HISTORIAL_PERFIL_PER_FACTOR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ACCE_FK_SEG_AC_SEG_MODU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ACCE_FK_SEG_AC_SEG_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ACCESO_USUARIO_SEG_OPCION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_OPCI_FK_SEG_OP_SEG_MODU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ROL_PERMISO_SEG_PERMISO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ROL__FK_SEG_RO_SEG_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SEG_ROL_PERMISO_SEG_ROL" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

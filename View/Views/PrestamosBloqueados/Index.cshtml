@@ -1,0 +1,227 @@
+﻿@using Blo.Properties;
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var grid;
+            var total = 0;
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ prestamo: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridAlerta").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                autoLoad: false,
+                columns: [
+                    { field: "NUMERO_PRODUCTO", title: "Prestamo", width: 100 },
+                    { field: "NOMBRE_COMPLETO", title: "Nombre del cliente", width: 200 },
+                    { field: "FECHA_CALENDARIO", title: "Fecha de pago", width: 100, align: 'center', type: 'date', format: 'dd/mm/yyyy' },
+                    { field: "VALOR_TRANSACCION", title: "Valor pagado", align: 'right', width: 150, tmpl: "<span class='currency'>{VALOR_TRANSACCION}</span>" },
+                    { field: "ESTADO", title: "Estatus", width: 100 },
+                    { field: "INFO_QUIEN_LLENO_DECLARACION_JURADA", title: "Quien lleno declaración jurada", width: 200  },
+                    { field: "TRAN_ORIGEN_FONDOS", title: "Indicación  en declaración jurada", align: 'center', width: 150 },
+                    { field: "INFO_DOCUMENTACION_REQUERIDA", title: "Documento requerido", width: 150 },
+                    { field: "INFO_TELEFONO_CONTACTO", title: "Teléfono de contacto", width: 100  },
+                    { field: "INFO_SEGUIMIENTO", title: "Seguimiento", align: 'center', width: 300 }
+                ],
+
+                pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+            });
+
+
+            grid.on('cellDataBound', function (e, $wrapper, id, column, record) {
+                if ('VALOR_TRANSACCION' == column.field) {
+                    total = total + record.VALOR_TRANSACCION;
+                }
+            });
+
+
+            grid.on('dataBound', function (e, records, totalRecords) {
+
+                $("#TotalFactura").remove();
+                $("#ContenedorTotal").wrapInner(function () {
+                    return "<div id='TotalFactura' class='form-group'><label class='form-control col-md-6'>Total Pagos: </label><input class='form-control currency col-md-6' value='" + total + "' type='text' disabled></div>";
+                });
+
+
+                $(".currency").inputmask({ removeMaskOnSubmit: true, autoUnmask: true, alias: "numeric", prefix: "$ ", groupSeparator: ',', autoGroup: true, digits: 2, digitsOptional: false, placeholder: '0' });
+
+                total = 0;
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnBuscar").on("click", Search);
+
+        });
+    </script>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PRESTAMOS BLOQUEADOS
+        <small>MONITOREO</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridAlerta" data-source="@Url.Action("GetAlertas")"></table>
+            </div>
+         
+                <div class="form-inline">
+                    <span id="ContenedorTotal"></span>
+                </div>
+        
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formAnalizadaDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle de Alerta
+                </div>
+                <div class="panel-body">
+
+                    <input id="ID" type="hidden" name="ID" value="">
+                    <input id="DETALLE_SECUENCIA" type="hidden" name="SECUENCIA" value="">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FECHA_ALERTA">Fecha de alerta:</label>
+                                <input class="form-control" id="FECHA_ALERTA" name="FECHA_ALERTA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="DESCRIPCION_ALERTA">Tipo de alerta:</label>
+                                <input class="form-control" id="DESCRIPCION_ALERTA" name="DESCRIPCION_ALERTA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="DESCRIPCION">Descripción:</label>
+                                <input class="form-control" id="DESCRIPCION" name="DESCRIPCION" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FECHA_MOVIMIENTO">Fecha de movimiento:</label>
+                                <input class="form-control" id="FECHA_MOVIMIENTO" name="FECHA_MOVIMIENTO" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="ID_CLIENTE">ID cliente:</label>
+                                <input class="form-control" id="ID_CLIENTE" name="ID_CLIENTE" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="NOMBRE_CLIENTE">Nombre cliente:</label>
+                                <input class="form-control" id="NOMBRE_CLIENTE" name="NOMBRE_CLIENTE" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="NUMERO_FACTURA">Número de factura:</label>
+                                <input class="form-control" id="NUMERO_FACTURA" name="NUMERO_FACTURA" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="VALOR_PAGO">Valor del pago:</label>
+                                <input class="form-control currency" id="VALOR_PAGO" name="VALOR_PAGO" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ***** HR CLIENTE *****-->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Cliente</span></h4>
+                    <hr />
+
+                    <div id="_cliente"></div>
+
+                    <!-- ***** HR TABLAS ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Detalle Transacción</span></h4>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="box-body">
+                                <div class="table-responsive" style="overflow-y: hidden;">
+                                    @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                    <table id="gridTransaccion" data-source="@Url.Action("GetTransaccion")"></table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ***** HR DATOS ADICIONALES ***** -->
+                    <hr />
+                    <h4><span class="label label-primary">Datos Adicionales Transacción</span></h4>
+                    <hr />
+                    <div class="table-responsive" style="overflow-y: hidden;">
+                        <table id="gridDatosAdicionalesTransaccion"></table>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="_datosadicionales"></div> @*function load_DatosAdicionalesTransaccion()*@
+
+
+
+

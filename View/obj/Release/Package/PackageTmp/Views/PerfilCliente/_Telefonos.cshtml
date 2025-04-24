@@ -1,0 +1,40 @@
+﻿@using Blo.Properties
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridTelefonos = $("#gridTelefonos").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetTelefonos")",
+            autoLoad: false,
+            columns: [
+                { field: "TELEFONO_PRINCIPAL", title: "Principal", width: 100, align: 'center' },
+                { field: "DESCRIPCION", title: "Descripción", width: 200, align: 'center' },
+                { field: "TIPO_TELEFONO", title: "Tipo", width: 50, align: 'center'},
+                { field: "AREA_TELEFONO", title: "Area", align: 'center', width: 50 },
+                { field: "EXTENCION", title: "Extención", align: 'center', width: 50 },
+                { field: "NUM_TELEFONO", title: "Numero de telefono", align: 'center', width: 150 }
+            ]
+        });
+
+        gridTelefonos.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "TELEFONO_PRINCIPAL") {
+                if (record.TELEFONO_PRINCIPAL == "S")
+                    $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                else
+                    $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+            }
+        });
+
+        gridTelefonos.clear();
+        gridTelefonos.reload({page: 1, CODIGO_CLIENTE: @ViewBag.CODIGO_CLIENTE });
+
+    });
+
+</script>

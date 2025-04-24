@@ -1,0 +1,24 @@
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\Model.dll.config
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\Model.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\Model.pdb
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\EntityFramework.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\Newtonsoft.Json.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\EntityFramework.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\bin\Release\Newtonsoft.Json.xml
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\obj\Release\Model.dll
+C:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\Model\obj\Release\Model.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\Model.dll.config
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\Model.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\Model.pdb
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\EntityFramework.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\Newtonsoft.Json.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\EntityFramework.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\bin\Release\Newtonsoft.Json.xml
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\obj\Release\Model.dll
+C:\Users\usislavadodinero\Desktop\PARCHE 1 AMLSOFT\fsv_mvc\Model\obj\Release\Model.pdb

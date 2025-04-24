@@ -1,0 +1,2402 @@
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ALE_CAT_AUTOMATIZACION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_DISENO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_DOCUMENTACION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_FRECUENCIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_MEZCLA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_SEVERIDAD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="NIVEL" Type="int" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAT_TIPO_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CAUSA_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_FACTOR_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="ID_TIPO_RIESGO" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_CONTACTO_ALERTA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CORREO" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_EVENTO_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_AGENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_SEVERIDAD" Type="int" Nullable="false" />
+    <Property Name="ID_FACTOR_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="ID_PROBABILIDAD_OCURRENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_CONSECUENCIA_POTENCIAL" Type="int" Nullable="false" />
+    <Property Name="ID_UNIDAD_FSV" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="RIESGO_INHERENTE" Type="float" Nullable="false" />
+    <Property Name="EFICACIA_CONTROL" Type="float" Nullable="false" />
+    <Property Name="RIESGO_RESIDUAL" Type="float" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_FACTOR_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="PONDERACION" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_LISTA_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VALOR" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ORDEN" Type="int" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_NOTIFICACION_ALERTA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_ALERTA" Type="int" Nullable="false" />
+    <Property Name="ID_CONTACTO" Type="int" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="PONDERACION" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_SEVERIDAD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_SEVERIDAD" Type="int" />
+    <Property Name="ID_TIPO_RIESGO" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALE_TIPO_ALERTA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="NOTIFICAR" Type="bit" Nullable="false" />
+    <Property Name="REPORTE" Type="bit" Nullable="false" />
+    <Property Name="VALORMIN" Type="int" Nullable="false" />
+    <Property Name="VALORMAX" Type="int" Nullable="false" />
+    <Property Name="COLOR" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_AGENCIA_BANCARIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_FINANCIERA" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CARGO_INSTITUCION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_INSTITUCION" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_AGENCIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODIGO_AGENCIA" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_ESTADO_CARTERA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_ESTADO_PRESTAMO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_FINANCIERA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_INSTITUCION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_LINEA_FINANCIERA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_MONEDA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_PROBABILIDAD_OCURRENCIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NIVEL" Type="int" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_TIPO_CONTROL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_TIPO_CUENTA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_TIPO_OFICIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CAT_UNIDAD_FSV">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CONSECUENCIA_POTENCIAL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_RIESGO" Type="int" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CONTACTO_INSTITUCION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CARGO_INSTITUCION" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CONTROL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_EVENTO_RIESGO" Type="int" Nullable="false" />
+    <Property Name="ID_AUTOMATIZACION" Type="int" Nullable="false" />
+    <Property Name="ID_DISENO" Type="int" Nullable="false" />
+    <Property Name="ID_DOCUMENTACION" Type="int" Nullable="false" />
+    <Property Name="ID_FRECUENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_MEZCLA" Type="int" Nullable="false" />
+    <Property Name="ID_TIPO_CONTROL" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="TOTAL_POR" Type="float" Nullable="false" />
+    <Property Name="PROMEDIO_TOTAL" Type="float" Nullable="false" />
+    <Property Name="EFICACIA_CONTROL" Type="float" Nullable="false" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="512" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_CUENTA_RELACIONADA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROS" Type="bigint" Nullable="false" />
+    <Property Name="ID_MONEDA" Type="int" Nullable="false" />
+    <Property Name="NUMERO_CUENTA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TIPO_PRODUCTO" Type="int" Nullable="false" />
+    <Property Name="FECHA_APERTURA" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_CANCELACION" Type="datetime" />
+    <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_DOCUMENTO_ACTOR_ROS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROS" Type="bigint" Nullable="false" />
+    <Property Name="ID_TIPO_DOCUMENTO" Type="int" Nullable="false" />
+    <Property Name="NUMERO_DOCUMENTO" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="FECHA_EXPIRACION" Type="datetime" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_FECHA_CONTROL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_OFICIO" Type="bigint" Nullable="false" />
+    <Property Name="ID_UNIDAD_FSV" Type="int" Nullable="false" />
+    <Property Name="DIAS_PREPARACION" Type="int" Nullable="false" />
+    <Property Name="FECHA_LIMITE" Type="datetime" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_HISTORIAL_ALARMAS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="ID_AGENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_CAUSA_RIESGO" Type="int" Nullable="false" />
+    <Property Name="ID_FACTOR_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="ID_TIPO_RIESGO" Type="int" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="bigint" Nullable="false" />
+    <Property Name="PUNTAJE_RIESGO_INHERENTE" Type="int" />
+    <Property Name="PUNTAJE_RIESGO_RESIDUAL" Type="int" />
+    <Property Name="FUE_JUSTIFICADA" Type="bit" Nullable="false" />
+    <Property Name="DESCRIPCION_JUSTIFICACION" Type="text" />
+    <Property Name="FECHA_HORA_EVENTO" Type="datetime" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="50" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_HISTORICO_EVENTO_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_AGENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_FACTOR_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="ID_PROBABILIDAD_COURRENCIA" Type="int" Nullable="false" />
+    <Property Name="ID_CONSECUENCIA_POTENCIAL" Type="int" Nullable="false" />
+    <Property Name="ID_UNIDAD_FSV" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="RIESGO_INHERENTE" Type="float" Nullable="false" />
+    <Property Name="EFICACIA_CONTROL" Type="float" Nullable="false" />
+    <Property Name="RIESGO_RESIDUAL" Type="float" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_OFICIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_OFICIO" Type="int" Nullable="false" />
+    <Property Name="ID_CONTACTO_INSTITUCION" Type="int" Nullable="false" />
+    <Property Name="NUMERO_OFICIO" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="REFERENCIA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FECHA_REFERENCIA" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_OFICIO" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_RECIBIDO" Type="datetime" Nullable="false" />
+    <Property Name="REVISION_DESDE" Type="datetime" Nullable="false" />
+    <Property Name="REVISION_HASTA" Type="datetime" Nullable="false" />
+    <Property Name="FORMATO_RESPUESTA" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="DIAS_PREPARACION" Type="int" Nullable="false" />
+    <Property Name="FECHA_RESPUESTA_UIF" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_RECIBIDO_UIF" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_MAXIMA_UIF" Type="datetime" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_OPERACION_IRREGULAR">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_ALERTA" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="VALOR" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="OPERADOR" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="COLUMNA" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="COLUMNA2" Type="nvarchar" MaxLength="50" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_OPERACION_REPORTADA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROS" Type="bigint" Nullable="false" />
+    <Property Name="ID_MONEDA" Type="int" Nullable="false" />
+    <Property Name="ID_FINANCIERA_ORIGEN" Type="int" Nullable="false" />
+    <Property Name="ID_FINANCIERA_DESTINO" Type="int" Nullable="false" />
+    <Property Name="ID_AGENCIA_BANCARIA_ORIGEN" Type="int" Nullable="false" />
+    <Property Name="ID_AGENCIA_BANCARIA_DESTINO" Type="int" Nullable="false" />
+    <Property Name="TIPO_INSTRUMENTO" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="NUMERO_OPERACION" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="RELACION" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="CUENTA_ORIGEN" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CUENTA_DESTINO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MONTO_MONEDA_LOCAL" Type="money" Nullable="false" />
+    <Property Name="MONTO" Type="money" Nullable="false" />
+    <Property Name="MONTO_DESTINO" Type="money" Nullable="false" />
+    <Property Name="BENEFICIARIO" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_PAGO_ADICIONAL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ACTIVIDAD_ECONOMICA" Type="int" Nullable="false" />
+    <Property Name="ID_ORIGEN_FONDO" Type="int" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" Nullable="false" />
+    <Property Name="MONTO_ADICIONAL" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_PERSONAS_OFICIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_OFICIO" Type="bigint" Nullable="false" />
+    <Property Name="PRIMER_NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_NOMBRE" Type="varchar" MaxLength="50" />
+    <Property Name="PRIMER_APELLIDO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_APELLIDO" Type="varchar" MaxLength="50" />
+    <Property Name="APELLIDO_CASADA" Type="varchar" MaxLength="50" />
+    <Property Name="DUI" Type="varchar" MaxLength="20" />
+    <Property Name="NIT" Type="varchar" MaxLength="20" />
+    <Property Name="RESULTADO" Type="text" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_PERSONAS_RELACIONADAS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROS" Type="bigint" Nullable="false" />
+    <Property Name="ID_ESTADO_FAMILIAR" Type="int" Nullable="false" />
+    <Property Name="PRIMER_NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_NOMBRE" Type="varchar" MaxLength="50" />
+    <Property Name="PRIMER_APELLIDO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_APELLIDO" Type="varchar" MaxLength="50" />
+    <Property Name="APELLIDO_CASADA" Type="varchar" MaxLength="50" />
+    <Property Name="TIPO_PERSONA" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="GENERO" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="RAZON_SOCIAL" Type="varchar" MaxLength="250" />
+    <Property Name="AVENIDA_CALLE_PASAJE" Type="varchar" MaxLength="250" />
+    <Property Name="NUMERO" Type="char" MaxLength="5" />
+    <Property Name="PISO" Type="char" MaxLength="5" />
+    <Property Name="LOCAL_OFICINA" Type="char" MaxLength="5" />
+    <Property Name="EDIFICIO" Type="varchar" MaxLength="50" />
+    <Property Name="BARRIO_COLONIA" Type="varchar" MaxLength="50" />
+    <Property Name="TIPO_DIRECCION" Type="char" MaxLength="1" />
+    <Property Name="CODIGO_POSTAL" Type="char" MaxLength="5" />
+    <Property Name="DESDE" Type="datetime" />
+    <Property Name="HASTA" Type="datetime" />
+    <Property Name="TELEFONO_FIJO" Type="varchar" MaxLength="15" />
+    <Property Name="CELULAR" Type="varchar" MaxLength="15" />
+    <Property Name="FAX" Type="varchar" MaxLength="15" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+    <Property Name="SITIO_WEB" Type="varchar" MaxLength="250" />
+    <Property Name="DEPARTAMENTO" Type="varchar" MaxLength="50" />
+    <Property Name="CIUDAD" Type="varchar" MaxLength="50" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MON_ROS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODIGO_ROS" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ID_ESTADO_FAMILIAR" Type="int" Nullable="false" />
+    <Property Name="ID_ACTIVIDAD_ECONOMICA" Type="int" Nullable="false" />
+    <Property Name="ID_PAIS" Type="int" Nullable="false" />
+    <Property Name="FECHA_INGRESO_UIF" Type="datetime" Nullable="false" />
+    <Property Name="ASIGNADO_A" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FECHA_ELABORACION" Type="datetime" Nullable="false" />
+    <Property Name="INICIO_ACTIVIDAD_SOSPECHOSA" Type="datetime" Nullable="false" />
+    <Property Name="FIN_ACTIVIDAD_SOSPECHOSA" Type="datetime" Nullable="false" />
+    <Property Name="TIPO_OPERACION_REPORTADA" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="TIPO_OPERATORIA" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DESCRIPCION_OPERACION_REPORTADA" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="RELACION_CON_SO" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="FECHA_NACIMIENTO" Type="datetime" Nullable="false" />
+    <Property Name="PRIMER_NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_NOMBRE" Type="varchar" MaxLength="50" />
+    <Property Name="PRIMER_APELLIDO" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEGUNDO_APELLIDO" Type="varchar" MaxLength="50" />
+    <Property Name="APELLIDO_CASADA" Type="varchar" MaxLength="50" />
+    <Property Name="TIPO_PERSONA" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="GENERO" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="RAZON_SOCIAL" Type="varchar" MaxLength="250" />
+    <Property Name="LUGAR_NACIMIENTO" Type="varchar" MaxLength="100" />
+    <Property Name="METODO_IDENTIFICACION" Type="varchar" MaxLength="1" />
+    <Property Name="SE_EXAMINO_DOCUMENTOS" Type="bit" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="500" />
+    <Property Name="RECTIFICACION" Type="varchar" MaxLength="500" />
+    <Property Name="EXISTE_DIRECCION" Type="bit" />
+    <Property Name="AVENIDA_CALLE_PASAJE" Type="varchar" MaxLength="250" />
+    <Property Name="NUMERO" Type="char" MaxLength="5" />
+    <Property Name="PISO" Type="char" MaxLength="5" />
+    <Property Name="LOCAL_OFICINA" Type="char" MaxLength="5" />
+    <Property Name="EDIFICIO" Type="varchar" MaxLength="50" />
+    <Property Name="BARRIO_COLONIA" Type="varchar" MaxLength="50" />
+    <Property Name="TIPO_DIRECCION" Type="char" MaxLength="1" />
+    <Property Name="CODIGO_POSTAL" Type="char" MaxLength="5" />
+    <Property Name="DESDE" Type="datetime" />
+    <Property Name="HASTA" Type="datetime" />
+    <Property Name="TELEFONO_FIJO" Type="varchar" MaxLength="15" />
+    <Property Name="CELULAR" Type="varchar" MaxLength="15" />
+    <Property Name="FAX" Type="varchar" MaxLength="15" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+    <Property Name="SITIO_WEB" Type="varchar" MaxLength="250" />
+    <Property Name="DEPARTAMENTO" Type="varchar" MaxLength="50" />
+    <Property Name="CIUDAD" Type="varchar" MaxLength="50" />
+    <Property Name="TIENE_CUENTAS_ASOCIADAS" Type="bit" Nullable="false" />
+    <Property Name="TIENE_OPERACION_ASOCIADA" Type="bit" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_ACTIVIDAD_ECONOMICA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_CONDICION_LABORAL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_ESTADO_FAMILIAR">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_NACIONALIDAD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_ORIGEN_FONDO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_PAIS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_PARENTESCO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_PROFESION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_TIPO_CLIENTE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CAT_TIPO_DOCUMENTO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CLIENTE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="bigint" Nullable="false" />
+    <Property Name="NOMBRES" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PRIMER_APELLIDO" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SEGUNDO_APELLIDO" Type="varchar" MaxLength="100" />
+    <Property Name="APELLIDO_CASADA" Type="varchar" MaxLength="100" />
+    <Property Name="FECHA_NACIMIENTO" Type="datetime" Nullable="false" />
+    <Property Name="DUI" Type="varchar" MaxLength="20" />
+    <Property Name="NIT" Type="varchar" MaxLength="20" />
+    <Property Name="ISSS" Type="varchar" MaxLength="20" />
+    <Property Name="PASAPORTE" Type="varchar" MaxLength="20" />
+    <Property Name="CARNET_RESIDENCIA" Type="varchar" MaxLength="20" />
+    <Property Name="ID_ESTADO_FAMILIAR" Type="int" Nullable="false" />
+    <Property Name="ID_CONDICION_LABORAL" Type="int" Nullable="false" />
+    <Property Name="ID_PROFESION" Type="int" Nullable="false" />
+    <Property Name="ID_ORIGEN_FONDO" Type="int" Nullable="false" />
+    <Property Name="ID_TIPO_CLIENTE" Type="int" Nullable="false" />
+    <Property Name="ID_ACTIVIDAD_ECONOMICA" Type="int" Nullable="false" />
+    <Property Name="ID_ACTIVIDAD_ECONOMICA_SEC" Type="int" Nullable="false" />
+    <Property Name="ID_PAIS" Type="int" Nullable="false" />
+    <Property Name="ID_NACIONALIDAD" Type="int" Nullable="false" />
+    <Property Name="ID_CLIENTE_PEP" Type="int" />
+    <Property Name="GENERO" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="DIRECCION_RESIDENCIA" Type="varchar" MaxLength="250" />
+    <Property Name="TELEFONO_CELULAR" Type="varchar" MaxLength="15" />
+    <Property Name="TELEFONO_CASA" Type="varchar" MaxLength="15" />
+    <Property Name="POSEE_CREDITO_ACTUALMENTE" Type="bit" />
+    <Property Name="NUMERO_PRESTAMO_ACTUAL" Type="bigint" />
+    <Property Name="INGRESO_MENSUAL" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="VALOR_CUOTA" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="PAGOS_ADICIONALES" Type="bit" />
+    <Property Name="DECLARACION_JURAMENTADA" Type="bit" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CLIENTE_PEP">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" Nullable="false" />
+    <Property Name="DUI" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="NIT" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="ES_FUNCIONARIO" Type="bit" Nullable="false" />
+    <Property Name="ES_PARIENTE_PEP" Type="bit" Nullable="false" />
+    <Property Name="NOMBRE_PARIENTE_PEP" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="GRADO_PEP" Type="int" Nullable="false" />
+    <Property Name="VINCULO_PEP" Type="int" Nullable="false" />
+    <Property Name="CARGO_PEP" Type="int" Nullable="false" />
+    <Property Name="INICIO_CARGO_PEP" Type="datetime" Nullable="false" />
+    <Property Name="FIN_CARGO_PEP" Type="datetime" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_CLIENTE_RIESGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="ID_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="ID_LISTA_RIESGO" Type="bigint" Nullable="false" />
+    <Property Name="PUNTAJE" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_REFERENCIA_BANCARIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="ID_FINANCIERA" Type="int" Nullable="false" />
+    <Property Name="ID_MONEDA" Type="int" Nullable="false" />
+    <Property Name="ID_TIPO_CUENTA" Type="int" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" Nullable="false" />
+    <Property Name="NUMERO_CUENTA" Type="int" Nullable="false" />
+    <Property Name="AGENCIA_CUENTA" Type="int" Nullable="false" />
+    <Property Name="FECHA_APERTURA" Type="datetime" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_REFERENCIA_COMERCIAL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" Nullable="false" />
+    <Property Name="NOMBRE_COMERCIAL" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="TELEFONO_COMERCIAL" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="VALOR_COMERCIAL" Type="int" Nullable="false" />
+    <Property Name="FECHA_ADQUISICION" Type="datetime" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_REFERENCIA_PERSONAL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="ID_PARENTESCO" Type="int" Nullable="false" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" Nullable="false" />
+    <Property Name="NOMBRE_REFERENCIA" Type="varchar" MaxLength="150" />
+    <Property Name="TELEFONO_REFERENCIA" Type="varchar" MaxLength="25" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PER_TRANSACCION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_AGENCIA_BANCARIA" Type="int" />
+    <Property Name="ID_ESTADO_CARTERA" Type="int" />
+    <Property Name="ID_FINANCIERA" Type="int" />
+    <Property Name="ID_LINEA_FINANCIERA" Type="int" />
+    <Property Name="ID_ESTADO_PRESTAMO" Type="int" />
+    <Property Name="FECHA_CALENDARIO" Type="datetime" />
+    <Property Name="MES_PROCESAMIENTO" Type="int" />
+    <Property Name="NUMERO_PRESTAMO" Type="int" />
+    <Property Name="FECHA_OTORGAMIENTO" Type="datetime" />
+    <Property Name="MONTO_OTORGAMINETO" Type="float" />
+    <Property Name="FECHA_VENCIMIENTO" Type="datetime" />
+    <Property Name="SALDO_PRESTAMO" Type="float" />
+    <Property Name="SALDO_CAPITAL" Type="float" />
+    <Property Name="SALDO_INTERESES" Type="float" />
+    <Property Name="SEGUROS_IVA" Type="float" />
+    <Property Name="SALDO_EN_MORA" Type="float" />
+    <Property Name="VALOR_CUOTA" Type="float" />
+    <Property Name="CODIGO_CLIENTE" Type="int" />
+    <Property Name="NOMBRE_CLIENTE" Type="varchar" MaxLength="100" />
+    <Property Name="VALOR_INGRESO" Type="float" />
+    <Property Name="FECHA_CANCELACION" Type="datetime" />
+    <Property Name="NUMERO_PAGOS" Type="int" />
+    <Property Name="VALOR_PAGADO" Type="float" />
+    <Property Name="FECHA_MOVIMIENTO" Type="datetime" />
+    <Property Name="COLECTOR" Type="int" />
+    <Property Name="CODIGO_PATRONO" Type="int" />
+    <Property Name="NOMBRE_PATRONO" Type="varchar" MaxLength="100" />
+    <Property Name="CODIGO_TIPO_PAGO" Type="int" />
+    <Property Name="DESC_FORMAPAGO" Type="varchar" MaxLength="150" />
+    <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="25" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_ACCESO_USUARIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_MODULO" Type="int" Nullable="false" />
+    <Property Name="ID_OPCION" Type="int" Nullable="false" />
+    <Property Name="ID_ROL" Type="int" Nullable="false" />
+    <Property Name="ACCESO" Type="bit" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_EMPRESA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODIGO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NOMBRE" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="TITULO" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="LOGO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_LOG_AUDITORIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TABLA" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CAMPO" Type="varchar" MaxLength="100" />
+    <Property Name="ID_ORIGEN" Type="bigint" Nullable="false" />
+    <Property Name="ACCION" Type="varchar" MaxLength="25" />
+    <Property Name="FECHA_HORA" Type="datetime" Nullable="false" />
+    <Property Name="VALOR_ANTERIOR" Type="varchar" MaxLength="1024" />
+    <Property Name="VALOR_ACTUAL" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_MODULO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_OPCION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_MODULO" Type="int" Nullable="false" />
+    <Property Name="ID_PADRE" Type="int" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="URL" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_PARAMETRO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODIGO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VALOR" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_ROL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SEG_ROL_USUARIO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROL" Type="int" Nullable="false" />
+    <Property Name="USUARIO" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ANTILAVADO.dbo.VIEW_PARAMETROS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VIEW_PARAMETROS">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CODIGO" />
+      <PropertyRef Name="VALOR" />
+      <PropertyRef Name="DESCRIPCION" />
+      <PropertyRef Name="INACTIVO" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CODIGO" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VALOR" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="INACTIVO" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'ANTILAVADO.dbo.VIEW_TRANSACCIONES' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="VIEW_TRANSACCIONES">
+          <Property Name="fecha_calendario" Type="datetime" />
+          <Property Name="Mes_Precesamiento" Type="float" />
+          <Property Name="numero_prestamo" Type="float" />
+          <Property Name="codigo_agencia" Type="float" />
+          <Property Name="Fecha_Otorgamiento" Type="datetime" />
+          <Property Name="Monto_Otorgado" Type="money" />
+          <Property Name="Fecha_Vencimiento" Type="datetime" />
+          <Property Name="Saldo_Prestamo" Type="money" />
+          <Property Name="Saldo_Capital" Type="money" />
+          <Property Name="Saldo_Interes" Type="money" />
+          <Property Name="Seguros_Iva" Type="money" />
+          <Property Name="Saldo_en_Mora" Type="money" />
+          <Property Name="Valor_Cuota" Type="money" />
+          <Property Name="Codigo_Estado_Cartera" Type="nvarchar" MaxLength="255" />
+          <Property Name="Codigo_Cliente" Type="float" />
+          <Property Name="Nombre_Cliente" Type="nvarchar" MaxLength="255" />
+          <Property Name="Valor_Ingreso" Type="money" />
+          <Property Name="Codigo_Linea_Financiera" Type="float" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fecha_Cancelacion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Numero_Pagos" Type="float" />
+          <Property Name="Valor_Pagado" Type="money" />
+          <Property Name="FechaMovimiento" Type="datetime" />
+          <Property Name="Colector" Type="float" />
+          <Property Name="Codigo_Financiera" Type="float" />
+          <Property Name="Nombre_Financiera" Type="nvarchar" MaxLength="255" />
+          <Property Name="Codigo_Tipo_Pago" Type="float" />
+          <Property Name="Desc_FormaPago" Type="nvarchar" MaxLength="255" />
+          <Property Name="Numero_Factura" Type="float" />
+        </EntityType>-->
+  <Association Name="FK_ALE_CAUS_FACTOR_RI_ALE_FACT">
+    <End Role="ALE_FACTOR_RIESGO" Type="Self.ALE_FACTOR_RIESGO" Multiplicity="1" />
+    <End Role="ALE_CAUSA_RIESGO" Type="Self.ALE_CAUSA_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_FACTOR_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_CAUSA_RIESGO">
+        <PropertyRef Name="ID_FACTOR_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_CAUS_TIPO_RIES_ALE_CAT_">
+    <End Role="ALE_CAT_TIPO_RIESGO" Type="Self.ALE_CAT_TIPO_RIESGO" Multiplicity="1" />
+    <End Role="ALE_CAUSA_RIESGO" Type="Self.ALE_CAUSA_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_TIPO_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_CAUSA_RIESGO">
+        <PropertyRef Name="ID_TIPO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVEN_AGENCIAS__MON_CAT_">
+    <End Role="MON_CAT_AGENCIA" Type="Self.MON_CAT_AGENCIA" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_AGENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_AGENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVEN_CONSECUEN_MON_CONS">
+    <End Role="MON_CONSECUENCIA_POTENCIAL" Type="Self.MON_CONSECUENCIA_POTENCIAL" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CONSECUENCIA_POTENCIAL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_CONSECUENCIA_POTENCIAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVEN_FACTOR_RI_ALE_FACT">
+    <End Role="ALE_FACTOR_RIESGO" Type="Self.ALE_FACTOR_RIESGO" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_FACTOR_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_FACTOR_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVEN_PROBABILI_MON_CAT_">
+    <End Role="MON_CAT_PROBABILIDAD_OCURRENCIA" Type="Self.MON_CAT_PROBABILIDAD_OCURRENCIA" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_PROBABILIDAD_OCURRENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_PROBABILIDAD_OCURRENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVEN_UNIDAD_FS_MON_CAT_">
+    <End Role="MON_CAT_UNIDAD_FSV" Type="Self.MON_CAT_UNIDAD_FSV" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_UNIDAD_FSV">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_UNIDAD_FSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_EVENTO_RIESGO_ALE_SEVERIDAD">
+    <End Role="ALE_SEVERIDAD" Type="Self.ALE_SEVERIDAD" Multiplicity="1" />
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_SEVERIDAD">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID_SEVERIDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_LIST_RIESGO_LI_ALE_RIES">
+    <End Role="ALE_RIESGO" Type="Self.ALE_RIESGO" Multiplicity="1" />
+    <End Role="ALE_LISTA_RIESGO" Type="Self.ALE_LISTA_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_LISTA_RIESGO">
+        <PropertyRef Name="ID_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_NOTIFICACION_ALERTA_ALE_CONTACTO_ALERTA">
+    <End Role="ALE_CONTACTO_ALERTA" Type="Self.ALE_CONTACTO_ALERTA" Multiplicity="1" />
+    <End Role="ALE_NOTIFICACION_ALERTA" Type="Self.ALE_NOTIFICACION_ALERTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CONTACTO_ALERTA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_NOTIFICACION_ALERTA">
+        <PropertyRef Name="ID_CONTACTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_NOTIFICACION_ALERTA_ALE_TIPO_ALERTA">
+    <End Role="ALE_TIPO_ALERTA" Type="Self.ALE_TIPO_ALERTA" Multiplicity="1" />
+    <End Role="ALE_NOTIFICACION_ALERTA" Type="Self.ALE_NOTIFICACION_ALERTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_TIPO_ALERTA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_NOTIFICACION_ALERTA">
+        <PropertyRef Name="ID_TIPO_ALERTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_RIES_FACTOR_RI_ALE_FACT">
+    <End Role="ALE_FACTOR_RIESGO" Type="Self.ALE_FACTOR_RIESGO" Multiplicity="1" />
+    <End Role="ALE_RIESGO" Type="Self.ALE_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_FACTOR_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_RIESGO">
+        <PropertyRef Name="ID_TIPO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_SEVE_CAT_TIPO__ALE_CAT_">
+    <End Role="ALE_CAT_TIPO_RIESGO" Type="Self.ALE_CAT_TIPO_RIESGO" Multiplicity="1" />
+    <End Role="ALE_SEVERIDAD" Type="Self.ALE_SEVERIDAD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_TIPO_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_SEVERIDAD">
+        <PropertyRef Name="ID_TIPO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ALE_SEVE_SEVERIDAD_ALE_CAT_">
+    <End Role="ALE_CAT_SEVERIDAD" Type="Self.ALE_CAT_SEVERIDAD" Multiplicity="0..1" />
+    <End Role="ALE_SEVERIDAD" Type="Self.ALE_SEVERIDAD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_SEVERIDAD">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ALE_SEVERIDAD">
+        <PropertyRef Name="ID_SEVERIDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_AGEN_FINANCIER_MON_CAT_">
+    <End Role="MON_CAT_FINANCIERA" Type="Self.MON_CAT_FINANCIERA" Multiplicity="1" />
+    <End Role="MON_AGENCIA_BANCARIA" Type="Self.MON_AGENCIA_BANCARIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_AGENCIA_BANCARIA">
+        <PropertyRef Name="ID_FINANCIERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CARG_INSTITUCI_MON_CAT_">
+    <End Role="MON_CAT_INSTITUCION" Type="Self.MON_CAT_INSTITUCION" Multiplicity="1" />
+    <End Role="MON_CARGO_INSTITUCION" Type="Self.MON_CARGO_INSTITUCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_INSTITUCION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CARGO_INSTITUCION">
+        <PropertyRef Name="ID_INSTITUCION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONS_TIPO_RIES_ALE_CAT_">
+    <End Role="ALE_CAT_TIPO_RIESGO" Type="Self.ALE_CAT_TIPO_RIESGO" Multiplicity="0..1" />
+    <End Role="MON_CONSECUENCIA_POTENCIAL" Type="Self.MON_CONSECUENCIA_POTENCIAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_TIPO_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONSECUENCIA_POTENCIAL">
+        <PropertyRef Name="ID_TIPO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_AUTOMATIZ_ALE_CAT_">
+    <End Role="ALE_CAT_AUTOMATIZACION" Type="Self.ALE_CAT_AUTOMATIZACION" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_AUTOMATIZACION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_AUTOMATIZACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_DISENO_CO_ALE_CAT_">
+    <End Role="ALE_CAT_DISENO" Type="Self.ALE_CAT_DISENO" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_DISENO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_DISENO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_DOCUMENTA_ALE_CAT_">
+    <End Role="ALE_CAT_DOCUMENTACION" Type="Self.ALE_CAT_DOCUMENTACION" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_DOCUMENTACION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_DOCUMENTACION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_EVENTO_RI_ALE_EVEN">
+    <End Role="ALE_EVENTO_RIESGO" Type="Self.ALE_EVENTO_RIESGO" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_EVENTO_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_EVENTO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_FRECUENCI_ALE_CAT_">
+    <End Role="ALE_CAT_FRECUENCIA" Type="Self.ALE_CAT_FRECUENCIA" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_FRECUENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_FRECUENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_INSTITUCI_MON_CARG">
+    <End Role="MON_CARGO_INSTITUCION" Type="Self.MON_CARGO_INSTITUCION" Multiplicity="1" />
+    <End Role="MON_CONTACTO_INSTITUCION" Type="Self.MON_CONTACTO_INSTITUCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CARGO_INSTITUCION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTACTO_INSTITUCION">
+        <PropertyRef Name="ID_CARGO_INSTITUCION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_MEZCLA_CO_ALE_CAT_">
+    <End Role="ALE_CAT_MEZCLA" Type="Self.ALE_CAT_MEZCLA" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_MEZCLA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_MEZCLA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CONT_TIPO_CONT_MON_CAT_">
+    <End Role="MON_CAT_TIPO_CONTROL" Type="Self.MON_CAT_TIPO_CONTROL" Multiplicity="1" />
+    <End Role="MON_CONTROL" Type="Self.MON_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_TIPO_CONTROL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CONTROL">
+        <PropertyRef Name="ID_TIPO_CONTROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_CUEN_ROS_CUENT_MON_ROS">
+    <End Role="MON_CAT_MONEDA" Type="Self.MON_CAT_MONEDA" Multiplicity="1" />
+    <End Role="MON_CUENTA_RELACIONADA" Type="Self.MON_CUENTA_RELACIONADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_MONEDA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_CUENTA_RELACIONADA">
+        <PropertyRef Name="ID_MONEDA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_DOCU_ROS_DOCUM_MON_ROS">
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="1" />
+    <End Role="MON_DOCUMENTO_ACTOR_ROS" Type="Self.MON_DOCUMENTO_ACTOR_ROS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_ROS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_DOCUMENTO_ACTOR_ROS">
+        <PropertyRef Name="ID_ROS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_DOCU_TIPO_DOCU_PER_CAT_">
+    <End Role="PER_CAT_TIPO_DOCUMENTO" Type="Self.PER_CAT_TIPO_DOCUMENTO" Multiplicity="1" />
+    <End Role="MON_DOCUMENTO_ACTOR_ROS" Type="Self.MON_DOCUMENTO_ACTOR_ROS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_TIPO_DOCUMENTO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_DOCUMENTO_ACTOR_ROS">
+        <PropertyRef Name="ID_TIPO_DOCUMENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_FECH_OFICIO_FE_MON_OFIC">
+    <End Role="MON_OFICIO" Type="Self.MON_OFICIO" Multiplicity="1" />
+    <End Role="MON_FECHA_CONTROL" Type="Self.MON_FECHA_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_OFICIO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_FECHA_CONTROL">
+        <PropertyRef Name="ID_OFICIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_FECH_OFICIO_PE_MON_CAT_">
+    <End Role="MON_CAT_UNIDAD_FSV" Type="Self.MON_CAT_UNIDAD_FSV" Multiplicity="1" />
+    <End Role="MON_FECHA_CONTROL" Type="Self.MON_FECHA_CONTROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_UNIDAD_FSV">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_FECHA_CONTROL">
+        <PropertyRef Name="ID_UNIDAD_FSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_AGENCIA_H_MON_CAT_">
+    <End Role="MON_CAT_AGENCIA" Type="Self.MON_CAT_AGENCIA" Multiplicity="1" />
+    <End Role="MON_HISTORICO_EVENTO_RIESGO" Type="Self.MON_HISTORICO_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_AGENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORICO_EVENTO_RIESGO">
+        <PropertyRef Name="ID_AGENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_CAT_AGENC_MON_CAT_">
+    <End Role="MON_CAT_AGENCIA" Type="Self.MON_CAT_AGENCIA" Multiplicity="1" />
+    <End Role="MON_HISTORIAL_ALARMAS" Type="Self.MON_HISTORIAL_ALARMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_AGENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORIAL_ALARMAS">
+        <PropertyRef Name="ID_AGENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_CAT_TIPO__ALE_CAT_">
+    <End Role="ALE_CAT_TIPO_RIESGO" Type="Self.ALE_CAT_TIPO_RIESGO" Multiplicity="1" />
+    <End Role="MON_HISTORIAL_ALARMAS" Type="Self.MON_HISTORIAL_ALARMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAT_TIPO_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORIAL_ALARMAS">
+        <PropertyRef Name="ID_TIPO_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_CAUSA_RIE_ALE_CAUS">
+    <End Role="ALE_CAUSA_RIESGO" Type="Self.ALE_CAUSA_RIESGO" Multiplicity="1" />
+    <End Role="MON_HISTORIAL_ALARMAS" Type="Self.MON_HISTORIAL_ALARMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_CAUSA_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORIAL_ALARMAS">
+        <PropertyRef Name="ID_CAUSA_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_CLIENTE_H_PER_CLIE">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="MON_HISTORIAL_ALARMAS" Type="Self.MON_HISTORIAL_ALARMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORIAL_ALARMAS">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_CONSECUEN_MON_CONS">
+    <End Role="MON_CONSECUENCIA_POTENCIAL" Type="Self.MON_CONSECUENCIA_POTENCIAL" Multiplicity="1" />
+    <End Role="MON_HISTORICO_EVENTO_RIESGO" Type="Self.MON_HISTORICO_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CONSECUENCIA_POTENCIAL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORICO_EVENTO_RIESGO">
+        <PropertyRef Name="ID_CONSECUENCIA_POTENCIAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_FACTOR_RI_ALE_FACT">
+    <End Role="ALE_FACTOR_RIESGO" Type="Self.ALE_FACTOR_RIESGO" Multiplicity="1" />
+    <End Role="MON_HISTORICO_EVENTO_RIESGO" Type="Self.MON_HISTORICO_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_FACTOR_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORICO_EVENTO_RIESGO">
+        <PropertyRef Name="ID_FACTOR_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_FACTOR_RI_ALE_FACT2">
+    <End Role="ALE_FACTOR_RIESGO" Type="Self.ALE_FACTOR_RIESGO" Multiplicity="1" />
+    <End Role="MON_HISTORIAL_ALARMAS" Type="Self.MON_HISTORIAL_ALARMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_FACTOR_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORIAL_ALARMAS">
+        <PropertyRef Name="ID_FACTOR_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_PROBABILI_MON_CAT_">
+    <End Role="MON_CAT_PROBABILIDAD_OCURRENCIA" Type="Self.MON_CAT_PROBABILIDAD_OCURRENCIA" Multiplicity="1" />
+    <End Role="MON_HISTORICO_EVENTO_RIESGO" Type="Self.MON_HISTORICO_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_PROBABILIDAD_OCURRENCIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORICO_EVENTO_RIESGO">
+        <PropertyRef Name="ID_PROBABILIDAD_COURRENCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_HIST_UNIDAD_FS_MON_CAT_">
+    <End Role="MON_CAT_UNIDAD_FSV" Type="Self.MON_CAT_UNIDAD_FSV" Multiplicity="1" />
+    <End Role="MON_HISTORICO_EVENTO_RIESGO" Type="Self.MON_HISTORICO_EVENTO_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_UNIDAD_FSV">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_HISTORICO_EVENTO_RIESGO">
+        <PropertyRef Name="ID_UNIDAD_FSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OFIC_CONCATCTO_MON_CONT">
+    <End Role="MON_CONTACTO_INSTITUCION" Type="Self.MON_CONTACTO_INSTITUCION" Multiplicity="1" />
+    <End Role="MON_OFICIO" Type="Self.MON_OFICIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CONTACTO_INSTITUCION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OFICIO">
+        <PropertyRef Name="ID_CONTACTO_INSTITUCION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OFIC_TIPO_OFIC_MON_CAT_">
+    <End Role="MON_CAT_TIPO_OFICIO" Type="Self.MON_CAT_TIPO_OFICIO" Multiplicity="1" />
+    <End Role="MON_OFICIO" Type="Self.MON_OFICIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_TIPO_OFICIO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OFICIO">
+        <PropertyRef Name="ID_TIPO_OFICIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_AGENCIA_B_MON_AGEN">
+    <End Role="MON_AGENCIA_BANCARIA" Type="Self.MON_AGENCIA_BANCARIA" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_AGENCIA_BANCARIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_AGENCIA_BANCARIA_DESTINO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_AGENCIA_B_MON_CAT_2">
+    <End Role="MON_AGENCIA_BANCARIA" Type="Self.MON_AGENCIA_BANCARIA" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_AGENCIA_BANCARIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_AGENCIA_BANCARIA_ORIGEN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_FINANCIER_MON_CAT_">
+    <End Role="MON_CAT_FINANCIERA" Type="Self.MON_CAT_FINANCIERA" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_FINANCIERA_DESTINO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_FINANCIER_MON_CAT_2">
+    <End Role="MON_CAT_FINANCIERA" Type="Self.MON_CAT_FINANCIERA" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_FINANCIERA_ORIGEN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_MONEDA_OP_MON_CAT_">
+    <End Role="MON_CAT_MONEDA" Type="Self.MON_CAT_MONEDA" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_MONEDA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_MONEDA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPER_ROS_OPERA_MON_ROS">
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="1" />
+    <End Role="MON_OPERACION_REPORTADA" Type="Self.MON_OPERACION_REPORTADA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_ROS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_REPORTADA">
+        <PropertyRef Name="ID_ROS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_OPERACION_IRREGULAR_ALE_TIPO_ALERTA">
+    <End Role="ALE_TIPO_ALERTA" Type="Self.ALE_TIPO_ALERTA" Multiplicity="1" />
+    <End Role="MON_OPERACION_IRREGULAR" Type="Self.MON_OPERACION_IRREGULAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_TIPO_ALERTA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_OPERACION_IRREGULAR">
+        <PropertyRef Name="ID_TIPO_ALERTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PAGO_ACTIVIDAD_PER_CAT_">
+    <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" Type="Self.PER_CAT_ACTIVIDAD_ECONOMICA" Multiplicity="1" />
+    <End Role="MON_PAGO_ADICIONAL" Type="Self.MON_PAGO_ADICIONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ACTIVIDAD_ECONOMICA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PAGO_ADICIONAL">
+        <PropertyRef Name="ID_ACTIVIDAD_ECONOMICA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PAGO_CLIENTE_P_PER_CLIE">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="MON_PAGO_ADICIONAL" Type="Self.MON_PAGO_ADICIONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PAGO_ADICIONAL">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PAGO_ORIGEN_FO_PER_CAT_">
+    <End Role="PER_CAT_ORIGEN_FONDO" Type="Self.PER_CAT_ORIGEN_FONDO" Multiplicity="1" />
+    <End Role="MON_PAGO_ADICIONAL" Type="Self.MON_PAGO_ADICIONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ORIGEN_FONDO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PAGO_ADICIONAL">
+        <PropertyRef Name="ID_ORIGEN_FONDO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PERS_ESTADO_FA_PER_CAT_">
+    <End Role="PER_CAT_ESTADO_FAMILIAR" Type="Self.PER_CAT_ESTADO_FAMILIAR" Multiplicity="1" />
+    <End Role="MON_PERSONAS_RELACIONADAS" Type="Self.MON_PERSONAS_RELACIONADAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ESTADO_FAMILIAR">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PERSONAS_RELACIONADAS">
+        <PropertyRef Name="ID_ESTADO_FAMILIAR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PERS_OFICIO_PE_MON_OFIC">
+    <End Role="MON_OFICIO" Type="Self.MON_OFICIO" Multiplicity="1" />
+    <End Role="MON_PERSONAS_OFICIO" Type="Self.MON_PERSONAS_OFICIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_OFICIO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PERSONAS_OFICIO">
+        <PropertyRef Name="ID_OFICIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_PERS_ROS_PERSO_MON_ROS">
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="1" />
+    <End Role="MON_PERSONAS_RELACIONADAS" Type="Self.MON_PERSONAS_RELACIONADAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_ROS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_PERSONAS_RELACIONADAS">
+        <PropertyRef Name="ID_ROS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_ROS_ACTIVIDAD_PER_CAT_">
+    <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" Type="Self.PER_CAT_ACTIVIDAD_ECONOMICA" Multiplicity="1" />
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ACTIVIDAD_ECONOMICA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_ROS">
+        <PropertyRef Name="ID_ACTIVIDAD_ECONOMICA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_ROS_ESTADO_FA_PER_CAT_">
+    <End Role="PER_CAT_ESTADO_FAMILIAR" Type="Self.PER_CAT_ESTADO_FAMILIAR" Multiplicity="1" />
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ESTADO_FAMILIAR">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_ROS">
+        <PropertyRef Name="ID_ESTADO_FAMILIAR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MON_ROS_PAIS_ROS_PER_CAT_">
+    <End Role="PER_CAT_PAIS" Type="Self.PER_CAT_PAIS" Multiplicity="1" />
+    <End Role="MON_ROS" Type="Self.MON_ROS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_PAIS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MON_ROS">
+        <PropertyRef Name="ID_PAIS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_ACTIV_PER_CAT_">
+    <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" Type="Self.PER_CAT_ACTIVIDAD_ECONOMICA" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ACTIVIDAD_ECONOMICA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_ACTIVIDAD_ECONOMICA_SEC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_ACTIV_PER_CAT_2">
+    <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" Type="Self.PER_CAT_ACTIVIDAD_ECONOMICA" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ACTIVIDAD_ECONOMICA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_ACTIVIDAD_ECONOMICA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_CONDI_PER_CAT_">
+    <End Role="PER_CAT_CONDICION_LABORAL" Type="Self.PER_CAT_CONDICION_LABORAL" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_CONDICION_LABORAL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_CONDICION_LABORAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_ESTAD_PER_CAT_">
+    <End Role="PER_CAT_ESTADO_FAMILIAR" Type="Self.PER_CAT_ESTADO_FAMILIAR" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ESTADO_FAMILIAR">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_ESTADO_FAMILIAR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_ORIGE_PER_CAT_">
+    <End Role="PER_CAT_ORIGEN_FONDO" Type="Self.PER_CAT_ORIGEN_FONDO" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_ORIGEN_FONDO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_ORIGEN_FONDO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_PROFE_PER_CAT_">
+    <End Role="PER_CAT_PROFESION" Type="Self.PER_CAT_PROFESION" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_PROFESION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_PROFESION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CAT_TIPO__PER_CAT_">
+    <End Role="PER_CAT_TIPO_CLIENTE" Type="Self.PER_CAT_TIPO_CLIENTE" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_TIPO_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_TIPO_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CLIENTE_C_PER_CLIE">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="PER_CLIENTE_RIESGO" Type="Self.PER_CLIENTE_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE_RIESGO">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_CLIENTE_P_PER_CLIE">
+    <End Role="PER_CLIENTE_PEP" Type="Self.PER_CLIENTE_PEP" Multiplicity="0..1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE_PEP">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_CLIENTE_PEP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_LITA_RIES_ALE_LIST">
+    <End Role="ALE_LISTA_RIESGO" Type="Self.ALE_LISTA_RIESGO" Multiplicity="1" />
+    <End Role="PER_CLIENTE_RIESGO" Type="Self.PER_CLIENTE_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_LISTA_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE_RIESGO">
+        <PropertyRef Name="ID_LISTA_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_NACIONALI_PER_CAT_">
+    <End Role="PER_CAT_NACIONALIDAD" Type="Self.PER_CAT_NACIONALIDAD" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_NACIONALIDAD">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_NACIONALIDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_PAIS_CLIE_PER_CAT_">
+    <End Role="PER_CAT_PAIS" Type="Self.PER_CAT_PAIS" Multiplicity="1" />
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_PAIS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE">
+        <PropertyRef Name="ID_PAIS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_CLIE_RIESGO_CL_ALE_RIES">
+    <End Role="ALE_RIESGO" Type="Self.ALE_RIESGO" Multiplicity="1" />
+    <End Role="PER_CLIENTE_RIESGO" Type="Self.PER_CLIENTE_RIESGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALE_RIESGO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_CLIENTE_RIESGO">
+        <PropertyRef Name="ID_RIESGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_CLIENTE_R_PER_CLIE">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_BANCARIA" Type="Self.PER_REFERENCIA_BANCARIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_BANCARIA">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_CLIENTE_R_PER_CLIE2">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_PERSONAL" Type="Self.PER_REFERENCIA_PERSONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_PERSONAL">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_CLIENTE_R_PER_CLIE3">
+    <End Role="PER_CLIENTE" Type="Self.PER_CLIENTE" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_COMERCIAL" Type="Self.PER_REFERENCIA_COMERCIAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CLIENTE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_COMERCIAL">
+        <PropertyRef Name="ID_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_FINANCIER_MON_CAT_">
+    <End Role="MON_CAT_FINANCIERA" Type="Self.MON_CAT_FINANCIERA" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_BANCARIA" Type="Self.PER_REFERENCIA_BANCARIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_BANCARIA">
+        <PropertyRef Name="ID_FINANCIERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_MONEDA_RE_MON_CAT_">
+    <End Role="MON_CAT_MONEDA" Type="Self.MON_CAT_MONEDA" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_BANCARIA" Type="Self.PER_REFERENCIA_BANCARIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_MONEDA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_BANCARIA">
+        <PropertyRef Name="ID_MONEDA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_PARENTESC_PER_CAT_">
+    <End Role="PER_CAT_PARENTESCO" Type="Self.PER_CAT_PARENTESCO" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_PERSONAL" Type="Self.PER_REFERENCIA_PERSONAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PER_CAT_PARENTESCO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_PERSONAL">
+        <PropertyRef Name="ID_PARENTESCO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_REFE_TIPO_CUEN_MON_CAT_">
+    <End Role="MON_CAT_TIPO_CUENTA" Type="Self.MON_CAT_TIPO_CUENTA" Multiplicity="1" />
+    <End Role="PER_REFERENCIA_BANCARIA" Type="Self.PER_REFERENCIA_BANCARIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_TIPO_CUENTA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_REFERENCIA_BANCARIA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_TRAN_AGENCIA_B_MON_AGEN">
+    <End Role="MON_AGENCIA_BANCARIA" Type="Self.MON_AGENCIA_BANCARIA" Multiplicity="0..1" />
+    <End Role="PER_TRANSACCION" Type="Self.PER_TRANSACCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_AGENCIA_BANCARIA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_TRANSACCION">
+        <PropertyRef Name="ID_AGENCIA_BANCARIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_TRAN_ESTADO_CA_MON_CAT_">
+    <End Role="MON_CAT_ESTADO_CARTERA" Type="Self.MON_CAT_ESTADO_CARTERA" Multiplicity="0..1" />
+    <End Role="PER_TRANSACCION" Type="Self.PER_TRANSACCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_ESTADO_CARTERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_TRANSACCION">
+        <PropertyRef Name="ID_ESTADO_CARTERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_TRAN_ESTADO_PR_MON_CAT_">
+    <End Role="MON_CAT_ESTADO_PRESTAMO" Type="Self.MON_CAT_ESTADO_PRESTAMO" Multiplicity="0..1" />
+    <End Role="PER_TRANSACCION" Type="Self.PER_TRANSACCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_ESTADO_PRESTAMO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_TRANSACCION">
+        <PropertyRef Name="ID_ESTADO_PRESTAMO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_TRAN_FINANCIER_MON_CAT_">
+    <End Role="MON_CAT_FINANCIERA" Type="Self.MON_CAT_FINANCIERA" Multiplicity="0..1" />
+    <End Role="PER_TRANSACCION" Type="Self.PER_TRANSACCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_TRANSACCION">
+        <PropertyRef Name="ID_FINANCIERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PER_TRAN_LINEA_FIN_MON_CAT_">
+    <End Role="MON_CAT_LINEA_FINANCIERA" Type="Self.MON_CAT_LINEA_FINANCIERA" Multiplicity="0..1" />
+    <End Role="PER_TRANSACCION" Type="Self.PER_TRANSACCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MON_CAT_LINEA_FINANCIERA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PER_TRANSACCION">
+        <PropertyRef Name="ID_LINEA_FINANCIERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEG_ACCE_FK_SEG_AC_SEG_MODU">
+    <End Role="SEG_MODULO" Type="Self.SEG_MODULO" Multiplicity="1" />
+    <End Role="SEG_ACCESO_USUARIO" Type="Self.SEG_ACCESO_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEG_MODULO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SEG_ACCESO_USUARIO">
+        <PropertyRef Name="ID_MODULO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEG_ACCE_FK_SEG_AC_SEG_OPCI">
+    <End Role="SEG_OPCION" Type="Self.SEG_OPCION" Multiplicity="1" />
+    <End Role="SEG_ACCESO_USUARIO" Type="Self.SEG_ACCESO_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEG_OPCION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SEG_ACCESO_USUARIO">
+        <PropertyRef Name="ID_OPCION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEG_ACCE_FK_SEG_AC_SEG_ROL">
+    <End Role="SEG_ROL" Type="Self.SEG_ROL" Multiplicity="1" />
+    <End Role="SEG_ACCESO_USUARIO" Type="Self.SEG_ACCESO_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEG_ROL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SEG_ACCESO_USUARIO">
+        <PropertyRef Name="ID_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEG_OPCI_FK_SEG_OP_SEG_MODU">
+    <End Role="SEG_MODULO" Type="Self.SEG_MODULO" Multiplicity="1" />
+    <End Role="SEG_OPCION" Type="Self.SEG_OPCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEG_MODULO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SEG_OPCION">
+        <PropertyRef Name="ID_MODULO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEG_ROL__FK_SEG_RO_SEG_ROL">
+    <End Role="SEG_ROL" Type="Self.SEG_ROL" Multiplicity="1" />
+    <End Role="SEG_ROL_USUARIO" Type="Self.SEG_ROL_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEG_ROL">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SEG_ROL_USUARIO">
+        <PropertyRef Name="ID_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="ALE_CAT_AUTOMATIZACION" EntityType="Self.ALE_CAT_AUTOMATIZACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_DISENO" EntityType="Self.ALE_CAT_DISENO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_DOCUMENTACION" EntityType="Self.ALE_CAT_DOCUMENTACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_FRECUENCIA" EntityType="Self.ALE_CAT_FRECUENCIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_MEZCLA" EntityType="Self.ALE_CAT_MEZCLA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_SEVERIDAD" EntityType="Self.ALE_CAT_SEVERIDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAT_TIPO_RIESGO" EntityType="Self.ALE_CAT_TIPO_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CAUSA_RIESGO" EntityType="Self.ALE_CAUSA_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_CONTACTO_ALERTA" EntityType="Self.ALE_CONTACTO_ALERTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_EVENTO_RIESGO" EntityType="Self.ALE_EVENTO_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_FACTOR_RIESGO" EntityType="Self.ALE_FACTOR_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_LISTA_RIESGO" EntityType="Self.ALE_LISTA_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_NOTIFICACION_ALERTA" EntityType="Self.ALE_NOTIFICACION_ALERTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_RIESGO" EntityType="Self.ALE_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_SEVERIDAD" EntityType="Self.ALE_SEVERIDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALE_TIPO_ALERTA" EntityType="Self.ALE_TIPO_ALERTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_AGENCIA_BANCARIA" EntityType="Self.MON_AGENCIA_BANCARIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CARGO_INSTITUCION" EntityType="Self.MON_CARGO_INSTITUCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_AGENCIA" EntityType="Self.MON_CAT_AGENCIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_ESTADO_CARTERA" EntityType="Self.MON_CAT_ESTADO_CARTERA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_ESTADO_PRESTAMO" EntityType="Self.MON_CAT_ESTADO_PRESTAMO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_FINANCIERA" EntityType="Self.MON_CAT_FINANCIERA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_INSTITUCION" EntityType="Self.MON_CAT_INSTITUCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_LINEA_FINANCIERA" EntityType="Self.MON_CAT_LINEA_FINANCIERA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_MONEDA" EntityType="Self.MON_CAT_MONEDA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_PROBABILIDAD_OCURRENCIA" EntityType="Self.MON_CAT_PROBABILIDAD_OCURRENCIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_TIPO_CONTROL" EntityType="Self.MON_CAT_TIPO_CONTROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_TIPO_CUENTA" EntityType="Self.MON_CAT_TIPO_CUENTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_TIPO_OFICIO" EntityType="Self.MON_CAT_TIPO_OFICIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CAT_UNIDAD_FSV" EntityType="Self.MON_CAT_UNIDAD_FSV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CONSECUENCIA_POTENCIAL" EntityType="Self.MON_CONSECUENCIA_POTENCIAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CONTACTO_INSTITUCION" EntityType="Self.MON_CONTACTO_INSTITUCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CONTROL" EntityType="Self.MON_CONTROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_CUENTA_RELACIONADA" EntityType="Self.MON_CUENTA_RELACIONADA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_DOCUMENTO_ACTOR_ROS" EntityType="Self.MON_DOCUMENTO_ACTOR_ROS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_FECHA_CONTROL" EntityType="Self.MON_FECHA_CONTROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_HISTORIAL_ALARMAS" EntityType="Self.MON_HISTORIAL_ALARMAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_HISTORICO_EVENTO_RIESGO" EntityType="Self.MON_HISTORICO_EVENTO_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_OFICIO" EntityType="Self.MON_OFICIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_OPERACION_IRREGULAR" EntityType="Self.MON_OPERACION_IRREGULAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_OPERACION_REPORTADA" EntityType="Self.MON_OPERACION_REPORTADA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_PAGO_ADICIONAL" EntityType="Self.MON_PAGO_ADICIONAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_PERSONAS_OFICIO" EntityType="Self.MON_PERSONAS_OFICIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_PERSONAS_RELACIONADAS" EntityType="Self.MON_PERSONAS_RELACIONADAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MON_ROS" EntityType="Self.MON_ROS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_ACTIVIDAD_ECONOMICA" EntityType="Self.PER_CAT_ACTIVIDAD_ECONOMICA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_CONDICION_LABORAL" EntityType="Self.PER_CAT_CONDICION_LABORAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_ESTADO_FAMILIAR" EntityType="Self.PER_CAT_ESTADO_FAMILIAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_NACIONALIDAD" EntityType="Self.PER_CAT_NACIONALIDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_ORIGEN_FONDO" EntityType="Self.PER_CAT_ORIGEN_FONDO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_PAIS" EntityType="Self.PER_CAT_PAIS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_PARENTESCO" EntityType="Self.PER_CAT_PARENTESCO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_PROFESION" EntityType="Self.PER_CAT_PROFESION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_TIPO_CLIENTE" EntityType="Self.PER_CAT_TIPO_CLIENTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CAT_TIPO_DOCUMENTO" EntityType="Self.PER_CAT_TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CLIENTE" EntityType="Self.PER_CLIENTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CLIENTE_PEP" EntityType="Self.PER_CLIENTE_PEP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_CLIENTE_RIESGO" EntityType="Self.PER_CLIENTE_RIESGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_REFERENCIA_BANCARIA" EntityType="Self.PER_REFERENCIA_BANCARIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_REFERENCIA_COMERCIAL" EntityType="Self.PER_REFERENCIA_COMERCIAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_REFERENCIA_PERSONAL" EntityType="Self.PER_REFERENCIA_PERSONAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PER_TRANSACCION" EntityType="Self.PER_TRANSACCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_ACCESO_USUARIO" EntityType="Self.SEG_ACCESO_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_EMPRESA" EntityType="Self.SEG_EMPRESA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_LOG_AUDITORIA" EntityType="Self.SEG_LOG_AUDITORIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_MODULO" EntityType="Self.SEG_MODULO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_OPCION" EntityType="Self.SEG_OPCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_PARAMETRO" EntityType="Self.SEG_PARAMETRO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_ROL" EntityType="Self.SEG_ROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SEG_ROL_USUARIO" EntityType="Self.SEG_ROL_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VIEW_PARAMETROS" EntityType="Self.VIEW_PARAMETROS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VIEW_PARAMETROS].[ID] AS [ID], 
+    [VIEW_PARAMETROS].[CODIGO] AS [CODIGO], 
+    [VIEW_PARAMETROS].[VALOR] AS [VALOR], 
+    [VIEW_PARAMETROS].[DESCRIPCION] AS [DESCRIPCION], 
+    [VIEW_PARAMETROS].[INACTIVO] AS [INACTIVO]
+    FROM [dbo].[VIEW_PARAMETROS] AS [VIEW_PARAMETROS]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ALE_CAUS_FACTOR_RI_ALE_FACT" Association="Self.FK_ALE_CAUS_FACTOR_RI_ALE_FACT">
+      <End Role="ALE_FACTOR_RIESGO" EntitySet="ALE_FACTOR_RIESGO" />
+      <End Role="ALE_CAUSA_RIESGO" EntitySet="ALE_CAUSA_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_CAUS_TIPO_RIES_ALE_CAT_" Association="Self.FK_ALE_CAUS_TIPO_RIES_ALE_CAT_">
+      <End Role="ALE_CAT_TIPO_RIESGO" EntitySet="ALE_CAT_TIPO_RIESGO" />
+      <End Role="ALE_CAUSA_RIESGO" EntitySet="ALE_CAUSA_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVEN_AGENCIAS__MON_CAT_" Association="Self.FK_ALE_EVEN_AGENCIAS__MON_CAT_">
+      <End Role="MON_CAT_AGENCIA" EntitySet="MON_CAT_AGENCIA" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVEN_CONSECUEN_MON_CONS" Association="Self.FK_ALE_EVEN_CONSECUEN_MON_CONS">
+      <End Role="MON_CONSECUENCIA_POTENCIAL" EntitySet="MON_CONSECUENCIA_POTENCIAL" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVEN_FACTOR_RI_ALE_FACT" Association="Self.FK_ALE_EVEN_FACTOR_RI_ALE_FACT">
+      <End Role="ALE_FACTOR_RIESGO" EntitySet="ALE_FACTOR_RIESGO" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVEN_PROBABILI_MON_CAT_" Association="Self.FK_ALE_EVEN_PROBABILI_MON_CAT_">
+      <End Role="MON_CAT_PROBABILIDAD_OCURRENCIA" EntitySet="MON_CAT_PROBABILIDAD_OCURRENCIA" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVEN_UNIDAD_FS_MON_CAT_" Association="Self.FK_ALE_EVEN_UNIDAD_FS_MON_CAT_">
+      <End Role="MON_CAT_UNIDAD_FSV" EntitySet="MON_CAT_UNIDAD_FSV" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_EVENTO_RIESGO_ALE_SEVERIDAD" Association="Self.FK_ALE_EVENTO_RIESGO_ALE_SEVERIDAD">
+      <End Role="ALE_SEVERIDAD" EntitySet="ALE_SEVERIDAD" />
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_LIST_RIESGO_LI_ALE_RIES" Association="Self.FK_ALE_LIST_RIESGO_LI_ALE_RIES">
+      <End Role="ALE_RIESGO" EntitySet="ALE_RIESGO" />
+      <End Role="ALE_LISTA_RIESGO" EntitySet="ALE_LISTA_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_NOTIFICACION_ALERTA_ALE_CONTACTO_ALERTA" Association="Self.FK_ALE_NOTIFICACION_ALERTA_ALE_CONTACTO_ALERTA">
+      <End Role="ALE_CONTACTO_ALERTA" EntitySet="ALE_CONTACTO_ALERTA" />
+      <End Role="ALE_NOTIFICACION_ALERTA" EntitySet="ALE_NOTIFICACION_ALERTA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_NOTIFICACION_ALERTA_ALE_TIPO_ALERTA" Association="Self.FK_ALE_NOTIFICACION_ALERTA_ALE_TIPO_ALERTA">
+      <End Role="ALE_TIPO_ALERTA" EntitySet="ALE_TIPO_ALERTA" />
+      <End Role="ALE_NOTIFICACION_ALERTA" EntitySet="ALE_NOTIFICACION_ALERTA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_RIES_FACTOR_RI_ALE_FACT" Association="Self.FK_ALE_RIES_FACTOR_RI_ALE_FACT">
+      <End Role="ALE_FACTOR_RIESGO" EntitySet="ALE_FACTOR_RIESGO" />
+      <End Role="ALE_RIESGO" EntitySet="ALE_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_SEVE_CAT_TIPO__ALE_CAT_" Association="Self.FK_ALE_SEVE_CAT_TIPO__ALE_CAT_">
+      <End Role="ALE_CAT_TIPO_RIESGO" EntitySet="ALE_CAT_TIPO_RIESGO" />
+      <End Role="ALE_SEVERIDAD" EntitySet="ALE_SEVERIDAD" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ALE_SEVE_SEVERIDAD_ALE_CAT_" Association="Self.FK_ALE_SEVE_SEVERIDAD_ALE_CAT_">
+      <End Role="ALE_CAT_SEVERIDAD" EntitySet="ALE_CAT_SEVERIDAD" />
+      <End Role="ALE_SEVERIDAD" EntitySet="ALE_SEVERIDAD" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_AGEN_FINANCIER_MON_CAT_" Association="Self.FK_MON_AGEN_FINANCIER_MON_CAT_">
+      <End Role="MON_CAT_FINANCIERA" EntitySet="MON_CAT_FINANCIERA" />
+      <End Role="MON_AGENCIA_BANCARIA" EntitySet="MON_AGENCIA_BANCARIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CARG_INSTITUCI_MON_CAT_" Association="Self.FK_MON_CARG_INSTITUCI_MON_CAT_">
+      <End Role="MON_CAT_INSTITUCION" EntitySet="MON_CAT_INSTITUCION" />
+      <End Role="MON_CARGO_INSTITUCION" EntitySet="MON_CARGO_INSTITUCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONS_TIPO_RIES_ALE_CAT_" Association="Self.FK_MON_CONS_TIPO_RIES_ALE_CAT_">
+      <End Role="ALE_CAT_TIPO_RIESGO" EntitySet="ALE_CAT_TIPO_RIESGO" />
+      <End Role="MON_CONSECUENCIA_POTENCIAL" EntitySet="MON_CONSECUENCIA_POTENCIAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_AUTOMATIZ_ALE_CAT_" Association="Self.FK_MON_CONT_AUTOMATIZ_ALE_CAT_">
+      <End Role="ALE_CAT_AUTOMATIZACION" EntitySet="ALE_CAT_AUTOMATIZACION" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_DISENO_CO_ALE_CAT_" Association="Self.FK_MON_CONT_DISENO_CO_ALE_CAT_">
+      <End Role="ALE_CAT_DISENO" EntitySet="ALE_CAT_DISENO" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_DOCUMENTA_ALE_CAT_" Association="Self.FK_MON_CONT_DOCUMENTA_ALE_CAT_">
+      <End Role="ALE_CAT_DOCUMENTACION" EntitySet="ALE_CAT_DOCUMENTACION" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_EVENTO_RI_ALE_EVEN" Association="Self.FK_MON_CONT_EVENTO_RI_ALE_EVEN">
+      <End Role="ALE_EVENTO_RIESGO" EntitySet="ALE_EVENTO_RIESGO" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_FRECUENCI_ALE_CAT_" Association="Self.FK_MON_CONT_FRECUENCI_ALE_CAT_">
+      <End Role="ALE_CAT_FRECUENCIA" EntitySet="ALE_CAT_FRECUENCIA" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_INSTITUCI_MON_CARG" Association="Self.FK_MON_CONT_INSTITUCI_MON_CARG">
+      <End Role="MON_CARGO_INSTITUCION" EntitySet="MON_CARGO_INSTITUCION" />
+      <End Role="MON_CONTACTO_INSTITUCION" EntitySet="MON_CONTACTO_INSTITUCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_MEZCLA_CO_ALE_CAT_" Association="Self.FK_MON_CONT_MEZCLA_CO_ALE_CAT_">
+      <End Role="ALE_CAT_MEZCLA" EntitySet="ALE_CAT_MEZCLA" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CONT_TIPO_CONT_MON_CAT_" Association="Self.FK_MON_CONT_TIPO_CONT_MON_CAT_">
+      <End Role="MON_CAT_TIPO_CONTROL" EntitySet="MON_CAT_TIPO_CONTROL" />
+      <End Role="MON_CONTROL" EntitySet="MON_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_CUEN_ROS_CUENT_MON_ROS" Association="Self.FK_MON_CUEN_ROS_CUENT_MON_ROS">
+      <End Role="MON_CAT_MONEDA" EntitySet="MON_CAT_MONEDA" />
+      <End Role="MON_CUENTA_RELACIONADA" EntitySet="MON_CUENTA_RELACIONADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_DOCU_ROS_DOCUM_MON_ROS" Association="Self.FK_MON_DOCU_ROS_DOCUM_MON_ROS">
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+      <End Role="MON_DOCUMENTO_ACTOR_ROS" EntitySet="MON_DOCUMENTO_ACTOR_ROS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_DOCU_TIPO_DOCU_PER_CAT_" Association="Self.FK_MON_DOCU_TIPO_DOCU_PER_CAT_">
+      <End Role="PER_CAT_TIPO_DOCUMENTO" EntitySet="PER_CAT_TIPO_DOCUMENTO" />
+      <End Role="MON_DOCUMENTO_ACTOR_ROS" EntitySet="MON_DOCUMENTO_ACTOR_ROS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_FECH_OFICIO_FE_MON_OFIC" Association="Self.FK_MON_FECH_OFICIO_FE_MON_OFIC">
+      <End Role="MON_OFICIO" EntitySet="MON_OFICIO" />
+      <End Role="MON_FECHA_CONTROL" EntitySet="MON_FECHA_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_FECH_OFICIO_PE_MON_CAT_" Association="Self.FK_MON_FECH_OFICIO_PE_MON_CAT_">
+      <End Role="MON_CAT_UNIDAD_FSV" EntitySet="MON_CAT_UNIDAD_FSV" />
+      <End Role="MON_FECHA_CONTROL" EntitySet="MON_FECHA_CONTROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_AGENCIA_H_MON_CAT_" Association="Self.FK_MON_HIST_AGENCIA_H_MON_CAT_">
+      <End Role="MON_CAT_AGENCIA" EntitySet="MON_CAT_AGENCIA" />
+      <End Role="MON_HISTORICO_EVENTO_RIESGO" EntitySet="MON_HISTORICO_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_CAT_AGENC_MON_CAT_" Association="Self.FK_MON_HIST_CAT_AGENC_MON_CAT_">
+      <End Role="MON_CAT_AGENCIA" EntitySet="MON_CAT_AGENCIA" />
+      <End Role="MON_HISTORIAL_ALARMAS" EntitySet="MON_HISTORIAL_ALARMAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_CAT_TIPO__ALE_CAT_" Association="Self.FK_MON_HIST_CAT_TIPO__ALE_CAT_">
+      <End Role="ALE_CAT_TIPO_RIESGO" EntitySet="ALE_CAT_TIPO_RIESGO" />
+      <End Role="MON_HISTORIAL_ALARMAS" EntitySet="MON_HISTORIAL_ALARMAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_CAUSA_RIE_ALE_CAUS" Association="Self.FK_MON_HIST_CAUSA_RIE_ALE_CAUS">
+      <End Role="ALE_CAUSA_RIESGO" EntitySet="ALE_CAUSA_RIESGO" />
+      <End Role="MON_HISTORIAL_ALARMAS" EntitySet="MON_HISTORIAL_ALARMAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_CLIENTE_H_PER_CLIE" Association="Self.FK_MON_HIST_CLIENTE_H_PER_CLIE">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="MON_HISTORIAL_ALARMAS" EntitySet="MON_HISTORIAL_ALARMAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_CONSECUEN_MON_CONS" Association="Self.FK_MON_HIST_CONSECUEN_MON_CONS">
+      <End Role="MON_CONSECUENCIA_POTENCIAL" EntitySet="MON_CONSECUENCIA_POTENCIAL" />
+      <End Role="MON_HISTORICO_EVENTO_RIESGO" EntitySet="MON_HISTORICO_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_FACTOR_RI_ALE_FACT" Association="Self.FK_MON_HIST_FACTOR_RI_ALE_FACT">
+      <End Role="ALE_FACTOR_RIESGO" EntitySet="ALE_FACTOR_RIESGO" />
+      <End Role="MON_HISTORICO_EVENTO_RIESGO" EntitySet="MON_HISTORICO_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_FACTOR_RI_ALE_FACT2" Association="Self.FK_MON_HIST_FACTOR_RI_ALE_FACT2">
+      <End Role="ALE_FACTOR_RIESGO" EntitySet="ALE_FACTOR_RIESGO" />
+      <End Role="MON_HISTORIAL_ALARMAS" EntitySet="MON_HISTORIAL_ALARMAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_PROBABILI_MON_CAT_" Association="Self.FK_MON_HIST_PROBABILI_MON_CAT_">
+      <End Role="MON_CAT_PROBABILIDAD_OCURRENCIA" EntitySet="MON_CAT_PROBABILIDAD_OCURRENCIA" />
+      <End Role="MON_HISTORICO_EVENTO_RIESGO" EntitySet="MON_HISTORICO_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_HIST_UNIDAD_FS_MON_CAT_" Association="Self.FK_MON_HIST_UNIDAD_FS_MON_CAT_">
+      <End Role="MON_CAT_UNIDAD_FSV" EntitySet="MON_CAT_UNIDAD_FSV" />
+      <End Role="MON_HISTORICO_EVENTO_RIESGO" EntitySet="MON_HISTORICO_EVENTO_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OFIC_CONCATCTO_MON_CONT" Association="Self.FK_MON_OFIC_CONCATCTO_MON_CONT">
+      <End Role="MON_CONTACTO_INSTITUCION" EntitySet="MON_CONTACTO_INSTITUCION" />
+      <End Role="MON_OFICIO" EntitySet="MON_OFICIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OFIC_TIPO_OFIC_MON_CAT_" Association="Self.FK_MON_OFIC_TIPO_OFIC_MON_CAT_">
+      <End Role="MON_CAT_TIPO_OFICIO" EntitySet="MON_CAT_TIPO_OFICIO" />
+      <End Role="MON_OFICIO" EntitySet="MON_OFICIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_AGENCIA_B_MON_AGEN" Association="Self.FK_MON_OPER_AGENCIA_B_MON_AGEN">
+      <End Role="MON_AGENCIA_BANCARIA" EntitySet="MON_AGENCIA_BANCARIA" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_AGENCIA_B_MON_CAT_2" Association="Self.FK_MON_OPER_AGENCIA_B_MON_CAT_2">
+      <End Role="MON_AGENCIA_BANCARIA" EntitySet="MON_AGENCIA_BANCARIA" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_FINANCIER_MON_CAT_" Association="Self.FK_MON_OPER_FINANCIER_MON_CAT_">
+      <End Role="MON_CAT_FINANCIERA" EntitySet="MON_CAT_FINANCIERA" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_FINANCIER_MON_CAT_2" Association="Self.FK_MON_OPER_FINANCIER_MON_CAT_2">
+      <End Role="MON_CAT_FINANCIERA" EntitySet="MON_CAT_FINANCIERA" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_MONEDA_OP_MON_CAT_" Association="Self.FK_MON_OPER_MONEDA_OP_MON_CAT_">
+      <End Role="MON_CAT_MONEDA" EntitySet="MON_CAT_MONEDA" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPER_ROS_OPERA_MON_ROS" Association="Self.FK_MON_OPER_ROS_OPERA_MON_ROS">
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+      <End Role="MON_OPERACION_REPORTADA" EntitySet="MON_OPERACION_REPORTADA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_OPERACION_IRREGULAR_ALE_TIPO_ALERTA" Association="Self.FK_MON_OPERACION_IRREGULAR_ALE_TIPO_ALERTA">
+      <End Role="ALE_TIPO_ALERTA" EntitySet="ALE_TIPO_ALERTA" />
+      <End Role="MON_OPERACION_IRREGULAR" EntitySet="MON_OPERACION_IRREGULAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PAGO_ACTIVIDAD_PER_CAT_" Association="Self.FK_MON_PAGO_ACTIVIDAD_PER_CAT_">
+      <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" EntitySet="PER_CAT_ACTIVIDAD_ECONOMICA" />
+      <End Role="MON_PAGO_ADICIONAL" EntitySet="MON_PAGO_ADICIONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PAGO_CLIENTE_P_PER_CLIE" Association="Self.FK_MON_PAGO_CLIENTE_P_PER_CLIE">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="MON_PAGO_ADICIONAL" EntitySet="MON_PAGO_ADICIONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PAGO_ORIGEN_FO_PER_CAT_" Association="Self.FK_MON_PAGO_ORIGEN_FO_PER_CAT_">
+      <End Role="PER_CAT_ORIGEN_FONDO" EntitySet="PER_CAT_ORIGEN_FONDO" />
+      <End Role="MON_PAGO_ADICIONAL" EntitySet="MON_PAGO_ADICIONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PERS_ESTADO_FA_PER_CAT_" Association="Self.FK_MON_PERS_ESTADO_FA_PER_CAT_">
+      <End Role="PER_CAT_ESTADO_FAMILIAR" EntitySet="PER_CAT_ESTADO_FAMILIAR" />
+      <End Role="MON_PERSONAS_RELACIONADAS" EntitySet="MON_PERSONAS_RELACIONADAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PERS_OFICIO_PE_MON_OFIC" Association="Self.FK_MON_PERS_OFICIO_PE_MON_OFIC">
+      <End Role="MON_OFICIO" EntitySet="MON_OFICIO" />
+      <End Role="MON_PERSONAS_OFICIO" EntitySet="MON_PERSONAS_OFICIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_PERS_ROS_PERSO_MON_ROS" Association="Self.FK_MON_PERS_ROS_PERSO_MON_ROS">
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+      <End Role="MON_PERSONAS_RELACIONADAS" EntitySet="MON_PERSONAS_RELACIONADAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_ROS_ACTIVIDAD_PER_CAT_" Association="Self.FK_MON_ROS_ACTIVIDAD_PER_CAT_">
+      <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" EntitySet="PER_CAT_ACTIVIDAD_ECONOMICA" />
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_ROS_ESTADO_FA_PER_CAT_" Association="Self.FK_MON_ROS_ESTADO_FA_PER_CAT_">
+      <End Role="PER_CAT_ESTADO_FAMILIAR" EntitySet="PER_CAT_ESTADO_FAMILIAR" />
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MON_ROS_PAIS_ROS_PER_CAT_" Association="Self.FK_MON_ROS_PAIS_ROS_PER_CAT_">
+      <End Role="PER_CAT_PAIS" EntitySet="PER_CAT_PAIS" />
+      <End Role="MON_ROS" EntitySet="MON_ROS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_ACTIV_PER_CAT_" Association="Self.FK_PER_CLIE_CAT_ACTIV_PER_CAT_">
+      <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" EntitySet="PER_CAT_ACTIVIDAD_ECONOMICA" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_ACTIV_PER_CAT_2" Association="Self.FK_PER_CLIE_CAT_ACTIV_PER_CAT_2">
+      <End Role="PER_CAT_ACTIVIDAD_ECONOMICA" EntitySet="PER_CAT_ACTIVIDAD_ECONOMICA" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_CONDI_PER_CAT_" Association="Self.FK_PER_CLIE_CAT_CONDI_PER_CAT_">
+      <End Role="PER_CAT_CONDICION_LABORAL" EntitySet="PER_CAT_CONDICION_LABORAL" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_ESTAD_PER_CAT_" Association="Self.FK_PER_CLIE_CAT_ESTAD_PER_CAT_">
+      <End Role="PER_CAT_ESTADO_FAMILIAR" EntitySet="PER_CAT_ESTADO_FAMILIAR" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_ORIGE_PER_CAT_" Association="Self.FK_PER_CLIE_CAT_ORIGE_PER_CAT_">
+      <End Role="PER_CAT_ORIGEN_FONDO" EntitySet="PER_CAT_ORIGEN_FONDO" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_PROFE_PER_CAT_" Association="Self.FK_PER_CLIE_CAT_PROFE_PER_CAT_">
+      <End Role="PER_CAT_PROFESION" EntitySet="PER_CAT_PROFESION" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CAT_TIPO__PER_CAT_" Association="Self.FK_PER_CLIE_CAT_TIPO__PER_CAT_">
+      <End Role="PER_CAT_TIPO_CLIENTE" EntitySet="PER_CAT_TIPO_CLIENTE" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CLIENTE_C_PER_CLIE" Association="Self.FK_PER_CLIE_CLIENTE_C_PER_CLIE">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="PER_CLIENTE_RIESGO" EntitySet="PER_CLIENTE_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_CLIENTE_P_PER_CLIE" Association="Self.FK_PER_CLIE_CLIENTE_P_PER_CLIE">
+      <End Role="PER_CLIENTE_PEP" EntitySet="PER_CLIENTE_PEP" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_LITA_RIES_ALE_LIST" Association="Self.FK_PER_CLIE_LITA_RIES_ALE_LIST">
+      <End Role="ALE_LISTA_RIESGO" EntitySet="ALE_LISTA_RIESGO" />
+      <End Role="PER_CLIENTE_RIESGO" EntitySet="PER_CLIENTE_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_NACIONALI_PER_CAT_" Association="Self.FK_PER_CLIE_NACIONALI_PER_CAT_">
+      <End Role="PER_CAT_NACIONALIDAD" EntitySet="PER_CAT_NACIONALIDAD" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_PAIS_CLIE_PER_CAT_" Association="Self.FK_PER_CLIE_PAIS_CLIE_PER_CAT_">
+      <End Role="PER_CAT_PAIS" EntitySet="PER_CAT_PAIS" />
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_CLIE_RIESGO_CL_ALE_RIES" Association="Self.FK_PER_CLIE_RIESGO_CL_ALE_RIES">
+      <End Role="ALE_RIESGO" EntitySet="ALE_RIESGO" />
+      <End Role="PER_CLIENTE_RIESGO" EntitySet="PER_CLIENTE_RIESGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_CLIENTE_R_PER_CLIE" Association="Self.FK_PER_REFE_CLIENTE_R_PER_CLIE">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="PER_REFERENCIA_BANCARIA" EntitySet="PER_REFERENCIA_BANCARIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_CLIENTE_R_PER_CLIE2" Association="Self.FK_PER_REFE_CLIENTE_R_PER_CLIE2">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="PER_REFERENCIA_PERSONAL" EntitySet="PER_REFERENCIA_PERSONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_CLIENTE_R_PER_CLIE3" Association="Self.FK_PER_REFE_CLIENTE_R_PER_CLIE3">
+      <End Role="PER_CLIENTE" EntitySet="PER_CLIENTE" />
+      <End Role="PER_REFERENCIA_COMERCIAL" EntitySet="PER_REFERENCIA_COMERCIAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_FINANCIER_MON_CAT_" Association="Self.FK_PER_REFE_FINANCIER_MON_CAT_">
+      <End Role="MON_CAT_FINANCIERA" EntitySet="MON_CAT_FINANCIERA" />
+      <End Role="PER_REFERENCIA_BANCARIA" EntitySet="PER_REFERENCIA_BANCARIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_MONEDA_RE_MON_CAT_" Association="Self.FK_PER_REFE_MONEDA_RE_MON_CAT_">
+      <End Role="MON_CAT_MONEDA" EntitySet="MON_CAT_MONEDA" />
+      <End Role="PER_REFERENCIA_BANCARIA" EntitySet="PER_REFERENCIA_BANCARIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_PARENTESC_PER_CAT_" Association="Self.FK_PER_REFE_PARENTESC_PER_CAT_">
+      <End Role="PER_CAT_PARENTESCO" EntitySet="PER_CAT_PARENTESCO" />
+      <End Role="PER_REFERENCIA_PERSONAL" EntitySet="PER_REFERENCIA_PERSONAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_REFE_TIPO_CUEN_MON_CAT_" Association="Self.FK_PER_REFE_TIPO_CUEN_MON_CAT_">
+      <End Role="MON_CAT_TIPO_CUENTA" EntitySet="MON_CAT_TIPO_CUENTA" />
+      <End Role="PER_REFERENCIA_BANCARIA" EntitySet="PER_REFERENCIA_BANCARIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_TRAN_AGENCIA_B_MON_AGEN" Association="Self.FK_PER_TRAN_AGENCIA_B_MON_AGEN">
+      <End Role="MON_AGENCIA_BANCARIA" EntitySet="MON_AGENCIA_BANCARIA" />
+      <End Role="PER_TRANSACCION" EntitySet="PER_TRANSACCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_TRAN_ESTADO_CA_MON_CAT_" Association="Self.FK_PER_TRAN_ESTADO_CA_MON_CAT_">
+      <End Role="MON_CAT_ESTADO_CARTERA" EntitySet="MON_CAT_ESTADO_CARTERA" />
+      <End Role="PER_TRANSACCION" EntitySet="PER_TRANSACCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_TRAN_ESTADO_PR_MON_CAT_" Association="Self.FK_PER_TRAN_ESTADO_PR_MON_CAT_">
+      <End Role="MON_CAT_ESTADO_PRESTAMO" EntitySet="MON_CAT_ESTADO_PRESTAMO" />
+      <End Role="PER_TRANSACCION" EntitySet="PER_TRANSACCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_TRAN_FINANCIER_MON_CAT_" Association="Self.FK_PER_TRAN_FINANCIER_MON_CAT_">
+      <End Role="MON_CAT_FINANCIERA" EntitySet="MON_CAT_FINANCIERA" />
+      <End Role="PER_TRANSACCION" EntitySet="PER_TRANSACCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PER_TRAN_LINEA_FIN_MON_CAT_" Association="Self.FK_PER_TRAN_LINEA_FIN_MON_CAT_">
+      <End Role="MON_CAT_LINEA_FINANCIERA" EntitySet="MON_CAT_LINEA_FINANCIERA" />
+      <End Role="PER_TRANSACCION" EntitySet="PER_TRANSACCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEG_ACCE_FK_SEG_AC_SEG_MODU" Association="Self.FK_SEG_ACCE_FK_SEG_AC_SEG_MODU">
+      <End Role="SEG_MODULO" EntitySet="SEG_MODULO" />
+      <End Role="SEG_ACCESO_USUARIO" EntitySet="SEG_ACCESO_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEG_ACCE_FK_SEG_AC_SEG_OPCI" Association="Self.FK_SEG_ACCE_FK_SEG_AC_SEG_OPCI">
+      <End Role="SEG_OPCION" EntitySet="SEG_OPCION" />
+      <End Role="SEG_ACCESO_USUARIO" EntitySet="SEG_ACCESO_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEG_ACCE_FK_SEG_AC_SEG_ROL" Association="Self.FK_SEG_ACCE_FK_SEG_AC_SEG_ROL">
+      <End Role="SEG_ROL" EntitySet="SEG_ROL" />
+      <End Role="SEG_ACCESO_USUARIO" EntitySet="SEG_ACCESO_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEG_OPCI_FK_SEG_OP_SEG_MODU" Association="Self.FK_SEG_OPCI_FK_SEG_OP_SEG_MODU">
+      <End Role="SEG_MODULO" EntitySet="SEG_MODULO" />
+      <End Role="SEG_OPCION" EntitySet="SEG_OPCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEG_ROL__FK_SEG_RO_SEG_ROL" Association="Self.FK_SEG_ROL__FK_SEG_RO_SEG_ROL">
+      <End Role="SEG_ROL" EntitySet="SEG_ROL" />
+      <End Role="SEG_ROL_USUARIO" EntitySet="SEG_ROL_USUARIO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,538 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <script type="text/javascript">
+
+    var grid;
+
+    function GenerarMatriz() {
+        bootbox.confirm("¿Esta seguro de generar la matriz?", function (result) {
+            if (result) {
+                $.ajax({
+                    url: '@Url.Action("GenerarMatriz", "Eventos")',
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        Mensajes(data.mensaje);
+
+                        if (data.idMatriz != 0) {
+                            window.open("../Matriz/Reporte?id=" + data.idMatriz + "&formato=PDF", '_blank');
+                        }
+
+                        grid.reload();
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+
+        editando = false;
+       
+        //=============================================
+        //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+        //=============================================
+        function load_Controles() {
+            $.ajax({
+                    url: '@Url.Action("_Controles", "Eventos")',
+                    data: { ID_EVENTO: $("#ID").val() },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#_Controles").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            //PERMITE LLENAR LOS CAMPOS CON SUS CORESPONDIENTES VALORES
+        function Edit(e) {
+            editando = true;
+                $("#ID").val(e.data.record.ID);
+                $("#ID_AGENCIA").val(e.data.record.ID_AGENCIA);
+                $("#ID_AGENCIA").prop('disabled', true);
+                $("#ID_AGENCIA").change();
+            
+               UnidadesXAgencia(e.data.record.ID_AGENCIA,e.data.record.ID_UNIDAD);
+
+                $("#ID_FACTOR_RIESGO").val(e.data.record.ID_FACTOR_RIESGO);
+                $("#ID_FACTOR_RIESGO").change();
+                $("#ID_RIESGO").val(e.data.record.ID_RIESGO);
+                $("#ID_RIESGO").change();
+                $("#ID_CAUSA_RIESGO").val(e.data.record.ID_CAUSA_RIESGO);
+                $("#ID_CAUSA_RIESGO").change();
+                $("#COMO").val(e.data.record.COMO);
+                $("#ID_PROBABILIDAD_OCURRENCIA").val(e.data.record.ID_PROBABILIDAD_OCURRENCIA);
+                $("#ID_PROBABILIDAD_OCURRENCIA").change();
+                $("#ID_IMPACTO").val(e.data.record.ID_IMPACTO);
+                $("#ID_IMPACTO").change();
+
+                //cargar pestañas ===========================================================================================
+                load_Controles();
+
+                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#eventos"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGUISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+                $("#ID_AGENCIA").val("");
+                $("#ID_AGENCIA").prop('disabled', false);
+                $("#ID_AGENCIA").change();
+                $("#ID_UNIDAD").val("");
+                $("#ID_UNIDAD").change();
+                $("#ID_FACTOR_RIESGO").val("");
+                $("#ID_FACTOR_RIESGO").change();
+                $("#ID_RIESGO").val("");
+                $("#ID_RIESGO").change();
+                $("#ID_CAUSA_RIESGO").val("");
+                $("#ID_CAUSA_RIESGO").change();
+                $("#ID_PROBABILIDAD_OCURRENCIA").val("");
+                $("#ID_PROBABILIDAD_OCURRENCIA").change();
+                $("#ID_IMPACTO").val("");
+                $("#ID_IMPACTO").change();
+
+                $('.nav-tabs').find('li').removeClass().addClass('disabled').find("a").removeClass().addClass('disabled');
+                $('a[href="#eventos"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Eventos/Remove", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      grid.reload();
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        grid = $("#gridEventos").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            columns: [
+                { field: "AGENCIA", title: "Agencia", sortable: true, width: 150 },
+                { field: "DESCRIPCION", title: "Descripción", sortable: true, width: 400 },
+                { field: "RIESGO_INHERENTE", title: "Riesgo Inherente", sortable: true, width: 100, align: 'center' },
+                { field: "EFICACIA_CONTROL", title: "Eficacia", sortable: true, width: 100, align: 'center' },
+                { field: "RIESGO_RESIDUAL", title: "Riesgo Residual ", sortable: true, width: 100, align: 'center' },
+                { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+            ],
+
+            pager: { enable: true, limit: 5, sizes: [5, 10, 20] }
+        });
+
+
+        grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+
+            if (column.field == "RIESGO_INHERENTE") {
+                $.ajax({
+                    url: "../Eventos/ObtenerColor",
+                    data: { valor: record.RIESGO_INHERENTE },
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $wrapper.html("<button  class='btn btn-sm' style='background-color:" + data.color + ";'>" + record.RIESGO_INHERENTE + "</button>");
+                    }
+                });
+            }
+            if (column.field == "RIESGO_RESIDUAL") {
+                $.ajax({
+                    url: "../Eventos/ObtenerColor",
+                    data: { valor: record.RIESGO_RESIDUAL },
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $wrapper.html("<button  class='btn btn-sm' style='background-color:" + data.color + ";'> " + record.RIESGO_RESIDUAL + "</button>");
+                    }
+                });
+            }
+
+        });
+
+
+
+        //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+        function Search() {
+            grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+        }
+
+        $('#txtBuscar').keypress(function (e) {
+            if (e.which == 13) {
+                Search();
+            }
+        });
+
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregar").on("click", Add);
+        $("#btnBuscar").on("click", Search);
+        $("#btnGenerarMatriz").on("click", GenerarMatriz);
+
+
+        //VALIDACIONES DEL FORMULARIO
+        $('#formEventos').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ID_AGENCIA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_UNIDAD: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_FACTOR_RIESGO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_RIESGO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_CAUSA_RIESGO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                COMO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_PROBABILIDAD_OCURRENCIA: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                },
+                ID_IMPACTO: {
+                    validators: {
+                        notEmpty: {
+                            message: '@PropertiesBlo.msgRequerido'
+                        }
+                    }
+                }
+            }
+        })
+    //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+      .on('success.field.fv', function (e, data) {
+          var $parent = data.element.parents('.form-group');
+          $parent.removeClass('has-success');
+          data.element.data('fv.icon').hide();
+      })
+    .on('success.form.fv', function (e) {
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('formValidation');
+
+        //Envio de datos
+        $.ajax({
+            url: $form.attr('action'),
+            type: "POST",
+            data: $form.serialize(),
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+                Mensajes(data.mensaje);
+
+                if (data.ID != null && data.ID != 0) {
+                    $("#ID").val(data.ID);
+                    $("#ID_AGENCIA").prop('disabled', true);
+
+                    //cargar pestañas ===================================================================================
+                    load_Controles();
+
+                    $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                    $('a[href="#eventos"]').tab('show');// Activar pestaña
+                }
+
+                $("#formEventos").formValidation('resetForm'); // Elimina las clases de validacion
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+            }
+        });
+
+
+    });
+
+        //UNIDADES POR AGENCIA
+        function UnidadesXAgencia(agencia, selectVal) {
+            $.post('@Url.Action("GetUnidadesAgencia")', { agencia: agencia }, function (response) {
+
+                $("#ID_UNIDAD").empty();
+                $("#ID_UNIDAD").append("<option value=''>Seleccione ...</option>");
+                $.each(response.unidades, function (i, item) {
+                    $("#ID_UNIDAD").append("<option value='" + item.ID + "'>" + item.DESCRIPCION + "</option>");
+                });
+                //Seleccionar valor predetermindo
+                $("#ID_UNIDAD").val(selectVal);
+                $("#ID_UNIDAD").change();
+
+                editando = false;
+
+            }, 'json');
+
+        }
+
+        // Anidando departamentos
+        $("#ID_AGENCIA").change(function () {
+            if (!editando)
+                UnidadesXAgencia($(this).val(), 0);
+        });
+
+
+
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModal').on('hide.bs.modal', function () {
+            $('#formEventos').trigger("reset"); // Resetea los valores de todos campos
+            $("#formEventos").formValidation('resetForm'); // Elimina las clases de validacion
+            grid.reload();
+        })
+
+    });
+    </script>
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+         INGRESO DE EVENTOS
+        <small>MATRIZ</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <button type="button" id="btnAgregar" class="btn btn-primary"><span class='glyphicon glyphicon-plus'></span> @PropertiesBlo.btnNuevo</button>
+                    <button type="button" id="btnGenerarMatriz" class="btn bg-black btn-flat"><span class='fa fa-clone'></span> @PropertiesBlo.btnGenerarMatriz</button>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridEventos" data-source="@Url.Action("GetEventos")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Ingreso de evento
+            </div>
+            <div class="panel-body">
+
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#eventos" data-toggle="tab">Datos Generales de Evento</a></li>
+                        <li><a href="#controles" data-toggle="tab">Controles</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="eventos">
+                            <form id="formEventos" action="/Eventos/Save" method="post">
+
+                                <input id="ID" type="hidden" name="ID" value="">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="ID_AGENCIA">Agencia</label><br>
+                                            <select id="ID_AGENCIA" name="ID_AGENCIA" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_CAT_AGENCIA item in (List<MAT_CAT_AGENCIA>)ViewBag.agencia)
+                                                {
+                                                    <option value=@item.ID>@item.NOMBRE</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_UNIDAD">Unidad</label><br>
+                                            <select id="ID_UNIDAD" name="ID_UNIDAD" class="form-control select2-single"></select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_FACTOR_RIESGO">Factor  de riesgo</label><br>
+                                            <select id="ID_FACTOR_RIESGO" name="ID_FACTOR_RIESGO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_CAT_FACTOR_RIESGO item in (List<MAT_CAT_FACTOR_RIESGO>)ViewBag.factorRiesgo)
+                                                {
+                                                    <option value=@item.ID>@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_RIESGO">Riesgo</label><br>
+                                            <select id="ID_RIESGO" name="ID_RIESGO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_RIESGO item in (List<MAT_RIESGO>)ViewBag.riesgo)
+                                                {
+                                                    <option value=@item.ID>@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_CAUSA_RIESGO">Causa de riesgo</label><br>
+                                            <select id="ID_CAUSA_RIESGO" name="ID_CAUSA_RIESGO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_CAUSA_RIESGO item in (List<MAT_CAUSA_RIESGO>)ViewBag.causaRiesgo)
+                                                {
+                                                    <option value=@item.ID>@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="COMO">¿Como?</label>
+                                            <textarea id="COMO" name="COMO" class="form-control" rows="5" maxlength="500"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_PROBABILIDAD_OCURRENCIA">Probabilidad</label><br>
+                                            <select id="ID_PROBABILIDAD_OCURRENCIA" name="ID_PROBABILIDAD_OCURRENCIA" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_CAT_PROBABILIDAD_OCURRENCIA item in (List<MAT_CAT_PROBABILIDAD_OCURRENCIA>)ViewBag.probabilidadOcurrencia)
+                                                {
+                                                    <option value=@item.ID>@item.CLASIFICACION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ID_IMPACTO">Impacto</label><br>
+                                            <select id="ID_IMPACTO" name="ID_IMPACTO" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (MAT_CAT_SEVERIDAD item in (List<MAT_CAT_SEVERIDAD>)ViewBag.impacto)
+                                                {
+                                                    <option value=@item.ID>@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="controles">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarcontroles" class="btn btn-success pull-left"><span class='glyphicon glyphicon-check'></span> @PropertiesBlo.btnAgregarControl</button>
+                                </div>
+                                <div class="col-md-9 ">
+                                    <div class="input-group pull-right">
+                                        <input type="text" id="txtBuscarControl" class="form-control" placeholder="Buscar ...">
+                                        <span class="input-group-btn">
+                                            <button type="submit" id="btnBuscarControl" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridControles"></table>
+                            </div>
+
+                        </div>
+
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+
+<div id="_Controles"></div> @*function load_Controles()*@

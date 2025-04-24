@@ -1,0 +1,261 @@
+
+ ================= 2025-03-17 08:42:56,204 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.Shared.CrystalReportsException: No se ha podido cargar el informe. ---> System.Runtime.InteropServices.COMException: El sistema no puede encontrar la ruta especificada.
+   en CrystalDecisions.ReportAppServer.ClientDoc.ReportClientDocumentClass.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.Open(Object& DocumentPath, Int32 Options)
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ReportClientDocumentWrapper.EnsureDocumentIsOpened()
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename, OpenReportMethod openMethod, Int16 parentJob)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Load(String filename)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 215 
+  
+
+ ================= 2025-03-17 08:47:28,494 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 217 
+  
+
+ ================= 2025-03-17 09:39:29,812 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 229 
+  
+
+ ================= 2025-03-17 10:11:08,158 ============== 
+ ERROR Dao.Reportes.ReportesDao 
+ Error en generar reporte de : ReportePagosDiariosIgualesSuperiores571_5000  - System.NotSupportedException: The entity or complex type 'Model.VIEW_REPORTE_CONTROLPAGOS' cannot be constructed in a LINQ to Entities query.
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CheckInitializerType(Type type)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberInitTranslator.TypedTranslate(ExpressionConverter parent, MemberInitExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   en System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   en System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en Dao.Reportes.ReportesDao.ReportePagosDiariosIgualesSuperiores571_5000(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 301 
+  
+
+ ================= 2025-03-17 10:11:08,200 ============== 
+ ERROR Blo.Reportes.ReportesBlo 
+ Error en generar reporte de : ReportePagosDiariosIgualesSuperiores571_5000  - System.Exception: Error en generar reporte de : ReportePagosDiariosIgualesSuperiores571_5000
+   en Dao.Reportes.ReportesDao.ReportePagosDiariosIgualesSuperiores571_5000(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Dao\Reportes\ReportesDao.cs:línea 319
+   en Blo.Reportes.ReportesBlo.ReportePagosDiariosIgualesSuperiores571_5000(DateTime fechaIni, DateTime fechaFin) en C:\Antilavado SQL SERVER\fsv_mvc\Blo\Reportes\ReportesBlo.cs:línea 204 
+  
+
+ ================= 2025-03-17 10:23:17,649 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.CrystalReports.Engine.LogOnException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 28604_27284_{145D3E8E-E6BB-4AD0-A6C6-CDA094DD612D}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ] ---> System.Runtime.InteropServices.COMException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 28604_27284_{145D3E8E-E6BB-4AD0-A6C6-CDA094DD612D}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ]
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportOptions options)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportFormatType formatType)
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 330 
+  
+
+ ================= 2025-03-17 10:23:17,681 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al exportar el reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 344
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 272 
+  
+
+ ================= 2025-03-17 10:36:53,360 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.CrystalReports.Engine.LogOnException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 25100_23220_{54A84293-346A-4171-91D7-B20598B01A3B}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ] ---> System.Runtime.InteropServices.COMException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 25100_23220_{54A84293-346A-4171-91D7-B20598B01A3B}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ]
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportOptions options)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportFormatType formatType)
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 330 
+  
+
+ ================= 2025-03-17 10:36:53,399 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al exportar el reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 344
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 272 
+  
+
+ ================= 2025-03-17 11:26:44,346 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.CrystalReports.Engine.LogOnException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 28700_27052_{8CB9D5A2-E9D8-4B59-A88F-4A8E3B864690}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ] ---> System.Runtime.InteropServices.COMException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 28700_27052_{8CB9D5A2-E9D8-4B59-A88F-4A8E3B864690}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ]
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportOptions options)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportFormatType formatType)
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 330 
+  
+
+ ================= 2025-03-17 11:26:44,383 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al exportar el reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 344
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 272 
+  
+
+ ================= 2025-03-17 11:29:30,047 ============== 
+ ERROR View.Controllers.BaseController 
+ CrystalDecisions.CrystalReports.Engine.LogOnException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 9440_6932_{5039168D-F4A3-44F7-B381-61D31FA0C542}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ] ---> System.Runtime.InteropServices.COMException: Error en archivo RptPagosDiariosIgualesSuperiores571_5000 9440_6932_{5039168D-F4A3-44F7-B381-61D31FA0C542}.rpt:
+No se puede conectar: parámetros de conexión incorrectos.
+Detalles:  [Código del proveedor de base de datos: 18456 ]
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportOptions options)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.ExportToStream(ExportFormatType formatType)
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 330 
+  
+
+ ================= 2025-03-17 11:29:30,090 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al exportar el reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.ExportarReporte(ReportDocument report, ExportFormatType formato, String nombre) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 344
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 272 
+  
+
+ ================= 2025-03-17 15:10:16,124 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, IEnumerable`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 218 
+  
+
+ ================= 2025-03-17 15:24:06,714 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 226 
+  
+
+ ================= 2025-03-17 15:32:09,723 ============== 
+ ERROR View.Controllers.BaseController 
+ System.IO.FileNotFoundException: El archivo del reporte no existe en la ruta: C:\Antilavado SQL SERVER\fsv_mvc\View\RptPagos\View\Reportes_crytal\RptPagosDiariosIgualesSuperiores571_5000.rpt
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 223 
+  
+
+ ================= 2025-03-17 15:34:28,206 ============== 
+ ERROR View.Controllers.BaseController 
+ System.IO.FileNotFoundException: El archivo del reporte no existe en la ruta: C:\Antilavado SQL SERVER\fsv_mvc\View\RptPagos\Reportes_crytal\RptPagosDiariosIgualesSuperiores571_5000.rpt
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 223 
+  
+
+ ================= 2025-03-17 15:38:19,107 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 228 
+  
+
+ ================= 2025-03-17 17:04:34,676 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 228 
+  
+
+ ================= 2025-03-17 17:09:07,181 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Palabra clave no admitida: 'metadata'.
+   en System.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(String keyword)
+   en System.Data.SqlClient.SqlConnectionStringBuilder.set_Item(String keyword, Object value)
+   en System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   en System.Data.SqlClient.SqlConnectionStringBuilder..ctor(String connectionString)
+   en View.Reportes_crytal.ReportesConexion.getConexion() en C:\Antilavado SQL SERVER\fsv_mvc\View\Reportes_crytal\ReportesConexion.cs:línea 12
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 228 
+  
+
+ ================= 2025-03-17 17:16:15,826 ============== 
+ ERROR View.Controllers.BaseController 
+ System.NotSupportedException: DataSet no admite System.Nullable<>.
+   en System.Data.DataColumn..ctor(String columnName, Type dataType, String expr, MappingType type)
+   en System.Data.DataColumnCollection.Add(String columnName, Type type)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromMemberInfos(ArrayList memberInfos, Boolean autoFlattenCurrentLevel, Int32 currentLevel, Int32 maximumLevels, String namePrefix, DataTable table)
+   en CrystalDecisions.CrystalReports.Engine.Table.BuildTableFromEnumerable(IEnumerable collection, Type dataClassType, String tableName)
+   en CrystalDecisions.CrystalReports.Engine.Table.EnumerableToDataSet(IEnumerable collection)
+   en CrystalDecisions.CrystalReports.Engine.Table.WrapAndCacheDotNetObject(Object val, Type type, ISCRAdoNetDataSet& crAdoNetDataSet)
+   en CrystalDecisions.CrystalReports.Engine.Table.SetDataSource(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSourceInternal(Object val, Type type)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.SetDataSource(IEnumerable enumerable)
+   en View.Controllers.BaseController.VerReporte(String nombre, String formato, Dictionary`2 parametros, List`1 query, String nombreDataSet) en C:\Antilavado SQL SERVER\fsv_mvc\View\Controllers\BaseController.cs:línea 239 
+  

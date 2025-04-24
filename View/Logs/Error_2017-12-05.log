@@ -1,0 +1,86 @@
+
+ ================= 2017-12-05 01:33:23,814 ============== 
+ ERROR View.Controllers.BaseController 
+ System.Web.HttpException (0x80070040): El host remoto cerró la conexión. El error de código es 0x80070040.
+   en System.Web.Hosting.IIS7WorkerRequest.RaiseCommunicationError(Int32 result, Boolean throwOnDisconnect)
+   en System.Web.Hosting.IIS7WorkerRequest.ExplicitFlush()
+   en System.Web.HttpResponse.Flush(Boolean finalFlush, Boolean async)
+   en System.Web.HttpResponse.Flush()
+   en System.Web.HttpResponse.End()
+   en System.Web.HttpResponseWrapper.End()
+   en View.Controllers.BaseController.ImprimirPDF(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 218 
+  
+
+ ================= 2017-12-05 01:33:23,892 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al imprimir en PDF el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.ImprimirPDF(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 223
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 184 
+  
+
+ ================= 2017-12-05 01:33:23,939 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptPagosDiariosIgualesSuperiores571_5000
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptPagosController.PagosDiariosIgualesSuperiores571_5000(String fechaInicial, String fechaFinal, String formato) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\Reportes\RptPagosController.cs:línea 60 
+  
+
+ ================= 2017-12-05 11:25:23,244 ============== 
+ ERROR View.Controllers.BaseController 
+ Microsoft.Reporting.WebForms.LocalProcessingException: Se ha producido un error durante el procesamiento local de informes. ---> Microsoft.ReportingServices.ReportProcessing.ReportProcessingException: Error inesperado al procesar los informes. ---> System.OutOfMemoryException: Se produjo una excepción de tipo 'System.OutOfMemoryException'.
+   en System.IO.MemoryStream.set_Capacity(Int32 value)
+   en System.IO.MemoryStream.EnsureCapacity(Int32 value)
+   en System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   en System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   en System.IO.StreamWriter.Write(String value)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.OoxmlComplexType.WriteData(TextWriter s, Object data)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.OoxmlComplexType.WriteRawTag(TextWriter s, Int32 depth, Dictionary`2 namespaces, String tagname, Boolean preserveWhitespace, String tagNamespace, Object data)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Rst.Write_t(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Rst.WriteElements(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Rst.Write(TextWriter s, String tagName, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Cell.Write_is(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Cell.WriteElements(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Cell.Write(TextWriter s, String tagName, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Row.Write_c(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Row.WriteElements(TextWriter s, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.spreadsheetml.x2006.main.CT_Row.Write(TextWriter s, String tagName, Int32 depth, Dictionary`2 namespaces)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.StreamsheetParser.WriteTagInCollection[TCol](OoxmlComplexType tag, StreamSheetSection section, String tagname, String coltagname)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.StreamsheetParser.WriteRow(CT_Row row)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Parser.StreamsheetParser.WriteTag(OoxmlComplexType tag)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.XMLModel.XMLStreamsheetModel.AdvanceStreamsheetTo(StreamSheetSection newSection, Boolean head)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.XMLModel.XMLStreamsheetModel.CreateRow(Int32 index)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.Streamsheet.CreateRow(Int32 index)
+   en Microsoft.ReportingServices.Rendering.ExcelOpenXmlRenderer.OpenXmlGenerator.SetRowContext(Int32 rowIndex)
+   en Microsoft.ReportingServices.Rendering.ExcelRenderer.Layout.LayoutEngine.RenderPageToExcel(IExcelGenerator excel, String key, Dictionary`2 sharedBorderCache, Dictionary`2 sharedImageCache)
+   en Microsoft.ReportingServices.Rendering.ExcelRenderer.MainEngine.RenderRPLPage(RPLReport report, Boolean headerInBody, Boolean suppressOutlines)
+   en Microsoft.ReportingServices.Rendering.ExcelRenderer.ExcelRenderer.Render(Report report, NameValueCollection reportServerParameters, NameValueCollection deviceInfo, NameValueCollection clientCapabilities, Hashtable& renderProperties, CreateAndRegisterStream createAndRegisterStream)
+   en Microsoft.ReportingServices.ReportProcessing.Execution.RenderReport.InvokeRenderer(IRenderingExtension renderer, Report report, NameValueCollection reportServerParameters, NameValueCollection deviceInfo, NameValueCollection clientCapabilities, Hashtable& renderProperties, CreateAndRegisterStream createAndRegisterStream)
+   en Microsoft.ReportingServices.ReportProcessing.Execution.RenderReport.Execute(IRenderingExtension newRenderer)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.ReportingServices.ReportProcessing.Execution.RenderReport.Execute(IRenderingExtension newRenderer)
+   en Microsoft.ReportingServices.ReportProcessing.ReportProcessing.RenderReport(IRenderingExtension newRenderer, DateTime executionTimeStamp, ProcessingContext pc, RenderingContext rc, IChunkFactory yukonCompiledDefinition)
+   en Microsoft.Reporting.LocalService.CreateSnapshotAndRender(ReportProcessing repProc, IRenderingExtension renderer, ProcessingContext pc, RenderingContext rc, SubreportCallbackHandler subreportHandler, ParameterInfoCollection parameters, DatasourceCredentialsCollection credentials)
+   en Microsoft.Reporting.LocalService.Render(String format, String deviceInfo, String paginationMode, Boolean allowInternalRenderers, IEnumerable dataSources, CreateAndRegisterStream createStreamCallback)
+   en Microsoft.Reporting.WebForms.LocalReport.InternalRender(String format, Boolean allowInternalRenderers, String deviceInfo, PageCountMode pageCountMode, CreateAndRegisterStream createStreamCallback, Warning[]& warnings)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en Microsoft.Reporting.WebForms.LocalReport.InternalRender(String format, Boolean allowInternalRenderers, String deviceInfo, PageCountMode pageCountMode, CreateAndRegisterStream createStreamCallback, Warning[]& warnings)
+   en Microsoft.Reporting.WebForms.LocalReport.InternalRender(String format, Boolean allowInternalRenderers, String deviceInfo, PageCountMode pageCountMode, String& mimeType, String& encoding, String& fileNameExtension, String[]& streams, Warning[]& warnings)
+   en Microsoft.Reporting.WebForms.LocalReport.Render(String format, String deviceInfo, PageCountMode pageCountMode, String& mimeType, String& encoding, String& fileNameExtension, String[]& streams, Warning[]& warnings)
+   en Microsoft.Reporting.WebForms.Report.Render(String format, String deviceInfo, String& mimeType, String& encoding, String& fileNameExtension, String[]& streams, Warning[]& warnings)
+   en Microsoft.Reporting.WebForms.Report.Render(String format, String deviceInfo)
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 272 
+  
+
+ ================= 2017-12-05 11:25:23,525 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al imprimir en Excel el Reporte: RptTransacciones
+   en View.Controllers.BaseController.ImprimirExcel(ReportViewer reporte, String nombre) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 278
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 190 
+  
+
+ ================= 2017-12-05 11:25:23,661 ============== 
+ ERROR View.Controllers.BaseController 
+ System.ArgumentException: Error al cargar el Reporte: RptTransacciones
+   en View.Controllers.BaseController.LoadReport(String nombre, String formato, String codEmpresa, List`1 parametros, IEnumerable`1 query, String nombreDataSet, IEnumerable`1 query2, String nombreDataSet2, IEnumerable`1 query3, String nombreDataSet3, IEnumerable`1 query4, String nombreDataSet4, IEnumerable`1 query5, String nombreDataSet5) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\BaseController.cs:línea 199
+   en View.Controllers.Reportes.RptTransaccionesController.ReporteTransacciones(String fechaInicial, String fechaFinal, String formato) en c:\Users\Emerson\Documents\1 PROYECTOS VS\Anti Money Laudering\fsv_mvc\View\Controllers\Reportes\RptTransaccionesController.cs:línea 105 
+  

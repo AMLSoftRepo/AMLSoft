@@ -1,0 +1,259 @@
+﻿@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var gridModulos;
+            var gridOpcionesD;
+            var gridOpcionesO;
+            var CodigoPerfil = 0;
+            var CodigoModulo = 0;
+
+
+            $("#idListPerfil").change(function () {
+                CodigoPerfil = $(this).val();
+
+                if (CodigoPerfil != "0") {
+                    gridModulos.reload();
+                    gridOpcionesD.clear();
+                    gridOpcionesO.clear();
+                } else {
+                    gridModulos.clear();
+                    gridOpcionesD.clear();
+                    gridOpcionesO.clear();
+                }
+            });
+
+
+            gridModulos = $("#gridModulos").grid({
+                autoLoad: false,
+                primaryKey: 'ID',
+                uiLibrary: "bootstrap",
+                dataSource: '@Url.Action("GetModulos")',
+                columns: [
+                    { field: "DESCRIPCION", title: "Modulos" }
+                ]
+            });
+
+
+            gridModulos.on('rowSelect', function (e, $row, id, record) {
+                CodigoModulo = record.ID;
+                gridOpcionesD.reload({ modulo: CodigoModulo, Perfil: CodigoPerfil });
+                gridOpcionesO.reload({ modulo: CodigoModulo, Perfil: CodigoPerfil });
+            });
+
+
+            gridOpcionesD = $("#gridOpcionesD").grid({
+                autoLoad: false,
+                uiLibrary: "bootstrap",
+                selectionType: 'multiple',
+                dataSource: '@Url.Action("GetOpcionesDenegadas")',
+                columns: [
+                    { field: "DESCRIPCION", title: "Opciones Denegadas" },
+                ]
+            });
+
+
+            gridOpcionesO = $("#gridOpcionesO").grid({
+                autoLoad: false,
+                uiLibrary: "bootstrap",
+                selectionType: 'multiple',
+                dataSource: '@Url.Action("GetOpcionesOtorgadas")',
+                columns: [
+                    { field: "DESCRIPCION", title: "Opciones Otorgadas" },
+                ]
+            });
+
+
+            $("#omodulo_unselect").on("click", function () {
+                gridOpcionesD.unSelectAll();
+            });
+
+
+            $("#omodulo_all").on("click", function () {
+                gridOpcionesD.selectAll();
+                var selections = gridOpcionesD.getSelections();
+                var contador = 0;
+                var Opciones = new Array();
+
+                $.each(selections, function () {
+                    var datos = gridOpcionesD.getById(this);
+                    var cc = selections;
+                    Opciones[contador] = datos.ID_OPCION + "|" + datos.ID;
+                    contador++;
+                });
+
+                if (contador > 0)
+                    GuardarOpcionesDO(Opciones, true);
+            });
+
+
+            $("#omodulo_one").on("click", function () {
+                var selections = gridOpcionesD.getSelections();
+                var contador = 0;
+                var Opciones = new Array();
+
+                $.each(selections, function () {
+                    var datos = gridOpcionesD.getById(this);
+
+                    Opciones[contador] = datos.ID_OPCION + "|" + datos.ID;
+                    contador++;
+                });
+
+                if (contador > 0)
+                    GuardarOpcionesDO(Opciones, true);
+            });
+
+
+            $("#ootorgadas_unselect").on("click", function () {
+                gridOpcionesO.unSelectAll();
+            });
+
+
+            $("#ootorgadas_all").on("click", function () {
+                gridOpcionesO.selectAll();
+                var selections = gridOpcionesO.getSelections();
+                var contador = 0;
+                var Opciones = new Array();
+
+                $.each(selections, function () {
+                    var datos = gridOpcionesO.getById(this);
+
+                    Opciones[contador] = datos.ID_OPCION + "|" + datos.ID;
+                    contador++;
+                });
+
+                if (contador > 0)
+                    GuardarOpcionesDO(Opciones, false);
+            });
+
+
+            $("#ootorgadas_one").on("click", function () {
+                var selections = gridOpcionesO.getSelections();
+                var contador = 0;
+                var Opciones = new Array();
+
+                $.each(selections, function () {
+                    var datos = gridOpcionesO.getById(this);
+
+                    Opciones[contador] = datos.ID_OPCION + "|" + datos.ID;
+                    contador++;
+                });
+
+                if (contador > 0)
+                    GuardarOpcionesDO(Opciones, false);
+            });
+
+
+            function GuardarOpcionesDO(Array_OpcionAcceso, Acceso) {
+                var datos = {
+                    ID_ROL: CodigoPerfil,
+                    ID_MODULO: CodigoModulo,
+                    ACCESO: Acceso
+                };
+
+                $.ajax({ url: "../Privilegios/GuardarOpciones", type: "POST", data: { data: datos, OpcionAcceso: Array_OpcionAcceso } })
+                 .done(function (data, textStatus, jqXHR) {
+                     Mensajes(data.mensaje);
+
+                     gridOpcionesD.reload({ modulo: CodigoModulo, Perfil: CodigoPerfil });
+                     gridOpcionesO.reload({ modulo: CodigoModulo, Perfil: CodigoPerfil });
+                 })
+                 .fail(function (data, textStatus, jqXHR) {
+                     $().toastmessage('showErrorToast', "No es posible realizar la transaccion");
+                 });
+            };
+
+
+        });
+    </script>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        PRIVILEGIOS
+        <small>ADMINISTRACION</small>
+    </h1>
+</section>
+
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <select id="idListPerfil" class="form-control">
+                @foreach (SelectListItem item in (SelectList)ViewBag.roles)
+                {
+                    <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                }
+            </select>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-3">
+                        <div class="box box-info">
+                            <div>
+                                <table id="gridModulos"></table>
+                            </div>
+                        </div><!-- /.panel -->
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box box-danger">
+                            <div>
+                                <table id="gridOpcionesD"></table>
+                            </div>
+                        </div><!-- /.panel -->
+                    </div>
+
+                    <div class="col-md-3  text-center">
+
+                        <div class="btn-group-vertical panel panel-danger" data-toggle="buttons">
+                            <label id="ootorgadas_unselect" class="btn btn-danger glyphicon glyphicon-check">
+                                <input type="radio" autocomplete="off" class="">
+                            </label>
+                            <label id="ootorgadas_all" class="btn btn-default ">
+                                <input type="radio" autocomplete="off"> <span class="glyphicon glyphicon-fast-backward"></span> Todos
+                            </label>
+                            <label id="ootorgadas_one" class="btn btn-default">
+                                <input type="radio" autocomplete="off"><span class="glyphicon glyphicon-step-backward"></span> Selección
+                            </label>
+                        </div>
+
+                        <div class="btn-group-vertical panel panel-success" data-toggle="buttons">
+                            <label id="omodulo_unselect" class="btn btn-success glyphicon glyphicon-check">
+                                <input type="radio" autocomplete="off" class="">
+                            </label>
+                            <label id="omodulo_all" class="btn btn-default">
+                                <input type="radio" autocomplete="off">Todos <span class="glyphicon glyphicon-fast-forward"></span>
+                            </label>
+                            <label id="omodulo_one" class="btn btn-default">
+                                <input type="radio" autocomplete="off">Selección <span class="glyphicon glyphicon-step-forward"></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box box-success">
+                            <div>
+                                <table id="gridOpcionesO"></table>
+                            </div>
+                        </div><!-- /.panel -->
+                    </div>
+
+                </div> <!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section><!-- /.content -->

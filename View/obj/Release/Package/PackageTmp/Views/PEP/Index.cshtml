@@ -1,0 +1,607 @@
+﻿@using Blo.Properties
+@using Model;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function Imprimir(formato) {
+            if (formato == "PDF")
+                window.open("../RptListaPEP/Reporte?formato=PDF", '_blank');
+            else
+                location.href = "../RptListaPEP/Reporte?formato=" + formato;
+        }
+
+        function ImprimirDetalle(formato) {
+            if (formato == "PDF")
+                window.open("../RptListaPEPDetalle/Reporte?formato=PDF&idPEP=" + $("#ID").val(), '_blank');
+            else
+                location.href = "../RptListaPEPDetalle/Reporte?formato=" + formato + "&idPEP=" + $("#ID").val();
+        }
+
+        $(document).ready(function () {
+            var grid;
+
+            //=============================================
+            //IMPLEMENTACION DE LLAMADA A VISTAS PARCIALES
+            //=============================================
+            function load_Cargo() {
+                $.ajax({
+                    url: '@Url.Action("_Cargo", "PEP")',
+                    data: { ID_LIS_PEP: $("#ID").val() },
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        $("#_cargo").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            function load_Relacion() {
+                $.ajax({
+                    url: '@Url.Action("_Relacion", "PEP")',
+                    data: { ID_LIS_PEP: $("#ID").val() },
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        $("#_relacion").html(data);
+                    },
+                    error: function () {
+                        $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                    }
+                });
+            }
+
+            //PERMITE LLENAR LOS CAMPOS CONSUS CORESPONDIENTES NIVELES
+            function Edit(e) {
+                $("#ID").val(e.data.record.ID);
+                $("#PRIMER_NOMBRE").val(e.data.record.PRIMER_NOMBRE);
+                $("#SEGUNDO_NOMBRE").val(e.data.record.SEGUNDO_NOMBRE);
+                $("#PRIMER_APELLIDO").val(e.data.record.PRIMER_APELLIDO);
+                $("#SEGUNDO_APELLIDO").val(e.data.record.SEGUNDO_APELLIDO);
+                $("#APELLIDO_CASADA").val(e.data.record.APELLIDO_CASADA);
+                $("#CONOCIDO_POR").val(e.data.record.CONOCIDO_POR);
+                $("#DUI").val(e.data.record.DUI);
+                $("#NIT").val(e.data.record.NIT);
+                $("#PASAPORTE").val(e.data.record.PASAPORTE);
+                $("#CARNET_RESIDENTE").val(e.data.record.CARNET_RESIDENTE);
+                $("#FUNCIONARIO_O_RELACION").val(e.data.record.FUNCIONARIO_O_RELACION);
+                $("#FUNCIONARIO_O_RELACION").change();
+                if (e.data.record.DECLARACION_JURADA == "1")
+                    $("#DECLARACION_JURADA").prop("checked", true);
+
+                $("#TITULO_CARGO_PEP").val(e.data.record.TITULO_CARGO_PEP);
+                $("#TITULO_CARGO_PEP").change();
+                //cargar pestañas ===========================================================================================
+                load_Cargo();
+                load_Relacion();
+                $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                $('a[href="#PEP"]').tab('show');// Activar pestaña
+                $("#myModal").modal("show");
+            }
+
+            //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+            function Add() {
+                $("#ID").val(""); //campos ocultos
+
+                //cargar pestañas ===========================================================================================
+                load_Cargo();
+                load_Relacion();
+                $('.nav-tabs').find('li').removeClass().addClass('disabled').find("a").removeClass().addClass('disabled');
+                $('a[href="#PEP"]').tab('show');// Activar pestaña
+
+
+                $("#TITULO_CARGO_PEP").val("");
+                $("#TITULO_CARGO_PEP").change();
+                $("#myModal").modal("show");
+            }
+
+            //EVENTO PARA ELIMINAR UN REGISTRO
+            function Remove(e) {
+                bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                    if (result) {
+                        $.ajax({ url: "../PEP/Remove", type: "POST", data: { id: e.data.record.ID } })
+                      .done(function (data, textStatus, jqXHR) {
+                          grid.reload();
+                          Mensajes(data.mensaje);
+                      })
+                      .fail(function (data, textStatus, jqXHR) {
+                          $().toastmessage('showErrorToast', jqXHR);
+                      });
+                    }
+                });
+            }
+
+            //REALIZA LA LLAMADA A UN MODAL PARA MOSTRAR DETALLE
+            function ShowDetail(e) {
+                $("#ID").val(e.data.record.ID); //campos ocultos
+                $("#NOMBRED").val(e.data.record.NOMBRE);
+                $("#DUID").val(e.data.record.DUI);
+                $("#NITD").val(e.data.record.NIT);
+                $("#PASAPORTED").val(e.data.record.PASAPORTE);
+                $("#CARNET_RESIDENTED").val(e.data.record.CARNET_RESIDENTE);
+                $("#FUNCIONARIO_O_RELACIOND").val(e.data.record.FUNCIONARIO_O_RELACION);
+                $("#DECLARACION_JURADAD").val(e.data.record.DECLARACION_JURADA);
+
+                gridRelaciones.reload({ page: 1, ID_LIS_PEP: e.data.record.ID });
+                gridCargos.reload({ page: 1, ID_LIS_PEP: e.data.record.ID });
+
+                $("#modalDetalle").modal("show");
+            }
+
+            //EVENTO QUE PERMITE BUSCAR POR TODOS LOS CAMPOS
+            function Search() {
+                grid.reload({ page: 1, searchString: $("#txtBuscar").val() });
+            }
+
+            $('#txtBuscar').keypress(function (e) {
+                if (e.which == 13) {
+                    Search();
+                }
+            });
+
+            //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+            grid = $("#gridPEP").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 600,
+                columns: [
+                    { field: "PRIMER_NOMBRE", tmpl: '{TITULO} {NOMBRE}', title: "Nombre", sortable: true },
+                    { field: "DOCUMENTO", title: "Numero documento" },
+                    { field: "FUNCIONARIO_O_RELACION", title: "Tipo PEP", sortable: true },
+                    { field: "DECLARACION_JURADA", title: "Declaracion jurada", sortable: true, align: 'center' },
+                    { title: "", field: "Show", width: 42, type: "icon", icon: "glyphicon-list-alt btn btn-default btn-xs", tooltip: "Detalle", events: { "click": ShowDetail } },
+                    { title: "", field: "Edit", width: 42, type: "icon", icon: "glyphicon-pencil btn btn-default btn-xs", tooltip: "Editar", events: { "click": Edit } },
+                    { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": Remove } }
+                ],
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            grid.on("cellDataBound", function (e, $wrapper, id, column, record) {
+                if (column.field == "DECLARACION_JURADA") {
+                    if (record.DECLARACION_JURADA == "1")
+                        $wrapper.html("<span class='glyphicon glyphicon-check' aria-hidden='true'></span>");
+                    else
+                        $wrapper.html("<span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>");
+                }
+            });
+
+            gridRelaciones = $("#gridRelaciones").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 500,
+                dataSource: "@Url.Action("GetPEPRelacion")",
+                autoLoad: false,
+                columns: [
+                    { field: "NOMBRE_COMPLETO", title: "Nombre" },
+                    { field: "GRADO_PARENTESCO", title: "Grado parentesco" },
+                    { field: "DESCRIPCION_RELACION", title: "Descripción" }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            gridCargos = $("#gridCargos").grid({
+                uiLibrary: "bootstrap",
+                minWidth: 500,
+                dataSource: "@Url.Action("GetPEPCargo")",
+                autoLoad: false,
+                columns: [
+                    { field: "NOMBRE_CARGO", title: "Nombre" },
+                    { field: "FECHA_INICIO", title: "Fecha inicio", type: "date", format: "dd/mm/yyyy" },
+                    { field: "FECHA_FIN", title: "Fecha fin", type: "date", format: "dd/mm/yyyy" }
+                ],
+
+                pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+            });
+
+            //EVENTOS DE BOTONES
+            $("#btnAgregar").on("click", Add);
+            $("#btnBuscar").on("click", Search);
+
+            //VALIDACIONES DEL FORMULARIO
+            $('#formPEP').formValidation({
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    NOMBRES: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    PRIMER_APELLIDO: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    },
+                    FUNCIONARIO_O_RELACION: {
+                        validators: {
+                            notEmpty: {
+                                message: '@PropertiesBlo.msgRequerido'
+                            }
+                        }
+                    }
+                }
+            })
+        //<<<<<FormValidation - Inicio de eventos de validacion>>>>>>>>>>
+                .on('success.field.fv', function (e, data) {
+                    var $parent = data.element.parents('.form-group');
+                    $parent.removeClass('has-success');
+                    data.element.data('fv.icon').hide();
+                })
+        .on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('formValidation');
+
+            //Envio de datos
+            $.ajax({
+                url: $form.attr('action'),
+                type: "POST",
+                data: $form.serialize(),
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    Mensajes(data.mensaje);
+
+                    if (data.ID != null && data.ID != 0) {
+                        $("#ID").val(data.ID);
+                        $("#formPEP").formValidation('resetForm'); // Elimina las clases de validacion
+
+                        //cargar pestañas ===================================================================================
+                        load_Cargo();
+                        load_Relacion();
+                        $('.nav-tabs').find('li').removeClass().find("a").removeClass();
+                        $('a[href="#PEP"]').tab('show');// Activar pestaña
+                    }
+                    grid.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#myModal").modal("hide");
+                    $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                }
+            })
+        });
+
+            //AL CERRAR EL MODAL SE REESTABLECN LOS NIVELES
+            $('#myModal').on('hide.bs.modal', function () {
+                $('#formPEP').trigger("reset"); // Resetea los NIVELes de todos campos
+                $("#formPEP").formValidation('resetForm'); // Elimina las clases de validacion
+            })
+
+        });
+    </script>
+}
+
+<style type="text/css">
+    h4 {
+        text-align: center;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        LISTA PEP
+        <small>PERFILES</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content" style="padding-top:0;padding-bottom:0;">
+    <div class="box box-primary" style="margin-bottom:0;">
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" id="btnAgregar" class="btn btn-primary"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirLista</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="Imprimir('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="Imprimir('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 ">
+                    <div class="input-group pull-right">
+                        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                            <button type="submit" id="btnBuscar" class="btn btn-primary"><span class='glyphicon glyphicon glyphicon-search'></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="overflow-y: hidden;">
+                @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                <table id="gridPEP" data-source="@Url.Action("GetPEP")"></table>
+            </div>
+
+        </div>
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!--MODAL-->
+<div id='myModal' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Lista de PEP's
+            </div>
+            <div class="panel-body">
+
+                <!-- /.nav-tabs-custom" -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#PEP" data-toggle="tab">Datos PEP</a></li>
+                        <li><a href="#Cargo" data-toggle="tab">Cargo(s)</a></li>
+                        <li><a href="#Relacion" data-toggle="tab">Relaciones</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="PEP">
+                            <form id="formPEP" action="/PEP/Save" method="post">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input id="ID" type="hidden" name="ID" value="">
+                                        <div class="form-group">
+                                            <label for="PRIMER_NOMBRE">Primer nombre</label>
+                                            <input class="form-control" id="PRIMER_NOMBRE" name="PRIMER_NOMBRE" type="text" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="SEGUNDO_NOMBRE">Segundo nombre</label>
+                                            <input class="form-control" id="SEGUNDO_NOMBRE" name="SEGUNDO_NOMBRE" type="text" maxlength="100">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="PRIMER_APELLIDO">Primer apellido</label>
+                                            <input class="form-control" id="PRIMER_APELLIDO" name="PRIMER_APELLIDO" type="text" value="" maxlength="50">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="SEGUNDO_APELLIDO">Segundo apellido</label>
+                                            <input class="form-control" id="SEGUNDO_APELLIDO" name="SEGUNDO_APELLIDO" type="text" value="" maxlength="50">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="APELLIDO_CASADA">Apellido de casada</label>
+                                            <input class="form-control" id="APELLIDO_CASADA" name="APELLIDO_CASADA" type="text" value="" maxlength="50">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="CONOCIDO_POR">Conocido por</label>
+                                            <input class="form-control" id="CONOCIDO_POR" name="CONOCIDO_POR" type="text" value="" maxlength="100">
+                                        </div>
+
+                                       
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="DUI">DUI</label>
+                                            <input class="form-control" id="DUI" name="DUI" type="text" value="" maxlength="20">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="NIT">NIT</label>
+                                            <input class="form-control" id="NIT" name="NIT" type="text" value="" maxlength="20">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PASAPORTE">Pasaporte</label>
+                                            <input class="form-control" id="PASAPORTE" name="PASAPORTE" type="text" value="" maxlength="20">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="CARNET_RESIDENTE">Carnet residente</label>
+                                            <input class="form-control" id="CARNET_RESIDENTE" name="CARNET_RESIDENTE" type="text" value="" maxlength="20">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="FUNCIONARIO_O_RELACION">Tipo PEP</label>                                                                         
+                                            <select id="FUNCIONARIO_O_RELACION" name="FUNCIONARIO_O_RELACION" class="form-control">
+                                                <option value="FUNCIONARIO PUBLICO">ES Funcionario público</option>
+                                                <option value="RELACION CON FUNCIONARIO PUBLICO">TIENE RELACIÓN CON Funcionario público</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="TITULO_CARGO_PEP">Título</label><br>
+                                            <select id="TITULO_CARGO_PEP" name="TITULO_CARGO_PEP" class="form-control select2-single">
+                                                <option value="">Seleccione ...</option>
+                                                @foreach (LIS_CAT_TITULOS item in (List<LIS_CAT_TITULOS>)ViewBag.titulo)
+                                                {
+                                                    <option value=@item.ID>@item.DESCRIPCION</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="DECLARACION_JURADA">Presentó declaración jurada</label>
+                                            <input id="DECLARACION_JURADA" name="DECLARACION_JURADA" type="checkbox" value="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                                    <input type="submit" id="btnGuardar" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                                </div>
+                            </form>
+
+                        </div><!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="Cargo">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarCargo" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridCargo"></table>
+                            </div>
+                        </div><!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="Relacion">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" id="btnAgregarRelacion" class="btn btn-primary pull-left"><span class='glyphicon glyphicon-plus'></span>@PropertiesBlo.btnNuevo</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="overflow-y: hidden;">
+                                <table id="gridRelacion"></table>
+                            </div>
+                        </div><!-- /.tab-pane -->
+
+                    </div><!-- /.tab-content -->
+                </div><!-- /.nav-tabs-custom -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
+    //=====================================================================================================================
+    //CONTENEDORES PARA LA CARGA DE VISTAS PARCIALES
+    //=====================================================================================================================
+*@
+
+<div id="_cargo"></div> @*function load_Cargo()*@
+<div id="_relacion"></div> @*function load_Relacion()*@
+
+<!--MODAL-->
+<div id='modalDetalle' class='modal fade custom-width in'>
+    <div class="modal-dialog" style="width :90%">
+        <form id="formPEPDetalle">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Detalle persona en lista PEP
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NOMBRED">Nombre:</label>
+                                <input class="form-control" id="NOMBRED" name="NOMBRED" readonly value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="DUID">DUI:</label>
+                                <input class="form-control" id="DUID" name="DUID" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="NITD">NIT:</label>
+                                <input class="form-control" id="NITD" name="NITD" readonly value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="PASAPORTED">Pasaporte:</label>
+                                <input class="form-control" id="PASAPORTED" name="PASAPORTED" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="CARNET_RESIDENTED">Carnet de residente:</label>
+                                <input class="form-control" id="CARNET_RESIDENTED" name="CARNET_RESIDENTED" readonly value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="FUNCIONARIO_O_RELACIOND">Tipo PEP:</label>
+                                <input class="form-control" id="FUNCIONARIO_O_RELACIOND" name="FUNCIONARIO_O_RELACIOND" readonly value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="DECLARACION_JURADAD">Presentó declaración jurada:</label>
+                                <input class="form-control" id="DECLARACION_JURADAD" name="DECLARACION_JURADAD" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ***** HR TABLAS***** -->
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Cargos</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridCargos"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary collapsed-box box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Relaciones</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="table-responsive" style="overflow-y: hidden;">
+                                        @*Definicion de tabla y origen da datos (Metodo del controller)*@
+                                        <table id="gridRelaciones"></table>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn bg-black btn-flat"><span class='fa fa-clone'></span>@PropertiesBlo.btnImprimirDetalle</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('PDF')">@PropertiesBlo.impresionPDF</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('EXCEL')">@PropertiesBlo.impresionEXCEL</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)" onclick="ImprimirDetalle('WORD')">@PropertiesBlo.impresionWORD</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnSalir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,181 @@
+﻿@using Blo.Properties
+@using Model
+@{
+    Layout = null;
+}
+
+<script src="~/Content/plugins/bootstrap/js/bootstrap-filestyle.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //REALIZA LA LLAMADA A UN MODAL PARA UN NUEVO REGISTRO
+        function AddAdjuntos() {
+            $("#myModalAdjuntos").modal("show");
+        }
+
+
+        //EVENTO PARA ELIMINAR UN REGISTRO
+        function RemoveAdjuntos(e) {
+            bootbox.confirm("@PropertiesBlo.msgConfirmacion", function (result) {
+                if (result) {
+                    $.ajax({ url: "../Ros/RemoveAdjuntos", type: "POST", data: { id: e.data.record.ID } })
+                  .done(function (data, textStatus, jqXHR) {
+                      gridAdjuntos.clear();
+                      gridAdjuntos.reload({ ID_ROS: $("#ID_ROS_ADJUNTO").val() });
+                      Mensajes(data.mensaje);
+                  })
+                  .fail(function (data, textStatus, jqXHR) {
+                      $().toastmessage('showErrorToast', "@PropertiesBlo.msgFallo");
+                  });
+                }
+            });
+        }
+
+
+        //AQUI SE ESTABLACEN LAS PROPIEDADES Y EVENTOS DEL GRID
+        gridAdjuntos = $("#gridAdjuntos").grid({
+            uiLibrary: "bootstrap",
+            minWidth: 600,
+            dataSource: "@Url.Action("GetAdjuntos")",
+            autoLoad: false,
+            columns: [
+                  //{ field: "ID", title: "ID", sortable: true, width:50 },
+                  //{ field: "ID_ROS", title: "ID_ROS", sortable: true, width:50 },
+                  { field: "NOMBRE", title: "Documento", sortable: true, width:250 },
+                  { field: "TIPO", title: "Tipo documento", sortable: true, width:50 },        
+                  { title: "", field: "Descargar", width: 42},
+                      { title: "", field: "Delete", width: 42, type: "icon", icon: "glyphicon-trash btn btn-danger btn-xs", tooltip: "Eliminar", events: { "click": RemoveAdjuntos } }
+            ],
+
+            pager: { enable: true, limit: 10, sizes: [5, 10, 20] }
+        });
+
+        gridAdjuntos.clear();
+        gridAdjuntos.reload({ page: 1, ID_ROS: $("#ID_ROS_ADJUNTO").val() });
+
+        gridAdjuntos.on("cellDataBound", function (e, $wrapper, id, column, record) {
+            if (column.field == "Descargar") {
+                $wrapper.html('<a title="Descargar" href="../Ros/DescargarArchivo?id=' + record.ID + '"  download>' +
+                              '<span class="glyphicon glyphicon-cloud-download btn bg-black btn-xs"></span></a>');
+            }
+        });
+
+        //EVENTOS DE BOTONES
+        $("#btnAgregarAdjuntos").off();
+        $("#btnAgregarAdjuntos").on("click", AddAdjuntos);
+
+
+        $("#Archivos").filestyle({
+            buttonName: 'btn-info',
+            buttonText: 'Seleccione un documento'
+        });
+
+
+        $('#formAdjuntos').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+            Archivos:{
+                validators:{
+                    notEmpty:{
+                    message:'Debe seleccionar un documento'
+                        },
+                    file:{ 
+                        extension:'pdf,doc,docx,xls,xlsx,png,jpg,jpeg,gif',
+                        type:'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,,image/jpeg,image/png,image/gif',
+                        maxSize:25000000,
+                        message:'El tamaño del documento no debe superar 25MB y éste debe ser del tipo: .PDF, .DOC, .DOCX, .XLS, .XLSX, .PNG, ,JPEG,.JPG, .GIF'
+                        }
+                    }
+                }
+            } //<<<<<<fin fields>>>>>>>>>>>>>>>>
+        }) //<<<<<formValidation>>>>>>>>>>
+                        .on('success.field.fv', function (e, data) {
+                            var $parent = data.element.parents('.form-group');
+                            $parent.removeClass('has-success');
+                            data.element.data('fv.icon').hide();
+                        })
+                        .on('success.form.fv', function (e) {
+                            e.preventDefault();
+
+                            var $form = $(e.target);
+                            var bv = $form.data('formValidation');
+                            var formData = new FormData(e.target);
+
+                            $.ajax({
+                                url: $form.attr("action"), type: e.target.method, data: formData,
+                                mimeType: "multipart/form-data",
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                            })
+                            .done(function () {
+                                $("#myModalAdjuntos").modal("hide");
+                                $().toastmessage('showSuccessToast', "Transaccion realizada con exito");
+                                gridAdjuntos.clear();
+                                gridAdjuntos.reload({ ID_ROS: $("#ID_ROS_ADJUNTO").val() });
+                            })
+                            .fail(function () {
+                                $("#myModalAdjuntos").modal("hide");
+                                $().toastmessage('showErrorToast', "No es posible realizar la transaccion");
+                            });
+
+                        });
+
+        //AL CERRAR EL MODAL SE REESTABLECN LOS VALORES
+        $('#myModalAdjuntos').on('hide.bs.modal', function () {
+            $('#formAdjuntos').trigger("reset"); // Resetea los valores de todos campos
+            $("#formAdjuntos").formValidation('resetForm'); // Elimina las clases de validacion
+        })
+
+    });
+</script>
+
+
+<!--MODAL-->
+<div id='myModalAdjuntos' class='modal fade' data-backdrop="static">
+    <div class="modal-dialog">
+        <form id="formAdjuntos" action="/Ros/SaveAdjuntos" enctype="multipart/form-data" method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    Documentos Adjuntos al Reporte ROS
+                </div>
+                <div class="panel-body">
+                    <!--ID_Adjuntos es el ID de esta entidad se debe cambiar porque en la vista
+                    principal no pueden existir elementos con el mismo id
+                    para evitar problemas con el envio a nuestro controller se mantiene el name con el nombre original-->
+                    <input id="ID_Adjuntos" type="hidden" name="ID" value="">
+
+                    <!--ID_OFICIO este campo esta oculto ya que es el maestro de esta entidad
+                    Se establece el valor mediante un ViewBag cargado en el controller-->
+                    <input type="hidden" name="ID_ROS" id="ID_ROS_ADJUNTO" value="@ViewBag.ID_ROS">
+
+                    <div class="row">
+                        <!--INFORMACION GENERAL-->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="Archivos" type="file" name="Archivos" /><br />
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-default" data-dismiss="modal">@PropertiesBlo.btnCancelar</button>
+                    <input type="submit" id="btnGuardarAdjuntos" value="@PropertiesBlo.btnGuardar" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
